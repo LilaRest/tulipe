@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": false,
     "description": "A collection of unstilized components and composables powered by ethers.js for Dapps frontends built with Vue.js 3",
     "license": "MIT",
