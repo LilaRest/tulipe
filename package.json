@@ -1,0 +1,53 @@
+{
+    "name": "vuethers",
+    "version": "0.1.0",
+    "private": false,
+    "description": "A collection of unstilized components and composables powered by ethers.js for Dapps frontends built with Vue.js 3",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/0Lilian/vuethers.git"
+    },
+    "bugs": "https://github.com/0Lilian/vuethers/issues",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/vuethers.umd.js",
+    "module": "./dist/vuethers.es.js",
+    "unpkg": "dist/vuethers.min.js",
+    "exports": {
+        ".": {
+            "import": "./dist/vuethers.es.js",
+            "require": "./dist/vuethers.umd.js"
+        }
+    },
+    "keywords": [
+        "dapp",
+        "frontend",
+        "vue",
+        "vue3",
+        "vuejs",
+        "vue.js",
+        "web3",
+        "ethers.js",
+        "ethers",
+        "unstilized components",
+        "ethereum"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "pinia": "^2.0.17",
+        "vue": "^3.2.37"
+    },
+    "devDependencies": {
+        "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
+        "@vitejs/plugin-vue": "^3.0.1",
+        "ethers": "^5.6.9",
+        "hardhat": "^2.10.1",
+        "hardhat-deploy": "^0.11.12",
+        "vite": "^3.0.4"
+    }
+}
