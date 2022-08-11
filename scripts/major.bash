@@ -1,5 +1,5 @@
 #!/bin/bash
-npm version major
+npm version --no-git-tag-version major
 npm run build
 npm publish
 git add -A
