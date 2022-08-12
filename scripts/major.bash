@@ -1,5 +1,5 @@
 #!/bin/bash
-git pull
+git pull --no-edit
 npm version --no-git-tag-version major
 git add -A
 git commit
