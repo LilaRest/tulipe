@@ -38,7 +38,7 @@ function merge (target, ...sources) {
   return merge(target, ...sources);
 }
 
-export async function initVuethers (app, vuethersCustomConfig) {
+export async function initVuethers (vuethersCustomConfig) {
 
   // Ensure Pinia is initialized.
   const activePinia = getActivePinia()

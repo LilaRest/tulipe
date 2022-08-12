@@ -5,6 +5,11 @@ import { vuethersConfig } from "../vuethers.config.js"
 import { createPinia } from "pinia";
 
 const app = createApp(App)
+
+// Initialize Vue plugins
 app.use(createPinia, {})
-app.use(initVuethers, vuethersConfig)
+
+// Initialize Vuethers
+await initVuethers(vuethersConfig)
+
 app.mount("#app")
