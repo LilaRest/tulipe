@@ -1,4 +1,4 @@
-# Vuethers ~ DApp frontend helper for VueJS and ethers.js
+# Vuethers | A DApp frontend framework for Vue 3 built with Ethers (ethers.js) 
 
 ## Alpha warning
 This library is currently in development and not suitable yet for production environment, use at your own risks.
@@ -6,11 +6,11 @@ Beta and a stable versions should be released by the end of 2022.
 
 
 ## Philosophy
-Vuethers contains many unstyled components and composables to help interacting with web wallets (eg. Metamask, Wallet Connect, etc.) and EVM chains and smart contracts in VueJS applications.
+Vuethers contains many unstyled components and composables to help interacting with web wallets (eg. Metamask, Wallet Connect, etc.), EVM chains and smart contracts in VueJS applications.
 
 The philosophy behind this package is to make it as minimalist/lightweight as possible and to allow developers to fully customize each of the components provided.
 
-This way developers can focus less on boring / repetitive tasks and more on the macro level of their application, and on innovation. All of that with the possibility of easily customize each component to make a fully unique DApp.
+This way developers can focus less on boring / repetitive tasks and more on the macro level of their DApp frontend. They able to easily customize each component to create a fully unique DApp frontend.
 
 On the other hand, Vuethers also provides few optional CSS files that contain style for components in case some developers don't want to style them from scratch or don't want to style them at all.
 
@@ -36,7 +36,7 @@ More precisely Vuethers comes with 3 levels of styles (coming soon) :
 - Minimalist : only few CSS rules in order to make components consistent and readable
 - Fancy : pretty styling for each components, loaders, etc. Make Vuethers usable in production out of the box
 
-Note : Minimalist and Fancy styles come with a CSS reset that allows these styling to be displayed uniformly on any browser. Can be disabled in settings (not recommended).
+Note : Minimalist and Fancy styles come with a CSS reset that allows these styling to be displayed uniformly on any browser. This can be disabled in settings (not recommended).
 
 
 ### Components & Composables
@@ -65,6 +65,51 @@ All provided components and composables works out of the box and rely on only 3 
 - Pinia
 
 
-### TODO
+## How to install ?
+In an Node JS environment simply run :
+```bash
+npm install vuethers@latest
+```
+Then register Vuethers as a Vue plugin :
+```js
+// main.js
+import { createApp } from "vue"
+import { initVuethers } from "vuethers"
+import App from "./App.vue"
+
+const app = createApp(App)
+app.use(initVuethers)
+app.mount("#app")
+```
+You're done !
+
+
+## How to contribute ?
+
+### Contribute by _**testing**_ Vuethers
+1) Test the library's features
+2) Observe a bug or an improvement that could be made
+3) Report it by [creating an issue](https://github.com/LilaRest/vuethers/issues/new)
+
+### Contribute by _**coding**_ Vuethers
+- If you have found a bug or a potential improvement for the library and want to code it, we would be happy to accept your PRs!
+  **Important :** It'd be good to talk about it beforehand to make sure that no one else is working on it. You can [open an issue](https://github.com/LilaRest/Vuethers/issues/new) for this.
+- If you want to code but don't know where to start :
+  1) Check out the issues labelled "[help wanted](https://github.com/LilaRest/vuethers/labels/help%20wanted)".
+  2) Check out [our roadmap](https://github.com/LilaRest/vuethers/projects/1) and choose an unassigned task
+
+**Here are the steps to contribute to the Vuethers's code :**
+1) Fork this repository
+2) Clone your fork on your computer using `git clone https://github.com/<YourGithubName>/vuethers.git`
+3) In local, navigate into the cloned folder called `vuethers/`
+4) Add the Vuethers project repository as the "upstream" remote using `git remote add upstream https://github.com/LilaRest/vuethers.git`
+5) Now you can easily pull the new updates on the Vuethers repository using `git pull upstream main`
+5) Apply changes in your local repository
+6) Commit your changes using `git add -A` + `git commit -m "<YourChangesDescription>"`
+7) Push your changes to your fork repository using `git push origin main`
+8) Return to your fork on Github, refresh the page and you should see an highlighted area that invites you to initiate a Pull Request. (alternatively you can click on the "New pull request" button)
+
+## TODO
 - Add multiple RPC ethers providers support by default
 - Add an unstyled popup system (?)
+
