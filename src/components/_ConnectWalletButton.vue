@@ -1,9 +1,5 @@
 <script setup>
 import { useDappStore } from "../stores/dapp.js";
-//import { $ref } from "vue/macros";
-
-//console.log($ref)
-//const abc = $ref(1)
 
 const dapp = useDappStore();
 

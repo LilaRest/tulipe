@@ -15,7 +15,6 @@ const owner = await contract.owner()
 async function execFunc (funcName) {
   try {
     const response = await contract[funcName](...functionsIO[funcName].inputs);
-
     functionsIO[funcName].outputs[0] = response;
   }
   catch (e) {
@@ -23,9 +22,8 @@ async function execFunc (funcName) {
   }
 }
 
-const functions = contract.interface.functions;
 const functionsIO = $ref({})
-for (const func of Object.values(functions)) {
+for (const func of Object.values(contract.interface.functions)) {
   functionsIO[func.name] = {
     inputs: [],
     outputs: [],
@@ -50,19 +48,21 @@ async function receiveEvent(event) {
 
   // Build log :
   let log = `Block ${event.blockNumber} -> {`
-  for(const input of events[event.eventSignature].inputs) {
+  for(const input of eventsIO[event.event].properties.inputs) {
     log += `${input.name}:${event.args[input.name]}, ` 
   }
   log = log.substring(0, log.length - 2) + "}"
   eventsIO[event.event].logs.push(log)
 }
 
-const events = contract.interface.events;
 const eventsIO = $ref({})
-for (const event of Object.values(events)) {
+for (const event of Object.values(contract.interface.events)) {
   eventsIO[event.name] = {
     count: 0,
-    logs: []
+    logs: [],
+    properties: {
+      inputs: event.inputs,
+    }
   }
   contract.on(event, receiveEvent)
 }

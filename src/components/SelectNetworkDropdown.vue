@@ -22,7 +22,6 @@ async function changeNetwork (id) {
 
       // If the user don't have the network, add it.
       if (e.code === 4902) {
-        console.log("ADD CHAIN")
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
           params: [{
