@@ -1,4 +1,4 @@
-export const vuethers_config = {
+export const vuethersConfig = {
   networks: [
     {
       chainId: 31337,

@@ -1,4 +1,4 @@
-export const vuethers_default_config = {
+export const vuethersDefaultConfig = {
   /*
    * Important : Some properties of network objects must exactly match chain datas at https://chainid.network/chains.json in order to don't raise a warning in Metamask when adding a new network in users' wallets :
      - 'name' in Vuethers must match 'name' in ChainId

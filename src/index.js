@@ -1,7 +1,7 @@
 import { useDappStore } from "./stores/dapp.js"
 import { getActivePinia, createPinia } from "pinia"
 import { ethers } from "ethers";
-import { vuethers_default_config } from "./vuethers.config-default.js"
+import { vuethersDefaultConfig } from "./vuethers.config-default.js"
 import { markRaw } from "vue";
 
 function capitalizeWords (sentence) {
@@ -38,14 +38,11 @@ function merge (target, ...sources) {
   return merge(target, ...sources);
 }
 
-export async function initVuethers (app, vuethers_custom_config) {
-
-  // Unused variable for test.
-  const unused = 88;
+export async function initVuethers (app, vuethersCustomConfig) {
 
   // Ensure Pinia is initialized.
-  const active_pinia = getActivePinia()
-  if (!active_pinia) {
+  const activePinia = getActivePinia()
+  if (!activePinia) {
     app.use(createPinia())
   }
 
@@ -63,33 +60,33 @@ export async function initVuethers (app, vuethers_custom_config) {
   const currentNetwork = await dapp.provider.getNetwork()
 
   // Read vuethers.config.js if one is provided.
-  if (vuethers_custom_config) {
+  if (vuethersCustomConfig) {
 
     // Merge default and custom config to override default configs by the custom ones
-    const vuethers_config = merge({...vuethers_default_config}, {...vuethers_custom_config})
-    vuethers_config.networks = []
-    for (let network of vuethers_custom_config.networks) {
+    const vuethersConfig = merge({...vuethersDefaultConfig}, {...vuethersCustomConfig})
+    vuethersConfig.networks = []
+    for (let network of vuethersCustomConfig.networks) {
       if (network.chainId) {
-        const default_network = vuethers_default_config.networks.find(o => o.chainId === network.chainId)
-        network = merge({ ...default_network }, { ...network });
+        const defaultNetwork = vuethersDefaultConfig.networks.find(o => o.chainId === network.chainId)
+        network = merge({ ...defaultNetwork }, { ...network });
 
         // Fill the displayName with the name if not given
         if (!network.displayName) {
           network.displayName = network.name;
         }
-        vuethers_config.networks.push(network);
+        vuethersConfig.networks.push(network);
       }
     }
 
     // Set the dapp defaults values.
-    dapp.defaults = vuethers_config.defaults
+    dapp.defaults = vuethersConfig.defaults
 
     // Initalize networks.
-    if (vuethers_config.networks) {
+    if (vuethersConfig.networks) {
       dapp.networks = {
-        available: vuethers_config.networks.filter(o => o.chainId !== currentNetwork.chainId),
-        current: vuethers_config.networks.find(o => o.chainId === currentNetwork.chainId),
-        known: vuethers_default_config.networks
+        available: vuethersConfig.networks.filter(o => o.chainId !== currentNetwork.chainId),
+        current: vuethersConfig.networks.find(o => o.chainId === currentNetwork.chainId),
+        known: vuethersDefaultConfig.networks
       }
 
       // Initalize current network 
