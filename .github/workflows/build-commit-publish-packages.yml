@@ -25,7 +25,7 @@ jobs:
       
   publish-dist-files-on-npm:
     name: Publish the distribution files on NPM
-    needs: build
+    needs: build-dist-files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
