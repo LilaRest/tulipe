@@ -40,6 +40,9 @@ function merge (target, ...sources) {
 
 export async function initVuethers (app, vuethers_custom_config) {
 
+  // Unused variable for test.
+  const unused = 88;
+
   // Ensure Pinia is initialized.
   const active_pinia = getActivePinia()
   if (!active_pinia) {
