@@ -23,9 +23,9 @@ jobs:
       - name: Build distribution files
         run: npm run build
       - uses: actions/cache@v3
-          with:
-            key: dist-files
-            path: dist/
+        with:
+          key: dist-files
+          path: dist/
       
   publish-dist-files-on-npm:
     name: Publish the distribution files on NPM
@@ -34,9 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-          with:
-            key: dist-files
-            path: dist/
+        with:
+          key: dist-files
+          path: dist/
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
@@ -56,9 +56,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-          with:
-            key: dist-files
-            path: dist/
+        with:
+          key: dist-files
+          path: dist/
       - name: Commit new distribution files
         run: |
           git config --global user.email "automation-bot@vuethers.org"
@@ -66,9 +66,9 @@ jobs:
           git add -A
           git commit -m "Automation : New distribution files have been built under 'dist/' directory." || true
       - uses: actions/cache@v3
-          with:
-            key: dist-files
-            path: dist/
+        with:
+          key: dist-files
+          path: dist/
 
   push-on-github:
     name: Push new distribution files on Github
@@ -77,9 +77,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-          with:
-            key: dist-files
-            path: dist/
+        with:
+          key: dist-files
+          path: dist/
       - name: Push the distribution files
         uses: ad-m/github-push-action@v0.6.0
         with:
