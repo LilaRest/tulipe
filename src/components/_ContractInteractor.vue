@@ -37,10 +37,10 @@ for (const func of Object.values(functions)) {
       outputs: func.outputs,
     }
   }
-  for (const inputIndex in functions[funcName].inputs) {
+  for (const inputIndex in func.inputs) {
     functionsIO[func.name].inputs[inputIndex] = "";
   }
-  for (const outputIndex in functions[funcName].outputs) {
+  for (const outputIndex in func.outputs) {
     functionsIO[func.name].outputs[outputIndex] = "";
   }
 }
