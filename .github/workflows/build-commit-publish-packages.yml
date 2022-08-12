@@ -22,41 +22,10 @@ jobs:
         run: npm ci
       - name: Build distribution files
         run: npm run build
-      - uses: actions/cache@v3
-        with:
-          key: dist-files
-          path: ~/
-      
-  publish-dist-files-on-npm:
-    name: Publish the distribution files on NPM
-    needs: build-dist-files
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache@v3
-        with:
-          key: dist-files
-          path: ~/
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://registry.npmjs.org/
-      - name: Setup Node.js environment
-        run: npm ci
       - name: Publish the package on NPM
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-  commit-and-push-dist-files:
-    name: Commit new distribution files and push them on Github
-    needs: [build-dist-files, publish-dist-files-on-npm]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/cache@v3
-        with:
-          key: dist-files
-          path: ~/
       - name: Commit new distribution files
         run: |
           git config --global user.email "automation-bot@vuethers.org"
