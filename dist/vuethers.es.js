@@ -1,7 +1,7 @@
-import { ref as v, withAsyncContext as O, openBlock as c, createElementBlock as i, unref as p, toDisplayString as f, createCommentVNode as I, createBlock as S, Suspense as $, withCtx as B, createVNode as H, Fragment as k, createElementVNode as d, renderList as w, withDirectives as A, vModelDynamic as W, vModelText as q, createTextVNode as D, markRaw as j } from "vue";
-import { defineStore as F, getActivePinia as G, createPinia as L } from "pinia";
+import { ref as v, withAsyncContext as S, openBlock as c, createElementBlock as i, unref as p, toDisplayString as f, createCommentVNode as I, createBlock as $, Suspense as B, withCtx as H, createVNode as D, Fragment as k, createElementVNode as d, renderList as w, withDirectives as O, vModelDynamic as q, vModelText as j, createTextVNode as F, markRaw as T } from "vue";
+import { defineStore as V, getActivePinia as G, createPinia as L } from "pinia";
 import { ethers as E } from "ethers";
-const U = F("wallet-status", () => {
+const U = V("wallet-status", () => {
   let a = v("disconnected");
   function t() {
     a.value = "disconnected";
@@ -30,9 +30,9 @@ const U = F("wallet-status", () => {
     setToWrongNetwork: n,
     setToError: h
   };
-}), P = F("dapp", () => {
-  const a = v(new E.providers.Web3Provider(window.ethereum, "any"));
-  let t = v(a.value.getSigner()), s = {}, e = {}, h = {};
+}), P = V("dapp", () => {
+  const a = v(null);
+  let t = v(null), s = {}, e = {}, h = {};
   const o = {
     wallet: U()
   };
@@ -44,7 +44,7 @@ const U = F("wallet-status", () => {
     config: h,
     status: o
   };
-}), T = {
+}), M = {
   networks: [
     {
       name: "Ethereum Mainnet",
@@ -525,7 +525,7 @@ const U = F("wallet-status", () => {
         return !1;
       }
     }
-    [t, s] = O(() => h()), await t, s();
+    [t, s] = S(() => h()), await t, s();
     async function o() {
       if (!await h())
         try {
@@ -552,14 +552,14 @@ const U = F("wallet-status", () => {
 }, fe = {
   __name: "ConnectWalletButton",
   setup(a) {
-    return (t, s) => (c(), S($, null, {
-      default: B(() => [
-        H(Q)
+    return (t, s) => (c(), $(B, null, {
+      default: H(() => [
+        D(Q)
       ]),
       _: 1
     }));
   }
-}, Z = /* @__PURE__ */ D("Functions : "), ee = ["onClick"], te = ["onUpdate:modelValue", "type", "placeholder"], ne = ["onUpdate:modelValue", "placeholder"], ae = { key: 0 }, oe = /* @__PURE__ */ D(" Events : "), re = /* @__PURE__ */ d("p", null, "Logs:", -1), se = {
+}, Z = /* @__PURE__ */ F("Functions : "), ee = ["onClick"], te = ["onUpdate:modelValue", "type", "placeholder"], ne = ["onUpdate:modelValue", "placeholder"], ae = { key: 0 }, oe = /* @__PURE__ */ F(" Events : "), re = /* @__PURE__ */ d("p", null, "Logs:", -1), se = {
   __name: "_ContractInteractor",
   props: {
     contractName: {
@@ -569,7 +569,7 @@ const U = F("wallet-status", () => {
   },
   async setup(a) {
     let t, s;
-    const e = a, o = P().contracts[e.contractName], n = ([t, s] = O(() => o.owner()), t = await t, s(), t);
+    const e = a, o = P().contracts[e.contractName], n = ([t, s] = S(() => o.owner()), t = await t, s(), t);
     async function l(r) {
       try {
         const b = await o[r](...u.value[r].inputs);
@@ -612,7 +612,7 @@ const U = F("wallet-status", () => {
           inputs: r.inputs
         }
       }, o.on(r, N);
-    function V(r) {
+    function W(r) {
       return r.includes("int") ? "number" : "text";
     }
     return (r, b) => (c(), i(k, null, [
@@ -627,20 +627,20 @@ const U = F("wallet-status", () => {
               d("button", {
                 onClick: (y) => l(_)
               }, f(_) + " (" + f(m.properties.constant ? "read-only" : "") + f(m.properties.payable ? ", payable" : "") + ")", 9, ee),
-              (c(!0), i(k, null, w(m.properties.inputs, (y, C) => A((c(), i("input", {
+              (c(!0), i(k, null, w(m.properties.inputs, (y, C) => O((c(), i("input", {
                 "onUpdate:modelValue": (R) => m.inputs[C] = R,
-                type: V(y.type),
+                type: W(y.type),
                 placeholder: y.type
               }, null, 8, te)), [
-                [W, m.inputs[C]]
+                [q, m.inputs[C]]
               ])), 256)),
-              (c(!0), i(k, null, w(m.properties.outputs, (y, C) => A((c(), i("input", {
+              (c(!0), i(k, null, w(m.properties.outputs, (y, C) => O((c(), i("input", {
                 "onUpdate:modelValue": (R) => m.outputs[C] = R,
                 type: "text",
                 placeholder: y.type,
                 disabled: ""
               }, null, 8, ne)), [
-                [q, m.outputs[C]]
+                [j, m.outputs[C]]
               ])), 256)),
               m.error ? (c(), i("p", ae, f(m.error), 1)) : I("", !0)
             ]))), 256))
@@ -672,9 +672,9 @@ const U = F("wallet-status", () => {
   },
   setup(a) {
     const t = a;
-    return (s, e) => (c(), S($, null, {
-      default: B(() => [
-        H(se, {
+    return (s, e) => (c(), $(B, null, {
+      default: H(() => [
+        D(se, {
           contractName: t.contractName
         }, null, 8, ["contractName"])
       ]),
@@ -754,16 +754,16 @@ function pe(a) {
     t[s] = t[s][0].toUpperCase() + t[s].substring(1);
   return t.join(" ");
 }
-function M(a) {
+function A(a) {
   return a && typeof a == "object" && !Array.isArray(a);
 }
 function x(a, ...t) {
   if (!t.length)
     return a;
   const s = t.shift();
-  if (M(a) && M(s))
+  if (A(a) && A(s))
     for (const e in s)
-      M(s[e]) ? (a[e] || Object.assign(a, {
+      A(s[e]) ? (a[e] || Object.assign(a, {
         [e]: {}
       }), x(a[e], s[e])) : Object.assign(a, {
         [e]: s[e]
@@ -773,23 +773,23 @@ function x(a, ...t) {
 async function we(a, t) {
   G() || a.use(L());
   const e = P();
-  e.provider.on("network", (o, n) => {
+  e.provider = T(new E.providers.Web3Provider(window.ethereum, "any")), e.signer = T(e.provider.getSigner()), e.provider.on("network", (o, n) => {
     n && n !== o && window.location.reload();
   });
   const h = await e.provider.getNetwork();
   if (t) {
-    const o = x({ ...T }, { ...t });
+    const o = x({ ...M }, { ...t });
     o.networks = [];
     for (let n of t.networks)
       if (n.chainId) {
-        const l = T.networks.find((u) => u.chainId === n.chainId);
+        const l = M.networks.find((u) => u.chainId === n.chainId);
         n = x({ ...l }, { ...n }), n.displayName || (n.displayName = n.name), o.networks.push(n);
       }
     if (e.defaults = o.defaults, o.networks)
       if (e.networks = {
         available: o.networks.filter((n) => n.chainId !== h.chainId),
         current: o.networks.find((n) => n.chainId === h.chainId),
-        known: T.networks
+        known: M.networks
       }, e.networks.current && e.networks.current.contracts) {
         let n = !1;
         try {
@@ -798,7 +798,7 @@ async function we(a, t) {
         }
         for (const [l, u] of Object.entries(e.networks.current.contracts)) {
           const N = new E.Contract(u.address, u.abi, n ? e.signer : e.provider);
-          e.contracts[l] = j(N);
+          e.contracts[l] = T(N);
         }
       } else {
         const n = e.networks.known.find((l) => l.chainId === h.chainId);
