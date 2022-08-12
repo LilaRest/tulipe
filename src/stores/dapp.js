@@ -5,8 +5,8 @@ import { $ref } from "vue/macros";
 
 export const useDappStore = defineStore("dapp", () => {
 
-  const provider = $ref(new ethers.providers.Web3Provider(window.ethereum, "any"));
-  let signer = $ref(provider.getSigner());
+  const provider = $ref(null);
+  let signer = $ref(null);
 
   let networks = {};
   let contracts = {};

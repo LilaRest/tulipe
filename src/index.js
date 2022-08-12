@@ -49,6 +49,10 @@ export async function initVuethers (app, vuethersCustomConfig) {
   // Import the dapp store.
   const dapp = useDappStore()
 
+  // Get current network and signer.
+  dapp.provider = markRaw(new ethers.providers.Web3Provider(window.ethereum, "any"));
+  dapp.signer = markRaw(dapp.provider.getSigner());
+
   // Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
   dapp.provider.on("network", (newNetwork, oldNetwork) => {
     if (oldNetwork && oldNetwork !== newNetwork) {
