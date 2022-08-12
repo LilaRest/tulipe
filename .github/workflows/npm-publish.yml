@@ -24,6 +24,7 @@ jobs:
         run: npm run build
 
   publish-npm:
+    name: Publish the packages on NPM
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -38,4 +39,4 @@ jobs:
       - name: Publish the package on NPM
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
