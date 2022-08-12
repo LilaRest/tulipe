@@ -23,9 +23,9 @@ jobs:
       - name: Build distribution files
         run: npm run build
       - name: Publish the package on NPM
-        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npm publish
       - name: Commit new distribution files
         run: |
           git config --global user.email "automation-bot@vuethers.org"
