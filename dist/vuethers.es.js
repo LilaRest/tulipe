@@ -1,5 +1,4 @@
 import { ref as E, withAsyncContext as M, openBlock as l, createElementBlock as d, unref as p, toDisplayString as b, createCommentVNode as C, createBlock as D, Suspense as A, withCtx as V, createVNode as G, Fragment as w, createElementVNode as m, renderList as k, withDirectives as $, vModelDynamic as H, vModelText as U, createTextVNode as F, watch as R, markRaw as P } from "vue";
-import "pinia";
 import { ethers as I } from "ethers";
 class j extends Object {
   constructor(e, t, i) {
@@ -552,7 +551,7 @@ const W = {
       }, "Disconnect")) : C("", !0)
     ]));
   }
-}, we = {
+}, ye = {
   __name: "ConnectWalletButton",
   setup(a) {
     return (e, t) => (l(), D(A, null, {
@@ -665,7 +664,7 @@ const W = {
       ])
     ], 64));
   }
-}, ke = {
+}, we = {
   __name: "ContractInteractor",
   props: {
     contractName: {
@@ -687,7 +686,7 @@ const W = {
 }, oe = { class: "SelectNetworkDropdown" }, ce = {
   key: 0,
   selected: ""
-}, ie = ["src", "alt"], le = ["onClick"], ue = ["src", "alt"], ve = {
+}, ie = ["src", "alt"], le = ["onClick"], ue = ["src", "alt"], ke = {
   __name: "SelectNetworkDropdown",
   setup(a) {
     async function e(s) {
@@ -853,7 +852,7 @@ async function pe(a) {
 async function he(a) {
   return await pe(r), a.config.globalProperties.dapp = r, r;
 }
-async function _e(a, e) {
+async function ve(a, e) {
   const t = await he(a);
   t.provider = P(new I.providers.Web3Provider(window.ethereum, "any")), t.signer = P(t.provider.getSigner()), t.provider.on("network", (s, n) => {
     n && n !== s && window.location.reload();
@@ -889,10 +888,10 @@ async function _e(a, e) {
   }
 }
 export {
-  we as ConnectWalletButton,
-  ke as ContractInteractor,
-  ve as SelectNetworkDropdown,
+  ye as ConnectWalletButton,
+  we as ContractInteractor,
+  ke as SelectNetworkDropdown,
   de as Status,
   r as dapp,
-  _e as initVuethers
+  ve as initVuethers
 };
