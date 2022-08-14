@@ -1,7 +1,7 @@
 <script setup>
-import { useDappStore } from "../index.js";
 import { markRaw } from "vue";
-const dapp = useDappStore()
+import { dapp } from "../index.js";
+
 const props = defineProps({
   contractName: {
     type: String,

@@ -1,7 +1,5 @@
 <script setup>
-import { useDappStore } from "../stores/dapp.js";
-
-const dapp = useDappStore();
+import { dapp } from "../index.js";
 
 async function isConnected () {
   try {

@@ -1,7 +1,6 @@
 <script setup>
-import { useDappStore } from "../stores/dapp.js";
 import { ethers } from "ethers";
-const dapp = useDappStore()
+import { dapp } from "../index.js";
 
 async function changeNetwork (id) {
   const network = dapp.networks.available.find(o => o.chainId === parseInt(id))
