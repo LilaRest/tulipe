@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "private": false,
     "description": "A DApp frontend framework for Vue3 built with Ethers (ethers.js)",
     "license": "MIT",
@@ -39,7 +39,6 @@
         "build": "npx vite build"
     },
     "dependencies": {
-        "pinia": "^2.0.17",
         "vue": "^3.2.37",
         "ethers": "^5.6.9"
     },
