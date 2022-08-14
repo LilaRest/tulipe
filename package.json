@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "private": false,
     "description": "A DApp frontend framework for Vue3 built with Ethers (ethers.js)",
     "license": "MIT",
@@ -14,7 +14,7 @@
     ],
     "main": "./dist/vuethers.umd.js",
     "module": "./dist/vuethers.es.js",
-    "unpkg": "dist/vuethers.min.js",
+    "unpkg": "./dist/vuethers.min.js",
     "exports": {
         ".": {
             "import": "./dist/vuethers.es.js",
@@ -35,8 +35,8 @@
         "ethereum"
     ],
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "dev": "npx vite",
+        "build": "npx vite build"
     },
     "dependencies": {
         "pinia": "^2.0.17",
