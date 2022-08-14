@@ -11,11 +11,10 @@ export default defineConfig({
       formats: ["es", "umd", "iife"]
     },
     rollupOptions: {
-      external: ['vue', 'pinia', 'ethers'],
+      external: ['vue', 'ethers'],
       output: {
         globals: {
             vue: 'Vue',
-            pinia: 'Pinia',
             ethers: 'Ethers',
         },
       },
