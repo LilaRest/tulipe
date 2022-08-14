@@ -1,28 +1,47 @@
 import { defineStore } from "pinia";
-import { useWalletStatusStore } from "./wallet-status.js";
-import { ethers } from "ethers";
-import { $ref } from "vue/macros";
+import { Status } from "../index.js"
 
 export const useDappStore = defineStore("dapp", () => {
 
+  // Will host the content of the DApp config (custom + default vuethers.config.js files)
+  const config = {};
+
+  // Ethers.js objects to interact with
   const provider = $ref(null);
   let signer = $ref(null);
-
-  let networks = {};
-  let contracts = {};
-  let config = {};
+  const contracts = {};
 
   const status = ({
-    wallet: useWalletStatusStore(),
+    wallet: new Status("wallet", [
+      "DISCONNECTED",
+      "REQUESTED",
+      "REFUSED",
+      "ERROR",
+      "CONNECTED"
+    ]),
+    network: new Status("network", [
+      "WRONG",
+      "ERROR",
+    ]),
   })
 
+  status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+    setTimeout(() => {
+      status.wallet.set("DISCONNECTED");
+    }, 5000)
+  })
+
+  // Don't know what to do with them for now.
+  let networks = {};
+
   return $$({ 
+    config,
     provider,
     signer,
-    networks,
     contracts,
-    config,
-    status
+    status,
+
+    networks,
   })
 });
 

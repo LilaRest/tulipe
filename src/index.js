@@ -38,7 +38,7 @@ function merge (target, ...sources) {
   return merge(target, ...sources);
 }
 
-export async function initVuethers (vuethersCustomConfig) {
+async function initDAppStore(app) {
 
   // Ensure Pinia is initialized.
   const activePinia = getActivePinia()
@@ -46,9 +46,17 @@ export async function initVuethers (vuethersCustomConfig) {
     app.use(createPinia())
   }
 
-  // Import the dapp store.
-  const dapp = useDappStore()
+  // Ensure the DApp store has been run at least one time.
+  return useDappStore()
+}
 
+export async function initVuethers (app, vuethersCustomConfig) {
+
+  // Initalize the DApp global store.
+  const dapp = await initDAppStore(app)
+
+  // Register the dapp
+  
   // Get current network and signer.
   dapp.provider = markRaw(new ethers.providers.Web3Provider(window.ethereum, "any"));
   dapp.signer = markRaw(dapp.provider.getSigner());
@@ -129,4 +137,4 @@ export async function initVuethers (vuethersCustomConfig) {
 
 export * from "./components/index.js"
 export * from "./stores/index.js"
-// export * from "./composables/index.js"
+export * from "./composables/index.js"

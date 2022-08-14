@@ -10,6 +10,6 @@ const app = createApp(App)
 app.use(createPinia, {})
 
 // Initialize Vuethers
-await initVuethers(vuethersConfig)
+await initVuethers(app, vuethersConfig)
 
 app.mount("#app")
