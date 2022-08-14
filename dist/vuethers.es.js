@@ -1,33 +1,19 @@
-import { ref as v, withAsyncContext as M, openBlock as o, createElementBlock as c, unref as p, toDisplayString as f, createCommentVNode as C, createBlock as A, Suspense as V, withCtx as F, createVNode as B, Fragment as w, createElementVNode as d, renderList as k, withDirectives as $, vModelDynamic as W, vModelText as j, createTextVNode as G, watch as S, markRaw as P } from "vue";
-import { defineStore as L, getActivePinia as q, createPinia as K } from "pinia";
+import { ref as v, withAsyncContext as D, openBlock as o, createElementBlock as l, unref as p, toDisplayString as f, createCommentVNode as C, createBlock as M, Suspense as A, withCtx as V, createVNode as F, Fragment as w, createElementVNode as d, renderList as k, withDirectives as $, vModelDynamic as U, vModelText as W, createTextVNode as B, watch as S, markRaw as P } from "vue";
+import { defineStore as j, getActivePinia as L, createPinia as q } from "pinia";
 import { ethers as I } from "ethers";
-const R = L("dapp", () => {
+const R = j("dapp", () => {
   const s = {}, e = v(null);
   let t = v(null);
-  const n = {}, l = {
-    wallet: new D("wallet", [
-      "DISCONNECTED",
-      "REQUESTED",
-      "REFUSED",
-      "ERROR",
-      "CONNECTED"
-    ]),
-    network: new D("network", [
-      "WRONG",
-      "ERROR"
-    ])
-  };
-  return l.wallet.watchStates(["REFUSED", "ERROR"], () => {
-    setTimeout(() => {
-      l.wallet.set("DISCONNECTED");
-    }, 5e3);
-  }), {
+  const n = {}, u = {};
+  function a(c, i) {
+    u[c] = new pe(c, i);
+  }
+  return u.add = a, {
     config: s,
     provider: e,
     signer: t,
     contracts: n,
-    status: l,
-    networks: {}
+    status: u
   };
 }), T = {
   networks: [
@@ -486,33 +472,33 @@ const R = L("dapp", () => {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg"
     }
   }
-}, Q = { class: "ConnectWalletButton" }, Y = {
+}, K = { class: "ConnectWalletButton" }, Q = {
   key: 1,
   disabled: ""
-}, z = {
+}, Y = {
   key: 2,
   disabled: ""
-}, X = {
+}, z = {
   key: 3,
   disabled: ""
-}, J = {
+}, X = {
   key: 4,
   disabled: ""
-}, Z = {
+}, J = {
   __name: "_ConnectWalletButton",
   async setup(s) {
     let e, t;
     const n = R();
-    async function l() {
+    async function u() {
       try {
         return await n.signer.getAddress(), n.status.wallet.set("CONNECTED"), !0;
       } catch {
         return !1;
       }
     }
-    [e, t] = M(() => l()), await e, t();
+    [e, t] = D(() => u()), await e, t();
     async function a() {
-      if (!await l())
+      if (!await u())
         try {
           n.status.wallet.set("REQUESTED"), await n.provider.send("eth_requestAccounts", []), n.signer = n.provider.getSigner(), n.status.wallet.set("CONNECTED");
           for (const [i, h] of Object.entries(n.contracts))
@@ -521,30 +507,30 @@ const R = L("dapp", () => {
           i.code === 4001 ? n.status.wallet.set("REFUSED") : n.status.wallet.set("ERROR");
         }
     }
-    function u() {
+    function c() {
       n.status.wallet.set("DISCONNECTED");
     }
-    return (i, h) => (o(), c("div", Q, [
-      p(n).status.wallet.is("DISCONNECTED") ? (o(), c("button", {
+    return (i, h) => (o(), l("div", K, [
+      p(n).status.wallet.is("DISCONNECTED") ? (o(), l("button", {
         key: 0,
         onClick: a
-      }, "Connect Wallet")) : p(n).status.wallet.is("REQUESTED") ? (o(), c("button", Y, "Connection requested...")) : p(n).status.wallet.is("REFUSED") ? (o(), c("button", z, "Connection refused!")) : p(n).status.wallet.is("ERROR") ? (o(), c("button", X, "Connection error!")) : p(n).status.network.is("WRONG") ? (o(), c("button", J, "Wrong network! (" + f(p(n).networks.current.displayName) + ")", 1)) : p(n).status.wallet.is("CONNECTED") ? (o(), c("button", {
+      }, "Connect Wallet")) : p(n).status.wallet.is("REQUESTED") ? (o(), l("button", Q, "Connection requested...")) : p(n).status.wallet.is("REFUSED") ? (o(), l("button", Y, "Connection refused!")) : p(n).status.wallet.is("ERROR") ? (o(), l("button", z, "Connection error!")) : p(n).status.network.is("WRONG") ? (o(), l("button", X, "Wrong network! (" + f(p(n).networks.current.displayName) + ")", 1)) : p(n).status.wallet.is("CONNECTED") ? (o(), l("button", {
         key: 5,
-        onClick: u
+        onClick: c
       }, "Disconnect")) : C("", !0)
     ]));
   }
 }, we = {
   __name: "ConnectWalletButton",
   setup(s) {
-    return (e, t) => (o(), A(V, null, {
-      default: F(() => [
-        B(Z)
+    return (e, t) => (o(), M(A, null, {
+      default: V(() => [
+        F(J)
       ]),
       _: 1
     }));
   }
-}, ee = /* @__PURE__ */ G("Functions : "), te = ["onClick"], ne = ["onUpdate:modelValue", "type", "placeholder"], ae = ["onUpdate:modelValue", "placeholder"], se = { key: 0 }, re = /* @__PURE__ */ G(" Events : "), oe = /* @__PURE__ */ d("p", null, "Logs:", -1), ce = {
+}, Z = /* @__PURE__ */ B("Functions : "), ee = ["onClick"], te = ["onUpdate:modelValue", "type", "placeholder"], ne = ["onUpdate:modelValue", "placeholder"], ae = { key: 0 }, se = /* @__PURE__ */ B(" Events : "), re = /* @__PURE__ */ d("p", null, "Logs:", -1), oe = {
   __name: "_ContractInteractor",
   props: {
     contractName: {
@@ -554,7 +540,7 @@ const R = L("dapp", () => {
   },
   async setup(s) {
     let e, t;
-    const n = s, a = R().contracts[n.contractName], u = ([e, t] = M(() => a.owner()), e = await e, t(), e);
+    const n = s, a = R().contracts[n.contractName], c = ([e, t] = D(() => a.owner()), e = await e, t(), e);
     async function i(r) {
       try {
         const b = await a[r](...h.value[r].inputs);
@@ -581,7 +567,7 @@ const R = L("dapp", () => {
       for (const b in r.outputs)
         h.value[r.name].outputs[b] = "";
     }
-    async function H(r) {
+    async function G(r) {
       E.value[r.event].count += 1;
       let b = `Block ${r.blockNumber} -> {`;
       for (const m of E.value[r.event].properties.inputs)
@@ -596,50 +582,50 @@ const R = L("dapp", () => {
         properties: {
           inputs: r.inputs
         }
-      }, a.on(r, H);
-    function U(r) {
+      }, a.on(r, G);
+    function H(r) {
       return r.includes("int") ? "number" : "text";
     }
-    return (r, b) => (o(), c(w, null, [
+    return (r, b) => (o(), l(w, null, [
       d("p", null, "Interact with '" + f(s.contractName) + "' contract :", 1),
       d("ul", null, [
         d("li", null, "Address : " + f(p(a).address), 1),
-        d("li", null, "Owner : " + f(p(u)), 1),
+        d("li", null, "Owner : " + f(p(c)), 1),
         d("li", null, [
-          ee,
+          Z,
           d("ul", null, [
-            (o(!0), c(w, null, k(h.value, (m, _) => (o(), c("li", null, [
+            (o(!0), l(w, null, k(h.value, (m, _) => (o(), l("li", null, [
               d("button", {
                 onClick: (y) => i(_)
-              }, f(_) + " (" + f(m.properties.constant ? "read-only" : "") + f(m.properties.payable ? ", payable" : "") + ")", 9, te),
-              (o(!0), c(w, null, k(m.properties.inputs, (y, g) => $((o(), c("input", {
+              }, f(_) + " (" + f(m.properties.constant ? "read-only" : "") + f(m.properties.payable ? ", payable" : "") + ")", 9, ee),
+              (o(!0), l(w, null, k(m.properties.inputs, (y, g) => $((o(), l("input", {
                 "onUpdate:modelValue": (x) => m.inputs[g] = x,
-                type: U(y.type),
+                type: H(y.type),
                 placeholder: y.type
-              }, null, 8, ne)), [
-                [W, m.inputs[g]]
+              }, null, 8, te)), [
+                [U, m.inputs[g]]
               ])), 256)),
-              (o(!0), c(w, null, k(m.properties.outputs, (y, g) => $((o(), c("input", {
+              (o(!0), l(w, null, k(m.properties.outputs, (y, g) => $((o(), l("input", {
                 "onUpdate:modelValue": (x) => m.outputs[g] = x,
                 type: "text",
                 placeholder: y.type,
                 disabled: ""
-              }, null, 8, ae)), [
-                [j, m.outputs[g]]
+              }, null, 8, ne)), [
+                [W, m.outputs[g]]
               ])), 256)),
-              m.error ? (o(), c("p", se, f(m.error), 1)) : C("", !0)
+              m.error ? (o(), l("p", ae, f(m.error), 1)) : C("", !0)
             ]))), 256))
           ])
         ]),
         d("li", null, [
-          re,
+          se,
           d("ul", null, [
-            (o(!0), c(w, null, k(E.value, (m, _) => (o(), c("li", null, [
+            (o(!0), l(w, null, k(E.value, (m, _) => (o(), l("li", null, [
               d("h3", null, f(_), 1),
               d("p", null, "Count : " + f(m.count), 1),
-              oe,
+              re,
               d("ul", null, [
-                (o(!0), c(w, null, k(m.logs, (y) => (o(), c("li", null, f(y), 1))), 256))
+                (o(!0), l(w, null, k(m.logs, (y) => (o(), l("li", null, f(y), 1))), 256))
               ])
             ]))), 256))
           ])
@@ -657,25 +643,25 @@ const R = L("dapp", () => {
   },
   setup(s) {
     const e = s;
-    return (t, n) => (o(), A(V, null, {
-      default: F(() => [
-        B(ce, {
+    return (t, n) => (o(), M(A, null, {
+      default: V(() => [
+        F(oe, {
           contractName: e.contractName
         }, null, 8, ["contractName"])
       ]),
       _: 1
     }));
   }
-}, ie = { class: "SelectNetworkDropdown" }, le = {
+}, ce = { class: "SelectNetworkDropdown" }, ie = {
   key: 0,
   selected: ""
-}, ue = ["src", "alt"], de = ["onClick"], pe = ["src", "alt"], ve = {
+}, le = ["src", "alt"], ue = ["onClick"], de = ["src", "alt"], ve = {
   __name: "SelectNetworkDropdown",
   setup(s) {
     const e = R();
     async function t(a) {
-      const u = e.networks.available.find((i) => i.chainId === parseInt(a));
-      if (u) {
+      const c = e.networks.available.find((i) => i.chainId === parseInt(a));
+      if (c) {
         a = I.utils.hexlify(parseInt(a)).toString(), a = I.utils.hexValue(a);
         try {
           await window.ethereum.request({
@@ -689,14 +675,14 @@ const R = L("dapp", () => {
             method: "wallet_addEthereumChain",
             params: [{
               chainId: a,
-              rpcUrls: [u.defaultRPC],
-              chainName: u.name,
+              rpcUrls: [c.defaultRPC],
+              chainName: c.name,
               nativeCurrency: {
-                name: u.currency.symbol,
-                symbol: u.currency.symbol,
-                decimals: u.currency.decimals
+                name: c.currency.symbol,
+                symbol: c.currency.symbol,
+                decimals: c.currency.decimals
               },
-              blockExplorerUrls: u.explorer && u.explorer.url !== "" ? [u.explorer.url] : null
+              blockExplorerUrls: c.explorer && c.explorer.url !== "" ? [c.explorer.url] : null
             }]
           });
         }
@@ -705,20 +691,20 @@ const R = L("dapp", () => {
       }
     }
     let n = v(!1);
-    function l() {
+    function u() {
       n.value = !n.value;
     }
-    return (a, u) => (o(), c("div", ie, [
-      d("ul", { onClick: l }, [
-        p(e).networks.current ? (o(), c("li", le, [
+    return (a, c) => (o(), l("div", ce, [
+      d("ul", { onClick: u }, [
+        p(e).networks.current ? (o(), l("li", ie, [
           d("img", {
             width: "40",
             src: p(e).networks.current.icon ? p(e).networks.current.icon : p(e).defaults.networks.icon,
             alt: p(e).networks.current.name + " logo"
-          }, null, 8, ue),
+          }, null, 8, le),
           d("p", null, f(p(e).networks.current.displayName), 1)
         ])) : C("", !0),
-        n.value ? (o(!0), c(w, { key: 1 }, k(p(e).networks.available, (i) => (o(), c("li", {
+        n.value ? (o(!0), l(w, { key: 1 }, k(p(e).networks.available, (i) => (o(), l("li", {
           key: i.chainId,
           onClick: (h) => t(i.chainId)
         }, [
@@ -726,20 +712,20 @@ const R = L("dapp", () => {
             width: "40",
             src: i.icon ? i.icon : p(e).defaults.networks.icon,
             alt: i.name + " logo"
-          }, null, 8, pe),
+          }, null, 8, de),
           d("p", null, f(i.displayName), 1)
-        ], 8, de))), 128)) : C("", !0)
+        ], 8, ue))), 128)) : C("", !0)
       ])
     ]));
   }
 };
-class D {
+class pe {
   constructor(e, t) {
     this._name = e;
     const n = v(null);
     if (this._state = n.value, this.states = [], Array.isArray(t))
-      for (const l of t)
-        this.states.push(this._formatState(l));
+      for (const u of t)
+        this.states.push(this._formatState(u));
     else
       throw `The 'states' parameter of a Status instance '${e}' must an array of strings. Got: ${t}`;
   }
@@ -785,7 +771,7 @@ class D {
   }
   watchState(e, t) {
     if (this._isStateValid(e))
-      S(this.get(), (n, l) => {
+      S(this.get(), (n, u) => {
         this.is(e) && t(this.get());
       });
     else
@@ -823,26 +809,39 @@ function N(s, ...e) {
   return N(s, ...e);
 }
 async function he(s) {
-  return q() || s.use(K()), R();
+  return L() || s.use(q()), R();
 }
 async function Ee(s, e) {
   const t = await he(s);
-  t.provider = P(new I.providers.Web3Provider(window.ethereum, "any")), t.signer = P(t.provider.getSigner()), t.provider.on("network", (l, a) => {
-    a && a !== l && window.location.reload();
+  t.provider = P(new I.providers.Web3Provider(window.ethereum, "any")), t.signer = P(t.provider.getSigner()), t.provider.on("network", (u, a) => {
+    a && a !== u && window.location.reload();
+  }), t.status.add("wallet", [
+    "DISCONNECTED",
+    "REQUESTED",
+    "REFUSED",
+    "ERROR",
+    "CONNECTED"
+  ]), t.status.add("network", [
+    "WRONG",
+    "ERROR"
+  ]), t.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+    setTimeout(() => {
+      t.status.wallet.set("DISCONNECTED");
+    }, 5e3);
   });
   const n = await t.provider.getNetwork();
   if (e) {
-    const l = N({ ...T }, { ...e });
-    l.networks = [];
+    const u = N({ ...T }, { ...e });
+    u.networks = [];
     for (let a of e.networks)
       if (a.chainId) {
-        const u = T.networks.find((i) => i.chainId === a.chainId);
-        a = N({ ...u }, { ...a }), a.displayName || (a.displayName = a.name), l.networks.push(a);
+        const c = T.networks.find((i) => i.chainId === a.chainId);
+        a = N({ ...c }, { ...a }), a.displayName || (a.displayName = a.name), u.networks.push(a);
       }
-    if (t.defaults = l.defaults, l.networks)
+    if (t.defaults = u.defaults, u.networks)
       if (t.networks = {
-        available: l.networks.filter((a) => a.chainId !== n.chainId),
-        current: l.networks.find((a) => a.chainId === n.chainId),
+        available: u.networks.filter((a) => a.chainId !== n.chainId),
+        current: u.networks.find((a) => a.chainId === n.chainId),
         known: T.networks
       }, t.networks.current && t.networks.current.contracts) {
         let a = !1;
@@ -850,12 +849,12 @@ async function Ee(s, e) {
           await t.signer.getAddress(), a = !0;
         } catch {
         }
-        for (const [u, i] of Object.entries(t.networks.current.contracts)) {
+        for (const [c, i] of Object.entries(t.networks.current.contracts)) {
           const h = new I.Contract(i.address, i.abi, a ? t.signer : t.provider);
-          t.contracts[u] = P(h);
+          t.contracts[c] = P(h);
         }
       } else {
-        const a = t.networks.known.find((u) => u.chainId === n.chainId);
+        const a = t.networks.known.find((c) => c.chainId === n.chainId);
         a ? t.networks.current = a : (t.networks.current = n, t.networks.current.displayName = me(t.networks.current.name)), t.status.wallet.setToWrongNetwork();
       }
   }
@@ -864,7 +863,7 @@ export {
   we as ConnectWalletButton,
   ke as ContractInteractor,
   ve as SelectNetworkDropdown,
-  D as Status,
+  pe as Status,
   Ee as initVuethers,
   R as useDappStore
 };
