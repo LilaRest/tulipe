@@ -1,4 +1,4 @@
-import { useDappStore } from "./stores/dapp.js"
+import { dapp } from "./stores/dapp.js"
 import { getActivePinia, createPinia } from "pinia"
 import { ethers } from "ethers";
 import { vuethersDefaultConfig } from "./vuethers.config-default.js"
@@ -38,22 +38,49 @@ function merge (target, ...sources) {
   return merge(target, ...sources);
 }
 
+async function initDAppStatus(dapp) {
+
+  // Initialize status.
+  dapp.status.add("wallet", [
+    "DISCONNECTED",
+    "REQUESTED",
+    "REFUSED",
+    "ERROR",
+    "CONNECTED"
+  ]),
+  dapp.status.add("network", [
+    "OK",
+    "WRONG",
+    "ERROR",
+  ]),
+
+  // Set a timeout to the wallet status that falls to DISCONNECTED after a certain amount of time.
+  dapp.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+    setTimeout(() => {
+      dapp.status.wallet.set("DISCONNECTED");
+    }, 5000)
+  })
+
+}
+
 async function initDAppStore(app) {
 
-  // Ensure Pinia is initialized.
-  const activePinia = getActivePinia()
-  if (!activePinia) {
-    app.use(createPinia())
-  }
+  // Initialize DApp status.
+  await initDAppStatus(dapp);
 
-  // Ensure the DApp store has been run at least one time.
-  return useDappStore()
+  // Makes the dapp stores available globally in the project.
+  app.config.globalProperties.dapp = dapp;
+
+  // Return the initialized store.
+  return dapp
 }
 
 export async function initVuethers (app, vuethersCustomConfig) {
 
   // Initalize the DApp global store.
   const dapp = await initDAppStore(app)
+
+  // Initialize the DApp status.
 
   // Register the dapp
   
@@ -68,26 +95,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
     } 
   });
   
-  // Initialize status.
-  dapp.status.add("wallet", [
-    "DISCONNECTED",
-    "REQUESTED",
-    "REFUSED",
-    "ERROR",
-    "CONNECTED"
-  ]),
-  dapp.status.add("network", [
-    "WRONG",
-    "ERROR",
-  ]),
-
-  // Set a timeout to the wallet status that falls to DISCONNECTED after a certain amount of time.
-  dapp.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
-    setTimeout(() => {
-      dapp.status.wallet.set("DISCONNECTED");
-    }, 5000)
-  })
-
+  
 
   // Retrieve current networks informations from RPC.
   const currentNetwork = await dapp.provider.getNetwork()
@@ -150,7 +158,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
           dapp.networks.current = currentNetwork;
           dapp.networks.current.displayName = capitalizeWords(dapp.networks.current.name)
         }
-        dapp.status.wallet.setToWrongNetwork()
+        dapp.status.network.set("WRONG")
       }
     }
   }

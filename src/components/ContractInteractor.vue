@@ -1,5 +1,6 @@
 <script setup>
 import ContractInteractor from "./_ContractInteractor.vue"
+
 const props = defineProps({
   contractName: {
     type: String,

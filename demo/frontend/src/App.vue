@@ -1,9 +1,7 @@
 <script setup>
 import { ConnectWalletButton,
          SelectNetworkDropdown,
-         ContractInteractor,
-         useDappStore } from "../../../src/index.js"
-const dapp = useDappStore()
+         ContractInteractor } from "../../../src/index.js"
 </script>
 
 <template>

@@ -1,2 +1,2 @@
-export { useDappStore } from "./dapp.js"
+export { dapp } from "./dapp.js"
 

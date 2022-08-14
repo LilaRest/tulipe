@@ -1,29 +1,36 @@
-import { defineStore } from "pinia";
 import { Status } from "../index.js"
+import { MixedStore } from "../composables/store.js"
 
-export const useDappStore = defineStore("dapp", () => {
-
+const dappStateless = {
   // Will host the content of the DApp config (custom + default vuethers.config.js files)
-  const config = {};
-
-  // Ethers.js objects to interact with
-  const provider = $ref(null);
-  let signer = $ref(null);
-  const contracts = {};
+  config: {},
 
   // An object that holds all the created Status instances from addStatus().
-  const status = {}
-  function addStatus(name, states) {
-    status[name] = new Status(name, states);
-  }
-  status.add = addStatus;
-  
-  return $$({ 
-    config,
-    provider,
-    signer,
-    contracts,
-    status,
-  })
-});
+  status: {
+    add: (name, states) => {
+      if (Object.keys(dapp.status).includes(name)) {
+        throw(`You cannot add a new status called '${name}', this name is either reserved by Vuethers or already existing.`);
+      }
+      dapp.status[name] = new Status(name, states);
+    },
+  },
+}
+
+const dappStateful = $ref({
+  // Ethers.js objects to interact with
+  provider: null,
+  signer: null,
+  contracts: {},
+})
+
+export const dapp = new MixedStore({
+  config: "stateless",
+  status: "stateless",
+  networks: "stateless",
+  defaults: "stateless",
+  provider: "stateful",
+  signer: "stateful",
+  contracts: "stateful",
+}, dappStateless, dappStateful)
+
 

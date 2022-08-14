@@ -7,7 +7,7 @@ import { createPinia } from "pinia";
 const app = createApp(App)
 
 // Initialize Vue plugins
-app.use(createPinia, {})
+// app.use(createPinia, {})
 
 // Initialize Vuethers
 await initVuethers(app, vuethersConfig)
