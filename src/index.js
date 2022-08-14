@@ -1,5 +1,4 @@
 import { dapp } from "./stores/dapp.js"
-import { getActivePinia, createPinia } from "pinia"
 import { ethers } from "ethers";
 import { vuethersDefaultConfig } from "./vuethers.config-default.js"
 import { markRaw } from "vue";
