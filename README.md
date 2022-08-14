@@ -10,7 +10,7 @@ Vuethers contains many unstyled components and composables to help interacting w
 
 The philosophy behind this package is to make it as minimalist/lightweight as possible and to allow developers to fully customize each of the components provided.
 
-This way developers can focus less on boring / repetitive tasks and more on the macro level of their DApp frontend. They able to easily customize each component to create a fully unique DApp frontend.
+This way developers can focus less on boring / repetitive tasks and more on the macro level of their DApp frontend. They're able to easily customize each component to create a fully unique DApp frontend.
 
 On the other hand, Vuethers also provides few optional CSS files that contain style for components in case some developers don't want to style them from scratch or don't want to style them at all.
 

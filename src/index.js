@@ -67,6 +67,27 @@ export async function initVuethers (app, vuethersCustomConfig) {
       window.location.reload(); 
     } 
   });
+  
+  // Initialize status.
+  dapp.status.add("wallet", [
+    "DISCONNECTED",
+    "REQUESTED",
+    "REFUSED",
+    "ERROR",
+    "CONNECTED"
+  ]),
+  dapp.status.add("network", [
+    "WRONG",
+    "ERROR",
+  ]),
+
+  // Set a timeout to the wallet status that falls to DISCONNECTED after a certain amount of time.
+  dapp.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+    setTimeout(() => {
+      dapp.status.wallet.set("DISCONNECTED");
+    }, 5000)
+  })
+
 
   // Retrieve current networks informations from RPC.
   const currentNetwork = await dapp.provider.getNetwork()
