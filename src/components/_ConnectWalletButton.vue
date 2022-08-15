@@ -21,13 +21,9 @@ async function connectWallet() {
       await dapp.provider.send("eth_requestAccounts", []);
       dapp.signer = dapp.provider.getSigner();
       dapp.status.wallet.set("CONNECTED");
-      
-      // Connect the new signer to all DApp's contracts.
-      for (const [contractName, contract] of Object.entries(dapp.contracts)) {
-        dapp.contracts[contractName] = await contract.connect(dapp.signer)
-      }
     }
     catch (e) {
+      console.log(e)
       if (e.code === 4001) {
         dapp.status.wallet.set("REFUSED");
       }

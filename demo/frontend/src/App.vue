@@ -1,19 +1,31 @@
 <script setup>
 import { ConnectWalletButton,
          SelectNetworkDropdown,
-         ContractInteractor } from "../../../src/index.js"
+         ContractInteractor,
+         dapp,
+         safeRun } from "../../../src/index.js"
+
+let contracts = $ref(null);
+safeRun(() => {
+    contracts = dapp.contracts.getAll()
+})
 </script>
 
 <template>
     <h1>Vuethers Testing App</h1>
-    <p>Current network : {{ dapp.networks.current ? dapp.networks.current.displayName : "Unsupported network"}}</p>
-    <ConnectWalletButton/>
-    <SelectNetworkDropdown/>
-    <p>Available contracts :</p>
-    <ul>
-        <li v-for="(contract, contract_name) in dapp.contracts">
-            {{ contract_name }}
-            <ContractInteractor :contractName="contract_name"/>
-        </li>
-    </ul>
+    <template v-if="dapp.initialized">
+        <p>Current network : {{ dapp.networks.current ? dapp.networks.current.displayName : "Unsupported network"}}</p>
+        <ConnectWalletButton/>
+        <SelectNetworkDropdown/>
+        <p>Available contracts :</p>
+        <ul>
+            <li v-for="(contract, contractName) of contracts">
+                {{ contractName }}
+                <ContractInteractor :contractName="contractName"/>
+            </li>
+        </ul>
+    </template>
+    <template v-else>
+        <p>Loading...</p>
+    </template>
 </template>

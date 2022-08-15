@@ -25,46 +25,66 @@
   When a property is requested to that proxy, this one will automatically pick the datas from the right source.
 
   It is called MixedStore because it behave like a data store that can holds mixed types of datas.
+
+  Additional infos :
+  - statefulSource has priority over stalessSource
 */
 
+import { ref } from "vue";
+
 export class MixedStore extends Object {
-  constructor (items, statelessSource, statefulSource) {
+  constructor (statelessSource, statefulSource) {
     super()
     super.constructor()
-    this._items = items;
     this._statelessSource = statelessSource;
     this._statefulSource = statefulSource;
 
-   for (const [name, target] of Object.entries(items)) {
-      if (!["stateless", "stateful"].includes(target)) {
-        throw(`Mixed stores items must have 'stateless' or 'stateful' as value. Got; ${target} for item '${name}'`)
-      }
-    }
     return new Proxy(this, {
       get: function(target, prop, receiver) {
-        if (Object.keys(target._items).includes(prop)) {
-          const itemTarget = target._items[prop];
-          if (itemTarget === "stateless") {
-            return target._statelessSource[prop];
-          }
-          else if (itemTarget === "stateful") {
-            return target._statefulSource[prop];
-          }
+        if (Object.keys(target._statefulSource.value).includes(prop)) {
+          return target._statefulSource.value[prop];
         }
+        else if (Object.keys(target._statelessSource).includes(prop)) {
+          return target._statelessSource[prop];
+        }
+        return undefined
       },
       set: function(target, prop, value) {
-        if (Object.keys(target._items).includes(prop)) {
-          const itemTarget = target._items[prop];
-          if (itemTarget === "stateless") {
-            target._statelessSource[prop] = value;
-          }
-          else if (itemTarget === "stateful") {
-            target._statefulSource[prop] = value;
-          }
-        }      
-        return true
+        if (Object.keys(target._statefulSource.value).includes(prop)) {
+          target._statefulSource.value[prop] = value;
+          return true
+        }
+        else if (Object.keys(target._statelessSource).includes(prop)) {
+          target._statelessSource[prop] = value;
+          return true
+        }
+        throw(`MixedStore object doesn't have any property called '${prop}'. New properties cannot be set / removed directly on a MixedStore object, please use add() and remove() methods of the store.`)
       }
     })
+  }
+
+  add (source, key, value) {
+    if (source === "stateful") {
+      this._statefulSource.value[key] = value;
+    }
+    else if (source === "stateless") {
+      this._statelessSource[key] = value;
+    }
+    else {
+      throw(`The the 'source' argument MixedStore.add() method must be 'stateful' or 'stateless'. Got: ${source}`)
+    }
+  }
+
+  remove (source, key) {
+    if (source === "stateful") {
+      delete this._statefulSource.value[key];
+    }
+    else if (source === "stateless") {
+      delete this._statelessSource[key];
+    }
+    else {
+      throw(`The the 'source' argument MixedStore.remove() method must be 'stateful' or 'stateless'. Got: ${source}`)
+    }
   }
 }
 
