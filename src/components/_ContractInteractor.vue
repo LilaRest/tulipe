@@ -1,6 +1,6 @@
 <script setup>
-import { markRaw } from "vue";
 import { dapp } from "../index.js";
+import { ethers } from "ethers";
 
 const props = defineProps({
   contractName: {
@@ -10,59 +10,103 @@ const props = defineProps({
 })
 
 const contract = dapp.contracts[props.contractName]
+console.log(contract.interface)
 const owner = await contract.owner()
+const units = ["wei", "gwei", "ether"]
+
+async function transact (func, funcArgs, txArgs={}) {
+  let data, error, call = null;
+  if (funcArgs) {
+    if (Array.isArray(funcArgs)) {
+      call = func(...funcArgs, txArgs)
+    }
+    else {
+      call = func(funcArgs, txArgs)
+    }
+  }
+  else {
+    call = func(txArgs)
+  }
+  await call
+    .then((res) => (data = res))
+    .catch((err) => (error = err))
+  return { data, error }
+}
 
 async function execFunc (funcName) {
-  try {
-    const response = await contract[funcName](...functionsIO[funcName].inputs);
-    functionsIO[funcName].outputs[0] = response;
+
+  const funcArgs = []
+  for (const input of functions[funcName].inputs) {
+    funcArgs.push(input.value);
   }
-  catch (e) {
-    functionsIO[funcName].error = e.reason;
+  const txArgs = {}
+  if (functions[funcName].payable && functions[funcName].tx.value != "") {
+    txArgs.value = ethers.utils.parseUnits(functions[funcName].tx.value.value, functions[funcName].tx.value.unit);
+  }
+
+  const { data, error } = await transact(contract.functions[funcName], funcArgs, txArgs)
+
+  if (error) {
+    functions[funcName].error = error.reason;
+  }
+  else {
+    for (let i = 0; i < data.length; i++) {
+      functions[funcName].outputs[i].value = data[i];
+    }
   }
 }
 
-const functionsIO = $ref({})
+const functions = $ref({})
 for (const func of Object.values(contract.interface.functions)) {
-  functionsIO[func.name] = {
+  functions[func.name] = {
     inputs: [],
     outputs: [],
     error: null,
-    properties: {
-      constant: func.constant,
-      payable: func.payable,
-      inputs: func.inputs,
-      outputs: func.outputs,
+    constant: func.constant,
+    payable: func.payable,
+    tx: {
+      value: {
+        value: "",
+        unit: "wei",
+      },
     }
   }
-  for (const inputIndex in func.inputs) {
-    functionsIO[func.name].inputs[inputIndex] = "";
+
+  for (let i = 0; i < func.inputs.length; i++) {
+    functions[func.name].inputs[i] = {
+      name: func.inputs[i].name,
+      type: func.inputs[i].type,
+      value: "",
+    };
   }
-  for (const outputIndex in func.outputs) {
-    functionsIO[func.name].outputs[outputIndex] = "";
+
+  for (let i = 0; i < func.outputs.length; i++) {
+    functions[func.name].outputs[i] = {
+      name: func.outputs[i].name,
+      type: func.outputs[i].type,
+      value: "",
+    };
   }
 }
 
 async function receiveEvent(event) {
-  eventsIO[event.event].count += 1
+  events[event.event].count += 1
 
   // Build log :
   let log = `Block ${event.blockNumber} -> {`
-  for(const input of eventsIO[event.event].properties.inputs) {
+  for(const input of events[event.event].inputs) {
     log += `${input.name}:${event.args[input.name]}, ` 
   }
   log = log.substring(0, log.length - 2) + "}"
-  eventsIO[event.event].logs.push(log)
+  events[event.event].logs.push(log)
 }
 
-const eventsIO = $ref({})
+const events = $ref({})
 for (const event of Object.values(contract.interface.events)) {
-  eventsIO[event.name] = {
+  events[event.name] = {
     count: 0,
     logs: [],
-    properties: {
-      inputs: event.inputs,
-    }
+    inputs: event.inputs,
   }
   contract.on(event, receiveEvent)
 }
@@ -75,6 +119,10 @@ function getType(type) {
     return "text"
   }
 }
+
+function formatPlaceholder(io) {
+  return `${io.name && io.name !== "null" ? io.name : "unnamed"} (${io.type})`
+}
 </script>
 
 <template>
@@ -84,10 +132,16 @@ function getType(type) {
     <li>Owner : {{ owner }}</li>
     <li>Functions :
       <ul>
-        <li v-for="(func, funcName) in functionsIO">
-          <button @click="execFunc(funcName)">{{ funcName }} ({{ func.properties.constant ? "read-only" : "" }}{{ func.properties.payable ? ", payable" : "" }})</button>
-          <input v-for="(input, index) in func.properties.inputs" v-model="func.inputs[index]" :type="getType(input.type)" :placeholder="input.type"/>
-          <input v-for="(output, index) in func.properties.outputs" v-model="func.outputs[index]" type="text" :placeholder="output.type" disabled/>
+        <li v-for="(func, funcName) in functions">
+          <button @click="execFunc(funcName)">{{ funcName }} ({{ func.constant ? "read-only" : "" }}{{ func.payable ? ", payable" : "" }})</button>
+          <input v-for="(input, index) of func.inputs" v-model="input.value" :type="getType(input.type)" :placeholder="formatPlaceholder(input)"/>
+          <span v-if="func.payable">
+            <input  v-model="func.tx.value.value" type="text" placeholder="TX value"/>
+            <select v-model="func.tx.value.unit">
+              <option v-for="unit in units" :value="unit">{{ unit }}</option>
+            </select>
+          </span>
+          <input v-for="(output, index) of func.outputs" v-model="output.value" type="text" :placeholder="formatPlaceholder(output)" disabled/>
           <p v-if="func.error">{{ func.error }}</p>
         </li>
       </ul>
@@ -95,7 +149,7 @@ function getType(type) {
     <li>
       Events :
       <ul>
-        <li v-for="(event, eventName) in eventsIO">
+        <li v-for="(event, eventName) in events">
           <h3>{{ eventName }}</h3>
           <p>Count : {{ event.count }}</p>
           <p>Logs:</p>

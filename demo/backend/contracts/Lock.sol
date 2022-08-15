@@ -21,6 +21,11 @@ contract Lock {
         owner = payable(msg.sender);
     }
 
+    modifier onlyOwner() {
+        require(payable(msg.sender) == owner, "You must be the owner.");
+        _;
+    }
+
     function withdraw() public {
         // Uncomment this line to print a log in your terminal
         console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
@@ -35,5 +40,14 @@ contract Lock {
 
     function raiseWithdrawEvent() public {
         emit Withdrawal(address(this).balance, block.timestamp);
+    }
+
+    function setSpecialNumber (int newSpecialNumber)
+        public 
+        payable
+        onlyOwner
+    {
+        require(msg.value > 0.5 ether, "To set the special number you must pay at least 0.5 ETH.");
+        specialNumber = newSpecialNumber;
     }
 }
