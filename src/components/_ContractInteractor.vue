@@ -62,8 +62,8 @@ for (const func of Object.values(contract.interface.functions)) {
     inputs: [],
     outputs: [],
     error: null,
-    constant: func.constant,
     payable: func.payable,
+    mutability: func.stateMutability === "view" || func.stateMutability === "pure" ? "read" : "write",
     tx: {
       value: {
         value: "",
@@ -71,6 +71,7 @@ for (const func of Object.values(contract.interface.functions)) {
       },
     }
   }
+  console.log(func)
 
   for (let i = 0; i < func.inputs.length; i++) {
     functions[func.name].inputs[i] = {
@@ -123,6 +124,13 @@ function getType(type) {
 function formatPlaceholder(io) {
   return `${io.name && io.name !== "null" ? io.name : "unnamed"} (${io.type})`
 }
+
+function formatFunctionKeywords(func) {
+  const keywords = []
+  keywords.push(func.mutability)
+  func.payable ? keywords.push("payable") : null
+  return keywords.join(", ")
+}
 </script>
 
 <template>
@@ -133,15 +141,31 @@ function formatPlaceholder(io) {
     <li>Functions :
       <ul>
         <li v-for="(func, funcName) in functions">
-          <button @click="execFunc(funcName)">{{ funcName }} ({{ func.constant ? "read-only" : "" }}{{ func.payable ? ", payable" : "" }})</button>
-          <input v-for="(input, index) of func.inputs" v-model="input.value" :type="getType(input.type)" :placeholder="formatPlaceholder(input)"/>
-          <span v-if="func.payable">
-            <input  v-model="func.tx.value.value" type="text" placeholder="TX value"/>
-            <select v-model="func.tx.value.unit">
-              <option v-for="unit in units" :value="unit">{{ unit }}</option>
-            </select>
-          </span>
-          <input v-for="(output, index) of func.outputs" v-model="output.value" type="text" :placeholder="formatPlaceholder(output)" disabled/>
+          <button @click="execFunc(funcName)">{{ funcName }}</button>
+          <small>({{ formatFunctionKeywords(func) }})</small>
+          <br/>
+          <div v-if="Object.keys(func.inputs).length > 0 || func.payable">
+            <small>Inputs :</small>
+            <ul>
+              <li v-for="(input, index) of func.inputs">
+                <input v-model="input.value" :type="getType(input.type)" :placeholder="formatPlaceholder(input)"/>
+              </li>
+              <li v-if="func.payable">
+                <input  v-model="func.tx.value.value" type="text" placeholder="TX value"/>
+                <select v-model="func.tx.value.unit">
+                  <option v-for="unit in units" :value="unit">{{ unit }}</option>
+                </select>
+              </li>
+            </ul>
+          </div>
+          <div v-if="Object.keys(func.outputs).length > 0">
+            <small>Outputs :</small>
+            <ul>
+              <li v-for="(output, index) of func.outputs">
+                <input v-model="output.value" type="text" :placeholder="formatPlaceholder(output)" disabled/>
+              </li>
+            </ul>
+          </div>
           <p v-if="func.error">{{ func.error }}</p>
         </li>
       </ul>

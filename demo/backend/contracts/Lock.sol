@@ -8,6 +8,8 @@ contract Lock {
     uint public unlockTime;
     address payable public owner;
     int public specialNumber = 8;
+    int[] public numbersList;
+    uint public constant constantsList = 963;
 
     event Withdrawal(uint amount, uint when);
 
@@ -49,5 +51,10 @@ contract Lock {
     {
         require(msg.value > 0.5 ether, "To set the special number you must pay at least 0.5 ETH.");
         specialNumber = newSpecialNumber;
+        numbersList.push(specialNumber);
+    }
+
+    function returnConstant (int a) pure public returns(int) {
+        return a * 2;
     }
 }
