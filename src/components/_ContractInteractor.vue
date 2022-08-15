@@ -10,7 +10,6 @@ const props = defineProps({
 })
 
 const contract = dapp.contracts[props.contractName]
-console.log(contract.interface)
 const owner = await contract.owner()
 const units = ["wei", "gwei", "ether"]
 
@@ -40,7 +39,8 @@ async function execFunc (funcName) {
     funcArgs.push(input.value);
   }
   const txArgs = {}
-  if (functions[funcName].payable && functions[funcName].tx.value != "") {
+  if (functions[funcName].payable && functions[funcName].tx.value.value !== "") {
+    console.log(functions[funcName].tx.value.value)
     txArgs.value = ethers.utils.parseUnits(functions[funcName].tx.value.value, functions[funcName].tx.value.unit);
   }
 
@@ -71,7 +71,6 @@ for (const func of Object.values(contract.interface.functions)) {
       },
     }
   }
-  console.log(func)
 
   for (let i = 0; i < func.inputs.length; i++) {
     functions[func.name].inputs[i] = {

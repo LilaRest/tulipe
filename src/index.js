@@ -37,9 +37,8 @@ function merge (target, ...sources) {
   return merge(target, ...sources);
 }
 
-async function initDAppStatus(dapp) {
+async function initDAppStatus() {
 
-  // Initialize status.
   dapp.status.add("wallet", [
     "DISCONNECTED",
     "REQUESTED",
@@ -47,6 +46,7 @@ async function initDAppStatus(dapp) {
     "ERROR",
     "CONNECTED"
   ]),
+
   dapp.status.add("network", [
     "OK",
     "WRONG",
@@ -59,33 +59,10 @@ async function initDAppStatus(dapp) {
       dapp.status.wallet.set("DISCONNECTED");
     }, 5000)
   })
-
 }
 
-async function initDAppStore(app) {
-
-  // Initialize DApp status.
-  await initDAppStatus(dapp);
-
-  // Makes the dapp stores available globally in the project.
-  app.config.globalProperties.dapp = dapp;
-
-  // Return the initialized store.
-  return dapp
-}
-
-export async function initVuethers (app, vuethersCustomConfig) {
-
-  // Initalize the DApp global store.
-  const dapp = await initDAppStore(app)
-
-  // Initialize the DApp status.
-
-  // Register the dapp
-  
-  // Get current network and signer.
+async function initDAppProvider() {
   dapp.provider = markRaw(new ethers.providers.Web3Provider(window.ethereum, "any"));
-  dapp.signer = markRaw(dapp.provider.getSigner());
 
   // Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
   dapp.provider.on("network", (newNetwork, oldNetwork) => {
@@ -93,8 +70,29 @@ export async function initVuethers (app, vuethersCustomConfig) {
       window.location.reload(); 
     } 
   });
-  
-  
+}
+
+async function initDappSigner () {
+
+  // Get current network and signer.
+  dapp.signer = markRaw(dapp.provider.getSigner());
+}
+
+
+export async function initVuethers (app, vuethersCustomConfig) {
+
+  console.log(app)
+  // Makes the dapp stores available globally in the project.
+  app.config.globalProperties.dapp = dapp;
+
+  // Initialize DApp status.
+  await initDAppStatus();
+
+  // Initialize DApp's provider.
+  await initDAppProvider();
+
+  // Initialize DApp's signer.
+  await initDappSigner();
 
   // Retrieve current networks informations from RPC.
   const currentNetwork = await dapp.provider.getNetwork()
@@ -132,20 +130,9 @@ export async function initVuethers (app, vuethersCustomConfig) {
       // Initalize current network 
       if (dapp.networks.current && dapp.networks.current.contracts) {
 
-        // Find if a the current signer is valid.
-        let isSignerValid = false;
-        try {
-          await dapp.signer.getAddress()
-          isSignerValid = true;
-        } catch (e) {}
-
         // Initialize all the contracts for the current network.
         for (const [name, contract] of Object.entries(dapp.networks.current.contracts)) {
-
-          // Create the contract instance.
-          const contractInstance = new ethers.Contract(contract.address, contract.abi, isSignerValid ? dapp.signer : dapp.provider)
-
-          dapp.contracts[name] = markRaw(contractInstance) // Here markRaw is used to fix a Vue 3 problem, see : https://github.com/vuejs/core/issues/3024
+          dapp.contracts.add(name, contract.address, contract.abi)
         }
       }
       else {
@@ -161,6 +148,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
       }
     }
   }
+  dapp.initialized = true;
 }
 
 export * from "./components/index.js"
