@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/user/fi/2__GREENHOUSE/A__Projects/vuethers/demo/backend/contracts/Lock.sol": {
-      "lastModificationDate": 1660231430550,
-      "contentHash": "f1930400a985756a7a347e166fff37f2",
+      "lastModificationDate": 1660545891356,
+      "contentHash": "f446589ce7a7951d8466b0adca59be94",
       "sourceName": "contracts/Lock.sol",
       "solcConfig": {
         "version": "0.8.9",
