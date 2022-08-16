@@ -1,7 +1,8 @@
-import { dapp } from "./stores/dapp.js"
+import { dapp } from "./stores/index.js"
 import { ethers } from "ethers";
 import { vuethersDefaultConfig } from "./vuethers.config-default.js"
 import { markRaw } from "vue";
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 function capitalizeWords (sentence) {
   const words = sentence.split(" ")
@@ -54,7 +55,7 @@ async function initDAppStatus() {
   ]),
 
   // Set a timeout to the wallet status that falls to DISCONNECTED after a certain amount of time.
-  dapp.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+  dapp.status.wallet.watch(["REFUSED", "ERROR"], () => {
     setTimeout(() => {
       dapp.status.wallet.set("DISCONNECTED");
     }, 5000)
@@ -80,17 +81,16 @@ async function initDAppProvider() {
     console.log("new block");
     console.log(blockNumber);
     const block = await dapp.provider.getBlockWithTransactions(blockNumber);
-    const trackedContracts = []
     for (const transaction of block.transactions) {
-      if (Object.keys(dapp._watchers).includes(transaction.to)) {
-        dapp._watchers[transaction.to].update();
+      if (Object.keys(dapp._chainWatchers).includes(transaction.to)) {
+        console.log("call update of = " + transaction.to);
+        await dapp._chainWatchers[transaction.to].update();
       }
       // if (signer.getAddress === transaction.from) {
       //   signer.sync(blockNumber); // blockNumber is used to prevent syncing multiple times of the data has already been synced at this block. Maybe it could be managed internally by sync without having to  pass it manually
       // }
     }
     console.log(block);
-
   })
 }
 
