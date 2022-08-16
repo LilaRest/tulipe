@@ -2,7 +2,6 @@ import { dapp } from "./stores/index.js"
 import { ethers } from "ethers";
 import { vuethersDefaultConfig } from "./vuethers.config-default.js"
 import { markRaw } from "vue";
-import { setupDevtoolsPlugin } from '@vue/devtools-api'
 
 function capitalizeWords (sentence) {
   const words = sentence.split(" ")
