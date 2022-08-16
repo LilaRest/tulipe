@@ -132,7 +132,7 @@ safeRun(async function () {
 })
 </script>
 
-<template v-if="dapp.initialized">
+<template v-if="dapp.safe">
   <p>Interact with '{{ contractName }}' contract :</p>
   <ul>
     <li>Address : {{ contract.address }}</li>

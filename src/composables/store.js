@@ -30,8 +30,6 @@
   - statefulSource has priority over stalessSource
 */
 
-import { ref } from "vue";
-
 export class MixedStore extends Object {
   constructor (statelessSource, statefulSource) {
     super()

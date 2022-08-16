@@ -22,7 +22,7 @@ safeRun(() => {
 
 <template>
     <h1>Vuethers Testing App</h1>
-    <template v-if="dapp.initialized">
+    <template v-if="dapp.safe">
         <p>Current network : {{ dapp.networks.current ? dapp.networks.current.displayName : "Unsupported network"}}</p>
         <ConnectWalletButton/>
         <SelectNetworkDropdown/>

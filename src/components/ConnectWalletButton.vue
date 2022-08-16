@@ -6,7 +6,7 @@ safeRun(async function () {
 })
 </script>
 
-<template>
+<template v-if="dapp.safe">
   <div class="ConnectWalletButton">
       <button @click="connectWallet" v-if="dapp.status.wallet.is('DISCONNECTED')">Connect Wallet</button>
       <button v-else-if="dapp.status.wallet.is('REQUESTED')" disabled>Connection requested...</button>
