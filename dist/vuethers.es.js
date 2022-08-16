@@ -48,7 +48,7 @@ const L = {
   },
   _watchers: {}
 }, q = C({
-  initialized: !1,
+  safe: !1,
   provider: null,
   signer: null,
   contracts: {
@@ -535,13 +535,13 @@ const L = {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg"
     }
   }
-}, z = { class: "ConnectWalletButton" }, Y = {
+}, Y = { class: "ConnectWalletButton" }, Q = {
   key: 1,
   disabled: ""
-}, Q = {
+}, X = {
   key: 2,
   disabled: ""
-}, X = {
+}, z = {
   key: 3,
   disabled: ""
 }, J = {
@@ -552,11 +552,11 @@ const L = {
   setup(a) {
     return G(async function() {
       await F();
-    }), (e, n) => (c(), u("div", z, [
+    }), (e, n) => (c(), u("div", Y, [
       m(t).status.wallet.is("DISCONNECTED") ? (c(), u("button", {
         key: 0,
         onClick: n[0] || (n[0] = (...s) => m(A) && m(A)(...s))
-      }, "Connect Wallet")) : m(t).status.wallet.is("REQUESTED") ? (c(), u("button", Y, "Connection requested...")) : m(t).status.wallet.is("REFUSED") ? (c(), u("button", Q, "Connection refused!")) : m(t).status.wallet.is("ERROR") ? (c(), u("button", X, "Connection error!")) : m(t).status.network.is("WRONG") ? (c(), u("button", J, "Wrong network! (" + y(m(t).networks.current.displayName) + ")", 1)) : m(t).status.wallet.is("CONNECTED") ? (c(), u("button", {
+      }, "Connect Wallet")) : m(t).status.wallet.is("REQUESTED") ? (c(), u("button", Q, "Connection requested...")) : m(t).status.wallet.is("REFUSED") ? (c(), u("button", X, "Connection refused!")) : m(t).status.wallet.is("ERROR") ? (c(), u("button", z, "Connection error!")) : m(t).status.network.is("WRONG") ? (c(), u("button", J, "Wrong network! (" + y(m(t).networks.current.displayName) + ")", 1)) : m(t).status.wallet.is("CONNECTED") ? (c(), u("button", {
         key: 5,
         onClick: n[1] || (n[1] = (...s) => m(j) && m(j)(...s))
       }, "Disconnect")) : E("", !0)
@@ -851,10 +851,10 @@ class ke {
   }
 }
 function G(a, e) {
-  if (t.initialized)
+  if (t.safe)
     a();
   else {
-    const n = R(() => t.initialized, () => {
+    const n = R(() => t.safe, () => {
       a(), n();
     });
   }
@@ -980,7 +980,7 @@ async function Te(a, e) {
         r ? t.networks.current = r : (t.networks.current = n, t.networks.current.displayName = _e(t.networks.current.name)), t.status.network.set("WRONG");
       }
   }
-  t.initialized = !0;
+  t.safe = !0;
 }
 export {
   Re as ConnectWalletButton,
