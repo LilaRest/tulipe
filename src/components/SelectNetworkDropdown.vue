@@ -55,7 +55,7 @@ let isDropdownOpened = $ref(false);
 
 </script>
 
-<template v-if="dapp.initialized">
+<template v-if="dapp.safe">
   <div class="SelectNetworkDropdown">
     <ul @click="toggle">
       <li v-if="dapp.networks.current" selected>

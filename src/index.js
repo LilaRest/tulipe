@@ -100,13 +100,12 @@ async function initDappSigner () {
   dapp.signer = markRaw(dapp.provider.getSigner());
 }
 
-
 export async function initVuethers (app, vuethersCustomConfig) {
 
   console.log(app)
   // Makes the dapp stores available globally in the project.
   app.config.globalProperties.dapp = dapp;
-
+  
   // Initialize DApp status.
   await initDAppStatus();
 
@@ -171,7 +170,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
       }
     }
   }
-  dapp.initialized = true;
+  dapp.safe = true;
 }
 
 export * from "./components/index.js"

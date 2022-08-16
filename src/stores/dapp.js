@@ -1,7 +1,7 @@
 import { Status } from "../index.js"
 import { MixedStore } from "../composables/store.js"
 import { ethers } from "ethers";
-import { markRaw, watch, ref } from "vue";
+import { markRaw, watch } from "vue";
 
 
 const dappStateless = {
@@ -26,7 +26,7 @@ const dappStateless = {
 
 const dappStateful = $ref({
   // Ethers.js objects to interact with
-  initialized: false,
+  safe: false,
   provider: null,
   signer: null,
   contracts: {
