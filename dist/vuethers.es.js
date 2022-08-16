@@ -1,83 +1,84 @@
-import { ref as C, markRaw as $, watch as N, withAsyncContext as V, openBlock as c, createElementBlock as u, unref as f, toDisplayString as y, createCommentVNode as E, createBlock as A, Suspense as U, withCtx as j, createVNode as G, Fragment as k, createElementVNode as i, renderList as g, withDirectives as R, vModelDynamic as L, vModelText as D, vModelSelect as q, createTextVNode as F } from "vue";
+import { ref as C, markRaw as $, watch as x, openBlock as c, createElementBlock as u, unref as m, toDisplayString as y, createCommentVNode as E, createBlock as j, Suspense as U, withCtx as G, createVNode as F, withAsyncContext as z, Fragment as k, createElementVNode as i, renderList as g, withDirectives as N, vModelDynamic as Y, vModelText as D, vModelSelect as Q, createTextVNode as B } from "vue";
 import { ethers as I } from "ethers";
-class z extends Object {
-  constructor(e, n) {
-    return super(), super.constructor(), this._statelessSource = e, this._statefulSource = n, new Proxy(this, {
-      get: function(o, a, h) {
-        if (Object.keys(o._statefulSource.value).includes(a))
-          return o._statefulSource.value[a];
-        if (Object.keys(o._statelessSource).includes(a))
-          return o._statelessSource[a];
+class X extends Object {
+  constructor(e, t) {
+    return super(), super.constructor(), this._statelessSource = e, this._statefulSource = t, new Proxy(this, {
+      get: function(r, s, h) {
+        if (Object.keys(r._statefulSource.value).includes(s))
+          return r._statefulSource.value[s];
+        if (Object.keys(r._statelessSource).includes(s))
+          return r._statelessSource[s];
       },
-      set: function(o, a, h) {
-        if (Object.keys(o._statefulSource.value).includes(a))
-          return o._statefulSource.value[a] = h, !0;
-        if (Object.keys(o._statelessSource).includes(a))
-          return o._statelessSource[a] = h, !0;
-        throw `MixedStore object doesn't have any property called '${a}'. New properties cannot be set / removed directly on a MixedStore object, please use add() and remove() methods of the store.`;
+      set: function(r, s, h) {
+        if (Object.keys(r._statefulSource.value).includes(s))
+          return r._statefulSource.value[s] = h, !0;
+        if (Object.keys(r._statelessSource).includes(s))
+          return r._statelessSource[s] = h, !0;
+        throw `MixedStore object doesn't have any property called '${s}'. New properties cannot be set / removed directly on a MixedStore object, please use add() and remove() methods of the store.`;
       }
     });
   }
-  add(e, n, o) {
+  add(e, t, r) {
     if (e === "stateful")
-      this._statefulSource.value[n] = o;
+      this._statefulSource.value[t] = r;
     else if (e === "stateless")
-      this._statelessSource[n] = o;
+      this._statelessSource[t] = r;
     else
       throw `The the 'source' argument MixedStore.add() method must be 'stateful' or 'stateless'. Got: ${e}`;
   }
-  remove(e, n) {
+  remove(e, t) {
     if (e === "stateful")
-      delete this._statefulSource.value[n];
+      delete this._statefulSource.value[t];
     else if (e === "stateless")
-      delete this._statelessSource[n];
+      delete this._statelessSource[t];
     else
       throw `The the 'source' argument MixedStore.remove() method must be 'stateful' or 'stateless'. Got: ${e}`;
   }
 }
-const Y = {
+const J = {
   config: {},
   defaults: {},
   networks: {},
   status: {
-    add: (s, e) => {
-      if (Object.keys(t.status).includes(s))
-        throw `You cannot add a new status called '${s}', this name is either reserved by Vuethers or already existing.`;
-      t.status[s] = new Ie(s, e);
+    add: (a, e) => {
+      if (Object.keys(n.status).includes(a))
+        throw `You cannot add a new status called '${a}', this name is either reserved by Vuethers or already existing.`;
+      n.status[a] = new Re(a, e);
     }
-  }
-}, Q = C({
-  initialized: C(!1),
+  },
+  _watchers: {}
+}, Z = C({
+  initialized: !1,
   provider: null,
   signer: null,
   contracts: {
     _contracts: [],
-    add: (s, e, n) => {
-      if (Object.keys(t.contracts).includes(s))
-        throw `You cannot add a new contract called '${s}', this name is either reserved by Vuethers or already existing.`;
-      let o = null;
+    add: (a, e, t) => {
+      if (Object.keys(n.contracts).includes(a))
+        throw `You cannot add a new contract called '${a}', this name is either reserved by Vuethers or already existing.`;
+      let r = null;
       try {
-        o = new I.Contract(e, n, t.signer);
+        r = new I.Contract(e, t, n.signer);
       } catch {
-        o = new I.Contract(e, n, t.provider);
+        r = new I.Contract(e, t, n.provider);
       }
-      t.contracts[s] = $(o), t.contracts._contracts.push(s), N(() => t.signer, () => {
-        console.log("refresh signer of " + s);
+      n.contracts[a] = $(r), n.contracts._contracts.push(a), x(() => n.signer, () => {
+        console.log("refresh signer of " + a);
         try {
-          t.contracts[s].connect(t.signer);
-        } catch (a) {
-          console.log("error while refreshing"), console.log(a), t.contracts[s].connect(t.provider);
+          n.contracts[a].connect(n.signer);
+        } catch (s) {
+          console.log("error while refreshing"), console.log(s), n.contracts[a].connect(n.provider);
         }
       });
     },
     getAll: () => {
-      const s = {};
-      for (const e of t.contracts._contracts)
-        s[e] = t.contracts[e];
-      return s;
+      const a = {};
+      for (const e of n.contracts._contracts)
+        a[e] = n.contracts[e];
+      return a;
     }
   }
-}), t = new z(Y, Q), O = {
+}), n = new X(J, Z), O = {
   networks: [
     {
       name: "Ethereum Mainnet",
@@ -534,62 +535,44 @@ const Y = {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg"
     }
   }
-}, X = { class: "ConnectWalletButton" }, J = {
+}, ee = { class: "ConnectWalletButton" }, te = {
   key: 1,
   disabled: ""
-}, Z = {
+}, ne = {
   key: 2,
   disabled: ""
-}, ee = {
+}, ae = {
   key: 3,
   disabled: ""
-}, te = {
+}, se = {
   key: 4,
   disabled: ""
-}, ne = {
+}, re = {
   __name: "_ConnectWalletButton",
-  async setup(s) {
-    let e, n;
-    async function o() {
-      try {
-        return await t.signer.getAddress(), t.status.wallet.set("CONNECTED"), !0;
-      } catch {
-        return !1;
-      }
-    }
-    [e, n] = V(() => o()), await e, n();
-    async function a() {
-      if (!await o())
-        try {
-          t.status.wallet.set("REQUESTED"), await t.provider.send("eth_requestAccounts", []), t.signer = t.provider.getSigner(), t.status.wallet.set("CONNECTED");
-        } catch (p) {
-          console.log(p), p.code === 4001 ? t.status.wallet.set("REFUSED") : t.status.wallet.set("ERROR");
-        }
-    }
-    function h() {
-      t.status.wallet.set("DISCONNECTED");
-    }
-    return (p, x) => (c(), u("div", X, [
-      f(t).status.wallet.is("DISCONNECTED") ? (c(), u("button", {
+  setup(a) {
+    return Ne(async function() {
+      await H();
+    }), (e, t) => (c(), u("div", ee, [
+      m(n).status.wallet.is("DISCONNECTED") ? (c(), u("button", {
         key: 0,
-        onClick: a
-      }, "Connect Wallet")) : f(t).status.wallet.is("REQUESTED") ? (c(), u("button", J, "Connection requested...")) : f(t).status.wallet.is("REFUSED") ? (c(), u("button", Z, "Connection refused!")) : f(t).status.wallet.is("ERROR") ? (c(), u("button", ee, "Connection error!")) : f(t).status.network.is("WRONG") ? (c(), u("button", te, "Wrong network! (" + y(f(t).networks.current.displayName) + ")", 1)) : f(t).status.wallet.is("CONNECTED") ? (c(), u("button", {
+        onClick: t[0] || (t[0] = (...r) => m(V) && m(V)(...r))
+      }, "Connect Wallet")) : m(n).status.wallet.is("REQUESTED") ? (c(), u("button", te, "Connection requested...")) : m(n).status.wallet.is("REFUSED") ? (c(), u("button", ne, "Connection refused!")) : m(n).status.wallet.is("ERROR") ? (c(), u("button", ae, "Connection error!")) : m(n).status.network.is("WRONG") ? (c(), u("button", se, "Wrong network! (" + y(m(n).networks.current.displayName) + ")", 1)) : m(n).status.wallet.is("CONNECTED") ? (c(), u("button", {
         key: 5,
-        onClick: h
+        onClick: t[1] || (t[1] = (...r) => m(A) && m(A)(...r))
       }, "Disconnect")) : E("", !0)
     ]));
   }
-}, Te = {
+}, Ae = {
   __name: "ConnectWalletButton",
-  setup(s) {
-    return (e, n) => (c(), A(U, null, {
-      default: j(() => [
-        G(ne)
+  setup(a) {
+    return (e, t) => (c(), j(U, null, {
+      default: G(() => [
+        F(re)
       ]),
       _: 1
     }));
   }
-}, ae = /* @__PURE__ */ F("Functions : "), se = ["onClick"], re = /* @__PURE__ */ i("br", null, null, -1), oe = { key: 0 }, le = /* @__PURE__ */ i("small", null, "Inputs :", -1), ie = ["onUpdate:modelValue", "type", "placeholder"], ce = { key: 0 }, ue = ["onUpdate:modelValue"], de = ["onUpdate:modelValue"], he = ["value"], me = { key: 1 }, pe = /* @__PURE__ */ i("small", null, "Outputs :", -1), fe = ["onUpdate:modelValue", "placeholder"], be = { key: 2 }, ye = /* @__PURE__ */ F(" Events : "), ve = /* @__PURE__ */ i("p", null, "Logs:", -1), we = {
+}, oe = /* @__PURE__ */ B("Functions : "), le = ["onClick"], ie = /* @__PURE__ */ i("br", null, null, -1), ce = { key: 0 }, ue = /* @__PURE__ */ i("small", null, "Inputs :", -1), de = ["onUpdate:modelValue", "type", "placeholder"], he = { key: 0 }, pe = ["onUpdate:modelValue"], me = ["onUpdate:modelValue"], fe = ["value"], be = { key: 1 }, ye = /* @__PURE__ */ i("small", null, "Outputs :", -1), ve = ["onUpdate:modelValue", "placeholder"], we = { key: 2 }, ke = /* @__PURE__ */ B(" Events : "), _e = /* @__PURE__ */ i("p", null, "Logs:", -1), ge = {
   __name: "_ContractInteractor",
   props: {
     contractName: {
@@ -597,34 +580,34 @@ const Y = {
       required: !0
     }
   },
-  async setup(s) {
-    let e, n;
-    const o = s, a = t.contracts[o.contractName], h = ([e, n] = V(() => a.owner()), e = await e, n(), e), p = ["wei", "gwei", "ether"];
-    async function x(r, l, d = {}) {
-      let w, m, b = null;
-      return l ? Array.isArray(l) ? b = r(...l, d) : b = r(l, d) : b = r(d), await b.then((_) => w = _).catch((_) => m = _), { data: w, error: m };
+  async setup(a) {
+    let e, t;
+    const r = a, s = n.contracts[r.contractName], h = ([e, t] = z(() => s.owner()), e = await e, t(), e), f = ["wei", "gwei", "ether"];
+    async function R(o, l, d = {}) {
+      let w, p, b = null;
+      return l ? Array.isArray(l) ? b = o(...l, d) : b = o(l, d) : b = o(d), await b.then((_) => w = _).catch((_) => p = _), { data: w, error: p };
     }
-    async function B(r) {
+    async function W(o) {
       const l = [];
-      for (const b of v.value[r].inputs)
+      for (const b of v.value[o].inputs)
         l.push(b.value);
       const d = {};
-      v.value[r].payable && v.value[r].tx.value.value !== "" && (console.log(v.value[r].tx.value.value), d.value = I.utils.parseUnits(v.value[r].tx.value.value, v.value[r].tx.value.unit));
-      const { data: w, error: m } = await x(a.functions[r], l, d);
-      if (m)
-        v.value[r].error = m.reason;
+      v.value[o].payable && v.value[o].tx.value.value !== "" && (console.log(v.value[o].tx.value.value), d.value = I.utils.parseUnits(v.value[o].tx.value.value, v.value[o].tx.value.unit));
+      const { data: w, error: p } = await R(s.functions[o], l, d);
+      if (p)
+        v.value[o].error = p.reason;
       else
         for (let b = 0; b < w.length; b++)
-          v.value[r].outputs[b].value = w[b];
+          v.value[o].outputs[b].value = w[b];
     }
     const v = C({});
-    for (const r of Object.values(a.interface.functions)) {
-      v.value[r.name] = {
+    for (const o of Object.values(s.interface.functions)) {
+      v.value[o.name] = {
         inputs: [],
         outputs: [],
         error: null,
-        payable: r.payable,
-        mutability: r.stateMutability === "view" || r.stateMutability === "pure" ? "read" : "write",
+        payable: o.payable,
+        mutability: o.stateMutability === "view" || o.stateMutability === "pure" ? "read" : "write",
         tx: {
           value: {
             value: "",
@@ -632,115 +615,115 @@ const Y = {
           }
         }
       };
-      for (let l = 0; l < r.inputs.length; l++)
-        v.value[r.name].inputs[l] = {
-          name: r.inputs[l].name,
-          type: r.inputs[l].type,
+      for (let l = 0; l < o.inputs.length; l++)
+        v.value[o.name].inputs[l] = {
+          name: o.inputs[l].name,
+          type: o.inputs[l].type,
           value: ""
         };
-      for (let l = 0; l < r.outputs.length; l++)
-        v.value[r.name].outputs[l] = {
-          name: r.outputs[l].name,
-          type: r.outputs[l].type,
+      for (let l = 0; l < o.outputs.length; l++)
+        v.value[o.name].outputs[l] = {
+          name: o.outputs[l].name,
+          type: o.outputs[l].type,
           value: ""
         };
     }
-    async function H(r) {
-      S.value[r.event].count += 1;
-      let l = `Block ${r.blockNumber} -> {`;
-      for (const d of S.value[r.event].inputs)
-        l += `${d.name}:${r.args[d.name]}, `;
-      l = l.substring(0, l.length - 2) + "}", S.value[r.event].logs.push(l);
+    async function K(o) {
+      S.value[o.event].count += 1;
+      let l = `Block ${o.blockNumber} -> {`;
+      for (const d of S.value[o.event].inputs)
+        l += `${d.name}:${o.args[d.name]}, `;
+      l = l.substring(0, l.length - 2) + "}", S.value[o.event].logs.push(l);
     }
     const S = C({});
-    for (const r of Object.values(a.interface.events))
-      S.value[r.name] = {
+    for (const o of Object.values(s.interface.events))
+      S.value[o.name] = {
         count: 0,
         logs: [],
-        inputs: r.inputs
-      }, a.on(r, H);
-    function W(r) {
-      return r.includes("int") ? "number" : "text";
+        inputs: o.inputs
+      }, s.on(o, K);
+    function L(o) {
+      return o.includes("int") ? "number" : "text";
     }
-    function M(r) {
-      return `${r.name && r.name !== "null" ? r.name : "unnamed"} (${r.type})`;
+    function M(o) {
+      return `${o.name && o.name !== "null" ? o.name : "unnamed"} (${o.type})`;
     }
-    function K(r) {
+    function q(o) {
       const l = [];
-      return l.push(r.mutability), r.payable && l.push("payable"), l.join(", ");
+      return l.push(o.mutability), o.payable && l.push("payable"), l.join(", ");
     }
-    return (r, l) => (c(), u(k, null, [
-      i("p", null, "Interact with '" + y(s.contractName) + "' contract :", 1),
+    return (o, l) => (c(), u(k, null, [
+      i("p", null, "Interact with '" + y(a.contractName) + "' contract :", 1),
       i("ul", null, [
-        i("li", null, "Address : " + y(f(a).address), 1),
-        i("li", null, "Owner : " + y(f(h)), 1),
+        i("li", null, "Address : " + y(m(s).address), 1),
+        i("li", null, "Owner : " + y(m(h)), 1),
         i("li", null, [
-          ae,
+          oe,
           i("ul", null, [
             (c(!0), u(k, null, g(v.value, (d, w) => (c(), u("li", null, [
               i("button", {
-                onClick: (m) => B(w)
-              }, y(w), 9, se),
-              i("small", null, "(" + y(K(d)) + ")", 1),
-              re,
-              Object.keys(d.inputs).length > 0 || d.payable ? (c(), u("div", oe, [
-                le,
+                onClick: (p) => W(w)
+              }, y(w), 9, le),
+              i("small", null, "(" + y(q(d)) + ")", 1),
+              ie,
+              Object.keys(d.inputs).length > 0 || d.payable ? (c(), u("div", ce, [
+                ue,
                 i("ul", null, [
-                  (c(!0), u(k, null, g(d.inputs, (m, b) => (c(), u("li", null, [
-                    R(i("input", {
-                      "onUpdate:modelValue": (_) => m.value = _,
-                      type: W(m.type),
-                      placeholder: M(m)
-                    }, null, 8, ie), [
-                      [L, m.value]
+                  (c(!0), u(k, null, g(d.inputs, (p, b) => (c(), u("li", null, [
+                    N(i("input", {
+                      "onUpdate:modelValue": (_) => p.value = _,
+                      type: L(p.type),
+                      placeholder: M(p)
+                    }, null, 8, de), [
+                      [Y, p.value]
                     ])
                   ]))), 256)),
-                  d.payable ? (c(), u("li", ce, [
-                    R(i("input", {
-                      "onUpdate:modelValue": (m) => d.tx.value.value = m,
+                  d.payable ? (c(), u("li", he, [
+                    N(i("input", {
+                      "onUpdate:modelValue": (p) => d.tx.value.value = p,
                       type: "text",
                       placeholder: "TX value"
-                    }, null, 8, ue), [
+                    }, null, 8, pe), [
                       [D, d.tx.value.value]
                     ]),
-                    R(i("select", {
-                      "onUpdate:modelValue": (m) => d.tx.value.unit = m
+                    N(i("select", {
+                      "onUpdate:modelValue": (p) => d.tx.value.unit = p
                     }, [
-                      (c(), u(k, null, g(p, (m) => i("option", { value: m }, y(m), 9, he)), 64))
-                    ], 8, de), [
-                      [q, d.tx.value.unit]
+                      (c(), u(k, null, g(f, (p) => i("option", { value: p }, y(p), 9, fe)), 64))
+                    ], 8, me), [
+                      [Q, d.tx.value.unit]
                     ])
                   ])) : E("", !0)
                 ])
               ])) : E("", !0),
-              Object.keys(d.outputs).length > 0 ? (c(), u("div", me, [
-                pe,
+              Object.keys(d.outputs).length > 0 ? (c(), u("div", be, [
+                ye,
                 i("ul", null, [
-                  (c(!0), u(k, null, g(d.outputs, (m, b) => (c(), u("li", null, [
-                    R(i("input", {
-                      "onUpdate:modelValue": (_) => m.value = _,
+                  (c(!0), u(k, null, g(d.outputs, (p, b) => (c(), u("li", null, [
+                    N(i("input", {
+                      "onUpdate:modelValue": (_) => p.value = _,
                       type: "text",
-                      placeholder: M(m),
+                      placeholder: M(p),
                       disabled: ""
-                    }, null, 8, fe), [
-                      [D, m.value]
+                    }, null, 8, ve), [
+                      [D, p.value]
                     ])
                   ]))), 256))
                 ])
               ])) : E("", !0),
-              d.error ? (c(), u("p", be, y(d.error), 1)) : E("", !0)
+              d.error ? (c(), u("p", we, y(d.error), 1)) : E("", !0)
             ]))), 256))
           ])
         ]),
         i("li", null, [
-          ye,
+          ke,
           i("ul", null, [
             (c(!0), u(k, null, g(S.value, (d, w) => (c(), u("li", null, [
               i("h3", null, y(w), 1),
               i("p", null, "Count : " + y(d.count), 1),
-              ve,
+              _e,
               i("ul", null, [
-                (c(!0), u(k, null, g(d.logs, (m) => (c(), u("li", null, y(m), 1))), 256))
+                (c(!0), u(k, null, g(d.logs, (p) => (c(), u("li", null, y(p), 1))), 256))
               ])
             ]))), 256))
           ])
@@ -748,7 +731,7 @@ const Y = {
       ])
     ], 64));
   }
-}, $e = {
+}, je = {
   __name: "ContractInteractor",
   props: {
     contractName: {
@@ -756,39 +739,39 @@ const Y = {
       required: !0
     }
   },
-  setup(s) {
-    const e = s;
-    return (n, o) => (c(), A(U, null, {
-      default: j(() => [
-        G(we, {
+  setup(a) {
+    const e = a;
+    return (t, r) => (c(), j(U, null, {
+      default: G(() => [
+        F(ge, {
           contractName: e.contractName
         }, null, 8, ["contractName"])
       ]),
       _: 1
     }));
   }
-}, ke = { class: "SelectNetworkDropdown" }, _e = {
+}, Ee = { class: "SelectNetworkDropdown" }, Ce = {
   key: 0,
   selected: ""
-}, ge = ["src", "alt"], Ee = ["onClick"], Ce = ["src", "alt"], Me = {
+}, Ie = ["src", "alt"], Se = ["onClick"], xe = ["src", "alt"], Ue = {
   __name: "SelectNetworkDropdown",
-  setup(s) {
-    async function e(a) {
-      const h = t.networks.available.find((p) => p.chainId === parseInt(a));
+  setup(a) {
+    async function e(s) {
+      const h = n.networks.available.find((f) => f.chainId === parseInt(s));
       if (h) {
-        a = I.utils.hexlify(parseInt(a)).toString(), a = I.utils.hexValue(a);
+        s = I.utils.hexlify(parseInt(s)).toString(), s = I.utils.hexValue(s);
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
             params: [{
-              chainId: a
+              chainId: s
             }]
           });
-        } catch (x) {
-          x.code === 4902 && await window.ethereum.request({
+        } catch (R) {
+          R.code === 4902 && await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: [{
-              chainId: a,
+              chainId: s,
               rpcUrls: [h.defaultRPC],
               chainName: h.name,
               nativeCurrency: {
@@ -800,45 +783,45 @@ const Y = {
             }]
           });
         }
-        const p = await t.provider.getNetwork();
-        t.networks.current.chainId !== p.chainId && window.location.reload();
+        const f = await n.provider.getNetwork();
+        n.networks.current.chainId !== f.chainId && window.location.reload();
       }
     }
-    let n = C(!1);
-    function o() {
-      n.value = !n.value;
+    let t = C(!1);
+    function r() {
+      t.value = !t.value;
     }
-    return (a, h) => (c(), u("div", ke, [
-      i("ul", { onClick: o }, [
-        f(t).networks.current ? (c(), u("li", _e, [
+    return (s, h) => (c(), u("div", Ee, [
+      i("ul", { onClick: r }, [
+        m(n).networks.current ? (c(), u("li", Ce, [
           i("img", {
             width: "40",
-            src: f(t).networks.current.icon ? f(t).networks.current.icon : f(t).defaults.networks.icon,
-            alt: f(t).networks.current.name + " logo"
-          }, null, 8, ge),
-          i("p", null, y(f(t).networks.current.displayName), 1)
+            src: m(n).networks.current.icon ? m(n).networks.current.icon : m(n).defaults.networks.icon,
+            alt: m(n).networks.current.name + " logo"
+          }, null, 8, Ie),
+          i("p", null, y(m(n).networks.current.displayName), 1)
         ])) : E("", !0),
-        n.value ? (c(!0), u(k, { key: 1 }, g(f(t).networks.available, (p) => (c(), u("li", {
-          key: p.chainId,
-          onClick: (x) => e(p.chainId)
+        t.value ? (c(!0), u(k, { key: 1 }, g(m(n).networks.available, (f) => (c(), u("li", {
+          key: f.chainId,
+          onClick: (R) => e(f.chainId)
         }, [
           i("img", {
             width: "40",
-            src: p.icon ? p.icon : f(t).defaults.networks.icon,
-            alt: p.name + " logo"
-          }, null, 8, Ce),
-          i("p", null, y(p.displayName), 1)
-        ], 8, Ee))), 128)) : E("", !0)
+            src: f.icon ? f.icon : m(n).defaults.networks.icon,
+            alt: f.name + " logo"
+          }, null, 8, xe),
+          i("p", null, y(f.displayName), 1)
+        ], 8, Se))), 128)) : E("", !0)
       ])
     ]));
   }
 };
-class Ie {
-  constructor(e, n) {
-    if (this._name = e, this.states = [], !Array.isArray(n))
-      throw `The 'states' parameter of a Status instance '${e}' must an array of strings. Got: ${n}`;
-    for (const o of n)
-      this.states.push(this._formatState(o));
+class Re {
+  constructor(e, t) {
+    if (this._name = e, this.states = [], !Array.isArray(t))
+      throw `The 'states' parameter of a Status instance '${e}' must an array of strings. Got: ${t}`;
+    for (const r of t)
+      this.states.push(this._formatState(r));
     this._state = C(this.states[0]);
   }
   _formatState(e) {
@@ -848,8 +831,8 @@ class Ie {
     return !!this.states.includes(this._formatState(e));
   }
   _areStatesValid(e) {
-    for (const n of e)
-      if (!this._isStateValid(n))
+    for (const t of e)
+      if (!this._isStateValid(t))
         return !1;
     return !0;
   }
@@ -869,119 +852,173 @@ class Ie {
   isIn(e) {
     if (!this._areStatesValid(e))
       throw `The states given to the isIn() method of Status instance '${this._name}' must be an array with values in ${this.states}. Got: ${e}`;
-    for (const n of e)
-      if (this.is(n))
+    for (const t of e)
+      if (this.is(t))
         return !0;
     return !1;
   }
   watch(e) {
-    N(this._state, () => {
+    x(this._state, () => {
       e(this.get());
     });
   }
-  watchState(e, n) {
+  watchState(e, t) {
     if (!this._isStateValid(e))
       throw `The state given to the watchState() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${e}`;
-    N(this._state, (o, a) => {
-      this.is(e) && n(this.get());
+    x(this._state, (r, s) => {
+      this.is(e) && t(this.get());
     });
   }
-  watchStates(e, n) {
+  watchStates(e, t) {
     if (!this._areStatesValid(e))
       throw `The states given to the watchStates() method of Status instance '${this._name}' must be an array with values in ${this.states}. Got: ${e}`;
-    N(this._state, () => {
-      this.isIn(e) && n(this.get());
+    x(this._state, () => {
+      this.isIn(e) && t(this.get());
     });
   }
 }
-function De(s, e) {
-  if (t.initialized)
-    s();
+function Ne(a, e) {
+  if (n.initialized)
+    a();
   else {
-    const n = N(() => t.initialized, () => {
-      s(), n();
+    const t = x(() => n.initialized, () => {
+      a(), t();
     });
   }
 }
-function xe(s) {
-  const e = s.split(" ");
-  for (let n = 0; n < e.length; n++)
-    e[n] = e[n][0].toUpperCase() + e[n].substring(1);
+class Pe {
+  constructor(e) {
+    this.contract = e, this.dependents = {};
+  }
+  async update() {
+    for (const [e, t] of Object.entries(this.dependents))
+      for (const [r, s] of Object.entries(t)) {
+        const h = s.value.value;
+        s.value.value = await this.contract[e](...s.args);
+        for (const f of s.callbacks)
+          f(s.value.value, h);
+      }
+  }
+  add(e, t, r) {
+    Object.keys(this.dependents).includes(e) || (this.dependents[e] = {}), Object.keys(this.dependents[e]).includes(t.toString()) || (this.dependents[e][t.toString()] = {
+      callbacks: [],
+      args: t,
+      value: C(null)
+    }), this.dependents[e][t.toString()].callbacks.push(r);
+  }
+}
+function Ge(a, e, t, r) {
+  Object.keys(n._watchers).includes(a.address) || (n._watchers[a.address] = new Pe(a)), n._watchers[a.address].add(e, t, r);
+}
+async function H() {
+  try {
+    return await dapp.signer.getAddress(), dapp.status.wallet.set("CONNECTED"), !0;
+  } catch {
+    return !1;
+  }
+}
+async function V() {
+  if (!await H())
+    try {
+      dapp.status.wallet.set("REQUESTED"), await dapp.provider.send("eth_requestAccounts", []), dapp.signer = dapp.provider.getSigner(), dapp.status.wallet.set("CONNECTED");
+    } catch (a) {
+      console.log(a), a.code === 4001 ? dapp.status.wallet.set("REFUSED") : dapp.status.wallet.set("ERROR");
+    }
+}
+function A() {
+  dapp.status.wallet.set("DISCONNECTED");
+}
+function Oe(a) {
+  const e = a.split(" ");
+  for (let t = 0; t < e.length; t++)
+    e[t] = e[t][0].toUpperCase() + e[t].substring(1);
   return e.join(" ");
 }
-function T(s) {
-  return s && typeof s == "object" && !Array.isArray(s);
+function T(a) {
+  return a && typeof a == "object" && !Array.isArray(a);
 }
-function P(s, ...e) {
+function P(a, ...e) {
   if (!e.length)
-    return s;
-  const n = e.shift();
-  if (T(s) && T(n))
-    for (const o in n)
-      T(n[o]) ? (s[o] || Object.assign(s, {
-        [o]: {}
-      }), P(s[o], n[o])) : Object.assign(s, {
-        [o]: n[o]
+    return a;
+  const t = e.shift();
+  if (T(a) && T(t))
+    for (const r in t)
+      T(t[r]) ? (a[r] || Object.assign(a, {
+        [r]: {}
+      }), P(a[r], t[r])) : Object.assign(a, {
+        [r]: t[r]
       });
-  return P(s, ...e);
+  return P(a, ...e);
 }
-async function Se() {
-  t.status.add("wallet", [
+async function Te() {
+  n.status.add("wallet", [
     "DISCONNECTED",
     "REQUESTED",
     "REFUSED",
     "ERROR",
     "CONNECTED"
-  ]), t.status.add("network", [
+  ]), n.status.add("network", [
     "OK",
     "WRONG",
     "ERROR"
-  ]), t.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
+  ]), n.status.wallet.watchStates(["REFUSED", "ERROR"], () => {
     setTimeout(() => {
-      t.status.wallet.set("DISCONNECTED");
+      n.status.wallet.set("DISCONNECTED");
     }, 5e3);
   });
 }
-async function Ne() {
-  t.provider = $(new I.providers.Web3Provider(window.ethereum, "any")), t.provider.on("network", (s, e) => {
-    e && e !== s && window.location.reload();
+async function $e() {
+  n.provider = $(new I.providers.Web3Provider(window.ethereum, "any")), n.provider.on("network", (a, e) => {
+    e && e !== a && window.location.reload();
+  }), n.provider.on("error", () => {
+    console.log("Provider error !"), n.status.network.set("ERROR");
+  }), n.provider.on("block", async function(a) {
+    console.log("new block"), console.log(a);
+    const e = await n.provider.getBlockWithTransactions(a);
+    for (const t of e.transactions)
+      Object.keys(n._watchers).includes(t.to) && n._watchers[t.to].update();
+    console.log(e);
   });
 }
-async function Re() {
-  t.signer = $(t.provider.getSigner());
+async function Me() {
+  n.signer = $(n.provider.getSigner());
 }
-async function Ve(s, e) {
-  console.log(s), s.config.globalProperties.dapp = t, await Se(), await Ne(), await Re();
-  const n = await t.provider.getNetwork();
+async function Fe(a, e) {
+  console.log(a), a.config.globalProperties.dapp = n, await Te(), await $e(), await Me();
+  const t = await n.provider.getNetwork();
   if (e) {
-    const o = P({ ...O }, { ...e });
-    o.networks = [];
-    for (let a of e.networks)
-      if (a.chainId) {
-        const h = O.networks.find((p) => p.chainId === a.chainId);
-        a = P({ ...h }, { ...a }), a.displayName || (a.displayName = a.name), o.networks.push(a);
+    const r = P({ ...O }, { ...e });
+    r.networks = [];
+    for (let s of e.networks)
+      if (s.chainId) {
+        const h = O.networks.find((f) => f.chainId === s.chainId);
+        s = P({ ...h }, { ...s }), s.displayName || (s.displayName = s.name), r.networks.push(s);
       }
-    if (t.defaults = o.defaults, o.networks)
-      if (t.networks = {
-        available: o.networks.filter((a) => a.chainId !== n.chainId),
-        current: o.networks.find((a) => a.chainId === n.chainId),
+    if (n.defaults = r.defaults, r.networks)
+      if (n.networks = {
+        available: r.networks.filter((s) => s.chainId !== t.chainId),
+        current: r.networks.find((s) => s.chainId === t.chainId),
         known: O.networks
-      }, t.networks.current && t.networks.current.contracts)
-        for (const [a, h] of Object.entries(t.networks.current.contracts))
-          t.contracts.add(a, h.address, h.abi);
+      }, n.networks.current && n.networks.current.contracts)
+        for (const [s, h] of Object.entries(n.networks.current.contracts))
+          n.contracts.add(s, h.address, h.abi);
       else {
-        const a = t.networks.known.find((h) => h.chainId === n.chainId);
-        a ? t.networks.current = a : (t.networks.current = n, t.networks.current.displayName = xe(t.networks.current.name)), t.status.network.set("WRONG");
+        const s = n.networks.known.find((h) => h.chainId === t.chainId);
+        s ? n.networks.current = s : (n.networks.current = t, n.networks.current.displayName = Oe(n.networks.current.name)), n.status.network.set("WRONG");
       }
   }
-  t.initialized = !0;
+  n.initialized = !0;
 }
 export {
-  Te as ConnectWalletButton,
-  $e as ContractInteractor,
-  Me as SelectNetworkDropdown,
-  Ie as Status,
-  t as dapp,
-  Ve as initVuethers,
-  De as safeRun
+  Ae as ConnectWalletButton,
+  je as ContractInteractor,
+  Ue as SelectNetworkDropdown,
+  Re as Status,
+  V as connectWallet,
+  n as dapp,
+  A as disconnectWallet,
+  Fe as initVuethers,
+  H as isConnected,
+  Ne as safeRun,
+  Ge as watchChain
 };
