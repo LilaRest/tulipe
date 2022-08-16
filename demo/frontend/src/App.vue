@@ -7,6 +7,7 @@ import { ConnectWalletButton,
          watchChain } from "../../../src/index.js"
 
 let contracts = $ref(null);
+
 safeRun(() => { 
     contracts = dapp.contracts.getAll()
 
@@ -15,7 +16,7 @@ safeRun(() => {
         console.log(newValue)
         console.log(oldValue)
     })
-    // TODO : implement this directly in the contracts object in order to make the call easier.
+    // TODO : implement a watch() method directly in the contracts objects in order to make the call easier.
 })
 </script>
 
