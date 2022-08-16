@@ -1,5 +1,6 @@
 import { Status } from "../index.js"
 import { MixedStore } from "../composables/store.js"
+import { watchChain, watchChainRef } from "../composables/index.js"
 import { ethers } from "ethers";
 import { markRaw, watch } from "vue";
 
@@ -19,9 +20,7 @@ const dappStateless = {
       dapp.status[name] = new Status(name, states);
     },
   },
-  _chainWatchers: {
-    contracts: {},
-  },
+  _chainWatchers: {},
 }
 
 const dappStateful = $ref({
@@ -45,6 +44,8 @@ const dappStateful = $ref({
       }
 
       dapp.contracts[name] = markRaw(contractInstance) // Here markRaw is used to fix a Vue 3 problem, see : https://github.com/vuejs/core/issues/3024
+      dapp.contracts[name].watch = watchChain.bind(null, dapp.contracts[name])
+      dapp.contracts[name].watchRef = watchChainRef.bind(null, dapp.contracts[name])
       dapp.contracts._contracts.push(name)
 
       watch (() => dapp.signer, () => {

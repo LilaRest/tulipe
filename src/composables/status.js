@@ -41,6 +41,10 @@ export default class Status {
     return this._state.value;
   }
 
+  getRef() {
+    return this.state;
+  }
+
   set(state) {
     state = this._formatState(state);
     if (!this._isStateValid(state)) {
@@ -70,7 +74,7 @@ export default class Status {
 
   watch (states, callback) {
     let errorMessage = `The states given to the watch() method of Status instance '${this._name}' must be a string or an array with values in ${this.states}. Got: ${states}`;
-    if (this.isArray(states)) {
+    if (Array.isArray(states)) {
       if (!this._areStatesValid(states)) {
         throw(errorMessage)
       }
