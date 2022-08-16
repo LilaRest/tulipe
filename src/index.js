@@ -70,6 +70,28 @@ async function initDAppProvider() {
       window.location.reload(); 
     } 
   });
+
+  dapp.provider.on("error", () => {
+    console.log("Provider error !")
+    dapp.status.network.set("ERROR");
+  })
+
+  dapp.provider.on("block", async function (blockNumber) {
+    console.log("new block");
+    console.log(blockNumber);
+    const block = await dapp.provider.getBlockWithTransactions(blockNumber);
+    const trackedContracts = []
+    for (const transaction of block.transactions) {
+      if (Object.keys(dapp._watchers).includes(transaction.to)) {
+        dapp._watchers[transaction.to].update();
+      }
+      // if (signer.getAddress === transaction.from) {
+      //   signer.sync(blockNumber); // blockNumber is used to prevent syncing multiple times of the data has already been synced at this block. Maybe it could be managed internally by sync without having to  pass it manually
+      // }
+    }
+    console.log(block);
+
+  })
 }
 
 async function initDappSigner () {
@@ -93,6 +115,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
 
   // Initialize DApp's signer.
   await initDappSigner();
+
 
   // Retrieve current networks informations from RPC.
   const currentNetwork = await dapp.provider.getNetwork()

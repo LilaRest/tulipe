@@ -3,11 +3,19 @@ import { ConnectWalletButton,
          SelectNetworkDropdown,
          ContractInteractor,
          dapp,
-         safeRun } from "../../../src/index.js"
+         safeRun,
+         watchChain } from "../../../src/index.js"
 
 let contracts = $ref(null);
-safeRun(() => {
+safeRun(() => { 
     contracts = dapp.contracts.getAll()
+
+    watchChain(dapp.contracts.Lock, "specialNumber", [], (newValue, oldValue) => {
+        console.log("specialNumber has changed")
+        console.log(newValue)
+        console.log(oldValue)
+    })
+    // TODO : implement this directly in the contracts object in order to make the call easier.
 })
 </script>
 
