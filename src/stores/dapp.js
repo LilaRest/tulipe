@@ -19,11 +19,14 @@ const dappStateless = {
       dapp.status[name] = new Status(name, states);
     },
   },
+  _watchers: {
+
+  },
 }
 
 const dappStateful = $ref({
   // Ethers.js objects to interact with
-  initialized: ref(false),
+  initialized: false,
   provider: null,
   signer: null,
   contracts: {
