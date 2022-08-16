@@ -46,15 +46,16 @@ async function changeNetwork (id) {
   }
 
 }
-let isDropdownOpened = $ref(false);
 
 function toggle () {
   isDropdownOpened = isDropdownOpened ? false : true
 }
 
+let isDropdownOpened = $ref(false);
+
 </script>
 
-<template>
+<template v-if="dapp.initialized">
   <div class="SelectNetworkDropdown">
     <ul @click="toggle">
       <li v-if="dapp.networks.current" selected>
@@ -69,5 +70,3 @@ function toggle () {
   </div>
 </template>
 
-<style>
-</style>
