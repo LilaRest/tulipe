@@ -68,30 +68,31 @@ export default class Status {
     return false
   }
 
-  watch(callback) {
-    watch(this._state, () => {
-      callback(this.get())
-    })
-  }
+  watch (states, callback) {
+    let errorMessage = `The states given to the watch() method of Status instance '${this._name}' must be a string or an array with values in ${this.states}. Got: ${states}`;
+    if (this.isArray(states)) {
+      if (!this._areStatesValid(states)) {
+        throw(errorMessage)
+      }
+      watch(this._state, () => {
+        if (states.includes(this._state)) {
+          callback(this.get())
+        }
+      })
+    } 
+    else {
+      if (!this._isStateValid(states)) {
+        throw(errorMessage)
+      }
+      watch(this._state, () => {
+        if (states === this._state) {
+          callback(this.get())
+        }
+      })
+    }
+  } 
 
-  watchState(state, callback) {
-    if (!this._isStateValid(state)) {
-      throw(`The state given to the watchState() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${state}`)
-    }
-    watch(this._state, (newValue, oldValue) => {
-      if (this.is(state)) {
-        callback(this.get())
-      }
-    }) 
-  }
-  watchStates(states, callback) {
-    if (!this._areStatesValid(states)){
-      throw(`The states given to the watchStates() method of Status instance '${this._name}' must be an array with values in ${this.states}. Got: ${states}`)
-    }
-    watch(this._state, () => {
-      if (this.isIn(states)) {
-        callback(this.get())
-      }
-    })
+  watchAny(callback) {
+    this.watch(this.states, callback);
   }
 }

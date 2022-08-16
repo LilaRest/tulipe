@@ -19,8 +19,8 @@ const dappStateless = {
       dapp.status[name] = new Status(name, states);
     },
   },
-  _watchers: {
-
+  _chainWatchers: {
+    contracts: {},
   },
 }
 
