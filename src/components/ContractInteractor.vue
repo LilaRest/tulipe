@@ -1,6 +1,7 @@
 <script setup>
-import { dapp, isNetworkSafe, onNetworkSafe } from "../index.js";
+import { dapp, areContractsSafe, onContractsSafe, isWalletSafe } from "../index.js";
 import { ethers } from "ethers";
+import { watch } from "vue";
 const props = defineProps({
   contractName: {
     type: String,
@@ -80,19 +81,21 @@ function formatFunctionKeywords(func) {
   return keywords.join(", ")
 }
 
-const contract = dapp.contracts[props.contractName]
+const contract = $ref({})
 let owner = $ref("")
 const units = ["wei", "gwei", "ether"]
 const events = $ref({})
 const functions = $ref({})
 
-onNetworkSafe(async function () {
-  contract.connect(dapp.provider)
-  try {
-    owner = await contract.owner()
-  }
-  catch (e) {
-  }
+onContractsSafe(async function () {
+  contract = dapp.contracts[props.contractName];
+  watch(isWalletSafe, () => {
+    console.log("REFRESHED CONTRACT IN INTERCATOR")
+    console.log(contract)
+    contract = dapp.contracts[props.contractName];
+    console.log(contract)
+  })
+  owner = await contract.owner()
 
   // Build the functions object.
   for (const func of Object.values(contract.interface.functions)) {
@@ -137,7 +140,7 @@ onNetworkSafe(async function () {
 })
 </script>
 
-<template v-if="isNetworkSafe">
+<template v-if="areContractsSafe">
   <p>Interact with '{{ contractName }}' contract :</p>
   <ul>
     <li>Address : {{ contract.address }}</li>

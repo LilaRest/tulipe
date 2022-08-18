@@ -6,13 +6,10 @@ export default async function initWatchers () {
 
     // Update watchers on new block.
     dapp.provider.on("block", async function (blockNumber) {
-      console.log("new block");
-      console.log(blockNumber);
       const block = await dapp.provider.getBlockWithTransactions(blockNumber);
 
       for (const transaction of block.transactions) {
         if (Object.keys(dapp._chainWatchers).includes(transaction.to)) {
-          console.log("call update of = " + transaction.to);
           await dapp._chainWatchers[transaction.to].update();
         }
         if (dapp.status.wallet.is("CONNECTED")) {
@@ -21,7 +18,6 @@ export default async function initWatchers () {
           }
         }
       }
-      console.log(block);
     })
   }
 }

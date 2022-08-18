@@ -12,6 +12,7 @@ export async function connectWallet(lazy=false) {
         dapp.status.wallet.set("CONNECTED");
       }
       catch (e) {
+        console.log("ERROOOOOOR")
         
         // If lazy simply mark the wallet as DISCONNECTED
         if (lazy === true) {
@@ -48,6 +49,7 @@ export async function connectWallet(lazy=false) {
 }
 
 export function disconnectWallet() {
+  console.log(dapp.provider)
   dapp.signer = null;
   dapp.status.wallet.set("DISCONNECTED")
 }

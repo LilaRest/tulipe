@@ -1,6 +1,17 @@
-import { watch, ref, reactive} from "vue";
+import { watch, ref } from "vue";
+import { dapp } from "../index.js";
 
-export default class Status {
+export class StatusList {
+    
+    add (name, states) {
+      if (Object.keys(dapp.status).includes(name)) {
+        throw(`You cannot add a new status called '${name}', this name is either reserved by Vuethers or already existing.`);
+      }
+      dapp.status[name] = new Status(name, states);
+    }
+}
+
+export class Status {
 
   constructor (name, states) {
     this._name = name;
