@@ -81,20 +81,13 @@ function formatFunctionKeywords(func) {
   return keywords.join(", ")
 }
 
-const contract = $ref({})
+const contract = $computed(() => dapp.contracts[props.contractName])
 let owner = $ref("")
 const units = ["wei", "gwei", "ether"]
 const events = $ref({})
 const functions = $ref({})
 
 onContractsSafe(async function () {
-  contract = dapp.contracts[props.contractName];
-  watch(isWalletSafe, () => {
-    console.log("REFRESHED CONTRACT IN INTERCATOR")
-    console.log(contract)
-    contract = dapp.contracts[props.contractName];
-    console.log(contract)
-  })
   owner = await contract.owner()
 
   // Build the functions object.
