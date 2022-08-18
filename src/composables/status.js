@@ -46,6 +46,7 @@ export default class Status {
   }
 
   set(state) {
+    console.log(`status ${this._name} set to ${state}`)
     state = this._formatState(state);
     if (!this._isStateValid(state)) {
       throw(`The state given to the set() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${state}`)

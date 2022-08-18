@@ -5,6 +5,8 @@ export const vuethersConfig = {
       contracts: {
         "Lock": await import("../backend/deployments/localhost/Lock.json"),
       },
+      default: true,
+      pollingInterval: 4000,
     },
     {chainId: 1},
     {chainId: 3},

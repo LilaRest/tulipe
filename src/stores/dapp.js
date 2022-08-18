@@ -1,4 +1,4 @@
-import { Status } from "../index.js"
+import { Status, isWalletSafe, isNetworkSafe } from "../index.js"
 import { MixedStore } from "../composables/store.js"
 import { watchChain, watchChainRef } from "../composables/index.js"
 import { ethers } from "ethers";
@@ -36,11 +36,14 @@ const dappStateful = $ref({
       }
 
       let contractInstance = null;
-      try {
+      if (isWalletSafe.value) {
         contractInstance = new ethers.Contract(address, abi, dapp.signer)
       } 
-      catch (e) {
+      else if (isNetworkSafe.value) {
         contractInstance = new ethers.Contract(address, abi, dapp.provider)
+      }
+      else {
+        throw("A contract is trying to be added from dapp.contract.add() but neither provider nor signer are available.")
       }
 
       dapp.contracts[name] = markRaw(contractInstance) // Here markRaw is used to fix a Vue 3 problem, see : https://github.com/vuejs/core/issues/3024
@@ -51,7 +54,10 @@ const dappStateful = $ref({
       watch (() => dapp.signer, () => {
         console.log("refresh signer of " + name);
         try {
+          console.log(dapp.signer)
+          console.log(dapp.contract[name])
           dapp.contracts[name].connect(dapp.signer);
+          console.log(dapp.contract[name])
         } 
         catch (e) {
           console.log("error while refreshing")
