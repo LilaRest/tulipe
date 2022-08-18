@@ -13,13 +13,8 @@ export default async function initProvider() {
     const networkChainId = await webWalletProvider.getNetwork().then(network => network.chainId)
     let networkConfig = dapp.config.networks.find(o => o.chainId === networkChainId)
     
-    console.log("DEBUG NETWORK")
-    console.log(networkChainId)
-    console.log(networkConfig)
-
     // If the current network is valid.
     if (networkConfig) {
-      console.log("already connected")
       dapp.provider = webWalletProvider;
       dapp.status.network.set("CONNECTED")
     }
@@ -56,7 +51,6 @@ export default async function initProvider() {
 
     // Set the polling interval of the provider.
     if (networkConfig) {
-      console.log("Default polling interval = " + dapp.provider.pollingInterval)
       dapp.provider.pollingInterval = networkConfig.pollingInterval;
     }
   }

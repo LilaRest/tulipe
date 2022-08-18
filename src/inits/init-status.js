@@ -22,6 +22,7 @@ export default async function initStatus() {
   dapp.status.add("contracts", [
     "WAITING",
     "ERROR",
+    "NOPROVIDER",
     "INITIALIZED",
   ]),
 
