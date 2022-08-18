@@ -1,36 +1,54 @@
-export async function isConnected () {
-  try {
-    await dapp.signer.getAddress();
-    dapp.status.wallet.set("CONNECTED");
-    return true
-  }
-  catch {
-    return false
-  }
-}
+import { dapp, isNetworkSafe } from "../index.js";
 
-export async function connectWallet() {
-  if (!await isConnected()) {
+export async function connectWallet(lazy=false) {
+  if (isNetworkSafe) { 
 
-    try {
-      dapp.status.wallet.set("REQUESTED");
-      await dapp.provider.send("eth_requestAccounts", []);
-      dapp.signer = dapp.provider.getSigner();
-      dapp.status.wallet.set("CONNECTED");
-    }
-    catch (e) {
-      console.log(e)
-      if (e.code === 4001) {
-        dapp.status.wallet.set("REFUSED");
+    if (dapp.status.wallet.is("DISCONNECTED")) {
+
+      try {
+        const signer = await dapp.provider.getSigner();
+        await signer.getAddress()
+        dapp.signer = signer;
+        dapp.status.wallet.set("CONNECTED");
       }
-      else {
-        dapp.status.wallet.set("ERROR");
+      catch (e) {
+        
+        // If lazy simply mark the wallet as DISCONNECTED
+        if (lazy === true) {
+          dapp.status.wallet.set("DISCONNECTED")
+        }
+
+        // Else request user's web wallet for a connection.
+        else {
+
+          try {
+            dapp.status.wallet.set("REQUESTED");
+            await dapp.provider.send("eth_requestAccounts", []);
+            const signer = await dapp.provider.getSigner();
+            await signer.getAddress()
+            dapp.signer = signer;
+            dapp.status.wallet.set("CONNECTED");
+          }
+          catch (e) {
+            console.log(e)
+            if (e.code === 4001) {
+              dapp.status.wallet.set("REFUSED");
+            }
+            else {
+              dapp.status.wallet.set("ERROR");
+            }
+          }
+        }
       }
     }
+  }
+  else {
+    dapp.status.wallet.set("NOPROVIDER");
   }
 }
 
 export function disconnectWallet() {
+  dapp.signer = null;
   dapp.status.wallet.set("DISCONNECTED")
 }
 

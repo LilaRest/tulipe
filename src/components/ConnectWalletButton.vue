@@ -1,12 +1,8 @@
 <script setup>
-import { dapp, safeRun, connectWallet, disconnectWallet, isConnected } from "../index.js";
-
-safeRun(async function () {
-  await isConnected()
-})
+import { dapp, isNetworkSafe, connectWallet, disconnectWallet } from "../index.js";
 </script>
 
-<template v-if="dapp.safe">
+<template v-if="isNetworkSafe">
   <div class="ConnectWalletButton">
       <button @click="connectWallet" v-if="dapp.status.wallet.is('DISCONNECTED')">Connect Wallet</button>
       <button v-else-if="dapp.status.wallet.is('REQUESTED')" disabled>Connection requested...</button>

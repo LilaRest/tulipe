@@ -1,5 +1,5 @@
 <script setup>
-import { dapp, safeRun } from "../index.js";
+import { dapp, isNetworkSafe, onNetworkSafe } from "../index.js";
 import { ethers } from "ethers";
 const props = defineProps({
   contractName: {
@@ -86,8 +86,13 @@ const units = ["wei", "gwei", "ether"]
 const events = $ref({})
 const functions = $ref({})
 
-safeRun(async function () {
-  owner = await contract.owner()
+onNetworkSafe(async function () {
+  contract.connect(dapp.provider)
+  try {
+    owner = await contract.owner()
+  }
+  catch (e) {
+  }
 
   // Build the functions object.
   for (const func of Object.values(contract.interface.functions)) {
@@ -132,7 +137,7 @@ safeRun(async function () {
 })
 </script>
 
-<template v-if="dapp.safe">
+<template v-if="isNetworkSafe">
   <p>Interact with '{{ contractName }}' contract :</p>
   <ul>
     <li>Address : {{ contract.address }}</li>

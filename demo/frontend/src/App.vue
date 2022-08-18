@@ -3,44 +3,63 @@ import { ConnectWalletButton,
          SelectNetworkDropdown,
          ContractInteractor,
          dapp,
-         safeRun,
-         watchChain,
-         watchChainRef } from "../../../src/index.js"
+         isDAppSafe,
+         isWalletSafe,
+         isNetworkSafe,
+         onContractsSafe,
+         areContractsSafe, 
+         DebugBar } from "../../../src/index.js";
+import OtherComponent from "./components/OtherComponent.vue";
+
+let otherComponentDisplay = $ref(false);
+
+function toggleOtherComponentDisplay() {
+  otherComponentDisplay = !otherComponentDisplay;
+}
 
 let contracts = $ref(null);
 let specialNumber = $ref(null);
 
-safeRun(async function () { 
+onContractsSafe(async function () { 
     contracts = dapp.contracts.getAll()
 
     specialNumber = dapp.contracts.Lock.watchRef("specialNumber", []);
-    console.log("SPÉÉ")
-    console.log(specialNumber)
 
     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
         console.log("specialNumber has changed")
         console.log("new = " + newValue)
         console.log("old = " + oldValue)
     })
-    // TODO : implement a watch() method directly in the contracts objects in order to make the call easier.
 })
 </script>
 
 <template>
+    <DebugBar/>
     <h1>Vuethers Testing App</h1>
-    <template v-if="dapp.safe">
-        <p>Current network : {{ dapp.networks.current ? dapp.networks.current.displayName : "Unsupported network"}}</p>
-        <ConnectWalletButton/>
-        <SelectNetworkDropdown/>
-        <p>Special number = {{ dapp.contracts.Lock.watchRef("specialNumber", []) }}</p>
-        <p>Special number = {{ specialNumber.value ? specialNumber.value.toNumber() : "Loading..." }}</p>
-        <p>Available contracts :</p>
-        <ul>
-            <li v-for="(contract, contractName) of contracts">
-                {{ contractName }}
-                <ContractInteractor :contractName="contractName"/>
-            </li>
-        </ul>
+    <template v-if="isDAppSafe">
+        <template v-if="isNetworkSafe">
+            <ConnectWalletButton/>
+            <SelectNetworkDropdown/>
+            <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
+            <OtherComponent v-if="otherComponentDisplay"/>
+
+            <template v-if="areContractsSafe">
+                <p>Special number = {{ specialNumber.value ? specialNumber.value.toNumber() : "Loading..." }}</p>
+                <p>Available contracts :</p>
+                <ul>
+                    <li v-for="(contract, contractName) of contracts">
+                        {{ contractName }}
+                        <ContractInteractor :contractName="contractName"/>
+                    </li>
+                </ul>
+            </template>
+            <template v-else>
+                Contracts are loading or not found.
+            </template>
+        </template>
+        <template v-else>
+            No network provided, please download Metamask or any supported web wallet.
+        </template>
     </template>
     <template v-else>
         <p>Loading...</p>
