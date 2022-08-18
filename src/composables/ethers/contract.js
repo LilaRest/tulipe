@@ -7,6 +7,7 @@ export class Contract extends ethers.Contract {
   constructor (name, address, abi, signerOrProvider) {
     super(address, abi, signerOrProvider);
     this.name = name;
+    this.abi = abi;
     return markRaw(this);
   }
 

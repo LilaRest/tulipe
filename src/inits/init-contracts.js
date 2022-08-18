@@ -20,11 +20,14 @@ export default async function initContracts () {
           const address = dapp.contracts[contractName].address;
           const abi = dapp.contracts[contractName].abi;
 
+          // Here the contract are removed and then recreated in order to fully destroy the old signer and providers.
+          // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
           dapp.contracts.remove(contractName);
           try {
             dapp.contracts.add(name, address, abi)
           }
           catch (e) {
+            console.log(e)
             dapp.status.contracts.set("NOPROVIDER");
             break;
           }
