@@ -1,11 +1,11 @@
 import { ethers } from "ethers";
 import { markRaw } from "vue";
-import { dapp, capitalizeWords } from "../index.js";
+import { dapp, capitalizeWords, Web3Provider } from "../index.js";
 import { vuethersDefaultConfig } from "../vuethers.config-default.js";
 
 export default async function initProvider() {
 
-  const webWalletProvider = markRaw(new ethers.providers.Web3Provider(window.ethereum, "any"));
+  const webWalletProvider = markRaw(new Web3Provider(window.ethereum, "any"));
 
   // If the user web wallet provides a network.
   if (webWalletProvider) {

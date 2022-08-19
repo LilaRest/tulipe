@@ -3,9 +3,9 @@ import { ConnectWalletButton,
          SelectNetworkDropdown,
          ContractInteractor,
          dapp,
-         isDAppSafe,
-         isWalletSafe,
-         isNetworkSafe,
+         isDappSafe,
+         isSignerSafe,
+         isProviderSafe,
          onContractsSafe,
          areContractsSafe, 
          DebugBar } from "../../../src/index.js";
@@ -36,8 +36,8 @@ onContractsSafe(async function () {
 <template>
     <DebugBar/>
     <h1>Vuethers Testing App</h1>
-    <template v-if="isDAppSafe">
-        <template v-if="isNetworkSafe">
+    <template v-if="isDappSafe">
+        <template v-if="isProviderSafe">
             <ConnectWalletButton/>
             <SelectNetworkDropdown/>
             <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>

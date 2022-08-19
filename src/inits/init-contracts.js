@@ -1,9 +1,9 @@
-import { dapp, onNetworkSafe, isWalletSafe, isNetworkSafe } from "../index.js";
+import { dapp, onProviderSafe, isSignerSafe, isProviderSafe } from "../index.js";
 import { watch } from "vue";
 
 export default async function initContracts () {
 
-  onNetworkSafe(async function () {
+  onProviderSafe(async function () {
     const networkConfig = await dapp.config.networks.getCurrent()
     
     if (networkConfig) {
@@ -12,7 +12,7 @@ export default async function initContracts () {
         dapp.contracts.add(name, contract.address, contract.abi)
       }
 
-    watch ([isWalletSafe, isNetworkSafe], (newValue, oldValue) => {
+    watch ([isSignerSafe, isProviderSafe], (newValue, oldValue) => {
       console.log("Refresh contracts !")
       if (newValue !== oldValue) {
         for (const contractName of dapp.contracts._contracts) {

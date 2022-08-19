@@ -1,5 +1,5 @@
 <script setup>
-import { dapp, areContractsSafe, onContractsSafe, isWalletSafe } from "../index.js";
+import { dapp, areContractsSafe, onContractsSafe, isSignerSafe } from "../index.js";
 import { ethers } from "ethers";
 import { watch } from "vue";
 const props = defineProps({
