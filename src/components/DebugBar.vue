@@ -1,15 +1,15 @@
 <script setup>
-import { isDAppSafe, isNetworkSafe, isWalletSafe, areContractsSafe, dapp } from "../index.js";
+import { isDappSafe, isProviderSafe, isSignerSafe, areContractsSafe, dapp } from "../index.js";
 </script>
 
-<template v-if="isDAppSafe">
+<template v-if="isDappSafe">
   <section>
     <div>
       <h3>Safe Runners</h3>
       <ul>
-        <li>DApp safe : {{ isDAppSafe }}</li>
-        <li>Network safe : {{ isNetworkSafe }}</li>
-        <li>Wallet safe : {{ isWalletSafe }}</li>
+        <li>DApp safe : {{ isDappSafe }}</li>
+        <li>Network safe : {{ isProviderSafe }}</li>
+        <li>Wallet safe : {{ isSignerSafe }}</li>
         <li>Contracts safe : {{ areContractsSafe }}</li>
       </ul>
     </div>

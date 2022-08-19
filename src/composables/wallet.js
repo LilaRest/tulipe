@@ -1,7 +1,7 @@
-import { dapp, isNetworkSafe } from "../index.js";
+import { dapp, isProviderSafe } from "../index.js";
 
 export async function connectWallet(lazy=false) {
-  if (isNetworkSafe) { 
+  if (isProviderSafe) { 
 
     if (dapp.status.wallet.is("DISCONNECTED")) {
 
