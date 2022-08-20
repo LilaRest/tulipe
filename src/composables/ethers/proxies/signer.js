@@ -13,14 +13,14 @@ export class EthersSignerProxy extends EthersObjectProxy {
   }
 
   onSafe (func) {
-    dapp.provider.onSafe(() => {
+    dapp.provider.onSafe((component) => {
         if (this.isSafe.value) {
-            func()
+            func(component)
         }
         else {
             const unwatch = watch(this.isSafe, () => {
                 if (this.isSafe.value) {
-                    func()
+                    func(component)
                     unwatch()
                 }
             })

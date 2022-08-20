@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { dapp, EthersContractProxy } from "../index.js"
-import { computed, watch } from "vue";
+import { computed, watch, onMounted, onUnmounted, getCurrentInstance } from "vue";
 
 export class ContractsList {
 
@@ -44,14 +44,14 @@ export class ContractsList {
   }
 
   onSafe(func) {
-    dapp.provider.onSafe(() => {
+    dapp.provider.onSafe((component) => {
         if (this.areSafe.value) {
-            func()
+            func(component)
         }
         else {
             const unwatch = watch(this.areSafe, () => {
                 if (this.areSafe.value) {
-                    func()
+                    func(component)
                     unwatch()
                 }
             })

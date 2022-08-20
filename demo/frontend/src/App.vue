@@ -7,9 +7,22 @@ import { ConnectWalletButton,
 import OtherComponent from "./components/OtherComponent.vue";
 import { computed } from "vue";
 
+dapp.contracts.onSafe(function (cpt) {
+    dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
+        console.log("specialNumber has changed")
+        console.log("new = " + newValue)
+        console.log("old = " + oldValue)
+    }, cpt)
+
+    contracts = dapp.contracts.getAll()
+
+    const specialNumberWatcher = dapp.contracts.Lock.watchRef("specialNumber", [], cpt)
+    specialNumber = computed(() => specialNumberWatcher.value ? specialNumberWatcher.value.toNumber() : null);
+})
+
 const test = {OtherComponent: OtherComponent};
 
-let otherComponentDisplay = $ref(false);
+let otherComponentDisplay = $ref(true);
 
 function toggleOtherComponentDisplay() {
   otherComponentDisplay = !otherComponentDisplay;
@@ -17,18 +30,6 @@ function toggleOtherComponentDisplay() {
 
 let contracts = $ref(null);
 let specialNumber = $ref(null);
-dapp.contracts.onSafe(async function () { 
-    contracts = dapp.contracts.getAll()
-
-    const specialNumberWatcher = dapp.contracts.Lock.watchRef("specialNumber", [])
-    specialNumber = computed(() => specialNumberWatcher.value ? specialNumberWatcher.value.toNumber() : null);
-
-    dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
-        console.log("specialNumber has changed")
-        console.log("new = " + newValue)
-        console.log("old = " + oldValue)
-    })
-})
 </script>
 
 <template>
@@ -36,7 +37,7 @@ dapp.contracts.onSafe(async function () {
     <h1>Vuethers Testing App</h1>
 
     <OnDappSafe>
-        <template #safe> 
+        <template #safe>
             <OnProviderSafe>
                 <template #safe>
                     <ConnectWalletButton/>

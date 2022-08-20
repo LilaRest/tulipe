@@ -1,5 +1,6 @@
-import { onUnmounted, watch, ref } from "vue";
+import { ref } from "vue";
 import { dapp } from "../index.js";
+
 
 export class ChainWatcher {
     constructor (contract) {
@@ -9,7 +10,14 @@ export class ChainWatcher {
     }
 
     _buildSourceName (source, args) {
-        return `${source}:${args.toString}`;
+        return `${source}:${args.toString()}`;
+    }
+
+    _generateDependentUUID() {
+        return 'xxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
     }
 
     async update () {
@@ -20,8 +28,10 @@ export class ChainWatcher {
             for (const [sourceName, source] of Object.entries(this.sources)) {
                 const oldValue = source.state.value;
                 source.state.value = await this.contract[source.name](...source.args);
-                for (const callback of source.callbacks) {
-                    callback(source.state.value, oldValue);
+                for (const callback of Object.values(source.dependents)) {
+                    if (callback) {
+                        callback(source.state.value, oldValue);
+                    }
                 }
             }
 
@@ -31,33 +41,33 @@ export class ChainWatcher {
 
     add (source, args, callback=null) {
         const sourceName = this._buildSourceName(source, args);
-
         if (!Object.keys(this.sources).includes(sourceName)) {
             this.sources[sourceName] = {
                 name: source,
                 args: args,
                 state: ref(null),
-                callbacks: []
+                dependents: {},
             }
             this.contract[source](...args)
                 .then((value) => {
                     this.sources[sourceName].state.value = value;
                 });
         }
-        if (callback) {
-            if (!this.sources[sourceName].callbacks.includes(callback)) {
-                this.sources[sourceName].callbacks.push(callback);
-            }
-        }
-        return this.sources[sourceName].state
+        const newDependentUUID = this._generateDependentUUID()
+        this.sources[sourceName].dependents[newDependentUUID] = callback ? callback : null;
+        return newDependentUUID
     }
 
-    remove (source, args, callback) {
+    remove (source, args, dependentUUID) {
         const sourceName = this._buildSourceName(source, args);
-
-        if (!Object.keys(this.sources).includes(sourceName)) {
-            this.sources[sourceName].callbacks = this.sources[sourceName].callbacks.filter(func => func !== callback);
+        if (Object.keys(this.sources).includes(sourceName)) {
+            if (Object.keys(this.sources[sourceName].dependents).includes(dependentUUID)) {
+                delete this.sources[sourceName].dependents[dependentUUID]
+            }
         }
+        if (Object.keys(this.sources[sourceName].dependents).length === 0) {
+            delete this.sources[sourceName];
+        } 
     }
 
     getRef (source, args) {
