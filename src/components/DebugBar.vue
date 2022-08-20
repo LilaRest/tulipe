@@ -3,7 +3,7 @@ import { dapp } from "../index.js";
 </script>
 
 <template>
-  <template v-if="dapp.isSafe.value">
+  <OnDappSafe>
     <section>
       <div>
         <h3>Safe Runners</h3>
@@ -23,7 +23,7 @@ import { dapp } from "../index.js";
         </ul>
       </div>
     </section>
-  </template>
+  </OnDappSafe>
 </template>
 
 <style scoped>
