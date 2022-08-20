@@ -17,7 +17,7 @@ let symbol = $ref(null);
 async function fetchDatas () {
   const walletAddress = props.walletAddress ? props.walletAddress : await dapp.signer.getAddress()
   balance = watchChainRef(dapp.contracts[props.contractName], "balanceOf", [walletAddress]);
-  symbol = dapp.contracts[props.contractName].symbol();    
+  symbol = dapp.contracts[props.contractName].symbol();
 }
 
 safeRun(() => {
@@ -31,7 +31,7 @@ safeRun(() => {
 </script>
 
 <template>
-  <template v-if="dapp.signer.isSafe.value">
+  <OnSignerSafe>
     <p class="ERC20Balance" v-if="dapp.status.signer.is('CONNECTED')">{{ balance }} {{ symbol }}</p>
-  </template>
+  </OnSignerSafe>
 </template>

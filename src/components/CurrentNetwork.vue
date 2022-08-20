@@ -9,7 +9,7 @@ dapp.provider.onSafe(() => {
 </script>
 
 <template>
-  <template v-if="dapp.provider.isSafe.value">
+  <OnProviderSafe>
     <p class="CurrentNetwork">{{ currentNetwork }}</p>
-  </template>
+  </OnProviderSafe>
 </template>

@@ -3,6 +3,7 @@ import { dapp } from "../../index.js";
 </script>
 <template>
   <template v-if="dapp.contracts.areSafe.value">
+    <slot></slot>
     <slot name="safe"></slot>
   </template>
   <template v-else>
