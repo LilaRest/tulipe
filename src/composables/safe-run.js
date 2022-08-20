@@ -1,17 +1,17 @@
 import { watch, computed } from "vue";
 import { dapp } from "../index.js";
 
-const isDappSafe = computed(() => {
+const dapp.isSafe = computed(() => {
     return dapp.safe
 })
 
-function onDappSafe(func) {
-    if (isDappSafe.value) {
+function dapp.onSafe(func) {
+    if (dapp.isSafe.value) {
         func()
     }
     else {
-        const unwatch = watch(isDappSafe, () => {
-            if (isDappSafe.value) {
+        const unwatch = watch(dapp.isSafe, () => {
+            if (dapp.isSafe.value) {
                 func()
                 unwatch()
             }
@@ -19,19 +19,19 @@ function onDappSafe(func) {
     }
 }
 
-const isProviderSafe = computed(() => {
-    return isDappSafe.value && !dapp.status.network.is("DISCONNECTED");
+const dapp.provider.isSafe = computed(() => {
+    return dapp.isSafe.value && !dapp.status.provider.is("DISCONNECTED");
 })
 
 
-function onProviderSafe(func) {
-    onDappSafe(() => {
-        if (isProviderSafe.value) {
+function dapp.provider.onSafe(func) {
+    dapp.onSafe(() => {
+        if (dapp.provider.isSafe.value) {
             func()
         }
         else {
-            const unwatch = watch(isProviderSafe, () => {
-                if (isProviderSafe.value) {
+            const unwatch = watch(dapp.provider.isSafe, () => {
+                if (dapp.provider.isSafe.value) {
                     func()
                     unwatch()
                 }
@@ -40,19 +40,19 @@ function onProviderSafe(func) {
     })
 }
 
-const isSignerSafe = computed(() => {
-    return isProviderSafe.value && dapp.status.wallet.is("CONNECTED");
+const dapp.signer.isSafe = computed(() => {
+    return dapp.provider.isSafe.value && dapp.status.signer.is("CONNECTED");
 })
 
-function onSignerSafe(func) {
+function dapp.signer.onSafe(func) {
 
-    onProviderSafe(() => {
-        if (isSignerSafe.value) {
+    dapp.provider.onSafe(() => {
+        if (dapp.signer.isSafe.value) {
             func()
         }
         else {
-            const unwatch = watch(isSignerSafe, () => {
-                if (isSignerSafe.value) {
+            const unwatch = watch(dapp.signer.isSafe, () => {
+                if (dapp.signer.isSafe.value) {
                     func()
                     unwatch()
                 }
@@ -61,19 +61,19 @@ function onSignerSafe(func) {
     })
 }
 
-const areContractsSafe = computed(() => {
-    return isProviderSafe.value && dapp.status.contracts.is("INITIALIZED");
+const dapp.contracts.areSafe = computed(() => {
+    return dapp.provider.isSafe.value && dapp.status.contracts.is("INITIALIZED");
 })
 
-function onContractsSafe(func) {
+function dapp.contracts.onSafe(func) {
 
-    onProviderSafe(() => {
-        if (areContractsSafe.value) {
+    dapp.provider.onSafe(() => {
+        if (dapp.contracts.areSafe.value) {
             func()
         }
         else {
-            const unwatch = watch(areContractsSafe, () => {
-                if (areContractsSafe.value) {
+            const unwatch = watch(dapp.contracts.areSafe, () => {
+                if (dapp.contracts.areSafe.value) {
                     func()
                     unwatch()
                 }
@@ -82,4 +82,4 @@ function onContractsSafe(func) {
     })
 }
 
-export { isDappSafe, onDappSafe, isProviderSafe, onProviderSafe, isSignerSafe, onSignerSafe, areContractsSafe, onContractsSafe };
+export { dapp.isSafe, dapp.onSafe, dapp.provider.isSafe, dapp.provider.onSafe, dapp.signer.isSafe, dapp.signer.onSafe, dapp.contracts.areSafe, dapp.contracts.onSafe };

@@ -1,5 +1,5 @@
 <script setup>
-import { dapp, areContractsSafe, onContractsSafe, isSignerSafe } from "../index.js";
+import { dapp } from "../index.js";
 import { ethers } from "ethers";
 import { watch } from "vue";
 const props = defineProps({
@@ -36,7 +36,6 @@ async function execFunc (funcName) {
   }
   const txArgs = {}
   if (functions[funcName].payable && functions[funcName].tx.value.value !== "") {
-    console.log(functions[funcName].tx.value.value)
     txArgs.value = ethers.utils.parseUnits(functions[funcName].tx.value.value, functions[funcName].tx.value.unit);
   }
   const { data, error } = await transact(contract.functions[funcName], funcArgs, txArgs)
@@ -55,7 +54,7 @@ async function receiveEvent(event) {
   // Build log :
   let log = `Block ${event.blockNumber} -> {`
   for(const input of events[event.event].inputs) {
-    log += `${input.name}:${event.args[input.name]}, ` 
+    log += `${input.name}:${event.args[input.name]}, `
   }
   log = log.substring(0, log.length - 2) + "}"
   events[event.event].logs.push(log)
@@ -87,7 +86,7 @@ const units = ["wei", "gwei", "ether"]
 const events = $ref({})
 const functions = $ref({})
 
-onContractsSafe(async function () {
+dapp.contracts.onSafe(async function () {
   owner = await contract.owner()
 
   // Build the functions object.
@@ -133,55 +132,58 @@ onContractsSafe(async function () {
 })
 </script>
 
-<template v-if="areContractsSafe">
-  <p>Interact with '{{ contractName }}' contract :</p>
-  <ul>
-    <li>Address : {{ contract.address }}</li>
-    <li>Owner : {{ owner }}</li>
-    <li>Functions :
-      <ul>
-        <li v-for="(func, funcName) in functions">
-          <button @click="execFunc(funcName)">{{ funcName }}</button>
-          <small>({{ formatFunctionKeywords(func) }})</small>
-          <br/>
-          <div v-if="Object.keys(func.inputs).length > 0 || func.payable">
-            <small>Inputs :</small>
+<template>
+  <template v-if="dapp.contracts.areSafe && contract">
+    <!-- <small>cont = {{ contract }}</small> -->
+    <p>Interact with '{{ contractName }}' contract :</p>
+    <ul>
+      <li>Address : {{ contract.address }}</li>
+      <li>Owner : {{ owner }}</li>
+      <li>Functions :
+        <ul>
+          <li v-for="(func, funcName) in functions">
+            <button @click="execFunc(funcName)">{{ funcName }}</button>
+            <small>({{ formatFunctionKeywords(func) }})</small>
+            <br/>
+            <div v-if="Object.keys(func.inputs).length > 0 || func.payable">
+              <small>Inputs :</small>
+              <ul>
+                <li v-for="(input, index) of func.inputs">
+                  <input v-model="input.value" :type="getType(input.type)" :placeholder="formatPlaceholder(input)"/>
+                </li>
+                <li v-if="func.payable">
+                  <input  v-model="func.tx.value.value" type="text" placeholder="TX value"/>
+                  <select v-model="func.tx.value.unit">
+                    <option v-for="unit in units" :value="unit">{{ unit }}</option>
+                  </select>
+                </li>
+              </ul>
+            </div>
+            <div v-if="Object.keys(func.outputs).length > 0">
+              <small>Outputs :</small>
+              <ul>
+                <li v-for="(output, index) of func.outputs">
+                  <input v-model="output.value" type="text" :placeholder="formatPlaceholder(output)" disabled/>
+                </li>
+              </ul>
+            </div>
+            <p v-if="func.error">{{ func.error }}</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Events :
+        <ul>
+          <li v-for="(event, eventName) in events">
+            <h3>{{ eventName }}</h3>
+            <p>Count : {{ event.count }}</p>
+            <p>Logs:</p>
             <ul>
-              <li v-for="(input, index) of func.inputs">
-                <input v-model="input.value" :type="getType(input.type)" :placeholder="formatPlaceholder(input)"/>
-              </li>
-              <li v-if="func.payable">
-                <input  v-model="func.tx.value.value" type="text" placeholder="TX value"/>
-                <select v-model="func.tx.value.unit">
-                  <option v-for="unit in units" :value="unit">{{ unit }}</option>
-                </select>
-              </li>
+              <li v-for="log in event.logs">{{ log }}</li>
             </ul>
-          </div>
-          <div v-if="Object.keys(func.outputs).length > 0">
-            <small>Outputs :</small>
-            <ul>
-              <li v-for="(output, index) of func.outputs">
-                <input v-model="output.value" type="text" :placeholder="formatPlaceholder(output)" disabled/>
-              </li>
-            </ul>
-          </div>
-          <p v-if="func.error">{{ func.error }}</p>
-        </li>
-      </ul>
-    </li>
-    <li>
-      Events :
-      <ul>
-        <li v-for="(event, eventName) in events">
-          <h3>{{ eventName }}</h3>
-          <p>Count : {{ event.count }}</p>
-          <p>Logs:</p>
-          <ul>
-            <li v-for="log in event.logs">{{ log }}</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </template>
 </template>

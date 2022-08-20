@@ -1,56 +1,54 @@
-import { dapp, isProviderSafe } from "../index.js";
+import { dapp } from "../index.js";
 
 export async function connectWallet(lazy=false) {
-  if (isProviderSafe) { 
+  if (!dapp.provider.isSafe.value) {
+    dapp.status.signer.set("NOPROVIDER");
+  }
 
-    if (dapp.status.wallet.is("DISCONNECTED")) {
+  dapp.provider.onSafe(async function () { 
+    if (!dapp.signer.isSafe.value) {
 
       try {
         const signer = await dapp.provider.getSigner();
         await signer.getAddress()
-        dapp.signer = signer;
-        dapp.status.wallet.set("CONNECTED");
+        dapp.signer.proxy.setEthersObject(signer);
+        dapp.status.signer.set("CONNECTED");
       }
       catch (e) {
-        console.log("ERROOOOOOR")
         
         // If lazy simply mark the wallet as DISCONNECTED
         if (lazy === true) {
-          dapp.status.wallet.set("DISCONNECTED")
+          dapp.status.signer.set("DISCONNECTED")
         }
 
         // Else request user's web wallet for a connection.
         else {
 
           try {
-            dapp.status.wallet.set("REQUESTED");
+            dapp.status.signer.set("REQUESTED");
             await dapp.provider.send("eth_requestAccounts", []);
             const signer = await dapp.provider.getSigner();
             await signer.getAddress()
-            dapp.signer = signer;
-            dapp.status.wallet.set("CONNECTED");
+            dapp.signer.proxy.setEthersObject(signer);
+            dapp.status.signer.set("CONNECTED");
           }
           catch (e) {
             console.log(e)
             if (e.code === 4001) {
-              dapp.status.wallet.set("REFUSED");
+              dapp.status.signer.set("REFUSED");
             }
             else {
-              dapp.status.wallet.set("ERROR");
+              dapp.status.signer.set("ERROR");
             }
           }
         }
       }
     }
-  }
-  else {
-    dapp.status.wallet.set("NOPROVIDER");
-  }
+  })
 }
 
 export function disconnectWallet() {
-  console.log(dapp.provider)
-  dapp.signer = null;
-  dapp.status.wallet.set("DISCONNECTED")
+  dapp.signer.proxy.setEthersObject(null);
+  dapp.status.signer.set("DISCONNECTED")
 }
 

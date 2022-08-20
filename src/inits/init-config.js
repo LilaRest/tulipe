@@ -10,7 +10,6 @@ export default async function initConfig (vuethersCustomConfig=null) {
 
   // Read vuethers.config.js if one is provided.
   if (vuethersCustomConfig) {
-    console.log("AAA")
 
     // Deep merge default and custom config to override default configs by the custom ones
     const vuethersConfig = deepMerge({...vuethersDefaultConfig}, {...vuethersCustomConfig})

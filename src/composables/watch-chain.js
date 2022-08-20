@@ -1,7 +1,7 @@
 import { onUnmounted, watch, ref } from "vue";
 import { dapp } from "../index.js";
 
-class ChainWatcher {
+export class ChainWatcher {
     constructor (contract) {
         this.contract = contract;
         this.sources = {};
@@ -11,12 +11,12 @@ class ChainWatcher {
     _buildSourceName (source, args) {
         return `${source}:${args.toString}`;
     }
-    
+
     async update () {
         const currentBlockNumber = await dapp.provider.getBlockNumber();
 
         if (this.lastUpdateBlock < currentBlockNumber) {
-            
+
             for (const [sourceName, source] of Object.entries(this.sources)) {
                 const oldValue = source.state.value;
                 source.state.value = await this.contract[source.name](...source.args);
@@ -64,22 +64,4 @@ class ChainWatcher {
         const sourceName = this._buildSourceName(source, args);
         return this.sources[sourceName].state
     }
-}
-
-function _watch(contract, source, args, callback=null) {
-    if (!Object.keys(dapp._chainWatchers).includes(contract.address)) {
-        dapp._chainWatchers[contract.address] = new ChainWatcher(contract)
-    }
-    dapp._chainWatchers[contract.address].add(source, args, callback);
-}
-
-export function watchChain(contract, source, args, callback) {
-    _watch(contract, source, args, callback);
-    onUnmounted(() => dapp._chainWatchers[contract.address].remove(source, args, callback))
-    return dapp._chainWatchers[contract.address].remove.bind(dapp._chainWatchers[contract.address], source, args, callback);
-}
-
-export function watchChainRef(contract, source, args) {
-    _watch(contract, source, args, null);
-    return dapp._chainWatchers[contract.address].getRef(source, args);
 }

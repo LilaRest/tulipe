@@ -1,4 +1,4 @@
-import { dapp } from "./stores/index.js";
+import { dapp } from "./dapp.js";
 import * as init from "./inits/index.js";
 
 export async function initVuethers (app, vuethersCustomConfig) {
@@ -25,10 +25,10 @@ export async function initVuethers (app, vuethersCustomConfig) {
   await init.initWatchers()
 
   // Set the DApp safe.
-  dapp.safe = true;
+  dapp.safe.value = true;
 }
 
+export { dapp } from "./dapp.js";
 export * from "./components/index.js"
-export * from "./stores/index.js"
 export * from "./composables/index.js"
 export * from "./utils/index.js"
