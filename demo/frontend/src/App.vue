@@ -7,6 +7,8 @@ import { ConnectWalletButton,
 import OtherComponent from "./components/OtherComponent.vue";
 import { computed } from "vue";
 
+const test = {OtherComponent: OtherComponent};
+
 let otherComponentDisplay = $ref(false);
 
 function toggleOtherComponentDisplay() {
@@ -32,32 +34,42 @@ dapp.contracts.onSafe(async function () {
 <template>
     <DebugBar/>
     <h1>Vuethers Testing App</h1>
-    <template v-if="dapp.isSafe.value">
-        <template v-if="dapp.provider.isSafe.value">
-            <ConnectWalletButton/>
-            <SelectNetworkDropdown/>
-            <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
-            <OtherComponent v-if="otherComponentDisplay"/>
 
-            <template v-if="dapp.contracts.areSafe.value">
-                <p>Special number = {{ specialNumber.value ? specialNumber.value : "Loading..." }}</p>
-                <p>Available contracts :</p>
-                <ul>
-                    <li v-for="(contract, contractName) of contracts">
-                        {{ contractName }}
-                        <ContractInteractor :contractName="contractName"/>
-                    </li>
-                </ul>
-            </template>
-            <template v-else>
-                Contracts are loading or not found.
-            </template>
+    <OnDappSafe>
+        <template #safe> 
+            <OnProviderSafe>
+                <template #safe>
+                    <ConnectWalletButton/>
+                    <SelectNetworkDropdown/>
+                    <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
+                    <test.OtherComponent v-if="otherComponentDisplay"/>
+
+                    <OnContractsSafe>
+                        <template #safe>
+                            <p>Special number = {{ specialNumber.value ? specialNumber.value : "Loading..." }}</p>
+                            <p>Available contracts :</p>
+                            <ul>
+                                <li v-for="(contract, contractName) of contracts">
+                                    {{ contractName }}
+                                    <ContractInteractor :contractName="contractName"/>
+                                </li>
+                            </ul>
+                        </template>
+
+                        <template #unsafe>
+                            Contracts are loading or not found.
+                        </template>
+                    </OnContractsSafe>
+                </template>
+
+                <template #unsafe>
+                    No network provided, please download Metamask or any supported web wallet.
+                </template>
+            </OnProviderSafe>
         </template>
-        <template v-else>
-            No network provided, please download Metamask or any supported web wallet.
+
+        <template #unsafe>
+            <p>Loading...</p>
         </template>
-    </template>
-    <template v-else>
-        <p>Loading...</p>
-    </template>
+    </OnDappSafe>
 </template>

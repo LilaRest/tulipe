@@ -6,6 +6,9 @@ export async function initVuethers (app, vuethersCustomConfig) {
   // Makes the dapp stores available globally in the project.
   app.config.globalProperties.dapp = dapp;
 
+  // Initialize Vuethers components.
+  await init.initComponents(app);
+
   // Initialize DApp's config.
   await init.initConfig(vuethersCustomConfig);
   
