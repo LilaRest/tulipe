@@ -55,18 +55,20 @@ let isDropdownOpened = $ref(false);
 
 </script>
 
-<template v-if="dapp.safe">
-  <div class="SelectNetworkDropdown">
-    <ul @click="toggle">
-      <li v-if="dapp.networks.current" selected>
-        <img width="40" :src="dapp.networks.current.icon ? dapp.networks.current.icon : dapp.defaults.networks.icon" :alt="dapp.networks.current.name + ' logo'"/>
-        <p>{{ dapp.networks.current.displayName }}</p>
-      </li>
-      <li v-if="isDropdownOpened" v-for="network in dapp.networks.available" :key="network.chainId" @click="changeNetwork(network.chainId)">
-        <img width="40" :src="network.icon ? network.icon : dapp.defaults.networks.icon" :alt="network.name + ' logo'"/>
-        <p>{{ network.displayName }}</p>
-      </li>
-    </ul>
-  </div>
+<template>
+  <template v-if="dapp.safe">
+    <div class="SelectNetworkDropdown">
+      <ul @click="toggle">
+        <li v-if="dapp.networks.current" selected>
+          <img width="40" :src="dapp.networks.current.icon ? dapp.networks.current.icon : dapp.defaults.networks.icon" :alt="dapp.networks.current.name + ' logo'"/>
+          <p>{{ dapp.networks.current.displayName }}</p>
+        </li>
+        <li v-if="isDropdownOpened" v-for="network in dapp.networks.available" :key="network.chainId" @click="changeNetwork(network.chainId)">
+          <img width="40" :src="network.icon ? network.icon : dapp.defaults.networks.icon" :alt="network.name + ' logo'"/>
+          <p>{{ network.displayName }}</p>
+        </li>
+      </ul>
+    </div>
+  </template>
 </template>
 

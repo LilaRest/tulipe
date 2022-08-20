@@ -3,13 +3,9 @@ import { ConnectWalletButton,
          SelectNetworkDropdown,
          ContractInteractor,
          dapp,
-         isDappSafe,
-         isSignerSafe,
-         isProviderSafe,
-         onContractsSafe,
-         areContractsSafe, 
          DebugBar } from "../../../src/index.js";
 import OtherComponent from "./components/OtherComponent.vue";
+import { computed } from "vue";
 
 let otherComponentDisplay = $ref(false);
 
@@ -19,11 +15,11 @@ function toggleOtherComponentDisplay() {
 
 let contracts = $ref(null);
 let specialNumber = $ref(null);
-
-onContractsSafe(async function () { 
+dapp.contracts.onSafe(async function () { 
     contracts = dapp.contracts.getAll()
 
-    specialNumber = dapp.contracts.Lock.watchRef("specialNumber", []);
+    const specialNumberWatcher = dapp.contracts.Lock.watchRef("specialNumber", [])
+    specialNumber = computed(() => specialNumberWatcher.value ? specialNumberWatcher.value.toNumber() : null);
 
     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
         console.log("specialNumber has changed")
@@ -36,15 +32,15 @@ onContractsSafe(async function () {
 <template>
     <DebugBar/>
     <h1>Vuethers Testing App</h1>
-    <template v-if="isDappSafe">
-        <template v-if="isProviderSafe">
+    <template v-if="dapp.isSafe.value">
+        <template v-if="dapp.provider.isSafe.value">
             <ConnectWalletButton/>
             <SelectNetworkDropdown/>
             <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
             <OtherComponent v-if="otherComponentDisplay"/>
 
-            <template v-if="areContractsSafe">
-                <p>Special number = {{ specialNumber.value ? specialNumber.value.toNumber() : "Loading..." }}</p>
+            <template v-if="dapp.contracts.areSafe.value">
+                <p>Special number = {{ specialNumber.value ? specialNumber.value : "Loading..." }}</p>
                 <p>Available contracts :</p>
                 <ul>
                     <li v-for="(contract, contractName) of contracts">

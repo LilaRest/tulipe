@@ -1,14 +1,15 @@
 <script setup>
-import { safeRun, dapp } from "../index.js";
+import { dapp } from "../index.js";
 
 let currentNetwork = $ref("");
 
-safeRun(() => {
+dapp.provider.onSafe(() => {
 
 })
 </script>
 
-
 <template>
-  <p class="CurrentNetwork">{{ currentNetwork }}</p>
+  <template v-if="dapp.provider.isSafe.value">
+    <p class="CurrentNetwork">{{ currentNetwork }}</p>
+  </template>
 </template>
