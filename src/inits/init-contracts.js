@@ -28,17 +28,17 @@ export default async function initContracts () {
           }
           catch (e) {
             console.log(e)
-            dapp.status.contracts.set("NOPROVIDER");
+            dapp.contracts.status.set("NOPROVIDER");
             break;
           }
         }
       }
     })
 
-      dapp.status.contracts.set("INITIALIZED")
+      dapp.contracts.status.set("INITIALIZED")
     }
     else {
-      dapp.status.contracts.set("NOPROVIDER")
+      dapp.contracts.status.set("NOPROVIDER")
     }
   })
 }

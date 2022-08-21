@@ -15,7 +15,7 @@ export default async function initProvider() {
     // If the current network is valid.
     if (networkConfig) {
       dapp.provider = dapp.provider;
-      dapp.status.provider.set("CONNECTED")
+      dapp.provider.status.set("CONNECTED")
     }
 
     // Else if it's a wrong or unknown network.
@@ -25,12 +25,12 @@ export default async function initProvider() {
       if (networkConfig) {
         dapp.provider = dapp.provider.proxy.setEthersObject(new ethers.providers.JsonRpcProvider(knownNetwork.defaultRPC));
 
-        dapp.status.provider.set("WRONG")
+        dapp.provider.status.set("WRONG")
       }
       else {
         dapp.provider = dapp.provider;
 
-        dapp.status.provider.set("UNKNOWN")
+        dapp.provider.status.set("UNKNOWN")
         // dapp.networks.current.displayName = capitalizeWords(dapp.networks.current.name)
       }
     }
@@ -45,7 +45,7 @@ export default async function initProvider() {
     // Set status to ERROR if the on provider error.
     dapp.provider.on("error", () => {
       console.log("Provider error !")
-      dapp.status.provider.set("ERROR");
+      dapp.provider.status.set("ERROR");
     })
 
     // Set the polling interval of the provider.
@@ -59,7 +59,7 @@ export default async function initProvider() {
       dapp.provider = dapp.provider.proxy.setEthersObject(new ethers.providers.JsonRpcProvider(defaultNetworkConfig.defaultRPC))
     }
     else {
-      dapp.status.provider.set("DISCONNECTED");
+      dapp.provider.status.set("DISCONNECTED");
     }
   }
 }

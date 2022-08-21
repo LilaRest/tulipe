@@ -7,7 +7,7 @@ import { ConnectWalletButton,
 import OtherComponent from "./components/OtherComponent.vue";
 import { computed } from "vue";
 
-dapp.contracts.onSafe(function (cpt) {
+dapp.contracts.onReadSafe(function (cpt) {
     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
         console.log("specialNumber has changed")
         console.log("new = " + newValue)
@@ -45,7 +45,7 @@ let specialNumber = $ref(null);
                     <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
                     <test.OtherComponent v-if="otherComponentDisplay"/>
 
-                    <OnContractsSafe>
+                    <OnContractsReadSafe>
                         <template #safe>
                             <p>Special number = {{ specialNumber.value ? specialNumber.value : "Loading..." }}</p>
                             <p>Available contracts :</p>
@@ -60,7 +60,7 @@ let specialNumber = $ref(null);
                         <template #unsafe>
                             Contracts are loading or not found.
                         </template>
-                    </OnContractsSafe>
+                    </OnContractsReadSafe>
                 </template>
 
                 <template #unsafe>

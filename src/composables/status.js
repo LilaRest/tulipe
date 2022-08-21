@@ -1,15 +1,15 @@
 import { watch, ref } from "vue";
 import { dapp } from "../index.js";
 
-export class StatusList {
-    
-    add (name, states) {
-      if (Object.keys(dapp.status).includes(name)) {
-        throw(`You cannot add a new status called '${name}', this name is either reserved by Vuethers or already existing.`);
-      }
-      dapp.status[name] = new Status(name, states);
-    }
-}
+// export class StatusList {
+//
+//     add (name, states) {
+//       if (Object.keys(dapp.status).includes(name)) {
+//         throw(`You cannot add a new status called '${name}', this name is either reserved by Vuethers or already existing.`);
+//       }
+//       dapp.status[name] = new Status(name, states);
+//     }
+// }
 
 export class Status {
 
@@ -64,7 +64,7 @@ export class Status {
     }
     this._state.value = state;
   }
- 
+
   is(state) {
     if (!this._isStateValid(state)) {
       throw(`The state given to the is() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${state}`)
@@ -95,7 +95,7 @@ export class Status {
           callback(this.get())
         }
       })
-    } 
+    }
     else {
       if (!this._isStateValid(states)) {
         throw(errorMessage)
@@ -106,7 +106,7 @@ export class Status {
         }
       })
     }
-  } 
+  }
 
   watchAny(callback) {
     this.watch(this.states, callback);

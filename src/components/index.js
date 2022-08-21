@@ -5,4 +5,5 @@ export { default as DebugBar } from "./DebugBar.vue"
 export { default as OnDappSafe } from "./safers/OnDappSafe.vue";
 export { default as OnProviderSafe } from "./safers/OnProviderSafe.vue";
 export { default as OnSignerSafe } from "./safers/OnSignerSafe.vue";
-export { default as OnContractsSafe } from "./safers/OnContractsSafe.vue";
+export { default as OnContractsReadSafe } from "./safers/OnContractsReadSafe.vue";
+export { default as OnContractsWriteSafe } from "./safers/OnContractsWriteSafe.vue";

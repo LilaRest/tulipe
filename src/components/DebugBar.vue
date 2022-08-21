@@ -17,8 +17,12 @@ import { dapp } from "../index.js";
       <div>
         <h3>Status</h3>
         <ul>
-          <li v-for="(status, statusName) of dapp.status">
-            {{ statusName }} : {{ status.get() }}
+          <li>dapp : {{ dapp.status.get() }}</li>
+          <li>provider : {{ dapp.provider.status.get() }}</li>
+          <li>signer : {{ dapp.signer.status.get() }}</li>
+          <li>contracts : {{ dapp.contracts.status.get() }}</li>
+          <li v-for="(contract, contractName) of dapp.contracts.getAll()">
+            contract {{ contractName }} : {{ contract.status.get() }}
           </li>
         </ul>
       </div>

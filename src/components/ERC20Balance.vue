@@ -21,8 +21,8 @@ async function fetchDatas () {
 }
 
 safeRun(() => {
-  if (!dapp.status.signer.is("CONNECTED") && !props.walletAddress) {
-    dapp.status.signer.watch("CONNECTED", fetchDatas);
+  if (!dapp.signer.status.is("CONNECTED") && !props.walletAddress) {
+    dapp.signer.status.watch("CONNECTED", fetchDatas);
   }
   else {
     fetchDatas();
@@ -32,6 +32,6 @@ safeRun(() => {
 
 <template>
   <OnSignerSafe>
-    <p class="ERC20Balance" v-if="dapp.status.signer.is('CONNECTED')">{{ balance }} {{ symbol }}</p>
+    <p class="ERC20Balance" v-if="dapp.signer.status.is('CONNECTED')">{{ balance }} {{ symbol }}</p>
   </OnSignerSafe>
 </template>

@@ -117,3 +117,12 @@ import { ConnectWalletButton } from "vuethers";
 </template>
 ```
 
+### Order of safers execution
+
+dapp.isSafe = dapp is successfuly initialized 
+dapp.provider.isSafe = dapp.isSafe + dapp connected to a provider (don't means it's a right one)
+dapp.signer.isSafe = dapp.provider.isSafe + dapp connected to a wallet (a signer is available)
+dapp.contracts.<contract>.isReadSafe = dapp.provider.isSafe + contract successfuly initialized
+dapp.contracts.<contract>.isWriteSafe = dapp.signer.isSafe + contract successfuly initialized
+dapp.contracts.areReadSafe = dapp.provider.isSafe + all contracts successfuly initialized
+dapp.contracts.areWriteSafe = dapp.signer.isSafe + all contracts successfuly initialized
