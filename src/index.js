@@ -13,7 +13,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
   await init.initConfig(vuethersCustomConfig);
   
   // Initialize DApp status.
-  await init.initStatus();
+  // await init.initStatus();
 
   // Initialize DApp's provider.
   await init.initProvider();
@@ -28,7 +28,7 @@ export async function initVuethers (app, vuethersCustomConfig) {
   await init.initWatchers()
 
   // Set the DApp safe.
-  dapp.safe.value = true;
+  dapp.status.set("SAFE");
 }
 
 export { dapp } from "./dapp.js";

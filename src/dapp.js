@@ -1,9 +1,9 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
-import { StatusList } from "./composables/status.js";
+import { Status } from "./composables/status.js";
 // import { MixedStore } from "./composables/store.js";
 import { ContractsList } from "./composables/contracts-list.js";
 import { EthersProviderProxy, EthersSignerProxy } from "./composables/ethers/proxies/index.js"
-import { computed, watch, ref, getCurrentInstance, getCurrentScope, onMounted, onUnmounted } from "vue";
+import { computed, watch, getCurrentInstance } from "vue";
 
 // const dappStateless = {
 class Dapp {
@@ -15,12 +15,14 @@ class Dapp {
 
     // An object that holds all the created Status instances from addStatus().
     this._chainWatchers = {}
-    this.status = new StatusList()
+    this.status = new Status("dapp", [
+      "UNSAFE",
+      "SAFE"
+    ]);
     this.provider = new EthersProviderProxy()
     this.signer = new EthersSignerProxy()
     this.contracts = new ContractsList()
-    this.safe = ref(false)
-    this.isSafe = computed(() => this.safe.value)
+    this.isSafe = computed(() => this.status.is("SAFE"))
   }
 
   onSafe (func) {
