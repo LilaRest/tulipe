@@ -1,12 +1,12 @@
-import { ref as x, watch as k, computed as I, markRaw as X, getCurrentInstance as q, onUnmounted as $, resolveComponent as V, openBlock as c, createBlock as B, withCtx as F, createElementVNode as i, unref as l, createElementBlock as u, toDisplayString as f, createCommentVNode as S, Fragment as y, renderList as O, withDirectives as j, vModelDynamic as z, vModelText as L, vModelSelect as ee, createTextVNode as Q, pushScopeId as te, popScopeId as se, renderSlot as v } from "vue";
+import { ref as R, watch as k, computed as I, getCurrentInstance as N, markRaw as X, onUnmounted as j, resolveComponent as B, openBlock as c, createBlock as F, withCtx as G, createElementVNode as i, unref as l, createElementBlock as u, toDisplayString as f, createCommentVNode as S, Fragment as y, renderList as O, withDirectives as T, vModelDynamic as z, vModelText as K, vModelSelect as ee, createTextVNode as Q, pushScopeId as te, popScopeId as se, renderSlot as v } from "vue";
 import { ethers as C } from "ethers";
-class D {
+class $ {
   constructor(e, t) {
     if (this._name = e, this.states = [], !Array.isArray(t))
       throw `The 'states' parameter of a Status instance '${e}' must an array of strings. Got: ${t}`;
     for (const n of t)
       this.states.push(this._formatState(n));
-    this._state = x(this.states[0]);
+    this._state = R(this.states[0]);
   }
   _formatState(e) {
     return e.toString().toUpperCase();
@@ -66,7 +66,7 @@ class D {
 }
 class ne {
   constructor() {
-    this._contracts = [], this.status = new D("contracts", [
+    this._contracts = [], this.status = new $("contracts", [
       "WAITING",
       "ERROR",
       "NOPROVIDER",
@@ -77,9 +77,9 @@ class ne {
     if (Object.keys(this).includes(e))
       throw `You cannot add a new contract called '${e}', this name is either reserved by Vuethers or already existing.`;
     if (s.signer.isSafe.value)
-      this[e] = new K(new C.Contract(t, n, s.signer.proxy.getEthersObject()));
+      this[e] = new Z(new C.Contract(t, n, s.signer.proxy.getEthersObject()));
     else if (s.provider.isSafe.value)
-      this[e] = new K(new C.Contract(t, n, s.provider.proxy.getEthersObject()));
+      this[e] = new Z(new C.Contract(t, n, s.provider.proxy.getEthersObject()));
     else
       throw "A contract is trying to be added from dapp.contract.add() but neither provider nor signer are available.";
     this._contracts.push(e);
@@ -94,26 +94,24 @@ class ne {
     return e;
   }
   onReadSafe(e) {
-    s.provider.onSafe((t) => {
-      if (this.areReadSafe.value)
-        e(t);
-      else {
-        const n = k(this.areReadSafe, () => {
-          this.areReadSafe.value && (e(t), n());
-        });
-      }
-    });
+    const t = N();
+    if (this.areReadSafe.value)
+      e(t);
+    else {
+      const n = k(this.areReadSafe, () => {
+        this.areReadSafe.value && (e(t), n());
+      });
+    }
   }
   onWriteSafe(e) {
-    s.signer.onSafe((t) => {
-      if (this.areWriteSafe.value)
-        e(t);
-      else {
-        const n = k(this.areWriteSafe, () => {
-          this.areWriteSafe.value && (e(t), n());
-        });
-      }
-    });
+    const t = N();
+    if (this.areWriteSafe.value)
+      e(t);
+    else {
+      const n = k(this.areWriteSafe, () => {
+        this.areWriteSafe.value && (e(t), n());
+      });
+    }
   }
 }
 function ae(a) {
@@ -147,7 +145,7 @@ class re {
     }
   }
 }
-class G {
+class H {
   constructor(e = null, t = null) {
     return this._ethersObject = null, this._extensionObject = t, this.proxy = new re(this), this.proxy.setEthersObject(e), new Proxy(this, {
       get: function(n, r, d) {
@@ -170,10 +168,10 @@ class G {
 }
 class oe {
 }
-class ie extends G {
+class ie extends H {
   constructor(e = null) {
     const t = new oe();
-    super(e, t), this.status = new D("provider", [
+    super(e, t), this.status = new $("provider", [
       "DISCONNECTED",
       "WRONG",
       "UNKNOWN",
@@ -182,101 +180,7 @@ class ie extends G {
     ]), this.isSafe = I(() => s.isSafe.value && !this.status.is("DISCONNECTED"));
   }
   onSafe(e) {
-    s.onSafe((t) => {
-      if (this.isSafe.value)
-        e(t);
-      else {
-        const n = k(this.isSafe, () => {
-          this.isSafe.value && (e(t), n());
-        });
-      }
-    });
-  }
-}
-class ce {
-}
-class le extends G {
-  constructor(e = null) {
-    const t = new ce();
-    super(e, t), this.status = new D("signer", [
-      "DISCONNECTED",
-      "REQUESTED",
-      "REFUSED",
-      "ERROR",
-      "NOPROVIDER",
-      "CONNECTED"
-    ]), this.isSafe = I(() => s.provider.isSafe.value && this.status.is("CONNECTED"));
-  }
-  onSafe(e) {
-    s.provider.onSafe((t) => {
-      if (this.isSafe.value)
-        e(t);
-      else {
-        const n = k(this.isSafe, () => {
-          this.isSafe.value && (e(t), n());
-        });
-      }
-    });
-  }
-}
-class ue {
-  _watch(e, t, n = null) {
-    return Object.keys(s._chainWatchers).includes(this.address) || (s._chainWatchers[this.address] = new et(this)), s._chainWatchers[this.address].add(e, t, n);
-  }
-  watch(e, t, n, r = null) {
-    const d = this._watch(e, t, n);
-    return q(), r ? $(() => {
-      s._chainWatchers[this.address].remove(e, t, d);
-    }, r) : $(() => {
-      s._chainWatchers[this.address].remove(e, t, d);
-    }), s._chainWatchers[this.address].remove.bind(s._chainWatchers[this.address], e, t, d);
-  }
-  watchRef(e, t, n = null) {
-    const r = this._watch(e, t, null);
-    return n ? $(() => {
-      s._chainWatchers[this.address].remove(e, t, r);
-    }, n) : $(() => {
-      s._chainWatchers[this.address].remove(e, t, r);
-    }), s._chainWatchers[this.address].getRef(e, t);
-  }
-}
-class K extends G {
-  constructor(e) {
-    const t = new ue();
-    super(e, t), this.status = new D("", []), this.isReadSafe = I(() => s.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = I(() => s.signer.isSafe.value && this.status.is("INITIALIZED"));
-  }
-  onReadSafe(e) {
-    s.provider.onSafe((t) => {
-      if (this.isSafe.value)
-        e(t);
-      else {
-        const n = k(this.isSafe, () => {
-          this.isSafe.value && (e(t), n());
-        });
-      }
-    });
-  }
-  onWriteSafe(e) {
-    s.signer.onSafe((t) => {
-      if (this.isSafe.value)
-        e(t);
-      else {
-        const n = k(this.isSafe, () => {
-          this.isSafe.value && (e(t), n());
-        });
-      }
-    });
-  }
-}
-class de {
-  constructor() {
-    this.config = {}, this.defaults = {}, this.networks = {}, this._chainWatchers = {}, this.status = new D("dapp", [
-      "UNSAFE",
-      "SAFE"
-    ]), this.provider = new ie(), this.signer = new le(), this.contracts = new ne(), this.isSafe = I(() => this.status.is("SAFE"));
-  }
-  onSafe(e) {
-    const t = q();
+    const t = N();
     if (this.isSafe.value)
       e(t);
     else {
@@ -286,7 +190,97 @@ class de {
     }
   }
 }
-const s = new de(), M = {
+class ce {
+}
+class le extends H {
+  constructor(e = null) {
+    const t = new ce();
+    super(e, t), this.status = new $("signer", [
+      "DISCONNECTED",
+      "REQUESTED",
+      "REFUSED",
+      "ERROR",
+      "NOPROVIDER",
+      "CONNECTED"
+    ]), this.isSafe = I(() => s.provider.isSafe.value && this.status.is("CONNECTED"));
+  }
+  onSafe(e) {
+    const t = N();
+    if (this.isSafe.value)
+      e(t);
+    else {
+      const n = k(this.isSafe, () => {
+        this.isSafe.value && (e(t), n());
+      });
+    }
+  }
+}
+class ue {
+  _watch(e, t, n = null) {
+    return Object.keys(s._chainWatchers).includes(this.address) || (s._chainWatchers[this.address] = new et(this)), s._chainWatchers[this.address].add(e, t, n);
+  }
+  watch(e, t, n, r = null) {
+    const d = this._watch(e, t, n);
+    return N(), r ? j(() => {
+      s._chainWatchers[this.address].remove(e, t, d);
+    }, r) : j(() => {
+      s._chainWatchers[this.address].remove(e, t, d);
+    }), s._chainWatchers[this.address].remove.bind(s._chainWatchers[this.address], e, t, d);
+  }
+  watchRef(e, t, n = null) {
+    const r = this._watch(e, t, null);
+    return n ? j(() => {
+      s._chainWatchers[this.address].remove(e, t, r);
+    }, n) : j(() => {
+      s._chainWatchers[this.address].remove(e, t, r);
+    }), s._chainWatchers[this.address].getRef(e, t);
+  }
+}
+class Z extends H {
+  constructor(e) {
+    const t = new ue();
+    super(e, t), this.status = new $("", []), this.isReadSafe = I(() => s.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = I(() => s.signer.isSafe.value && this.status.is("INITIALIZED"));
+  }
+  onReadSafe(e) {
+    const t = N();
+    if (this.isSafe.value)
+      e(t);
+    else {
+      const n = k(this.isSafe, () => {
+        this.isSafe.value && (e(t), n());
+      });
+    }
+  }
+  onWriteSafe(e) {
+    const t = N();
+    if (this.isSafe.value)
+      e(t);
+    else {
+      const n = k(this.isSafe, () => {
+        this.isSafe.value && (e(t), n());
+      });
+    }
+  }
+}
+class de {
+  constructor() {
+    this.config = {}, this.defaults = {}, this.networks = {}, this._chainWatchers = {}, this.status = new $("dapp", [
+      "UNSAFE",
+      "SAFE"
+    ]), this.provider = new ie(), this.signer = new le(), this.contracts = new ne(), this.isSafe = I(() => this.status.is("SAFE"));
+  }
+  onSafe(e) {
+    const t = N();
+    if (this.isSafe.value)
+      e(t);
+    else {
+      const n = k(this.isSafe, () => {
+        this.isSafe.value && (e(t), n());
+      });
+    }
+  }
+}
+const s = new de(), U = {
   networks: [
     {
       name: "Ethereum Mainnet",
@@ -750,12 +744,12 @@ async function he() {
 }
 async function pe(a = null) {
   if (a) {
-    const e = T({ ...M }, { ...a });
+    const e = A({ ...U }, { ...a });
     e.networks = [];
     for (let t of a.networks)
       if (t.chainId) {
-        const n = M.networks.find((r) => r.chainId === t.chainId);
-        t = T({ ...n }, { ...t }), t.displayName || (t.displayName = t.name), e.networks.push(t);
+        const n = U.networks.find((r) => r.chainId === t.chainId);
+        t = A({ ...n }, { ...t }), t.displayName || (t.displayName = t.name), e.networks.push(t);
       }
     e.networks.getCurrent = he, s.config = e;
   }
@@ -764,7 +758,7 @@ async function fe() {
   if (s.provider.proxy.setEthersObject(new C.providers.Web3Provider(window.ethereum, "any")), s.provider._ethersObject) {
     const a = await s.provider.getNetwork().then((t) => t.chainId);
     let e = s.config.networks.find((t) => t.chainId === a);
-    e ? (s.provider = s.provider, s.provider.status.set("CONNECTED")) : (e = M.networks.find((t) => t.chainId === a), e ? (s.provider = s.provider.proxy.setEthersObject(new C.providers.JsonRpcProvider(knownNetwork.defaultRPC)), s.provider.status.set("WRONG")) : (s.provider = s.provider, s.provider.status.set("UNKNOWN"))), s.provider.on("network", (t, n) => {
+    e ? (s.provider = s.provider, s.provider.status.set("CONNECTED")) : (e = U.networks.find((t) => t.chainId === a), e ? (s.provider = s.provider.proxy.setEthersObject(new C.providers.JsonRpcProvider(knownNetwork.defaultRPC)), s.provider.status.set("WRONG")) : (s.provider = s.provider, s.provider.status.set("UNKNOWN"))), s.provider.on("network", (t, n) => {
       n && n !== t && window.location.reload();
     }), s.provider.on("error", () => {
       console.log("Provider error !"), s.provider.status.set("ERROR");
@@ -775,7 +769,7 @@ async function fe() {
   }
 }
 async function me() {
-  s.provider.status.is("DISCONNECTED") || await U(!0);
+  s.provider.status.is("DISCONNECTED") || await V(!0);
 }
 async function be() {
   s.provider.onSafe(async function() {
@@ -786,10 +780,10 @@ async function be() {
       k([s.signer.isSafe, s.provider.isSafe], (e, t) => {
         if (console.log("Refresh contracts !"), e !== t)
           for (const [n, r] of Object.entries(s.contracts.getAll())) {
-            const d = n, b = r.address, N = r.interface.format("json");
+            const d = n, b = r.address, x = r.interface.format("json");
             s.contracts.remove(n);
             try {
-              s.contracts.add(d, b, N);
+              s.contracts.add(d, b, x);
             } catch (E) {
               console.log(E), s.contracts.status.set("NOPROVIDER");
               break;
@@ -825,16 +819,16 @@ const ye = { class: "ConnectWalletButton" }, _e = {
   __name: "ConnectWalletButton",
   setup(a) {
     return (e, t) => {
-      const n = V("OnProviderSafe");
-      return c(), B(n, null, {
-        default: F(() => [
+      const n = B("OnProviderSafe");
+      return c(), F(n, null, {
+        default: G(() => [
           i("div", ye, [
             l(s).signer.status.is("DISCONNECTED") ? (c(), u("button", {
               key: 0,
-              onClick: t[0] || (t[0] = (...r) => l(U) && l(U)(...r))
+              onClick: t[0] || (t[0] = (...r) => l(V) && l(V)(...r))
             }, "Connect Wallet")) : l(s).signer.status.is("REQUESTED") ? (c(), u("button", _e, "Connection requested...")) : l(s).signer.status.is("REFUSED") ? (c(), u("button", we, "Connection refused!")) : l(s).signer.status.is("ERROR") ? (c(), u("button", ge, "Connection error!")) : l(s).provider.status.is("WRONG") ? (c(), u("button", ke, "Wrong network! (" + f(l(s).networks.current.displayName) + ")", 1)) : l(s).signer.status.is("CONNECTED") ? (c(), u("button", {
               key: 5,
-              onClick: t[1] || (t[1] = (...r) => l(Z) && l(Z)(...r))
+              onClick: t[1] || (t[1] = (...r) => l(q) && l(q)(...r))
             }, "Disconnect")) : S("", !0)
           ])
         ]),
@@ -854,7 +848,7 @@ const ye = { class: "ConnectWalletButton" }, _e = {
     const e = a;
     async function t(o, h, w = {}) {
       let m, g, p = null;
-      return h ? Array.isArray(h) ? p = o(...h, w) : p = o(h, w) : p = o(w), await p.then((P) => m = P).catch((P) => g = P), { data: m, error: g };
+      return h ? Array.isArray(h) ? p = o(...h, w) : p = o(h, w) : p = o(w), await p.then((D) => m = D).catch((D) => g = D), { data: m, error: g };
     }
     async function n(o) {
       const h = [];
@@ -870,11 +864,11 @@ const ye = { class: "ConnectWalletButton" }, _e = {
           _.value[o].outputs[p].value = m[p];
     }
     async function r(o) {
-      R.value[o.event].count += 1;
+      P.value[o.event].count += 1;
       let h = `Block ${o.blockNumber} -> {`;
-      for (const w of R.value[o.event].inputs)
+      for (const w of P.value[o.event].inputs)
         h += `${w.name}:${o.args[w.name]}, `;
-      h = h.substring(0, h.length - 2) + "}", R.value[o.event].logs.push(h);
+      h = h.substring(0, h.length - 2) + "}", P.value[o.event].logs.push(h);
     }
     function d(o) {
       return o.includes("int") ? "number" : "text";
@@ -882,15 +876,15 @@ const ye = { class: "ConnectWalletButton" }, _e = {
     function b(o) {
       return `${o.name && o.name !== "null" ? o.name : "unnamed"} (${o.type})`;
     }
-    function N(o) {
+    function x(o) {
       const h = [];
       return h.push(o.mutability), o.payable && h.push("payable"), h.join(", ");
     }
     const E = I(() => s.contracts[e.contractName]);
-    let H = x("");
-    const J = ["wei", "gwei", "ether"], R = x({}), _ = x({});
+    let L = R("");
+    const J = ["wei", "gwei", "ether"], P = R({}), _ = R({});
     return s.contracts.onReadSafe(async function() {
-      H.value = await E.value.owner();
+      L.value = await E.value.owner();
       for (const o of Object.values(E.value.interface.functions)) {
         _.value[o.name] = {
           inputs: [],
@@ -919,20 +913,20 @@ const ye = { class: "ConnectWalletButton" }, _e = {
           };
       }
       for (const o of Object.values(E.value.interface.events))
-        R.value[o.name] = {
+        P.value[o.name] = {
           count: 0,
           logs: [],
           inputs: o.inputs
         }, E.value.on(o, r);
     }), (o, h) => {
-      const w = V("OnContractsReadSafe");
-      return c(), B(w, null, {
-        default: F(() => [
+      const w = B("OnContractsReadSafe");
+      return c(), F(w, null, {
+        default: G(() => [
           E.value ? (c(), u(y, { key: 0 }, [
             i("p", null, "Interact with '" + f(a.contractName) + "' contract :", 1),
             i("ul", null, [
               i("li", null, "Address : " + f(E.value.address), 1),
-              i("li", null, "Owner : " + f(H.value), 1),
+              i("li", null, "Owner : " + f(L.value), 1),
               i("li", null, [
                 Ee,
                 i("ul", null, [
@@ -940,14 +934,14 @@ const ye = { class: "ConnectWalletButton" }, _e = {
                     i("button", {
                       onClick: (p) => n(g)
                     }, f(g), 9, Se),
-                    i("small", null, "(" + f(N(m)) + ")", 1),
+                    i("small", null, "(" + f(x(m)) + ")", 1),
                     Oe,
                     Object.keys(m.inputs).length > 0 || m.payable ? (c(), u("div", Ce, [
                       Ie,
                       i("ul", null, [
-                        (c(!0), u(y, null, O(m.inputs, (p, P) => (c(), u("li", null, [
-                          j(i("input", {
-                            "onUpdate:modelValue": (A) => p.value = A,
+                        (c(!0), u(y, null, O(m.inputs, (p, D) => (c(), u("li", null, [
+                          T(i("input", {
+                            "onUpdate:modelValue": (W) => p.value = W,
                             type: d(p.type),
                             placeholder: b(p)
                           }, null, 8, Ne), [
@@ -955,14 +949,14 @@ const ye = { class: "ConnectWalletButton" }, _e = {
                           ])
                         ]))), 256)),
                         m.payable ? (c(), u("li", xe, [
-                          j(i("input", {
+                          T(i("input", {
                             "onUpdate:modelValue": (p) => m.tx.value.value = p,
                             type: "text",
                             placeholder: "TX value"
                           }, null, 8, Re), [
-                            [L, m.tx.value.value]
+                            [K, m.tx.value.value]
                           ]),
-                          j(i("select", {
+                          T(i("select", {
                             "onUpdate:modelValue": (p) => m.tx.value.unit = p
                           }, [
                             (c(), u(y, null, O(J, (p) => i("option", { value: p }, f(p), 9, De)), 64))
@@ -975,14 +969,14 @@ const ye = { class: "ConnectWalletButton" }, _e = {
                     Object.keys(m.outputs).length > 0 ? (c(), u("div", $e, [
                       je,
                       i("ul", null, [
-                        (c(!0), u(y, null, O(m.outputs, (p, P) => (c(), u("li", null, [
-                          j(i("input", {
-                            "onUpdate:modelValue": (A) => p.value = A,
+                        (c(!0), u(y, null, O(m.outputs, (p, D) => (c(), u("li", null, [
+                          T(i("input", {
+                            "onUpdate:modelValue": (W) => p.value = W,
                             type: "text",
                             placeholder: b(p),
                             disabled: ""
                           }, null, 8, Te), [
-                            [L, p.value]
+                            [K, p.value]
                           ])
                         ]))), 256))
                       ])
@@ -994,7 +988,7 @@ const ye = { class: "ConnectWalletButton" }, _e = {
               i("li", null, [
                 We,
                 i("ul", null, [
-                  (c(!0), u(y, null, O(R.value, (m, g) => (c(), u("li", null, [
+                  (c(!0), u(y, null, O(P.value, (m, g) => (c(), u("li", null, [
                     i("h3", null, f(g), 1),
                     i("p", null, "Count : " + f(m.count), 1),
                     Me,
@@ -1031,8 +1025,8 @@ const ye = { class: "ConnectWalletButton" }, _e = {
               chainId: r
             }]
           });
-        } catch (N) {
-          N.code === 4902 && await window.ethereum.request({
+        } catch (x) {
+          x.code === 4902 && await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: [{
               chainId: r,
@@ -1054,7 +1048,7 @@ const ye = { class: "ConnectWalletButton" }, _e = {
     function t() {
       n.value = !n.value;
     }
-    let n = x(!1);
+    let n = R(!1);
     return (r, d) => l(s).safe ? (c(), u("div", Ue, [
       i("ul", { onClick: t }, [
         l(s).networks.current ? (c(), u("li", Ve, [
@@ -1067,7 +1061,7 @@ const ye = { class: "ConnectWalletButton" }, _e = {
         ])) : S("", !0),
         n.value ? (c(!0), u(y, { key: 1 }, O(l(s).networks.available, (b) => (c(), u("li", {
           key: b.chainId,
-          onClick: (N) => e(b.chainId)
+          onClick: (x) => e(b.chainId)
         }, [
           i("img", {
             width: "40",
@@ -1089,9 +1083,9 @@ const He = (a, e) => {
   __name: "DebugBar",
   setup(a) {
     return (e, t) => {
-      const n = V("OnDappSafe");
-      return c(), B(n, null, {
-        default: F(() => [
+      const n = B("OnDappSafe");
+      return c(), F(n, null, {
+        default: G(() => [
           i("section", null, [
             i("div", null, [
               Le,
@@ -1192,7 +1186,7 @@ class et {
     Object.keys(this.sources).includes(r) || (this.sources[r] = {
       name: e,
       args: t,
-      state: x(null),
+      state: R(null),
       dependents: {}
     }, this.contract[e](...t).then((b) => {
       this.sources[r].state.value = b;
@@ -1209,7 +1203,7 @@ class et {
     return this.sources[n].state;
   }
 }
-async function U(a = !1) {
+async function V(a = !1) {
   s.provider.isSafe.value || s.signer.status.set("NOPROVIDER"), s.provider.onSafe(async function() {
     if (!s.signer.isSafe.value)
       try {
@@ -1229,24 +1223,24 @@ async function U(a = !1) {
       }
   });
 }
-function Z() {
+function q() {
   s.signer.proxy.setEthersObject(null), s.signer.status.set("DISCONNECTED");
 }
-function W(a) {
+function M(a) {
   return a && typeof a == "object" && !Array.isArray(a);
 }
-function T(a, ...e) {
+function A(a, ...e) {
   if (!e.length)
     return a;
   const t = e.shift();
-  if (W(a) && W(t))
+  if (M(a) && M(t))
     for (const n in t)
-      W(t[n]) ? (a[n] || Object.assign(a, {
+      M(t[n]) ? (a[n] || Object.assign(a, {
         [n]: {}
-      }), T(a[n], t[n])) : Object.assign(a, {
+      }), A(a[n], t[n])) : Object.assign(a, {
         [n]: t[n]
       });
-  return T(a, ...e);
+  return A(a, ...e);
 }
 function it(a) {
   const e = a.split(" ");
@@ -1262,7 +1256,7 @@ export {
   nt as ConnectWalletButton,
   at as ContractInteractor,
   ot as DebugBar,
-  K as EthersContractProxy,
+  Z as EthersContractProxy,
   ie as EthersProviderProxy,
   le as EthersSignerProxy,
   Je as OnContractsReadSafe,
@@ -1271,12 +1265,12 @@ export {
   Qe as OnProviderSafe,
   Ye as OnSignerSafe,
   rt as SelectNetworkDropdown,
-  D as Status,
+  $ as Status,
   it as capitalizeWords,
-  U as connectWallet,
+  V as connectWallet,
   s as dapp,
-  T as deepMerge,
-  Z as disconnectWallet,
+  A as deepMerge,
+  q as disconnectWallet,
   ct as initVuethers,
-  W as isObject
+  M as isObject
 };
