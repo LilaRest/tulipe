@@ -1,7 +1,6 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
 import { Status } from "./composables/status.js";
-// import { MixedStore } from "./composables/store.js";
-import { ContractsList } from "./composables/contracts-list.js";
+import { ContractsList } from "./composables/ethers/contracts-list.js";
 import { EthersProviderProxy, EthersSignerProxy } from "./composables/ethers/proxies/index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 

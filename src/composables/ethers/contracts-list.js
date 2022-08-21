@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { dapp, EthersContractProxy, Status } from "../index.js"
-import { computed, watch, onMounted, onUnmounted, getCurrentInstance } from "vue";
+import { dapp, EthersContractProxy, Status } from "../../index.js"
+import { computed, watch, getCurrentInstance } from "vue";
 
 export class ContractsList {
 
@@ -53,36 +53,33 @@ export class ContractsList {
   }
 
   onReadSafe(func) {
-    dapp.provider.onSafe((component) => {
-        if (this.areReadSafe.value) {
-            func(component)
-        }
-        else {
-            const unwatch = watch(this.areReadSafe, () => {
-                if (this.areReadSafe.value) {
-                    func(component)
-                    unwatch()
-                }
-            })
-        }
-    })
+    const component = getCurrentInstance();
+    if (this.areReadSafe.value) {
+        func(component)
+    }
+    else {
+        const unwatch = watch(this.areReadSafe, () => {
+            if (this.areReadSafe.value) {
+                func(component)
+                unwatch()
+            }
+        })
+    }
   }
 
   onWriteSafe(func) {
-    dapp.signer.onSafe((component) => {
-        if (this.areWriteSafe.value) {
-            func(component)
-        }
-        else {
-            const unwatch = watch(this.areWriteSafe, () => {
-                if (this.areWriteSafe.value) {
-                    func(component)
-                    unwatch()
-                }
-            })
-        }
-    })
+    const component = getCurrentInstance();
+    if (this.areWriteSafe.value) {
+        func(component)
+    }
+    else {
+        const unwatch = watch(this.areWriteSafe, () => {
+            if (this.areWriteSafe.value) {
+                func(component)
+                unwatch()
+            }
+        })
+    }
   }
-
 }
 

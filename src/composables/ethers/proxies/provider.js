@@ -1,7 +1,7 @@
 import { EthersObjectProxy } from "./proxy.js";
 import { EthersProviderExtension } from "../extensions/provider.js";
 import { dapp, Status } from "../../../index.js";
-import { computed, watch } from "vue";
+import { computed, watch, getCurrentInstance } from "vue";
 
 export class EthersProviderProxy extends EthersObjectProxy {
   constructor (ethersObject=null) {
@@ -21,18 +21,17 @@ export class EthersProviderProxy extends EthersObjectProxy {
 
 
   onSafe (func) {
-    dapp.onSafe((component) => {
-        if (this.isSafe.value) {
-            func(component)
-        }
-        else {
-            const unwatch = watch(this.isSafe, () => {
-                if (this.isSafe.value) {
-                    func(component)
-                    unwatch()
-                }
-            })
-        }
-    })
+    const component = getCurrentInstance();
+    if (this.isSafe.value) {
+        func(component)
+    }
+    else {
+        const unwatch = watch(this.isSafe, () => {
+            if (this.isSafe.value) {
+                func(component)
+                unwatch()
+            }
+        })
+    }
   }
 }
