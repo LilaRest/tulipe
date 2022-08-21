@@ -4,10 +4,15 @@ import { dapp, Status } from "../../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 
 export class EthersContractProxy extends EthersObjectProxy {
-  constructor (ethersObject) {
+  constructor (name, ethersObject) {
     const extensionObject = new EthersContractExtension() 
     super(ethersObject, extensionObject)
-    this.status = new Status("", []);
+    this.status = new Status(`contract:${name}`, [
+      "NO_PROVIDER",     // Default status. If not changed it means that app don't have provider.
+      "WRONG_PROVIDER",  // Set when contract is not available for the current network.
+      "ERROR",                 // Set on unknown error during contract initialization.
+      "INITIALIZED",           // Set when contract successfuly initialized for the current connect provider.
+    ])
     this.isReadSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("INITIALIZED");
     })
@@ -18,12 +23,12 @@ export class EthersContractProxy extends EthersObjectProxy {
 
   onReadSafe (func) {
     const component = getCurrentInstance();
-    if (this.isSafe.value) {
+    if (this.isReadSafe.value) {
         func(component)
     }
     else {
-        const unwatch = watch(this.isSafe, () => {
-            if (this.isSafe.value) {
+        const unwatch = watch(this.isReadSafe, () => {
+            if (this.isReadSafe.value) {
                 func(component)
                 unwatch()
             }
@@ -33,12 +38,12 @@ export class EthersContractProxy extends EthersObjectProxy {
 
   onWriteSafe (func) {
     const component = getCurrentInstance();
-    if (this.isSafe.value) {
+    if (this.isWriteSafe.value) {
         func(component)
     }
     else {
-        const unwatch = watch(this.isSafe, () => {
-            if (this.isSafe.value) {
+        const unwatch = watch(this.isWriteSafe, () => {
+            if (this.isWriteSafe.value) {
                 func(component)
                 unwatch()
             }

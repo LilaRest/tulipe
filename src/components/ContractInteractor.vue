@@ -1,9 +1,8 @@
 <script setup>
 import { dapp } from "../index.js";
 import { ethers } from "ethers";
-import { watch } from "vue";
 const props = defineProps({
-  contractName: {
+  contract: {
     type: String,
     required: true
   }
@@ -80,7 +79,7 @@ function formatFunctionKeywords(func) {
   return keywords.join(", ")
 }
 
-const contract = $computed(() => dapp.contracts[props.contractName])
+const contract = $computed(() => dapp.contracts[props.contract])
 let owner = $ref("")
 const units = ["wei", "gwei", "ether"]
 const events = $ref({})

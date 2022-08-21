@@ -1,5 +1,5 @@
 export const vuethersConfig = {
-  networks: [
+  providers: [
     {
       chainId: 31337,
       contracts: {

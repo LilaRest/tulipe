@@ -10,7 +10,7 @@ export const vuethersDefaultConfig = {
      - 'explorer.url' in Vuethers must match 'explorers[0].url' in ChainId
     All others properties should also be near of ChainId datas even if it is not required.
   */
-  networks: [
+  providers: [
     {
       name: "Ethereum Mainnet",
       displayName: "Ethereum",
@@ -462,7 +462,7 @@ export const vuethersDefaultConfig = {
     },
   ],
   defaults: {
-    networks: {
+    providers: {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg",
     }
   }
