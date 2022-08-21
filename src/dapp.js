@@ -3,25 +3,23 @@ import { Status } from "./composables/status.js";
 import { ContractsList } from "./composables/ethers/contracts-list.js";
 import { EthersProviderProxy, EthersSignerProxy } from "./composables/ethers/proxies/index.js"
 import { computed, watch, getCurrentInstance } from "vue";
+import { VuethersConfig } from "./composables/config.js";
 
-// const dappStateless = {
-class Dapp {
-  constructor () {
+export class Dapp {
+  constructor (vuethersCustomConfig) {
     // Will host the content of the DApp config (custom + default vuethers.config.js files)
-    this.config = {}
-    this.defaults = {}
-    this.networks = {}
+    this.config = new VuethersConfig(vuethersCustomConfig)
 
     // An object that holds all the created Status instances from addStatus().
-    this._chainWatchers = {}
     this.status = new Status("dapp", [
       "UNSAFE",
       "SAFE"
     ]);
     this.provider = new EthersProviderProxy()
     this.signer = new EthersSignerProxy()
-    this.contracts = new ContractsList()
+    this.contracts = new ContractsList(this)
     this.isSafe = computed(() => this.status.is("SAFE"))
+    this._chainWatchers = {}
   }
 
   onSafe (func) {
@@ -41,5 +39,3 @@ class Dapp {
     }
   }
 }
-
-export const dapp = new Dapp();

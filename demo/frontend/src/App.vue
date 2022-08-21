@@ -35,7 +35,6 @@ let specialNumber = $ref(null);
 <template>
     <DebugBar/>
     <h1>Vuethers Testing App</h1>
-
     <OnDappSafe>
         <template #safe>
             <OnProviderSafe>
@@ -52,7 +51,7 @@ let specialNumber = $ref(null);
                             <ul>
                                 <li v-for="(contract, contractName) of contracts">
                                     {{ contractName }}
-                                    <ContractInteractor :contractName="contractName"/>
+                                    <ContractInteractor :contract="contractName"/>
                                 </li>
                             </ul>
                         </template>

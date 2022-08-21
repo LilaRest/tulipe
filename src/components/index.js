@@ -7,3 +7,5 @@ export { default as OnProviderSafe } from "./safers/OnProviderSafe.vue";
 export { default as OnSignerSafe } from "./safers/OnSignerSafe.vue";
 export { default as OnContractsReadSafe } from "./safers/OnContractsReadSafe.vue";
 export { default as OnContractsWriteSafe } from "./safers/OnContractsWriteSafe.vue";
+export { default as OnContractReadSafe } from "./safers/OnContractReadSafe.vue";
+export { default as OnContractWriteSafe } from "./safers/OnContractWriteSafe.vue";

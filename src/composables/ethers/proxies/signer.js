@@ -8,12 +8,13 @@ export class EthersSignerProxy extends EthersObjectProxy {
     const extensionObject = new EthersSignerExtension() 
     super(ethersObject, extensionObject)
     this.status = new Status("signer", [
-      "DISCONNECTED",
-      "REQUESTED",
-      "REFUSED",
-      "ERROR",
-      "NOPROVIDER",
-      "CONNECTED",
+      "DISCONNECTED",         // Default status. Not changed if the DApp is not connected to any wallet when loading.
+      "REQUESTED",            // Set when a wallet connection request has been sent from the DApp.
+      "REFUSED",              // Set during 5 seconds when a wallet connection request has been refused by either the wallet or the user.
+      "ERROR",                // Set when an unknown errors occurs during wallet connection.
+      "NO_PROVIDER",    // Set when the DApp is not connected to any provider.
+      "WRONG_PROVIDER", // Set when the DApp is connected to a provider that is not in the available providers list.
+      "CONNECTED",            // Set when a wallet is successfuly connected.
     ]);
     this.isSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");

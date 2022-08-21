@@ -6,6 +6,9 @@ import { vuethersConfig } from "../vuethers.config.js"
 const app = createApp(App)
 
 // Initialize Vue plugins
-app.use(initVuethers, vuethersConfig)
-
-app.mount("#app")
+app.use(initVuethers, {
+  config: vuethersConfig,
+  start: () => {
+    app.mount("#app");
+  }
+})

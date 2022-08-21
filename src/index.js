@@ -1,37 +1,44 @@
-import { dapp } from "./dapp.js";
-import * as init from "./inits/index.js";
+let dapp = null;
 
-export async function initVuethers (app, vuethersCustomConfig) {
+export function initVuethers (app, args) {
+  const vuethersCustomConfig = args.config;
+  const start = args.start;
 
-  // Makes the dapp stores available globally in the project.
-  app.config.globalProperties.dapp = dapp;
+  import("./dapp.js")
+    .then((dappjs) => {
+      dapp = new dappjs.Dapp(vuethersCustomConfig);
 
-  // Initialize Vuethers components.
-  await init.initComponents(app);
+      // Makes the dapp stores available globally in the project.
+      app.config.globalProperties.dapp = dapp;
 
-  // Initialize DApp's config.
-  await init.initConfig(vuethersCustomConfig);
-  
-  // Initialize DApp status.
-  // await init.initStatus();
+      const initImport = import("./inits/index.js")
+      initImport.then(async function (init) {
 
-  // Initialize DApp's provider.
-  await init.initProvider();
+        // Initialize Vuethers components.
+        init.initComponents(app);
 
-  // Initialize DApp's signer.
-  await init.initSigner();
+        // Start the Vue app.
+        start();
 
-  // Initialize DApp's contracts.
-  await init.initContracts()
+        // Initialize DApp's provider.
+        await init.initProvider();
 
-  // Initialize DApp's watchers.
-  await init.initWatchers()
+        // Initialize DApp's signer.
+        await init.initSigner();
 
-  // Set the DApp safe.
-  dapp.status.set("SAFE");
+        // Initialize DApp's contracts.
+        await init.initContracts()
+
+        // Initialize DApp's watchers.
+        await init.initWatchers()
+
+        // Set the DApp safe.
+        dapp.status.set("SAFE");
+    })
+  })
 }
 
-export { dapp } from "./dapp.js";
+export { dapp } 
 export * from "./components/index.js"
 export * from "./composables/index.js"
 export * from "./utils/index.js"

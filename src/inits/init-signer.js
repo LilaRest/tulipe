@@ -1,8 +1,8 @@
 import { connectWallet, dapp } from "../index.js";
 
 export default async function initSigner () {
-  if (!dapp.provider.status.is("DISCONNECTED")) {
+  dapp.provider.onSafe(async function () {
     await connectWallet(true);
-  }
+  })
 }
 

@@ -8,14 +8,13 @@ export class EthersProviderProxy extends EthersObjectProxy {
     const extensionObject = new EthersProviderExtension()
     super(ethersObject, extensionObject)
     this.status = new Status("provider", [
-      "DISCONNECTED",
-      "WRONG",
-      "UNKNOWN",
-      "ERROR",
-      "CONNECTED",
+      "DISCONNECTED",  // Default status. Doesn't change if the dapp cannot connect to any provider.
+      "WRONG",         // Set when DApp connected to a provider not contained in the available networks.
+      "ERROR",         // Set when an error occurs during provider connection.
+      "CONNECTED",     // Set when DApp connected to a provider contained in the available networks.
     ])
     this.isSafe = computed(() => {
-      return dapp.isSafe.value && !this.status.is("DISCONNECTED");
+      return dapp.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"]);
     })
   }
 
