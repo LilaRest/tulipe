@@ -10,7 +10,7 @@ export class ChainWatcher {
     }
 
     _buildSourceName (source, args) {
-        return `${source}:${args.toString()}`;
+        return `${source}:${args ? args.toString() : ""}`;
     }
 
     _generateDependentUUID() {
@@ -20,27 +20,32 @@ export class ChainWatcher {
         });
     }
 
-    async update () {
+    async update (source, args) {
         const currentBlockNumber = await dapp.provider.getBlockNumber();
 
         if (this.lastUpdateBlock < currentBlockNumber) {
 
             for (const [sourceName, source] of Object.entries(this.sources)) {
                 const oldValue = source.state.value;
-                source.state.value = await this.contract[source.name](...source.args);
+                if (source.args) {
+                    source.state.value = await this.contract[source.name](...source.args);
+                }
+                else {
+                    source.state.value = await this.contract[source.name]();
+                }
                 for (const callback of Object.values(source.dependents)) {
                     if (callback) {
                         callback(source.state.value, oldValue);
                     }
                 }
             }
-
             this.lastUpdateBlock = currentBlockNumber;
         }
     }
 
     add (source, args, callback=null) {
         const sourceName = this._buildSourceName(source, args);
+        let requireUpdate = false;
         if (!Object.keys(this.sources).includes(sourceName)) {
             this.sources[sourceName] = {
                 name: source,
@@ -48,13 +53,26 @@ export class ChainWatcher {
                 state: ref(null),
                 dependents: {},
             }
-            this.contract[source](...args)
-                .then((value) => {
-                    this.sources[sourceName].state.value = value;
-                });
+            requireUpdate = true;
         }
         const newDependentUUID = this._generateDependentUUID()
         this.sources[sourceName].dependents[newDependentUUID] = callback ? callback : null;
+
+        if (requireUpdate) {
+            const oldValue = this.sources[sourceName].state.value;
+            let newValue = null;
+            if (args) {
+                newValue = this.contract[source](...args);
+            }
+            else {
+                newValue = this.contract[source]();
+            }
+            newValue.then(value => {
+                this.sources[sourceName].state.value = value;
+                callback(value, oldValue)
+            })
+        }
+
         return newDependentUUID
     }
 

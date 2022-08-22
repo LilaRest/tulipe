@@ -1,4 +1,4 @@
-import { onUnmounted, getCurrentInstance } from "vue";
+import { onUnmounted } from "vue";
 import { ChainWatcher, dapp } from "../../../index.js"
 
 
@@ -13,7 +13,6 @@ export class EthersContractExtension {
 
   watch(source, args, callback, component=null) {
     const newDependentUUID = this._watch(source, args, callback);
-    const instance = getCurrentInstance();
     if (component) {
       onUnmounted(() => {
         dapp._chainWatchers[this.address].remove(source, args, newDependentUUID);

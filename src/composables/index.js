@@ -3,3 +3,4 @@ export { ChainWatcher } from "./chain-watcher.js";
 export { connectWallet, disconnectWallet } from "./wallet.js";
 export { EthersProviderProxy, EthersSignerProxy, EthersContractProxy } from "./ethers/proxies/index.js";
 export { VuethersConfig } from "./config.js";
+export { Transaction } from "./transact.js";

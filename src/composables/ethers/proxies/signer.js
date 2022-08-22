@@ -16,6 +16,11 @@ export class EthersSignerProxy extends EthersObjectProxy {
       "WRONG_PROVIDER", // Set when the DApp is connected to a provider that is not in the available providers list.
       "CONNECTED",            // Set when a wallet is successfuly connected.
     ]);
+    this.status.watch(["REFUSED", "ERROR"], () => {
+      setTimeout(() => {
+        this.status.set("DISCONNECTED");
+      }, 5000);
+    });
     this.isSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");
     })
