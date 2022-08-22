@@ -3,3 +3,4 @@ demo/backend/cache/
 demo/backend/artifacts/
 demo/backend/deployments/
 .git
+local/

@@ -79,14 +79,20 @@ function formatFunctionKeywords(func) {
   return keywords.join(", ")
 }
 
+const contractName = props.contract;
 const contract = $computed(() => dapp.contracts[props.contract])
-let owner = $ref("")
+let owner = $ref("no owner")
 const units = ["wei", "gwei", "ether"]
 const events = $ref({})
 const functions = $ref({})
 
 dapp.contracts.onReadSafe(async function () {
-  owner = await contract.owner()
+  console.log(contract)
+  try {
+    owner = await contract.owner()
+  }
+  catch (e) {}
+  
 
   // Build the functions object.
   for (const func of Object.values(contract.interface.functions)) {
