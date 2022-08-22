@@ -1,16 +1,6 @@
 import { watch, ref } from "vue";
 import { dapp } from "../index.js";
 
-// export class StatusList {
-//
-//     add (name, states) {
-//       if (Object.keys(dapp.status).includes(name)) {
-//         throw(`You cannot add a new status called '${name}', this name is either reserved by Vuethers or already existing.`);
-//       }
-//       dapp.status[name] = new Status(name, states);
-//     }
-// }
-
 export class Status {
 
   constructor (name, states) {
@@ -91,7 +81,7 @@ export class Status {
         throw(errorMessage)
       }
       watch(this._state, () => {
-        if (states.includes(this._state)) {
+        if (this.isIn(states)) {
           callback(this.get())
         }
       })
@@ -101,7 +91,7 @@ export class Status {
         throw(errorMessage)
       }
       watch(this._state, () => {
-        if (states === this._state) {
+        if (this.is(states)) {
           callback(this.get())
         }
       })

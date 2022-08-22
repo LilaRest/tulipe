@@ -1,32 +1,13 @@
 <script setup>
-import { dapp } from "../index.js";
+import { dapp, Transaction } from "../index.js";
 import { ethers } from "ethers";
+
 const props = defineProps({
   contract: {
     type: String,
     required: true
   }
 })
-
-
-async function transact (func, funcArgs, txArgs={}) {
-  let data, error, call = null;
-  if (funcArgs) {
-    if (Array.isArray(funcArgs)) {
-      call = func(...funcArgs, txArgs)
-    }
-    else {
-      call = func(funcArgs, txArgs)
-    }
-  }
-  else {
-    call = func(txArgs)
-  }
-  await call
-    .then((res) => (data = res))
-    .catch((err) => (error = err))
-  return { data, error }
-}
 
 async function execFunc (funcName) {
   const funcArgs = []
@@ -37,15 +18,17 @@ async function execFunc (funcName) {
   if (functions[funcName].payable && functions[funcName].tx.value.value !== "") {
     txArgs.value = ethers.utils.parseUnits(functions[funcName].tx.value.value, functions[funcName].tx.value.unit);
   }
-  const { data, error } = await transact(contract.functions[funcName], funcArgs, txArgs)
-  if (error) {
-    functions[funcName].error = error.reason;
-  }
-  else {
-    for (let i = 0; i < data.length; i++) {
-      functions[funcName].outputs[i].value = data[i];
-    }
-  }
+  const tx = new Transaction(contract.functions[funcName]);
+  tx.send(funcArgs, txArgs);
+  tx.call
+    .then((data) =>  {
+      for (let i = 0; i < data.length; i++) {
+        functions[funcName].outputs[i].value = data[i];
+      }
+    })
+    .catch((error) => {
+      functions[funcName].error = error.reason;
+    })
 }
 
 async function receiveEvent(event) {
@@ -87,7 +70,6 @@ const events = $ref({})
 const functions = $ref({})
 
 dapp.contracts.onReadSafe(async function () {
-  console.log(contract)
   try {
     owner = await contract.owner()
   }
