@@ -1,5 +1,5 @@
 export const vuethersConfig = {
-  providers: [
+  networks: [
     {
       chainId: 31337,
       contracts: {
@@ -26,12 +26,16 @@ export const vuethersConfig = {
     {chainId: 1285},
     {chainId: 8217},
     {chainId: 42161},
-    {chainId: 42220},
-    {chainId: 42262},
-    {chainId: 43114},
-    {chainId: 1313161554},
-    {chainId: 1666600000},
+    // {chainId: 42220},
+    // {chainId: 42262},
+    // {chainId: 43114},
+    // {chainId: 1313161554},
+    // {chainId: 1666600000},
   ],
+  wallets: [
+    {name: "metamask"},
+    {name: "binanceChain"}
+  ]
 }
 
 

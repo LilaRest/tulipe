@@ -1,3 +1,3 @@
-export { default as isObject } from "./is-object.js"
-export { default as deepMerge } from "./deep-merge.js"
-export { default as capitalizeWords } from "./capitalize-words.js"
+export { isObject } from "./is-object.js"
+export { deepMerge } from "./deep-merge.js"
+export { capitalizeWords } from "./capitalize-words.js"
