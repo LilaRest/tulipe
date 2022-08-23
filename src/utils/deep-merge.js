@@ -1,6 +1,6 @@
 import { isObject } from "./index.js";
 
-export default function deepMerge (target, ...sources) {
+export function deepMerge (target, ...sources) {
   if (!sources.length) return target;
   const source = sources.shift();
 

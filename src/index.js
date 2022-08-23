@@ -1,44 +1,40 @@
-let dapp = null;
+import { dapp } from "./composables/dapp.js";
 
-export function initVuethers (app, args) {
+export async function initVuethers (app, args) {
   const vuethersCustomConfig = args.config;
   const start = args.start;
 
-  import("./dapp.js")
-    .then((dappjs) => {
-      dapp = new dappjs.Dapp(vuethersCustomConfig);
+  try {
+    dapp.init(vuethersCustomConfig);
+  }
+  catch (e) {
+    if (dapp && dapp.status) {
+      dapp.status.set("ERROR")
+    }
+    throw e
+  }
 
-      // Makes the dapp stores available globally in the project.
-      app.config.globalProperties.dapp = dapp;
+  // Makes the dapp stores available globally in the project.
+  app.config.globalProperties.dapp = dapp;
 
-      const initImport = import("./inits/index.js")
-      initImport.then(async function (init) {
+  // Initialize Vuethers components.
+  const components = await import("./components/index.js");
+  app.component('OnDappSafe', components.OnDappSafe);
+  app.component('OnProviderSafe', components.OnProviderSafe);
+  app.component('OnSignerSafe', components.OnSignerSafe);
+  app.component('OnContractsReadSafe', components.OnContractsReadSafe);
+  app.component('OnContractsWriteSafe', components.OnContractsWriteSafe);
+  app.component('OnContractReadSafe', components.OnContractReadSafe);
+  app.component('OnContractWriteSafe', components.OnContractWriteSafe);
 
-        // Initialize Vuethers components.
-        init.initComponents(app);
+  // Start the Vue app.
+  start();
 
-        // Start the Vue app.
-        start();
-
-        // Initialize DApp's provider.
-        await init.initProvider();
-
-        // Initialize DApp's signer.
-        await init.initSigner();
-
-        // Initialize DApp's contracts.
-        await init.initContracts()
-
-        // Initialize DApp's watchers.
-        await init.initWatchers()
-
-        // Set the DApp safe.
-        dapp.status.set("SAFE");
-    })
-  })
+  // Set the DApp safe.
+  dapp.status.set("INITIALIZED");
 }
 
 export { dapp } 
-export * from "./components/index.js"
-export * from "./composables/index.js"
-export * from "./utils/index.js"
+export * from "./components/index.js";
+export * from "./composables/index.js";
+export * from "./utils/index.js";
