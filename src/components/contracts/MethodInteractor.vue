@@ -1,5 +1,5 @@
 <script setup>
-import { dapp, EthersTransactionProxy, InputUnits } from "../../index.js";
+import { InputUnits, Transact, EthersTransactionProxy } from "../../index.js";
 
 const props = defineProps({
   contract: {
@@ -12,72 +12,35 @@ const props = defineProps({
   }
 })
 
-const contract = dapp.contracts[props.contract];
-let tx = $shallowRef({});
-let methodInfos = $ref({});
-const inputsValues = $ref([]);
-const outputsValues = $ref([]);
-const txArgs = $ref({
-  value: 0,
-})
-
-function execFunc () {
-  const args = [];
-  inputsValues.forEach(i => {
-    args.push(i)
-  });
-
-  tx.send(args, txArgs);
-  tx.call
-    .then((data) =>  {
-      if (Array.isArray(data)) {
-        for (let i = 0; i < data.length; i++) {
-          outputsValues[i] = data[i];
-        }
-      }
-      else {
-        outputsValues[0] = data;
-      }
-    })
-    .catch((error) => {
-      error = error.reason;
-    })
-}
+const tx = $shallowRef(new EthersTransactionProxy(props.contract, props.method));
 
 function formatPlaceholder(io) {
   return `${io.name && io.name !== "null" ? io.name : ""} (${io.type})`
 }
-
-dapp.contracts[props.contract].onReadSafe(async function () {
-  methodInfos = contract.interface.functions[props.method];
-  tx = new EthersTransactionProxy(props.contract, props.method);
-  methodInfos.inputs.forEach(i => inputsValues.push(null))
-  methodInfos.outputs.forEach(i => outputsValues.push(null))
-});
-
 </script>
 
 <template>
   <OnContractReadSafe :contract="props.contract">
     <div class="MethodInteractor">
-      <button @click="execFunc">{{ methodInfos.name }}</button>
-      <small>{{ methodInfos.stateMutability }}</small>
-      <div v-if="Object.keys(methodInfos.inputs).length > 0 || methodInfos.payable">
+      <Transact :contract="props.contract" :method="props.method" v-model="tx" :configs="{content: props.method, notx: true, noerror: true}"/>
+      <small>{{ tx.methodInfos.stateMutability }}</small>
+      <div v-if="Object.keys(tx.methodInfos.inputs).length > 0 || tx.methodInfos.payable">
         <p>Inputs :</p>
         <ul>
-          <li v-for="(input, index) of methodInfos.inputs">
-            <input v-model="inputsValues[index]" type="text" :placeholder="formatPlaceholder(input)"/>
+          <li v-for="(input, index) of tx.methodInfos.inputs">
+            <input v-model="tx.args[index]" type="text" :placeholder="formatPlaceholder(input)"/>
           </li>
-          <li v-if="methodInfos.payable">
-            <InputUnits v-model="txArgs.value"/>
+          <li v-if="tx.methodInfos.payable">
+            <InputUnits v-model="tx.txArgs.value.value"/>
           </li>
         </ul>
       </div>
-      <div v-if="Object.keys(methodInfos.outputs).length > 0">
+      <div v-if="Object.keys(tx.methodInfos.outputs).length > 0">
         <p>Outputs :</p>
         <ul>
-          <li v-for="(output, index) of methodInfos.outputs">
-            <input v-model="outputsValues[index]" type="text" :placeholder="formatPlaceholder(output)" disabled/>
+          <li v-for="(output, index) of tx.methodInfos.outputs">
+            <input v-if="tx.data.value" v-model="tx.data.value[index]" type="text" :placeholder="formatPlaceholder(output)" disabled/>
+            <input v-else type="text" :placeholder="formatPlaceholder(output)" disabled/>
           </li>
         </ul>
       </div>
