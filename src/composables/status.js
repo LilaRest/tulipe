@@ -1,5 +1,5 @@
-import { watch, ref } from "vue";
-import { dapp } from "../index.js";
+import { watch, ref, isRef } from "vue";
+import { rGet, rSet } from "../index.js";
 
 export class Status {
 
@@ -39,20 +39,20 @@ export class Status {
   }
 
   get() {
-    return this._state.value;
+    return rGet(this._state)
   }
 
   getRef() {
-    return this.state;
+    return this._state;
   }
 
   set(state) {
-    console.log(`status ${this._name} set to ${state}`)
     state = this._formatState(state);
     if (!this._isStateValid(state)) {
       throw(`The state given to the set() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${state}`)
     }
-    this._state.value = state;
+    rSet(this._state, state);
+    console.log(`Status '${this._name}' set to '${rGet(this._state)}'`)
   }
 
   is(state) {

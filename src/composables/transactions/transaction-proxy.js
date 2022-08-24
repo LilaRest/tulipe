@@ -1,15 +1,22 @@
-import { Status } from "../../index.js";
+import { Status, dapp, rSet } from "../../index.js";
 import { EthersObjectProxy } from "../proxy.js";
 import { EthersTransactionExtension } from "./transaction-extension.js";
+import { ref } from "vue";
 
 export class EthersTransactionProxy extends EthersObjectProxy {
-    constructor (func, ethersObject=null) {
-        const extensionObject = new EthersTransactionExtension() 
-        super(ethersObject, extensionObject)
+    constructor (contractName, methodName) {
+        let tx = null;
+        const contract = dapp.contracts[contractName];
+        if (contract) {
+            tx = contract[methodName];
+        }
+        if (!tx) {
+            throw `Cannot create EthersTransactionExtension object for method ${methodName} of ${contractName}. One of them doesn't exist.`
+        }
+        super(tx, new EthersTransactionExtension())
 
-        this.func = func;
-        this.constant = false;
-        this.status = new Status(`tx`, [
+        this.txInfos = contract.interface.functions[methodName];
+        this.status = new Status(`tx:${contractName}:${methodName}`, [
           "UNSENT",
           "SENT",
           "ERROR",
@@ -20,34 +27,34 @@ export class EthersTransactionProxy extends EthersObjectProxy {
             this.status.set("UNSENT");
           }, 5000);
         });
-        this.data = null;
-        this.error = null;
+        this.data = ref(null);
+        this.error = ref(null);
         this.call = null;
     }
 
     send (args=[], txArgs={}) {
         if (args) {
             if (Array.isArray(args)) {
-                this.call = this.func(...args, txArgs)
+                this.call = this.proxy.getEthersObject()(...args, txArgs)
             }
             else {
-                this.call = this.func(args, txArgs)
+                this.call = this.proxy.getEthersObject()(args, txArgs)
             }
         }
         else {
-            this.call = this.func(txArgs)
+            this.call = this.proxy.getEthersObject()(txArgs)
         }
 
         this.status.set("SENT");
 
-        if (this.constant) {
+        if (this.txInfos.constant) {
             this.call
             .then((val) => {
-                 this.data = val;
+                 rSet(this.data, val);
                  this.status.set("SUCCESS");
              })
             .catch((err) => {
-                 this.error = err;
+                 rSet(this.error, err);
                  this.status.set("ERROR");
              })
         }
@@ -57,11 +64,11 @@ export class EthersTransactionProxy extends EthersObjectProxy {
                     return tx.wait();
                 })
             .then((val) => {
-                 this.data = val;
+                 rSet(this.data, val);
                  this.status.set("SUCCESS");
              })    
             .catch((err) => {
-                 this.error = err;
+                 rSet(this.error, err);
                  this.status.set("ERROR");
              })
         }
