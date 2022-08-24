@@ -4,3 +4,4 @@ export * from "./signer/index.js";
 export * from "./provider/index.js";
 export * from "./safers/index.js";
 export * from "./debug/index.js";
+export { default as InputUnits } from "./InputUnits.vue";
