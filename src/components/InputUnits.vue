@@ -1,5 +1,4 @@
 <script setup>
-import { computed } from "vue";
 import { ethers } from "ethers";
 
 const props = defineProps({
@@ -10,18 +9,23 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
+let value = $ref(null);
 const units = ["wei", "gwei", "ether"]
 let selectedUnit = $ref("wei");
 
-function formatValue (val) {
-  return ethers.utils.parseUnits(val, selectedUnit)
+function updateValue() {
+  console.log("update value")
+  if (value) {
+    const newValue = ethers.utils.parseUnits(value, selectedUnit)
+    emit('update:modelValue', newValue)
+  }
 }
 </script>
 
 <template>
   <div class="InputUnits">
-    <input @input="$emit('update:modelValue', formatValue($event.target.value))" type="text" :placeholder="props.placeholder"/>
-    <select v-model="selectedUnit">
+    <input @input="updateValue" v-model="value" type="text" :placeholder="props.placeholder"/>
+    <select @change="updateValue" v-model="selectedUnit">
       <option v-for="unit in units" :value="unit">{{ unit }}</option>
     </select>
   </div>
