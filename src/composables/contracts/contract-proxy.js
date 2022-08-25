@@ -1,7 +1,7 @@
 import { EthersObjectProxy } from "../proxy.js";
 import { EthersContractExtension } from "./contract-extension.js";
-import { dapp, Status } from "../../index.js";
-import { computed, watch, getCurrentInstance } from "vue";
+import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../index.js";
+import { computed, watch, getCurrentInstance, createVNode } from "vue";
 import { ethers } from "ethers";
 
 export class EthersContractProxy extends EthersObjectProxy {
@@ -34,6 +34,9 @@ export class EthersContractProxy extends EthersObjectProxy {
     this.isWriteSafe = computed(() => {
       return dapp.signer.isSafe.value && this.status.is("INITIALIZED");
     })
+
+    this.OnReadSafe = createVNode(OnContractReadSafe, {contract: this.name});
+    this.OnWriteSafe = createVNode(OnContractWriteSafe, {contract: this.name});
 
     this._asyncInit();
   }
