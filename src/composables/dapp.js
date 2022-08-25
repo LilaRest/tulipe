@@ -21,8 +21,11 @@ class Dapp {
     this.chainWatchers = new ChainWatchersList()
     this.wallets = new WalletsList();
     this.provider = new EthersProviderProxy()
+    this.pro = this.provider;
     this.signer = new EthersSignerProxy()
+    this.sig = this.signer;
     this.contracts = new ContractsList()
+    this.con = this.contracts;
   }
 
   onSafe (func) {
