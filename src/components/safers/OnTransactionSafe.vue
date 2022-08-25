@@ -1,15 +1,15 @@
 <script setup>
-import { dapp } from "../../index.js";
+import { EthersTransactionProxy } from "../../index.js";
 const props = defineProps({
-  contract: {
-    type: String,
-    required: true,
+  transaction: {
+    type: EthersTransactionProxy,
+    required: true
   }
 })
 
 </script>
 <template>
-  <template v-if="dapp.contracts[props.contract].isReadSafe.value">
+  <template v-if="props.transaction.isSafe.value">
     <slot></slot>
     <slot name="safe"></slot>
   </template>

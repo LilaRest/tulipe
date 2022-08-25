@@ -1,5 +1,5 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
-import { Status, EthersProviderProxy, EthersSignerProxy, ContractsList, ChainWatchersList, VuethersConfig, WalletsList } from "./index.js"
+import { Status, EthersProviderProxy, EthersSignerProxy, ContractsList, ChainWatchersList, VuethersConfig, WalletsList, OnDappSafe } from "../index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 
 class Dapp {
@@ -17,6 +17,7 @@ class Dapp {
       "INITIALIZED",
     ]);
     this.isSafe = computed(() => this.status.is("INITIALIZED"))
+    this.OnSafe = OnDappSafe;
     this.chainWatchers = new ChainWatchersList()
     this.wallets = new WalletsList();
     this.provider = new EthersProviderProxy()

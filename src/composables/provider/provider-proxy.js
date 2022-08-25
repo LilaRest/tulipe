@@ -1,6 +1,6 @@
 import { EthersObjectProxy } from "../proxy.js";
 import { EthersProviderExtension } from "./provider-extension.js";
-import { dapp, Status, capitalizeWords } from "../../index.js";
+import { dapp, Status, capitalizeWords, OnProviderSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 import { ethers } from "ethers";
 
@@ -23,6 +23,7 @@ export class EthersProviderProxy extends EthersObjectProxy {
     this.isSafe = computed(() => {
       return dapp.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"]);
     })
+    this.OnSafe = OnProviderSafe;
 
     this._asyncInit();
   }

@@ -1,6 +1,6 @@
 import { EthersObjectProxy } from "../proxy.js";
 import { EthersSignerExtension } from "./signer-extension.js";
-import { dapp, Status, WalletConnectionRejected } from "../../index.js";
+import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 
 export class EthersSignerProxy extends EthersObjectProxy {
@@ -36,6 +36,7 @@ export class EthersSignerProxy extends EthersObjectProxy {
     this.isSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");
     })
+    this.OnSafe = OnSignerSafe;
 
     this._asyncInit();
   }
