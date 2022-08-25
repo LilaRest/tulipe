@@ -8,7 +8,7 @@ class ee {
       "UNSAFE",
       "ERROR",
       "INITIALIZED"
-    ]), this.isSafe = k(() => this.status.is("INITIALIZED")), this.OnSafe = Ge, this.chainWatchers = new rt(), this.wallets = new _t(), this.provider = new ht(), this.signer = new ft(), this.contracts = new vt();
+    ]), this.isSafe = k(() => this.status.is("INITIALIZED")), this.OnSafe = Ge, this.chainWatchers = new rt(), this.wallets = new _t(), this.provider = new ht(), this.pro = this.provider, this.signer = new ft(), this.sig = this.signer, this.contracts = new vt(), this.con = this.contracts;
   }
   onSafe(e) {
     const t = I();
@@ -1807,7 +1807,7 @@ async function xt(r, e) {
     throw a && a.status && a.status.set("ERROR"), c;
   }
   r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R;
-  const n = await import("./index.67aff434.mjs");
+  const n = await import("./index.1c1cca39.mjs");
   r.component("OnDappSafe", n.OnDappSafe), r.component("OnProviderSafe", n.OnProviderSafe), r.component("OnSignerSafe", n.OnSignerSafe), r.component("OnContractsReadSafe", n.OnContractsReadSafe), r.component("OnContractsWriteSafe", n.OnContractsWriteSafe), r.component("OnContractReadSafe", n.OnContractReadSafe), r.component("OnContractWriteSafe", n.OnContractWriteSafe), s(), a.status.set("INITIALIZED");
 }
 export {
