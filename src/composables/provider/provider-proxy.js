@@ -41,7 +41,7 @@ export class EthersProviderProxy extends EthersObjectProxy {
   }
 
   async _initProviderConnection () {
-    // Search if any web wallet exposes a provider. 
+    // Search if any web wallet exposes a provider.
     const webWalletProvider = await this._getProviderFromWebWallet();
     if (webWalletProvider) {
       this.proxy.setEthersObject(new ethers.providers.Web3Provider(webWalletProvider, "any"));
@@ -79,7 +79,7 @@ export class EthersProviderProxy extends EthersObjectProxy {
       // If network not in available networks (wrong provider).
       else {
         this.status.set("WRONG")
-        networkConfig = dapp.config.networks.find(n => n.chainId === networkInfos.chainId);
+        networkConfig = dapp.config.networks.getAll().find(n => n.chainId === networkInfos.chainId);
 
         // If the network in unknown retrieve some informations about it.
         if (!networkConfig) {
