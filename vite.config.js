@@ -14,8 +14,8 @@ export default defineConfig({
       external: ['vue', 'ethers'],
       output: {
         globals: {
-            vue: 'Vue',
-            ethers: 'Ethers',
+            vue: 'vue',
+            ethers: 'ethers',
         },
       },
     },
@@ -26,4 +26,3 @@ export default defineConfig({
     }),
   ],
 })
-
