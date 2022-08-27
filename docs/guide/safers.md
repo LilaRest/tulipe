@@ -1,4 +1,4 @@
-## Context safety
+# Context safety
 When a Vuethers' DApp loads, it firstly perform some asynchronous calls in order to fetch the on-chain datas required by the DApp.
 In addition, it performs many others operations like the initialization of the global store, the connection attempt to user's web wallet, etc.
 
@@ -122,7 +122,7 @@ import { ConnectWalletButton } from "vuethers";
 dapp.isSafe = dapp is successfuly initialized 
 dapp.provider.isSafe = dapp.isSafe + dapp connected to a provider (don't means it's a right one)
 dapp.signer.isSafe = dapp.provider.isSafe + dapp connected to a wallet (a signer is available)
-dapp.contracts.<contract>.isReadSafe = dapp.provider.isSafe + contract successfuly initialized
-dapp.contracts.<contract>.isWriteSafe = dapp.signer.isSafe + contract successfuly initialized
+`dapp.contracts.<contract>.isReadSafe` = dapp.provider.isSafe + contract successfuly initialized
+`dapp.contracts.<contract>.isWriteSafe` = dapp.signer.isSafe + contract successfuly initialized
 dapp.contracts.areReadSafe = dapp.provider.isSafe + all contracts successfuly initialized
 dapp.contracts.areWriteSafe = dapp.signer.isSafe + all contracts successfuly initialized

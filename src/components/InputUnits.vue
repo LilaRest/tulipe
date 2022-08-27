@@ -1,7 +1,7 @@
 <script setup>
 import { ethers } from "ethers";
 
-const props = defineProps({
+let props = defineProps({
   modelValue: {},
   placeholder: {
     type: String,
@@ -14,7 +14,6 @@ const units = ["wei", "gwei", "ether"]
 let selectedUnit = $ref("wei");
 
 function updateValue() {
-  console.log("update value")
   if (value) {
     const newValue = ethers.utils.parseUnits(value, selectedUnit)
     emit('update:modelValue', newValue)

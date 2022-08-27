@@ -4,3 +4,5 @@ demo/backend/artifacts/
 demo/backend/deployments/
 .git
 local/
+.temp
+.cache

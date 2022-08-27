@@ -1,16 +1,21 @@
 <script setup>
 import { dapp } from "../../index.js";
+import { ref } from "vue";
+let currentNetwork = ref(null);
+dapp.provider.onSafe(async function () {
+  currentNetwork.value = await dapp.config.networks.getCurrent();
+})
 </script>
 
 <template>
-  <OnProviderSafe>
+  <dapp.provider.OnSafe>
     <div class="ConnectWalletButton">
         <button @click="dapp.signer.connectWallet(dapp.wallets.metamask)" v-if="dapp.signer.status.is('DISCONNECTED')">Connect Wallet</button>
         <button v-else-if="dapp.signer.status.is('REQUESTED')" disabled>Connection requested...</button>
         <button v-else-if="dapp.signer.status.is('REFUSED')" disabled>Connection refused!</button>
         <button v-else-if="dapp.signer.status.is('ERROR')" disabled>Connection error!</button>
-        <button v-else-if="dapp.provider.status.is('WRONG')" disabled>Wrong network! ({{ dapp.networks.current.displayName }})</button>
+        <button v-else-if="dapp.provider.status.is('WRONG')" disabled>Wrong network! ({{ currentNetwork.displayName }})</button>
         <button @click="dapp.signer.disconnectWallet" v-else-if="dapp.signer.status.is('CONNECTED')">Disconnect</button>
     </div>
-  </OnProviderSafe>
+  </dapp.provider.OnSafe>
 </template>

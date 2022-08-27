@@ -28,7 +28,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const contract = dapp.contracts[props.contract];
-const tx = computed({
+let tx = computed({
   get() {
     return props.modelValue
   },
