@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.25.0",
+    "version": "0.25.1",
     "private": false,
     "description": "A DApp frontend framework for Vue3 built with Ethers (ethers.js)",
     "license": "MIT",
@@ -57,6 +57,6 @@
         "hardhat-deploy": "^0.11.12",
         "vite": "^3.0.4",
         "vitepress": "^1.0.0-alpha.10",
-        "vuethers": "^0.24.0"
+        "vuethers": "^0.25.0"
     }
 }
