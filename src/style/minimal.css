@@ -1,0 +1,5 @@
+@import "reset.css";
+
+div.ConnectWalletButton {
+  background-color: red;
+}
