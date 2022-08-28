@@ -1,11 +1,11 @@
 import { EthersObjectProxy } from "../proxy.js";
 import { EthersSignerExtension } from "./signer-extension.js";
 import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../index.js";
-import { computed, watch, getCurrentInstance } from "vue";
+import { computed, watch, getCurrentInstance, ref } from "vue";
 
 export class EthersSignerProxy extends EthersObjectProxy {
   constructor (ethersObject=null) {
-    const extensionObject = new EthersSignerExtension() 
+    const extensionObject = new EthersSignerExtension()
     super(ethersObject, extensionObject)
 
     this.status = new Status("signer", [
@@ -37,6 +37,8 @@ export class EthersSignerProxy extends EthersObjectProxy {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");
     })
     this.OnSafe = OnSignerSafe;
+
+    this.address = ref(null);
 
     this._asyncInit();
   }
@@ -73,8 +75,9 @@ export class EthersSignerProxy extends EthersObjectProxy {
 
       try {
         const signer = await dapp.provider.getSigner();
-        await signer.getAddress()
+        const address = await signer.getAddress()
         dapp.signer.proxy.setEthersObject(signer);
+        this.address.value = address;
         dapp.signer.status.set("CONNECTED");
       }
       catch (e) {
@@ -94,7 +97,7 @@ export class EthersSignerProxy extends EthersObjectProxy {
 
           catch (e) {
             if (e instanceof WalletConnectionRejected) {
-              this.status.set("REFUSED"); 
+              this.status.set("REFUSED");
             }
             else {
               this.status.set("ERROR");
@@ -108,6 +111,7 @@ export class EthersSignerProxy extends EthersObjectProxy {
 
   disconnectWallet() {
     dapp.signer.proxy.setEthersObject(null);
+    this.address.value = null;
     dapp.signer.status.set("DISCONNECTED")
   }
 }

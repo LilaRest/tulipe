@@ -27,6 +27,7 @@ dapp.contracts.Lock.onReadSafe(function (cpt) {
     <DebugBar/>
     <h1>Vuethers Testing App</h1>
     <OnDappSafe>
+        <p>{{ dapp.signer.address.value }}</p>
         <template #safe>
             <OnProviderSafe>
                 <template #safe>
