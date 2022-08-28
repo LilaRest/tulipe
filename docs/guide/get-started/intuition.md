@@ -45,9 +45,9 @@ When the DApp is initialized, this object is filled with everything the DApp nee
 
 To illustrate how Vuethers taste, let's imagine a simple ERC20 contract called MyToken.
 
-Here is how it feels with Vuethers when :
-- we want to interact with our `MyToken` contract :
-```vue
+Here is how it feels with Vuethers :
+- if we want to interact with our `MyToken` contract :
+```html
 <script setup>
 import { dapp } from "vuethers";
 
@@ -55,8 +55,12 @@ const userAddress = "0xf39Fd6e5..."
 const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
 </script>
 ```
-- we want to ensure our code is safe in JS
-```vue
+::: tip Explanations
+Our `MyToken` contract is directly available in the `dapp` object at `dapp.contracts.MyToken`.
+It is a simple Ethers.js contract object with few additional methods.
+:::
+- if we want to ensure our interaction with MyToken contract is safe in script :
+```html
 <script setup>
 import { dapp } from "vuethers";
 
@@ -69,7 +73,10 @@ dapp.contracts.MyToken.onReadSafe(() => {
 })
 </script>
 ```
-- we want to ensure our code is safe in template
+::: tip Explanations
+By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
+:::
+- if we want to ensure our interaction with MyToken contract is safe in template :
 ```html
 <template>
   <dapp.contracts.MyToken.OnReadSafe>
@@ -79,19 +86,24 @@ dapp.contracts.MyToken.onReadSafe(() => {
   </dapp.contracts.MyToken.OnReadSafe>
 </template>
 ```
-- we want to watch (track) an on-chain data
-```vue
+::: tip Explanations
+By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
+:::
+- if we want to watch (track) an on-chain data
+```html
 <script setup>
 import { dapp } from "vuethers";
 
 const userAddress = "0xf39Fd6e5..."
 let userBalance = $ref(null);
 
-dapp.contracts.MyToken.watch("balanceOf", [userAddress], (value) => {
+dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
   // Will be executed each time 'balanceOf' of 'userAddress' changes
-  userBalance = value;
+  userBalance = newValue;
 })
-
 </script>
 ```
-Vuethers offers a lot more syntactic sugar to make DApp developers' life easier, you'll learn about each them in that documentation.
+::: tip Explanations
+The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs. In this case it allows us to keep an up to date user's balance.
+:::
+Vuethers offers a lot more of syntactic sugar to make DApp developers' life easier, you'll be able to learn about each them in that documentation.

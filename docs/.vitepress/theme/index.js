@@ -11,7 +11,10 @@ import Layout from './Layout.vue';
 import NotFound from '../../../node_modules/vitepress/dist/client/theme-default/NotFound.vue';
 import { vuethersConfig } from "./vuethers.config.js" // custom
 import { initVuethers } from "vuethers"; // custom
-import "./style.css";
+import DemoCreator from "./components/DemoCreator.vue"; // custom
+import DemoFrame from "./components/DemoFrame.vue"; // custom
+import Badge from "./components/Badge.vue"; // custom
+import "./style.css"; // custom
 export { default as VPHomeHero } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeHero.vue';
 export { default as VPHomeFeatures } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeFeatures.vue';
 export { default as VPHomeSponsors } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeSponsors.vue';
@@ -29,6 +32,9 @@ const theme = {
         config: vuethersConfig,
         start: () => {},
       })
+      app.component("DemoCreator", DemoCreator);
+      app.component("DemoFrame", DemoFrame);
+      app.component("Badge", Badge);
     }
     // custom above
 };
