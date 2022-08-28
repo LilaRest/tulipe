@@ -7,7 +7,7 @@ import { ethers } from "ethers";
 export class EthersContractProxy extends EthersObjectProxy {
 
   constructor (name, ethersObject) {
-    const extensionObject = new EthersContractExtension() 
+    const extensionObject = new EthersContractExtension()
     super(ethersObject, extensionObject)
 
     this.name = name;
@@ -53,7 +53,7 @@ export class EthersContractProxy extends EthersObjectProxy {
       }
     })
   }
-    
+
   _updateContract (address, abi) {
     if (dapp.signer.isSafe.value) {
       this.proxy.setEthersObject(new ethers.Contract(address, abi, dapp.signer.proxy.getEthersObject()))
@@ -73,8 +73,8 @@ export class EthersContractProxy extends EthersObjectProxy {
     dapp.provider.onSafe(async function () {
       try {
         const networkConfig = await dapp.config.networks.getCurrent()
-        
-        if (Object.keys(networkConfig.contracts).includes(thisObject.name)) {
+
+        if (networkConfig.contracts && Object.keys(networkConfig.contracts).includes(thisObject.name)) {
           const contractConfig = networkConfig.contracts[thisObject.name];
           thisObject._updateContract(contractConfig.address, contractConfig.abi);
           thisObject._watchSignerChanges(contractConfig.address, contractConfig.abi);
@@ -121,5 +121,3 @@ export class EthersContractProxy extends EthersObjectProxy {
     }
   }
 }
-
-

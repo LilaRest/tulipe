@@ -52,12 +52,13 @@ You can try to connect your Metamask web wallet if you have one, by clicking the
 
 **Result**
 <script setup>
-import { dapp, ConnectWalletButton } from "vuethers";
+import { dapp, ConnectWalletButton, DebugBar } from "vuethers";
 </script>
 
 <div class="ve-demo ve-app">
   <h1>My DApp</h1>
   <dapp.OnSafe>
     <ConnectWalletButton/>
+    <DebugBar/>
   </dapp.OnSafe>
 </div>
