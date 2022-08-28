@@ -12,11 +12,12 @@ export class StyleConfig {
       style = vuethersDefaultConfig.style;
     }
     window.addEventListener("load", () => {
-      const appDiv = document.getElementsByClassName("ve-app");
+      const appDivs = document.getElementsByClassName("ve-app");
       // Apply configured style to mounted app.
       if (appDiv) {
-        console.log(appDiv)
-        appDiv[0].classList.add(`ve-${style.level}`);
+        for (const appDiv of appDivs) {
+          appDiv.classList.add(`ve-${style.level}`);
+        }
       }
     })
     return style
