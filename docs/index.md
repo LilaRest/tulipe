@@ -22,5 +22,5 @@ features:
     details: Vuethers comes with 3 levels of styling, from unstylized to opinionated, so you can choose your level of customization.
   - icon: 📦
     title: Extremely minimal
-    details: "Vuethers weight less than 15kB and relies on only 2 top-level dependencies : Vue3 and Ethers.js"
+    details: "Vuethers weight less than 15kB gzipped and relies on only 2 top-level dependencies : Vue3 and Ethers.js"
 ---
