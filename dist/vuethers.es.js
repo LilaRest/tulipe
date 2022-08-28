@@ -74,8 +74,8 @@ const ae = {
       } catch {
       }
     }), (n, o) => {
-      const d = O("OnContractReadSafe");
-      return c(), w(d, {
+      const h = O("OnContractReadSafe");
+      return c(), w(h, {
         contract: e.contract
       }, {
         default: S(() => [
@@ -86,7 +86,7 @@ const ae = {
               i("li", null, [
                 oe,
                 ie,
-                C(l(de), {
+                C(l(he), {
                   contract: e.contract
                 }, null, 8, ["contract"])
               ]),
@@ -104,7 +104,7 @@ const ae = {
       }, 8, ["contract"]);
     };
   }
-}, ue = { class: "MethodsInteractor" }, de = {
+}, ue = { class: "MethodsInteractor" }, he = {
   __name: "MethodsInteractor",
   props: {
     contract: {
@@ -122,10 +122,10 @@ const ae = {
         default: S(() => [
           i("div", ue, [
             i("ul", null, [
-              (c(!0), u(y, null, g(l(t).interface.functions, (d, h) => (c(), u("li", null, [
+              (c(!0), u(y, null, g(l(t).interface.functions, (h, d) => (c(), u("li", null, [
                 C(l(Se), {
                   contract: e.contract,
-                  method: h
+                  method: d
                 }, null, 8, ["contract", "method"])
               ]))), 256))
             ])
@@ -135,7 +135,7 @@ const ae = {
       }, 8, ["contract"]);
     };
   }
-}, he = { class: "MethodInteractor" }, fe = { key: 0 }, pe = /* @__PURE__ */ i("p", null, "Inputs :", -1), me = ["onUpdate:modelValue", "placeholder"], _e = { key: 0 }, be = { key: 1 }, ye = /* @__PURE__ */ i("p", null, "Outputs :", -1), ve = ["onUpdate:modelValue", "placeholder"], ge = ["placeholder"], we = { key: 2 }, Se = {
+}, de = { class: "MethodInteractor" }, fe = { key: 0 }, pe = /* @__PURE__ */ i("p", null, "Inputs :", -1), me = ["onUpdate:modelValue", "placeholder"], _e = { key: 0 }, be = { key: 1 }, ye = /* @__PURE__ */ i("p", null, "Outputs :", -1), ve = ["onUpdate:modelValue", "placeholder"], ge = ["placeholder"], we = { key: 2 }, Se = {
   __name: "MethodInteractor",
   props: {
     contract: {
@@ -153,28 +153,28 @@ const ae = {
       return `${n.name && n.name !== "null" ? n.name : ""} (${n.type})`;
     }
     return (n, o) => {
-      const d = O("OnContractReadSafe");
-      return c(), w(d, {
+      const h = O("OnContractReadSafe");
+      return c(), w(h, {
         contract: e.contract
       }, {
         default: S(() => [
-          i("div", he, [
+          i("div", de, [
             C(l($e), {
               contract: e.contract,
               method: e.method,
               modelValue: t.value,
-              "onUpdate:modelValue": o[0] || (o[0] = (h) => t.value = h),
+              "onUpdate:modelValue": o[0] || (o[0] = (d) => t.value = d),
               configs: { content: e.method, notx: !0, noerror: !0 }
             }, null, 8, ["contract", "method", "modelValue", "configs"]),
             i("small", null, f(t.value.methodInfos.stateMutability), 1),
             Object.keys(t.value.methodInfos.inputs).length > 0 || t.value.methodInfos.payable ? (c(), u("div", fe, [
               pe,
               i("ul", null, [
-                (c(!0), u(y, null, g(t.value.methodInfos.inputs, (h, p) => (c(), u("li", null, [
+                (c(!0), u(y, null, g(t.value.methodInfos.inputs, (d, p) => (c(), u("li", null, [
                   j(i("input", {
                     "onUpdate:modelValue": (m) => t.value.args[p] = m,
                     type: "text",
-                    placeholder: s(h)
+                    placeholder: s(d)
                   }, null, 8, me), [
                     [U, t.value.args[p]]
                   ])
@@ -182,7 +182,7 @@ const ae = {
                 t.value.methodInfos.payable ? (c(), u("li", _e, [
                   C(l(st), {
                     modelValue: t.value.txArgs.value.value,
-                    "onUpdate:modelValue": o[1] || (o[1] = (h) => t.value.txArgs.value.value = h)
+                    "onUpdate:modelValue": o[1] || (o[1] = (d) => t.value.txArgs.value.value = d)
                   }, null, 8, ["modelValue"])
                 ])) : E("", !0)
               ])
@@ -190,19 +190,19 @@ const ae = {
             Object.keys(t.value.methodInfos.outputs).length > 0 ? (c(), u("div", be, [
               ye,
               i("ul", null, [
-                (c(!0), u(y, null, g(t.value.methodInfos.outputs, (h, p) => (c(), u("li", null, [
+                (c(!0), u(y, null, g(t.value.methodInfos.outputs, (d, p) => (c(), u("li", null, [
                   t.value.data.value ? j((c(), u("input", {
                     key: 0,
                     "onUpdate:modelValue": (m) => t.value.data.value[p] = m,
                     type: "text",
-                    placeholder: s(h),
+                    placeholder: s(d),
                     disabled: ""
                   }, null, 8, ve)), [
                     [U, t.value.data.value[p]]
                   ]) : (c(), u("input", {
                     key: 1,
                     type: "text",
-                    placeholder: s(h),
+                    placeholder: s(d),
                     disabled: ""
                   }, null, 8, ge))
                 ]))), 256))
@@ -233,10 +233,10 @@ const ae = {
         default: S(() => [
           i("div", Ee, [
             i("ul", null, [
-              (c(!0), u(y, null, g(l(t).interface.events, (d, h) => (c(), u("li", null, [
+              (c(!0), u(y, null, g(l(t).interface.events, (h, d) => (c(), u("li", null, [
                 C(l(Ce), {
                   contract: e.contract,
-                  event: h
+                  event: d
                 }, null, 8, ["contract", "event"])
               ]))), 256))
             ])
@@ -260,16 +260,16 @@ const ae = {
   },
   setup(r) {
     const e = r, t = a.contracts[e.contract];
-    let s = b({}), n = b({}), o = b(0), d = b([]);
+    let s = b({}), n = b({}), o = b(0), h = b([]);
     return t.onReadSafe(() => {
-      s.value = t.interface.events[e.event], n.value = t.filters[s.value.name], t.on(n.value, (h) => {
+      s.value = t.interface.events[e.event], n.value = t.filters[s.value.name], t.on(n.value, (d) => {
         o.value++;
-        let p = `Block ${h.blockNumber} -> {`;
+        let p = `Block ${d.blockNumber} -> {`;
         for (const m of s.value.inputs)
-          p += `${m.name}:${h.args[m.name]}, `;
-        p = p.substring(0, p.length - 2) + "}", d.value.push(p);
+          p += `${m.name}:${d.args[m.name]}, `;
+        p = p.substring(0, p.length - 2) + "}", h.value.push(p);
       });
-    }), (h, p) => {
+    }), (d, p) => {
       const m = O("OnContractReadSafe");
       return c(), w(m, {
         contract: e.contract
@@ -282,7 +282,7 @@ const ae = {
               i("li", null, [
                 ke,
                 i("ul", null, [
-                  (c(!0), u(y, null, g(d.value, (B) => (c(), u("li", null, f(B), 1))), 256))
+                  (c(!0), u(y, null, g(h.value, (B) => (c(), u("li", null, f(B), 1))), 256))
                 ])
               ])
             ])
@@ -333,17 +333,17 @@ const ae = {
       get() {
         return t.modelValue;
       },
-      set(d) {
-        e("update:modelValue", d);
+      set(h) {
+        e("update:modelValue", h);
       }
     });
     function o() {
-      const d = t.args ? t.args : [], h = t.txArgs ? t.txArgs : {};
-      n.value.send(d, h);
+      const h = t.args ? t.args : [], d = t.txArgs ? t.txArgs : {};
+      n.value.send(h, d);
     }
     return t.config && t.configs.notx && s.onReadSafe(() => {
       n = new K(t.contract, t.method);
-    }), (d, h) => {
+    }), (h, d) => {
       const p = O("OnContractReadSafe");
       return c(), w(p, {
         contract: t.contract
@@ -406,7 +406,7 @@ const q = (r, e) => {
       _: 1
     }));
   }
-}, Ct = /* @__PURE__ */ q(Ve, [["__scopeId", "data-v-651e098d"]]), Ue = /* @__PURE__ */ i("p", null, "Available wallets :", -1), It = {
+}, Ct = /* @__PURE__ */ q(Ve, [["__scopeId", "data-v-2b282558"]]), Ue = /* @__PURE__ */ i("p", null, "Available wallets :", -1), It = {
   __name: "AvailableWallets",
   setup(r) {
     return (e, t) => {
@@ -430,32 +430,32 @@ const q = (r, e) => {
   setup(r) {
     let e = b({}), t = b([]);
     a.onSafe(async function() {
-      e.value = await a.config.networks.getCurrent(), t.value = a.config.networks.getAvailable(), t.value = t.value.filter((d) => d != e.value);
+      e.value = await a.config.networks.getCurrent(), t.value = a.config.networks.getAvailable(), t.value = t.value.filter((h) => h != e.value);
     });
-    async function s(d) {
-      const h = t.value.find((p) => p.chainId === parseInt(d));
-      if (h) {
-        d = x.utils.hexlify(parseInt(d)).toString(), d = x.utils.hexValue(d);
+    async function s(h) {
+      const d = t.value.find((p) => p.chainId === parseInt(h));
+      if (d) {
+        h = x.utils.hexlify(parseInt(h)).toString(), h = x.utils.hexValue(h);
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
             params: [{
-              chainId: d
+              chainId: h
             }]
           });
         } catch (p) {
           p.code === 4902 && await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: [{
-              chainId: d,
-              rpcUrls: [h.defaultRPC],
-              chainName: h.name,
+              chainId: h,
+              rpcUrls: [d.defaultRPC],
+              chainName: d.name,
               nativeCurrency: {
-                name: h.currency.symbol,
-                symbol: h.currency.symbol,
-                decimals: h.currency.decimals
+                name: d.currency.symbol,
+                symbol: d.currency.symbol,
+                decimals: d.currency.decimals
               },
-              blockExplorerUrls: h.explorer && h.explorer.url !== "" ? [h.explorer.url] : null
+              blockExplorerUrls: d.explorer && d.explorer.url !== "" ? [d.explorer.url] : null
             }]
           });
         }
@@ -465,7 +465,7 @@ const q = (r, e) => {
       o.value = !o.value;
     }
     let o = b(!1);
-    return (d, h) => {
+    return (h, d) => {
       const p = O("OnDappSafe");
       return c(), w(p, null, {
         default: S(() => [
@@ -623,15 +623,15 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
     let s = b(null);
     const n = ["wei", "gwei", "ether"];
     let o = b("wei");
-    function d() {
+    function h() {
       if (s.value) {
-        const h = x.utils.parseUnits(s.value, o.value);
-        e("update:modelValue", h);
+        const d = x.utils.parseUnits(s.value, o.value);
+        e("update:modelValue", d);
       }
     }
-    return (h, p) => (c(), u("div", Xe, [
+    return (d, p) => (c(), u("div", Xe, [
       j(i("input", {
-        onInput: d,
+        onInput: h,
         "onUpdate:modelValue": p[0] || (p[0] = (m) => s.value = m),
         type: "text",
         placeholder: l(t).placeholder
@@ -639,7 +639,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
         [U, s.value]
       ]),
       j(i("select", {
-        onChange: d,
+        onChange: h,
         "onUpdate:modelValue": p[1] || (p[1] = (m) => o.value = m)
       }, [
         (c(), u(y, null, g(n, (m) => i("option", { value: m }, f(m), 9, tt)), 64))
@@ -1196,9 +1196,9 @@ class nt {
     let t = {};
     return e ? t = D({ ...I.style }, { ...e }) : t = I.style, window.addEventListener("load", () => {
       const s = document.getElementsByClassName("ve-app");
-      if (appDiv)
+      if (s)
         for (const n of s)
-          n.classList.add(`ve-${t.level}`);
+          n && n.classList.add(`ve-${t.level}`);
     }), t;
   }
 }
@@ -1350,10 +1350,10 @@ class lt extends H {
       state: b(null),
       dependents: {}
     }, o = !0);
-    let d = null;
-    s && (d = v(this.sources[n].state, s));
-    const h = this._generateDependentUUID();
-    return this.sources[n].dependents[h] = d, o && this._updateState(this.sources[n]), h;
+    let h = null;
+    s && (h = v(this.sources[n].state, s));
+    const d = this._generateDependentUUID();
+    return this.sources[n].dependents[d] = h, o && this._updateState(this.sources[n]), d;
   }
   remove(e, t, s) {
     const n = this._buildSourceName(e, t);
@@ -1394,8 +1394,8 @@ class ut extends H {
     }, newSource = !0);
     let o = null;
     s && (o = watch(this.sources[n].state, s));
-    const d = this._generateDependentUUID();
-    return this.sources[n].dependents[d] = o, newSource && this._updateState(this.sources[n]), d;
+    const h = this._generateDependentUUID();
+    return this.sources[n].dependents[h] = o, newSource && this._updateState(this.sources[n]), h;
   }
   remove(e, t, s) {
     const n = this._buildSourceName(e, t);
@@ -1410,12 +1410,12 @@ class ut extends H {
     return this.sources[s].state;
   }
 }
-function dt(r) {
+function ht(r) {
   for (var e = []; r && r !== Object.prototype; )
     e.push.apply(e, Object.getOwnPropertyNames(r)), r = Object.getPrototypeOf(r);
   return e;
 }
-class ht {
+class dt {
   constructor(e) {
     this._parent = e;
   }
@@ -1427,7 +1427,7 @@ class ht {
   }
   extendsEthersObject() {
     if (this._parent._ethersObject && this._parent._extensionObject) {
-      const e = dt(this._parent._extensionObject);
+      const e = ht(this._parent._extensionObject);
       for (const t of e)
         if (t !== "constructor")
           try {
@@ -1443,15 +1443,15 @@ class ht {
 }
 class A {
   constructor(e = null, t = null) {
-    return this._ethersObject = null, this._extensionObject = t, this.proxy = new ht(this), this.proxy.setEthersObject(e), new Proxy(this, {
+    return this._ethersObject = null, this._extensionObject = t, this.proxy = new dt(this), this.proxy.setEthersObject(e), new Proxy(this, {
       get: function(s, n, o) {
         if (s._ethersObject && s._ethersObject[n])
           try {
             return s._ethersObject[n].bind(s._ethersObject);
-          } catch (d) {
-            if (d.message.includes(".bind is not a function"))
+          } catch (h) {
+            if (h.message.includes(".bind is not a function"))
               return s._ethersObject[n];
-            throw d;
+            throw h;
           }
         else if (s[n])
           return s[n];
@@ -1836,7 +1836,7 @@ async function $t(r, e) {
     throw a && a.status && a.status.set("ERROR"), o;
   }
   r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R, window.dapp = a;
-  const n = await import("./index.c6aa2f9c.js");
+  const n = await import("./index.13bf13fe.js");
   r.component("OnDappSafe", n.OnDappSafe), r.component("OnProviderSafe", n.OnProviderSafe), r.component("OnSignerSafe", n.OnSignerSafe), r.component("OnContractsReadSafe", n.OnContractsReadSafe), r.component("OnContractsWriteSafe", n.OnContractsWriteSafe), r.component("OnContractReadSafe", n.OnContractReadSafe), r.component("OnContractWriteSafe", n.OnContractWriteSafe), s(), a.status.set("INITIALIZED");
 }
 export {
@@ -1855,7 +1855,7 @@ export {
   Oe as EventsInteractor,
   st as InputUnits,
   Se as MethodInteractor,
-  de as MethodsInteractor,
+  he as MethodsInteractor,
   Ye as OnContractReadSafe,
   Ke as OnContractWriteSafe,
   xt as OnContractsReadSafe,
