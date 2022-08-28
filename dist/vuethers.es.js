@@ -1807,8 +1807,8 @@ async function xt(r, e) {
   } catch (c) {
     throw a && a.status && a.status.set("ERROR"), c;
   }
-  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R;
-  const n = await import("./index.22ad59d9.mjs");
+  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R, window.dapp = a;
+  const n = await import("./index.f4076d3f.mjs");
   r.component("OnDappSafe", n.OnDappSafe), r.component("OnProviderSafe", n.OnProviderSafe), r.component("OnSignerSafe", n.OnSignerSafe), r.component("OnContractsReadSafe", n.OnContractsReadSafe), r.component("OnContractsWriteSafe", n.OnContractsWriteSafe), r.component("OnContractReadSafe", n.OnContractReadSafe), r.component("OnContractWriteSafe", n.OnContractWriteSafe), s(), a.status.set("INITIALIZED");
 }
 export {
