@@ -14,9 +14,11 @@ export class StyleConfig {
     window.addEventListener("load", () => {
       const appDivs = document.getElementsByClassName("ve-app");
       // Apply configured style to mounted app.
-      if (appDiv) {
+      if (appDivs) {
         for (const appDiv of appDivs) {
-          appDiv.classList.add(`ve-${style.level}`);
+          if (appDiv) {
+            appDiv.classList.add(`ve-${style.level}`);
+          }
         }
       }
     })

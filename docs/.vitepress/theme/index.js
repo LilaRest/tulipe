@@ -12,7 +12,6 @@ import NotFound from '../../../node_modules/vitepress/dist/client/theme-default/
 import { vuethersConfig } from "./vuethers.config.js" // custom
 import { initVuethers } from "vuethers"; // custom
 import "./style.css";
-import './demo-style.css';
 export { default as VPHomeHero } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeHero.vue';
 export { default as VPHomeFeatures } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeFeatures.vue';
 export { default as VPHomeSponsors } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeSponsors.vue';
