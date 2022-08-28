@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.js'),
-      name: 'vuethers',
+      name: 'Vuethers',
       fileName: (format) => `vuethers.${format == "iife" ? "min" : format}.js`,
       formats: ["es", "umd", "iife"]
     },

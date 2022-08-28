@@ -1,22 +1,26 @@
 {
     "name": "vuethers",
-    "version": "0.25.3",
+    "version": "0.25.4",
     "private": false,
-    "description": "A DApp frontend framework for Vue3 built with ethers.js",
+    "description": "A DApp frontend framework for Vue3 built with Ethers (ethers.js)",
     "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/LilaRest/vuethers.git"
     },
     "bugs": "https://github.com/LilaRest/vuethers/issues",
+    "type": "module",
     "files": [
         "dist"
     ],
     "main": "./dist/vuethers.umd.js",
     "module": "./dist/vuethers.es.js",
+    "unpkg": "./dist/vuethers.min.js",
+    "jsdelivr": "./dist/vuethers.min.js",
     "exports": {
         ".": {
             "require": "./dist/vuethers.umd.js",
+            "browser": "./dist/vuethers.min.js",
             "import": "./dist/vuethers.es.js",
             "module": "./dist/vuethers.es.js"
         },
