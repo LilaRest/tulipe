@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.25.6",
+    "version": "0.25.7",
     "private": false,
     "description": "A DApp frontend framework for Vue3 built with ethers.js",
     "license": "MIT",
@@ -54,8 +54,8 @@
         "vue": "^3.2.37"
     },
     "peerDependencies": {
-        "@coinbase/wallet-sdk": "^3.1.0",
-        "@walletconnect/web3-provider": "^1.7.8"
+        "@coinbase/wallet-sdk": "^3.5.1",
+        "@walletconnect/web3-provider": "^1.8.0"
     },
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
