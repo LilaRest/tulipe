@@ -12,12 +12,12 @@ export default defineConfig({
     },
     rollupOptions: {
       external: ['vue', 'ethers'],
-      output: {
-        globals: {
-            vue: 'vue',
-            ethers: 'ethers',
-        },
-      },
+      // output: {
+      //   globals: {
+      //       vue: 'Vue',
+      //       ethers: 'Ethers',
+      //   },
+      // },
     },
   },
   plugins: [

@@ -19,6 +19,7 @@ export async function initVuethers (app, args) {
   app.config.globalProperties.dapp = dapp;
   app.config.globalProperties.rGet = rGet;
   app.config.globalProperties.rSet = rSet;
+  window.dapp = dapp;
 
   // Initialize Vuethers components.
   const components = await import("./components/index.js");
