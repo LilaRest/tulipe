@@ -1,3 +1,12 @@
+/* Colors for the badge component */
+:root {
+  --vp-c-badge-type-warning: #e7c000;
+  --vp-c-badge-type-tip: #42b983;
+  --vp-c-badge-type-danger: #da5961;
+  --vp-c-badge-type-info: #0170fe;
+}
+
+/* Documentation's home gradient background */
 div.VPHome {
   background: rgb(2,0,36);
   background: -moz-linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(255,244,253,1) 0%, rgba(213,230,255,1) 100%);
@@ -6,14 +15,8 @@ div.VPHome {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#d5e6ff",GradientType=1);
 }
 
-iframe.demo-frame {
-  width: 100%;
-  display: block;
-  border-radius: 10px;
-  border-color: #42b883;
-  padding: 15px 30px;
-  border-radius: 8px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, .07), 0 1px 4px rgba(0, 0, 0, .07);
-  margin-bottom: 1.2em;
-  transition: background-color .5s ease;
+/* Makes bolder but with less opacity the text part of custom block boxes */
+div.tip p:last-of-type {
+  opacity: 0.8;
+  font-weight: 500;
 }

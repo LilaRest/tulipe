@@ -482,8 +482,11 @@ export const vuethersDefaultConfig = {
     }
   ],
   defaults: {
-    providers: {
+    networks: {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg",
+    },
+    wallets: {
+      icon: "TODO"
     }
   }
 }

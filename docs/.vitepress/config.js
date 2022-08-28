@@ -89,12 +89,20 @@ export default {
               link: "/guide/configurations/intuition.md",
             },
             {
+              text: "The `vuethers.config.js` file",
+              link: "/guide/configurations/vuethers-config-js.md",
+            },
+            {
               text: "Networks config",
               link: "/guide/configurations/networks-config.md",
             },
             {
               text: "Wallets config",
               link: "/guide/configurations/wallets-config.md",
+            },
+            {
+              text: "Style config",
+              link: "/guide/configurations/style-config.md",
             },
             {
               text: "Defaults config",

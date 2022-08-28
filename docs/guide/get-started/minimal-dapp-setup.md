@@ -2,7 +2,7 @@
 
 ## The `App.vue` component
 Like in any Vue app we firstly have to create a `App.vue` component in the `src/` folder of our project.
-Here is a minimalist DApp component that only contains a button to connect a wallet to it.
+Here is a minimalist DApp component that simply displays a "Connect Wallet" button and displays some infos depending on the wallet connection status.
 ```html
 <script setup>
 import { dapp, ConnectWalletButton } from "vuethers";
@@ -65,4 +65,4 @@ You can try to connect your Metamask web wallet if you have one, by clicking the
 
 **Result**
 
-<iframe src="./minimal-dapp-setup-demo.html" class="demo-frame" height="185px"></iframe>
+<DemoFrame src="./minimal-dapp-setup-demo.html" height="200px"/>

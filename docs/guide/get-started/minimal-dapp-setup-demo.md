@@ -1,6 +1,5 @@
 
 <script setup>
-import DemoCreator from "../../.vitepress/theme/components/DemoCreator.vue";
 import { dapp, ConnectWalletButton } from "vuethers";
 </script>
 
