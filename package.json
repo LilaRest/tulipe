@@ -1,6 +1,6 @@
 {
     "name": "vuethers",
-    "version": "0.25.7",
+    "version": "0.25.8",
     "private": false,
     "description": "A DApp frontend framework for Vue3 built with ethers.js",
     "license": "MIT",
@@ -24,8 +24,7 @@
     "exports": {
         ".": {
             "require": "./dist/vuethers.umd.js",
-            "import": "./dist/vuethers.es.js",
-            "module": "./dist/vuethers.es.js"
+            "import": "./dist/vuethers.es.js"
         },
         "./package.json": "./package.json"
     },
