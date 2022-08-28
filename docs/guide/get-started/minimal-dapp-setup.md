@@ -3,7 +3,7 @@
 ## The `App.vue` component
 Like in any Vue app we firstly have to create a `App.vue` component in the `src/` folder of our project.
 Here is a minimalist DApp component that only contains a button to connect a wallet to it.
-```js
+```html
 <script setup>
 import { dapp, ConnectWalletButton } from "vuethers";
 </script>
@@ -13,8 +13,21 @@ import { dapp, ConnectWalletButton } from "vuethers";
   <dapp.OnSafe>
     <ConnectWalletButton/>
   </dapp.OnSafe>
+  <dapp.signer.OnSafe>
+    <template #safe>
+      <p>A wallet is connected !</p>
+      <p>Its address is : '{{ dapp.signer.address.value }}'</p>
+    </template>
+    <template #unsafe>
+      <p>No wallet connected yet.</p>
+    </template>
+  </dapp.signer.OnSafe>
 </template>
 ```
+Here are some explanations :
+- When the is DApp is safe (successfuly initialized) displays a `ConnectWalletButton`
+- When the signer is safe (a wallet is connected) displays a message and the address of the connected wallet
+- Else displays : "No wallet connected yet."
 
 ## The `main.js` file
 A view app also requires a `main.js` file from which the app will be created and the `App.vue` component mounted.
@@ -52,4 +65,4 @@ You can try to connect your Metamask web wallet if you have one, by clicking the
 
 **Result**
 
-<iframe src="./minimal-dapp-setup-demo.html" class="demo-frame" height="155px"></iframe>
+<iframe src="./minimal-dapp-setup-demo.html" class="demo-frame" height="185px"></iframe>
