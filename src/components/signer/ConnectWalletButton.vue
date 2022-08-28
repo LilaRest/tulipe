@@ -27,9 +27,7 @@ dapp.provider.onSafe(async function () {
 
 <style scoped>
 div.ConnectWalletButton.ve-minimal {
-  background-color: red;
 }
 div.ConnectWalletButton.ve-opinionated {
-  background-color: blue;
 }
 </style>

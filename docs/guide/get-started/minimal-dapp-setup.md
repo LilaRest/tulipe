@@ -52,4 +52,4 @@ You can try to connect your Metamask web wallet if you have one, by clicking the
 
 **Result**
 
-<iframe src="/test.html"></iframe>
+<iframe src="./minimal-dapp-setup-demo.html" class="demo-frame" height="155px"></iframe>
