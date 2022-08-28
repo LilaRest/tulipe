@@ -6,7 +6,7 @@ const props = defineProps({
   styleLevel: styleLevelProp
 })
 
-let currentNetwork = ref(null);
+let currentNetwork = ref({});
 dapp.provider.onSafe(async function () {
   currentNetwork.value = await dapp.config.networks.getCurrent();
 })
@@ -19,7 +19,7 @@ dapp.provider.onSafe(async function () {
         <button v-else-if="dapp.signer.status.is('REQUESTED')" disabled>Connection requested...</button>
         <button v-else-if="dapp.signer.status.is('REFUSED')" disabled>Connection refused!</button>
         <button v-else-if="dapp.signer.status.is('ERROR')" disabled>Connection error!</button>
-        <button v-else-if="dapp.provider.status.is('WRONG')" disabled>Wrong network! ({{ currentNetwork.value.displayName }})</button>
+        <button v-else-if="dapp.provider.status.is('WRONG')" disabled>Wrong network! ({{ currentNetwork ? currentNetwork.value.displayName : "unknown" }})</button>
         <button @click="dapp.signer.disconnectWallet" v-else-if="dapp.signer.status.is('CONNECTED')">Disconnect</button>
     </div>
   </dapp.provider.OnSafe>
@@ -27,9 +27,9 @@ dapp.provider.onSafe(async function () {
 
 <style scoped>
 div.ConnectWalletButton.ve-minimal {
-
+  background-color: red;
 }
 div.ConnectWalletButton.ve-opinionated {
-
+  background-color: blue;
 }
 </style>

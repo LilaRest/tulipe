@@ -1,3 +1,4 @@
+import "../../../dist/style.css"; // custom
 import '../../../node_modules/vitepress/dist/client/theme-default/styles/fonts.css';
 import '../../../node_modules/vitepress/dist/client/theme-default/styles/vars.css';
 import '../../../node_modules/vitepress/dist/client/theme-default/styles/base.css';
@@ -10,6 +11,7 @@ import Layout from './Layout.vue';
 import NotFound from '../../../node_modules/vitepress/dist/client/theme-default/NotFound.vue';
 import { vuethersConfig } from "./vuethers.config.js" // custom
 import { initVuethers } from "vuethers"; // custom
+import "./style.css";
 import './demo-style.css';
 export { default as VPHomeHero } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeHero.vue';
 export { default as VPHomeFeatures } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeFeatures.vue';

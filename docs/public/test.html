@@ -1,0 +1,39 @@
+<!-- <script setup>
+import { dapp, ConnectWalletButton, DebugBar } from "vuethers";
+</script>
+
+<div class="ve-demo ve-app">
+  <h1>My DApp</h1>
+  <dapp.OnSafe>
+    <ConnectWalletButton/>
+    <DebugBar/>
+  </dapp.OnSafe>
+</div> -->
+
+<html>
+  <head>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/vuethers@latest"></script>
+
+    <div id="app">{{ message }}</div>
+
+    <script>
+      const { createApp } = Vue
+      const { initVuethers } = Vuethers;
+
+      const app = createApp({
+        data() {
+          return {
+            message: 'Hello Vue!'
+          }
+        }
+      })
+      app.use(initVuethers, {
+        config: vuethersConfig,
+        start: () => app.mount('#app'),
+      })
+    </script>
+  </body>
+</html>

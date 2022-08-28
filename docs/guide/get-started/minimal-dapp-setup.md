@@ -51,14 +51,5 @@ You're frontend should now be accessible at : http://localhost:5173/
 You can try to connect your Metamask web wallet if you have one, by clicking the "Connect wallet" button.
 
 **Result**
-<script setup>
-import { dapp, ConnectWalletButton, DebugBar } from "vuethers";
-</script>
 
-<div class="ve-demo ve-app">
-  <h1>My DApp</h1>
-  <dapp.OnSafe>
-    <ConnectWalletButton/>
-    <DebugBar/>
-  </dapp.OnSafe>
-</div>
+<iframe src="/test.html"></iframe>
