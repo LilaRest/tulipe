@@ -1,4 +1,4 @@
-import { computed as k, getCurrentInstance as N, watch as v, isRef as G, ref as b, resolveComponent as O, openBlock as c, createBlock as w, withCtx as S, createElementVNode as i, toDisplayString as f, unref as l, createVNode as C, createTextVNode as T, createElementBlock as u, Fragment as y, renderList as g, shallowRef as z, withDirectives as j, vModelText as U, createCommentVNode as E, normalizeClass as Q, renderSlot as _, pushScopeId as J, popScopeId as X, vModelSelect as ee, markRaw as te, onUnmounted as W } from "vue";
+import { computed as R, getCurrentInstance as N, watch as v, isRef as G, ref as b, resolveComponent as O, openBlock as c, createBlock as g, withCtx as S, createElementVNode as i, toDisplayString as f, unref as l, createVNode as C, createTextVNode as T, createElementBlock as u, Fragment as y, renderList as w, shallowRef as z, withDirectives as j, vModelText as U, createCommentVNode as E, normalizeClass as Q, renderSlot as _, pushScopeId as J, popScopeId as X, vModelSelect as ee, markRaw as te, onUnmounted as W } from "vue";
 import { ethers as x } from "ethers";
 class se {
   constructor() {
@@ -8,7 +8,7 @@ class se {
       "UNSAFE",
       "ERROR",
       "INITIALIZED"
-    ]), this.isSafe = k(() => this.status.is("INITIALIZED")), this.OnSafe = Fe, this.chainWatchers = new ct(), this.wallets = new vt(), this.provider = new pt(), this.pro = this.provider, this.signer = new _t(), this.sig = this.signer, this.contracts = new St(), this.con = this.contracts;
+    ]), this.isSafe = R(() => this.status.is("INITIALIZED")), this.OnSafe = Fe, this.chainWatchers = new ct(), this.wallets = new vt(), this.provider = new pt(), this.pro = this.provider, this.signer = new _t(), this.sig = this.signer, this.contracts = new St(), this.con = this.contracts;
   }
   onSafe(e) {
     const t = N();
@@ -47,7 +47,7 @@ function ne(r) {
 function $(r) {
   return G(r) ? r.value : r;
 }
-function R(r, e) {
+function k(r, e) {
   G(r) ? r.value = e : r = e;
 }
 const ae = {
@@ -57,7 +57,7 @@ const ae = {
   validator(r) {
     return ["unstylized", "minimal", "opinionated"].includes(r);
   }
-}, re = { class: "ContractInteractor" }, oe = /* @__PURE__ */ T(" Methods : "), ie = /* @__PURE__ */ i("br", null, null, -1), ce = /* @__PURE__ */ T(" Events : "), le = /* @__PURE__ */ i("br", null, null, -1), kt = {
+}, re = { class: "ContractInteractor" }, oe = /* @__PURE__ */ T(" Methods : "), ie = /* @__PURE__ */ i("br", null, null, -1), ce = /* @__PURE__ */ T(" Events : "), le = /* @__PURE__ */ i("br", null, null, -1), Rt = {
   __name: "ContractInteractor",
   props: {
     contract: {
@@ -75,7 +75,7 @@ const ae = {
       }
     }), (n, o) => {
       const d = O("OnContractReadSafe");
-      return c(), w(d, {
+      return c(), g(d, {
         contract: e.contract
       }, {
         default: S(() => [
@@ -116,13 +116,13 @@ const ae = {
     const e = r, t = a.contracts[e.contract];
     return (s, n) => {
       const o = O("OnContractReadSafe");
-      return c(), w(o, {
+      return c(), g(o, {
         contract: e.contract
       }, {
         default: S(() => [
           i("div", ue, [
             i("ul", null, [
-              (c(!0), u(y, null, g(l(t).interface.functions, (d, h) => (c(), u("li", null, [
+              (c(!0), u(y, null, w(l(t).interface.functions, (d, h) => (c(), u("li", null, [
                 C(l(Se), {
                   contract: e.contract,
                   method: h
@@ -135,7 +135,7 @@ const ae = {
       }, 8, ["contract"]);
     };
   }
-}, he = { class: "MethodInteractor" }, fe = { key: 0 }, pe = /* @__PURE__ */ i("p", null, "Inputs :", -1), me = ["onUpdate:modelValue", "placeholder"], _e = { key: 0 }, be = { key: 1 }, ye = /* @__PURE__ */ i("p", null, "Outputs :", -1), ve = ["onUpdate:modelValue", "placeholder"], ge = ["placeholder"], we = { key: 2 }, Se = {
+}, he = { class: "MethodInteractor" }, fe = { key: 0 }, pe = /* @__PURE__ */ i("p", null, "Inputs :", -1), me = ["onUpdate:modelValue", "placeholder"], _e = { key: 0 }, be = { key: 1 }, ye = /* @__PURE__ */ i("p", null, "Outputs :", -1), ve = ["onUpdate:modelValue", "placeholder"], we = ["placeholder"], ge = { key: 2 }, Se = {
   __name: "MethodInteractor",
   props: {
     contract: {
@@ -154,7 +154,7 @@ const ae = {
     }
     return (n, o) => {
       const d = O("OnContractReadSafe");
-      return c(), w(d, {
+      return c(), g(d, {
         contract: e.contract
       }, {
         default: S(() => [
@@ -170,7 +170,7 @@ const ae = {
             Object.keys(t.value.methodInfos.inputs).length > 0 || t.value.methodInfos.payable ? (c(), u("div", fe, [
               pe,
               i("ul", null, [
-                (c(!0), u(y, null, g(t.value.methodInfos.inputs, (h, p) => (c(), u("li", null, [
+                (c(!0), u(y, null, w(t.value.methodInfos.inputs, (h, p) => (c(), u("li", null, [
                   j(i("input", {
                     "onUpdate:modelValue": (m) => t.value.args[p] = m,
                     type: "text",
@@ -190,7 +190,7 @@ const ae = {
             Object.keys(t.value.methodInfos.outputs).length > 0 ? (c(), u("div", be, [
               ye,
               i("ul", null, [
-                (c(!0), u(y, null, g(t.value.methodInfos.outputs, (h, p) => (c(), u("li", null, [
+                (c(!0), u(y, null, w(t.value.methodInfos.outputs, (h, p) => (c(), u("li", null, [
                   t.value.data.value ? j((c(), u("input", {
                     key: 0,
                     "onUpdate:modelValue": (m) => t.value.data.value[p] = m,
@@ -204,11 +204,11 @@ const ae = {
                     type: "text",
                     placeholder: s(h),
                     disabled: ""
-                  }, null, 8, ge))
+                  }, null, 8, we))
                 ]))), 256))
               ])
             ])) : E("", !0),
-            t.value.status.is("ERROR") ? (c(), u("p", we, f(t.value.error.value.reason), 1)) : E("", !0)
+            t.value.status.is("ERROR") ? (c(), u("p", ge, f(t.value.error.value.reason), 1)) : E("", !0)
           ])
         ]),
         _: 1
@@ -227,13 +227,13 @@ const ae = {
     const e = r, t = a.contracts[e.contract];
     return (s, n) => {
       const o = O("OnContractReadSafe");
-      return c(), w(o, {
+      return c(), g(o, {
         contract: e.contract
       }, {
         default: S(() => [
           i("div", Ee, [
             i("ul", null, [
-              (c(!0), u(y, null, g(l(t).interface.events, (d, h) => (c(), u("li", null, [
+              (c(!0), u(y, null, w(l(t).interface.events, (d, h) => (c(), u("li", null, [
                 C(l(Ce), {
                   contract: e.contract,
                   event: h
@@ -246,7 +246,7 @@ const ae = {
       }, 8, ["contract"]);
     };
   }
-}, Re = { class: "EventInteractor" }, ke = /* @__PURE__ */ T("Logs: "), Ce = {
+}, ke = { class: "EventInteractor" }, Re = /* @__PURE__ */ T("Logs: "), Ce = {
   __name: "EventInteractor",
   props: {
     contract: {
@@ -271,18 +271,18 @@ const ae = {
       });
     }), (h, p) => {
       const m = O("OnContractReadSafe");
-      return c(), w(m, {
+      return c(), g(m, {
         contract: e.contract
       }, {
         default: S(() => [
-          i("div", Re, [
+          i("div", ke, [
             i("p", null, f(s.value.name), 1),
             i("ul", null, [
               i("li", null, "Count : " + f(o.value), 1),
               i("li", null, [
-                ke,
+                Re,
                 i("ul", null, [
-                  (c(!0), u(y, null, g(d.value, (B) => (c(), u("li", null, f(B), 1))), 256))
+                  (c(!0), u(y, null, w(d.value, (B) => (c(), u("li", null, f(B), 1))), 256))
                 ])
               ])
             ])
@@ -329,7 +329,7 @@ const ae = {
   emits: ["update:modelValue"],
   setup(r, { emit: e }) {
     const t = r, s = a.contracts[t.contract];
-    let n = k({
+    let n = R({
       get() {
         return t.modelValue;
       },
@@ -345,7 +345,7 @@ const ae = {
       n = new K(t.contract, t.method);
     }), (d, h) => {
       const p = O("OnContractReadSafe");
-      return c(), w(p, {
+      return c(), g(p, {
         contract: t.contract
       }, {
         default: S(() => [
@@ -389,7 +389,7 @@ const q = (r, e) => {
     let t = b({});
     return a.provider.onSafe(async function() {
       t.value = await a.config.networks.getCurrent();
-    }), (s, n) => (c(), w(l(a).provider.OnSafe, null, {
+    }), (s, n) => (c(), g(l(a).provider.OnSafe, null, {
       default: S(() => [
         i("div", {
           class: Q(["ConnectWalletButton", `ve-${e.styleLevel}`])
@@ -411,11 +411,11 @@ const q = (r, e) => {
   setup(r) {
     return (e, t) => {
       const s = O("OnDappSafe");
-      return c(), w(s, null, {
+      return c(), g(s, null, {
         default: S(() => [
           Ue,
           i("ul", null, [
-            (c(!0), u(y, null, g(l(a).wallets, (n) => (c(), u("li", null, f(n.name), 1))), 256))
+            (c(!0), u(y, null, w(l(a).wallets, (n) => (c(), u("li", null, f(n.name), 1))), 256))
           ])
         ]),
         _: 1
@@ -467,7 +467,7 @@ const q = (r, e) => {
     let o = b(!1);
     return (d, h) => {
       const p = O("OnDappSafe");
-      return c(), w(p, null, {
+      return c(), g(p, null, {
         default: S(() => [
           i("div", Me, [
             i("ul", { onClick: n }, [
@@ -479,7 +479,7 @@ const q = (r, e) => {
                 }, null, 8, Le),
                 i("p", null, f(e.value.displayName), 1)
               ])) : E("", !0),
-              o.value ? (c(!0), u(y, { key: 1 }, g(t.value, (m) => (c(), u("li", {
+              o.value ? (c(!0), u(y, { key: 1 }, w(t.value, (m) => (c(), u("li", {
                 key: m.chainId,
                 onClick: (B) => s(m.chainId)
               }, [
@@ -573,7 +573,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
   setup(r) {
     return (e, t) => {
       const s = O("OnDappSafe");
-      return c(), w(s, null, {
+      return c(), g(s, null, {
         default: S(() => [
           i("section", null, [
             i("div", null, [
@@ -584,7 +584,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
                 i("li", null, "Wallet safe : " + f(l(a).signer.isSafe), 1),
                 i("li", null, "Contracts read safe : " + f(l(a).contracts.areReadSafe), 1),
                 i("li", null, "Contracts write safe : " + f(l(a).contracts.areWriteSafe), 1),
-                (c(!0), u(y, null, g(l(a).contracts.getAll(), (n, o) => (c(), u("li", null, [
+                (c(!0), u(y, null, w(l(a).contracts.getAll(), (n, o) => (c(), u("li", null, [
                   T(" contract " + f(o) + " : ", 1),
                   i("ul", null, [
                     i("li", null, "read safe : " + f(n.isReadSafe), 1),
@@ -600,7 +600,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
                 i("li", null, "provider : " + f(l(a).provider.status.get()), 1),
                 i("li", null, "signer : " + f(l(a).signer.status.get()), 1),
                 i("li", null, "contracts : " + f(l(a).contracts.status.get()), 1),
-                (c(!0), u(y, null, g(l(a).contracts.getAll(), (n, o) => (c(), u("li", null, " contract " + f(o) + " : " + f(n.status.get()), 1))), 256))
+                (c(!0), u(y, null, w(l(a).contracts.getAll(), (n, o) => (c(), u("li", null, " contract " + f(o) + " : " + f(n.status.get()), 1))), 256))
               ])
             ])
           ])
@@ -642,7 +642,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), ze = /* @__PURE__ */ F
         onChange: d,
         "onUpdate:modelValue": p[1] || (p[1] = (m) => o.value = m)
       }, [
-        (c(), u(y, null, g(n, (m) => i("option", { value: m }, f(m), 9, tt)), 64))
+        (c(), u(y, null, w(n, (m) => i("option", { value: m }, f(m), 9, tt)), 64))
       ], 544), [
         [ee, o.value]
       ])
@@ -678,7 +678,7 @@ class P {
   set(e) {
     if (e = this._formatState(e), !this._isStateValid(e))
       throw `The state given to the set() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${e}`;
-    R(this._state, e), console.log(`Status '${this._name}' set to '${$(this._state)}'`);
+    k(this._state, e), console.log(`Status '${this._name}' set to '${$(this._state)}'`);
   }
   is(e) {
     if (!this._isStateValid(e))
@@ -1186,8 +1186,11 @@ const I = {
     }
   ],
   defaults: {
-    providers: {
+    networks: {
       icon: "https://storageapi.fleek.co/f3e0e6d9-57d8-48b7-b4ef-b7bbde26978c-bucket/vuethers/networks/unknown.svg"
+    },
+    wallets: {
+      icon: "TODO"
     }
   }
 };
@@ -1472,7 +1475,7 @@ class pt extends A {
       "WRONG",
       "ERROR",
       "CONNECTED"
-    ]), this.isSafe = k(() => a.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"])), this.OnSafe = He, this._asyncInit();
+    ]), this.isSafe = R(() => a.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"])), this.OnSafe = He, this._asyncInit();
   }
   async _getProviderFromWebWallet() {
     for (const e of Object.values(a.wallets))
@@ -1545,7 +1548,7 @@ class _t extends A {
       setTimeout(() => {
         this.status.set("DISCONNECTED");
       }, 5e3);
-    }), this.isSafe = k(() => a.provider.isSafe.value && this.status.is("CONNECTED")), this.OnSafe = Ze, this.address = b(null), this._asyncInit();
+    }), this.isSafe = R(() => a.provider.isSafe.value && this.status.is("CONNECTED")), this.OnSafe = Ze, this.address = b(null), this._asyncInit();
   }
   async _asyncInit() {
     const e = this;
@@ -1657,17 +1660,17 @@ class vt {
   constructor() {
     const e = a.config.wallets.getAvailable();
     for (const t of e) {
-      const s = gt[t.name];
+      const s = wt[t.name];
       s && (this[t.name] = new s());
     }
   }
 }
-const gt = {
+const wt = {
   metamask: Y,
   coinbase: bt,
   binanceChain: yt
 };
-class wt {
+class gt {
   _watch(e, t, s = null) {
     return Object.keys(a.chainWatchers.contracts).includes(this.address) || a.chainWatchers.addContractWatcher(this), a.chainWatchers.contracts[this.address].add(e, t, s);
   }
@@ -1690,7 +1693,7 @@ class wt {
 }
 class L extends A {
   constructor(e, t) {
-    const s = new wt();
+    const s = new gt();
     super(t, s), this.name = e, this.status = new P(`contract:${e}`, [
       "NO_PROVIDER",
       "WRONG_PROVIDER",
@@ -1698,7 +1701,7 @@ class L extends A {
       "INITIALIZED"
     ]), a.provider.status.watchAny((n) => {
       n === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(n) && this.status.set("NO_PROVIDER");
-    }), this.isReadSafe = k(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = k(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.OnReadSafe = C(Ye, { contract: this.name }), this.OnWriteSafe = C(Ke, { contract: this.name }), this._asyncInit();
+    }), this.isReadSafe = R(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = R(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.OnReadSafe = C(Ye, { contract: this.name }), this.OnWriteSafe = C(Ke, { contract: this.name }), this._asyncInit();
   }
   _watchSignerChanges(e, t) {
     v([a.signer.isSafe], (s, n) => {
@@ -1763,7 +1766,7 @@ class St {
       if (e.contracts)
         for (const t of Object.keys(e.contracts))
           this[t] = new L(t);
-    this.areReadSafe = k(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.areWriteSafe = k(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.status.set("INITIALIZED");
+    this.areReadSafe = R(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.areWriteSafe = R(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.status.set("INITIALIZED");
   }
   getAll() {
     const e = {};
@@ -1818,13 +1821,13 @@ class K extends A {
   }
   send(e = null, t = null) {
     e = e || $(this.args), t = t || $(this.txArgs), e ? Array.isArray(e) ? this.call = this.proxy.getEthersObject()(...e, t) : this.call = this.proxy.getEthersObject()(e, t) : this.call = this.proxy.getEthersObject()(t), this.status.set("SENT"), this.methodInfos.constant ? this.call.then((s) => {
-      Array.isArray(s) || (s = [s]), R(this.data, s), R(this.error, null), this.status.set("SUCCESS");
+      Array.isArray(s) || (s = [s]), k(this.data, s), k(this.error, null), this.status.set("SUCCESS");
     }).catch((s) => {
-      R(this.error, s), this.status.set("ERROR");
+      k(this.error, s), this.status.set("ERROR");
     }) : this.call.then((s) => s.wait()).then((s) => {
-      Array.isArray(s) || (s = [s]), R(this.data, s), R(this.error, null), this.status.set("SUCCESS");
+      Array.isArray(s) || (s = [s]), k(this.data, s), k(this.error, null), this.status.set("SUCCESS");
     }).catch((s) => {
-      R(this.error, s), this.status.set("ERROR");
+      k(this.error, s), this.status.set("ERROR");
     });
   }
 }
@@ -1835,15 +1838,15 @@ async function $t(r, e) {
   } catch (o) {
     throw a && a.status && a.status.set("ERROR"), o;
   }
-  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R, window.dapp = a;
-  const n = await import("./index.4218d81c.js");
+  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = k, window.dapp = a;
+  const n = await import("./index.06474114.js");
   r.component("OnDappSafe", n.OnDappSafe), r.component("OnProviderSafe", n.OnProviderSafe), r.component("OnSignerSafe", n.OnSignerSafe), r.component("OnContractsReadSafe", n.OnContractsReadSafe), r.component("OnContractsWriteSafe", n.OnContractsWriteSafe), r.component("OnContractReadSafe", n.OnContractReadSafe), r.component("OnContractWriteSafe", n.OnContractWriteSafe), s(), a.status.set("INITIALIZED");
 }
 export {
   It as AvailableWallets,
   ct as ChainWatchersList,
   Ct as ConnectWalletButton,
-  kt as ContractInteractor,
+  Rt as ContractInteractor,
   lt as ContractWatcher,
   St as ContractsList,
   Pt as DebugBar,
@@ -1876,7 +1879,7 @@ export {
   $t as initVuethers,
   V as isObject,
   $ as rGet,
-  R as rSet,
+  k as rSet,
   ae as styleLevelProp,
-  gt as wallets
+  wt as wallets
 };
