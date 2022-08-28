@@ -1,4 +1,7 @@
 export const vuethersDefaultConfig = {
+  style: {
+    level: "minimal",
+  },
   /*
    * Important : Some properties of network objects must exactly match chain datas at https://chainid.network/chains.json in order to don't raise a warning in Metamask when adding a new network in users' wallets :
      - 'name' in Vuethers must match 'name' in ChainId
@@ -117,7 +120,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Cronos Explorer",
         url: "https://cronos.org/explorer",
         standard: "EIP3091",
@@ -155,7 +158,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Bscscan",
         url: "https://bscscan.com/",
         standard: "EIP3091",
@@ -250,7 +253,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Ftmscan",
         url: "https://ftmscan.com/",
         standard: "EIP3091",
@@ -269,7 +272,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Metis Explorer",
         url: "https://andromeda-explorer.metis.io",
         standard: "EIP3091",
@@ -287,7 +290,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Moonscan",
         url: "https://moonbeam.moonscan.io",
         standard: "EIP3091",
@@ -305,7 +308,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Moonscan",
         url: "https://moonriver.moonscan.io/",
         standard: "EIP3091",
@@ -324,7 +327,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Klaytnscope",
         url: "https://scope.klaytn.com",
         standard: "EIP3091",
@@ -453,7 +456,7 @@ export const vuethersDefaultConfig = {
         decimals: 18,
       },
       contracts: null,
-      explorer: { 
+      explorer: {
         name: "Harmony Block Explorer",
         url: "https://explorer.harmony.one",
         standard: "EIP3091",
@@ -472,7 +475,7 @@ export const vuethersDefaultConfig = {
       displayName: "Binance Chain",
       icon: null,
     },
-    { 
+    {
       name: "coinbase",
       displayName: "Coinbase",
       icon: null,
@@ -484,5 +487,3 @@ export const vuethersDefaultConfig = {
     }
   }
 }
-
-

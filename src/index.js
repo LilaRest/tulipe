@@ -1,6 +1,6 @@
 import { dapp } from "./composables/dapp.js";
 import { rGet, rSet } from "./utils/index.js";
-import "./style/minimal.css";
+import "./style/reset.css";
 
 export async function initVuethers (app, args) {
   const vuethersCustomConfig = args.config;
