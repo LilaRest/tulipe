@@ -1,5 +1,6 @@
 import { dapp } from "./composables/dapp.js";
 import { rGet, rSet } from "./utils/index.js";
+import "./style/minimal.css";
 
 export async function initVuethers (app, args) {
   const vuethersCustomConfig = args.config;
@@ -38,7 +39,7 @@ export async function initVuethers (app, args) {
   dapp.status.set("INITIALIZED");
 }
 
-export { dapp } 
+export { dapp }
 export * from "./components/index.js";
 export * from "./composables/index.js";
 export * from "./utils/index.js";

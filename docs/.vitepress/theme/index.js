@@ -10,6 +10,7 @@ import Layout from './Layout.vue';
 import NotFound from '../../../node_modules/vitepress/dist/client/theme-default/NotFound.vue';
 import { vuethersConfig } from "./vuethers.config.js" // custom
 import { initVuethers } from "vuethers"; // custom
+import './demo-style.css';
 export { default as VPHomeHero } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeHero.vue';
 export { default as VPHomeFeatures } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeFeatures.vue';
 export { default as VPHomeSponsors } from '../../../node_modules/vitepress/dist/client/theme-default/components/VPHomeSponsors.vue';
@@ -25,7 +26,7 @@ const theme = {
     enhanceApp({ app }) {
       app.use(initVuethers, {
         config: vuethersConfig,
-        start: () => {console.log("STAAART")},
+        start: () => {},
       })
     }
     // custom above

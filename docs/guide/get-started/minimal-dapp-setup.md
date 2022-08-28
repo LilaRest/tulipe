@@ -22,10 +22,10 @@ This file is also usually created in the `src/` folder.
 
 Here is a minimal `main.js` file to create a Vuethers project.
 ```js{3,4,8-11}
-import { createApp } from "vue"
-import App from "./App.vue"
-import { initVuethers } from "../../../src/index.js"
-import { vuethersConfig } from "../vuethers.config.js"
+import { createApp } from "vue";
+import App from "./App.vue";
+import { initVuethers } from "vuethers";
+import { vuethersConfig } from "./vuethers.config.js";
 
 const app = createApp(App)
 
@@ -50,12 +50,14 @@ You're frontend should now be accessible at : http://localhost:5173/
 
 You can try to connect your Metamask web wallet if you have one, by clicking the "Connect wallet" button.
 
+**Result**
+<script setup>
+import { dapp, ConnectWalletButton } from "vuethers";
+</script>
 
-<div id="setup-demo">
-  <template>
-    <h1>My DApp</h1>
-    <dapp.OnSafe>
-      <ConnectWalletButton/>
-    </dapp.OnSafe>
-  </template>
+<div class="ve-demo ve-app">
+  <h1>My DApp</h1>
+  <dapp.OnSafe>
+    <ConnectWalletButton/>
+  </dapp.OnSafe>
 </div>
