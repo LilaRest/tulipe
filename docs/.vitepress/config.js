@@ -36,7 +36,7 @@ export default {
       },
       {
         text: "Guide",
-        link: "/guide/",
+        link: "/guide/welcome/introduction",
       },
       {
         text: "Changelog",
@@ -50,7 +50,7 @@ export default {
           items: [
             {
               text: "Introduction",
-              link: "/guide/index",
+              link: "/guide/welcome/introduction",
             }
           ]
         },
