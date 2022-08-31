@@ -1,5 +1,6 @@
 ---
 layout: home
+title: Home
 hero:
   name: Vuethers
   text: A DApp frontend framework for Vue 3 built with Ethers.js
