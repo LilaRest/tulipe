@@ -1,11 +1,24 @@
-<h1 align="center">
-  <a href="https://vuethers.org/">
-    <img src="https://static.vuethers.org/vuethers-logo.png" alt="Logo" width="125" height="125">
-    Vuethers
-  </a>
-</h1>
+**<h1 align="center">Vuethers</h1>**
+<div align="center">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/LilaRest/vuethers/Build,%20Commit%20&%20Publish%20Vuethers%20Packages?label=Build">
+  <img alt="npm" src="https://img.shields.io/npm/v/vuethers?label=Version">
+  <img alt="npm" src="https://img.shields.io/npm/dw/vuethers?color=%23bcf&label=Downloads">
+  <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/vuethers?color=%23faf&label=Dependencies">
+  <img alt="NPM" src="https://img.shields.io/npm/l/vuethers?color=def&label=License">
+  <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/vuethers/dist/vuethers.min.js?label=Size">
+</div>
 
-## A DApp frontend framework for Vue 3 built with Ethers.js
+<br/>
+
+<p align="center">
+  <a href="https://vuethers.org/">
+    <img src="https://static.vuethers.org/vuethers-logo.png" alt="Vuethers logo">
+  </a>
+</p>
+
+<h2 align="center" style="color:red">A DApp frontend framework for Vue 3 built with Ethers.js</h2>
+
+<br/>
 
 - 💡 **Intuitive Design** : Vuethers abstracts a lot of repetitive and heavy tasks but has been thought to always let developers feel what happens under the hood.
 
@@ -15,11 +28,18 @@
 
 - 📦 **Extremely minimal** : Vuethers weight less than 15kB gzipped and relies on only 2 top-level dependencies : Vue3 and Ethers.js
 
-## Alpha warning
-This library is currently in development and not suitable yet for production environment, use at your own risks.
-Beta and a stable versions should be released by the end of 2022.
+<br/>
 
-## How does it tastes ? 😋
+## Alpha warning
+This library is currently in development and **not suitable yet for production environment**, use at your own risks.
+
+**:star: this repo to show us your interest for a future stable version.**
+
+Beta and a stable versions should be released by the **end of 2022**.
+
+<br/>
+
+## How does it tastes ? :yum:
 Firstly, you can configure your entire DApp frontend in a single file called `vuethers.config.js`.
 ```js
 export vuethersConfig = {
@@ -53,9 +73,7 @@ const block = dapp.provider.getBlock(123456)
 ```
 You don't have anymore to deal with multiple manual instanciations.
 
-::: tip Explanations
-When your DApp initializes, Vuethers will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !
-:::
+> 💡 **Explanations** : When your DApp initializes, Vuethers will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !
 
 Also, while a DApp has a very volatile context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
 
@@ -75,9 +93,7 @@ dapp.contracts.MyToken.onReadSafe(() => {
 })
 </script>
 ```
-::: tip Explanations
-By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
-:::
+> 💡 **Explanations** : By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
 
 Or if we want to ensure our interaction with MyToken contract is safe in template :
 ```html
@@ -89,9 +105,7 @@ Or if we want to ensure our interaction with MyToken contract is safe in templat
   </dapp.contracts.MyToken.OnReadSafe>
 </template>
 ```
-::: tip Explanations
-By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
-:::
+> 💡 **Explanations** : By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
 
 With Vuethers you can also track an on-chain data and it feels like using VueJS watchers methods (`watch()`, etc.)
 
@@ -113,14 +127,13 @@ dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
   <p>Your balance is : {{ userBalance }} MTK</p>
 </template>
 ```
-::: tip Explanations
-The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
-:::
+> 💡 **Explanations** : The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
 
 Vuethers offers a lot more things to makes safe DApp development a real piece of cake.
 
 You can find them all on [its documentations](https://vuethers.org/).
 
+<br/>
 
 ## How to contribute ?
 
