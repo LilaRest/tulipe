@@ -1,7 +1,6 @@
 ---
 title: Guide ~ Introduction
 layout: doc
-next: 'Get started ~ Intuition'
 ---
 
 # Introduction
