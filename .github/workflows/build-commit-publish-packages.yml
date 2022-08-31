@@ -18,7 +18,7 @@ jobs:
       - name: Setup Node.js environment
         run: npm ci
       - name: Build distribution files
-        run: npm run build
+        run: npm run build && npm run docs:build
       - name: Publish the package on NPM
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -35,4 +35,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ env.GITHUB_REPOSITORY }}
           branch: main
+
 
