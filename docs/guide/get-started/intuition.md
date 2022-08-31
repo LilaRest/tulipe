@@ -45,26 +45,48 @@ Here are only exposed the major functionalities offered by Vuethers, there are m
 
 
 ## How does it tastes ? 😋
-With Vuethers most of the DApp datas are accessible through the `dapp` object.
-When the DApp is initialized, this object is filled with everything the DApp needs to work.
+Firstly, you can configure your entire DApp frontend in a single file called `vuethers.config.js`.
+```js
+export vuethersConfig = {
+  networks: {
+    chainId: 1
+  },
+  wallets: {
+    walletId: "metamask"
+  }
+}
+```
+This minimalist configuration file make your DApp frontend support the Ethereum Mainnet network (chain ID : 1) and allows users to connect to it using the [Metamask](https://metamask.io/) wallet.
 
-To illustrate how Vuethers taste, let's imagine a simple ERC20 contract called MyToken.
-
-Here is how it feels with Vuethers :
-- if we want to interact with our `MyToken` contract :
-```html
-<script setup>
+Then, with Vuethers most of the things you need to build your DApp fronted is available the `dapp` object.
+This one can easily be imported from the `vuethers` package :
+```js
 import { dapp } from "vuethers";
+```
 
+For example if you have configured a `MyToken` ERC20 contract in `vuethers.config.js`, you can access its Ethers.js object at :
+```js
+dapp.contracts.MyToken
+// Get the balance of userAddress
 const userAddress = "0xf39Fd6e5..."
 const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
-</script>
 ```
+And your DApp signer and provider are also accessible under the `dapp` object :
+```js
+console.("Connected wallet address is : " + dapp.signer.address)
+const block = dapp.provider.getBlock(123456)
+```
+You don't have anymore to deal with multiple manual instanciations.
+
 ::: tip Explanations
-Our `MyToken` contract is directly available in the `dapp` object at `dapp.contracts.MyToken`.
-It is a simple Ethers.js contract object with few additional methods.
+When your DApp initializes, Vuethers will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !
 :::
-- if we want to ensure our interaction with MyToken contract is safe in script :
+
+Also, while a DApp has a very volatile context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
+
+To solve that, Vuethers provides developers with many safers which helps making a piece of code safe by simply wrapping it in a method / component.
+
+For example if we want to ensure our interaction with MyToken contract is safe in script :
 ```html
 <script setup>
 import { dapp } from "vuethers";
@@ -81,7 +103,8 @@ dapp.contracts.MyToken.onReadSafe(() => {
 ::: tip Explanations
 By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
 :::
-- if we want to ensure our interaction with MyToken contract is safe in template :
+
+Or if we want to ensure our interaction with MyToken contract is safe in template :
 ```html
 <template>
   <dapp.contracts.MyToken.OnReadSafe>
@@ -94,7 +117,10 @@ By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensu
 ::: tip Explanations
 By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
 :::
-- if we want to watch (track) an on-chain data
+
+With Vuethers you can also track an on-chain data and it feels like using VueJS watchers methods (`watch()`, etc.)
+
+Here is how we can track and display an always up-to-date balance to the user :
 ```html
 <script setup>
 import { dapp } from "vuethers";
@@ -107,8 +133,15 @@ dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
   userBalance = newValue;
 })
 </script>
+
+<template>
+  <p>Your balance is : {{ userBalance }} MTK</p>
+</template>
 ```
 ::: tip Explanations
-The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs. In this case it allows us to keep an up to date user's balance.
+The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
 :::
-Vuethers offers a lot more of syntactic sugar to make DApp developers' life easier, you'll be able to learn about each them in that documentation.
+
+Vuethers offers a lot more things to makes safe DApp development a real piece of cake.
+
+You can find them all on [its documentations](https://vuethers.org/).

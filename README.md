@@ -1,100 +1,125 @@
-# Vuethers | A DApp frontend framework for Vue 3 built with Ethers (ethers.js) 
+<h1 align="center">
+  <a href="https://vuethers.org/">
+    <img src="https://static.vuethers.org/vuethers-logo.png" alt="Logo" width="125" height="125">
+    Vuethers
+  </a>
+</h1>
+
+## A DApp frontend framework for Vue 3 built with Ethers.js
+
+- 💡 **Intuitive Design** : Vuethers abstracts a lot of repetitive and heavy tasks but has been thought to always let developers feel what happens under the hood.
+
+- 🦥 **Ready-to-use** : Vuethers comes with +20 EVM chains and +5 wallets pre-configured. Give it a chain's ID and a wallet name, and your DApp is ready to run !
+
+- 🖖 **Flexible styling** : Vuethers comes with 3 levels of styling, from unstylized to opinionated, so you can choose your level of customization.
+
+- 📦 **Extremely minimal** : Vuethers weight less than 15kB gzipped and relies on only 2 top-level dependencies : Vue3 and Ethers.js
 
 ## Alpha warning
 This library is currently in development and not suitable yet for production environment, use at your own risks.
 Beta and a stable versions should be released by the end of 2022.
 
-
-## Philosophy
-Vuethers contains many unstyled components and composables to help interacting with web wallets (eg. Metamask, Wallet Connect, etc.), EVM chains and smart contracts in VueJS applications.
-
-The philosophy behind this package is to make it as minimalist/lightweight as possible and to allow developers to fully customize each of the components provided.
-
-This way developers can focus less on boring / repetitive tasks and more on the macro level of their DApp frontend. They're able to easily customize each component to create a fully unique DApp frontend.
-
-On the other hand, Vuethers also provides few optional CSS files that contain style for components in case some developers don't want to style them from scratch or don't want to style them at all.
-
-
-## Main features :
-- **Ready-to-use** : Not any configurations are required to start building with Vuethers
-- **Adaptive styling** : Vuethers provides 3 levels of styling that allows developers to be more or less free / helped about the design of their app.
-- **Components & Composables** : Vuethers provides many components and composables to help DApp development (eg. a "Connect Wallet" button, a "Select Network" dropdown, etc.)
-- **Global data access** : thanks to a DApp global store built with Pinia, all the DApp's datas can be accessed and mutated from anywhere in the app
-- **Single-file configuration** : the whole DApp's settings (supported networks, available smart contracts, etc.) can be configured from a single file called `vuethers.config.js`
-- **Strong configuration defaults** : by the way Vuethers provides strong default configuration (+20 EVM chains pre-configured, chain icons, etc.) that allows developers to start building with Vuethers by simply giving the ID of the chain they are working on.
-- **Smart contract frameworks support** : Natively Vuethers supports Hardhat and provides a documentation about how to integrate it in Vuethers. Other frameworks will come later
-- **Demo DApp** : Vuethers provides a demo DApp that can be cloned to quickly start a new Vuethers project with Hardhat
-- **Few dependencies** : Vuethers relies on only 3 external dependencies (vuejs, ethers.js, pinia)
-- **Lightweight** : Vuethers is powerful but weight less than 10kB when compressed in browsers
-
-Here are more details about some of these features :
-
-
-### Adaptative styling
-More precisely Vuethers comes with 3 levels of styles (coming soon) :
-- Unstyled : no CSS file applied
-- Minimalist : only few CSS rules in order to make components consistent and readable
-- Fancy : pretty styling for each components, loaders, etc. Make Vuethers usable in production out of the box
-
-Note : Minimalist and Fancy styles come with a CSS reset that allows these styling to be displayed uniformly on any browser. This can be disabled in settings (not recommended).
-
-
-### Components & Composables
-Here are the ones currently implemented :
-- a ConnectWalletButton component : A button that allows to connect and interact with web wallet like Metamask
-- a SelectNetworkDropdown component : A dropdown that allows users to easily change the network (chain) they are connected to
-- a ContractInteractor component : A dynamic component that displays informations and provides inputs fields and button in order to interact with a given smart contract 
-
-
-### DApp global store
-Many datas like DApp statuses, the `provider` and `signer` objects (ethers.js), the list of available contracts, etc. have to be shared across the entire app in order to allow any component to access and mutate them.
-Vuethers provides a way to do that with a DApp store built with Pinia, that can be imported anywhere in the app in order to access/mutate the DApp datas.
-It's as simple as that :
+## How does it tastes ? 😋
+Firstly, you can configure your entire DApp frontend in a single file called `vuethers.config.js`.
 ```js
-import { useDAppStore } from "vuethers";
-const dapp = useDAppStore()
-console.log(dapp.networks.available)
-// --> [...] displays the list of the networks supported by the DApp
+export vuethersConfig = {
+  networks: {
+    chainId: 1
+  },
+  wallets: {
+    walletId: "metamask"
+  }
+}
 ```
+This minimalist configuration file make your DApp frontend support the Ethereum Mainnet network (chain ID : 1) and allows users to connect to it using the [Metamask](https://metamask.io/) wallet.
 
-
-### Dependencies
-All provided components and composables works out of the box and rely on only 3 simples dependencies that should be already included in any VueJS DApp project :
-- VueJS 3
-- ethers.js
-- Pinia
-
-
-## How to install ?
-In an Node JS environment simply run :
-```bash
-npm install vuethers@latest
-```
-Then initialize Vuethers thanks to its `initVuethers` method :
+Then, with Vuethers most of the things you need to build your DApp fronted is available the `dapp` object.
+This one can easily be imported from the `vuethers` package :
 ```js
-// main.js
-import { createApp } from "vue"
-import { initVuethers } from "vuethers"
-import App from "./App.vue"
-
-const app = createApp(App)
-
-// Initialize Vue plugins
-// app.use(...)
-// ...
-
-// Initialize Vuethers
-await initVuethers() // It MUST be called after every Vue plugins initialization (see below)
-
-app.mount("#app")
+import { dapp } from "vuethers";
 ```
-You're done !
 
-### Order of initialization
-Vuethers MUST be initialized after every Vue plugins have been initialized.
-More preciselly, Vuethers automatically instanciate the Pinia plugin even if you don't do it manually and generates datas in a store.
-However if you manually instanciate the Pinia plugin after the Vuethers' initialization, Pinia will create a fresh instance of itself and override every datas generated by Vuethers previously.
-We could warn our users to ensure that Vuethers is always initialized after Pinia, but it's easier to say to initialize it after every Vue plugins, and by the way it prevents any problem in case Vuethers depends on other Vue plugins in the future.
+For example if you have configured a `MyToken` ERC20 contract in `vuethers.config.js`, you can access its Ethers.js object at :
+```js
+dapp.contracts.MyToken
+// Get the balance of userAddress
+const userAddress = "0xf39Fd6e5..."
+const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
+```
+And your DApp signer and provider are also accessible under the `dapp` object :
+```js
+console.("Connected wallet address is : " + dapp.signer.address)
+const block = dapp.provider.getBlock(123456)
+```
+You don't have anymore to deal with multiple manual instanciations.
+
+::: tip Explanations
+When your DApp initializes, Vuethers will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !
+:::
+
+Also, while a DApp has a very volatile context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
+
+To solve that, Vuethers provides developers with many safers which helps making a piece of code safe by simply wrapping it in a method / component.
+
+For example if we want to ensure our interaction with MyToken contract is safe in script :
+```html
+<script setup>
+import { dapp } from "vuethers";
+
+const userAddress = "0xf39Fd6e5..."
+let userBalance = $ref(null);
+
+dapp.contracts.MyToken.onReadSafe(() => {
+  // Will be executed only when MyToken contract will be safe to read
+  userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
+})
+</script>
+```
+::: tip Explanations
+By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
+:::
+
+Or if we want to ensure our interaction with MyToken contract is safe in template :
+```html
+<template>
+  <dapp.contracts.MyToken.OnReadSafe>
+    <!-- Will be rendered only when MyToken contract will be safe to read -->
+    <p>Address : {{ userAddress }}</p>
+    <p>Balance : {{ userBalance }}</p>
+  </dapp.contracts.MyToken.OnReadSafe>
+</template>
+```
+::: tip Explanations
+By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
+:::
+
+With Vuethers you can also track an on-chain data and it feels like using VueJS watchers methods (`watch()`, etc.)
+
+Here is how we can track and display an always up-to-date balance to the user :
+```html
+<script setup>
+import { dapp } from "vuethers";
+
+const userAddress = "0xf39Fd6e5..."
+let userBalance = $ref(null);
+
+dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
+  // Will be executed each time 'balanceOf' of 'userAddress' changes
+  userBalance = newValue;
+})
+</script>
+
+<template>
+  <p>Your balance is : {{ userBalance }} MTK</p>
+</template>
+```
+::: tip Explanations
+The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
+:::
+
+Vuethers offers a lot more things to makes safe DApp development a real piece of cake.
+
+You can find them all on [its documentations](https://vuethers.org/).
 
 
 ## How to contribute ?
@@ -121,8 +146,3 @@ We could warn our users to ensure that Vuethers is always initialized after Pini
 6) Commit your changes using `git add -A` + `git commit -m "<YourChangesDescription>"`
 7) Push your changes to your fork repository using `git push origin main`
 8) Return to your fork on Github, refresh the page and you should see an highlighted area that invites you to initiate a Pull Request. (alternatively you can click on the "New pull request" button)
-
-## TODO
-- Add multiple RPC ethers providers support by default
-- Add an unstyled popup system (?)
-
