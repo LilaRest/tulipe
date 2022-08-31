@@ -161,4 +161,4 @@ You can find them all by reading [its documentations](https://vuethers.org/).
 <br/>
 
 ## Contributions
-See : [CONTRIBUTING.md](/CONTRIBUTING.md)
+See : [CONTRIBUTING](/CONTRIBUTING.md)
