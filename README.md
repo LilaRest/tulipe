@@ -5,7 +5,7 @@
   <img alt="npm" src="https://img.shields.io/npm/dw/vuethers?color=%23bcf&label=Downloads">
   <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/vuethers?color=%23faf&label=Dependencies">
   <img alt="NPM" src="https://img.shields.io/npm/l/vuethers?color=def&label=License">
-  <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/vuethers/dist/vuethers.min.js?label=Size">
+  <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/vuethers/dist/vuethers.min.js?label=Raw size">
 </div>
 
 <h3 align="center" style="color:red">A DApp frontend framework for Vue 3 built with Ethers.js</h2>
