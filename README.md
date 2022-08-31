@@ -8,6 +8,8 @@
   <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/vuethers/dist/vuethers.min.js?label=Size">
 </div>
 
+<h3 align="center" style="color:red">A DApp frontend framework for Vue 3 built with Ethers.js</h2>
+
 <br/>
 
 <p align="center">
@@ -15,10 +17,6 @@
     <img src="https://static.vuethers.org/vuethers-logo.png" alt="Vuethers logo">
   </a>
 </p>
-
-<h2 align="center" style="color:red">A DApp frontend framework for Vue 3 built with Ethers.js</h2>
-
-<br/>
 
 - 💡 **Intuitive Design** : Vuethers abstracts a lot of repetitive and heavy tasks but has been thought to always let developers feel what happens under the hood.
 
@@ -30,12 +28,24 @@
 
 <br/>
 
+<h3 align="center">
+  <a href="https://vuethers.org/">Website</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://vuethers.org/guide/welcome/introduction">Documentation</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://vuethers.org/api/">API</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="https://vuethers.org/changelog/">Changelog</a>
+</h3>
+
+<br/>
+
 ## Alpha warning
 This library is currently in development and **not suitable yet for production environment**, use at your own risks.
 
-**:star: this repo to show us your interest for a future stable version.**
+**Please :star: this repository to show us your interest in a future stable release.**
 
-Beta and a stable versions should be released by the **end of 2022**.
+Beta and stable versions should be released by the **end of 2022**.
 
 <br/>
 
