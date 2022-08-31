@@ -50,76 +50,91 @@ Beta and stable versions should be released by the **end of 2022**.
 <br/>
 
 ## How does it tastes ? :yum:
+
+### Easy configurations
 Firstly, you can configure your entire DApp frontend in a single file called `vuethers.config.js`.
 ```js
-export vuethersConfig = {
-  networks: {
-    chainId: 1
-  },
-  wallets: {
-    walletId: "metamask"
-  }
+export const vuethersConfig = {
+  networks: [
+    {
+      id: 1,
+      contracts: {
+        "MyToken": import("./MyToken.json")
+      }
+    }
+  ],
+  wallets: [
+    {id: "metamask"}
+  ],
 }
 ```
-This minimalist configuration file make your DApp frontend support the Ethereum Mainnet network (chain ID : 1) and allows users to connect to it using the [Metamask](https://metamask.io/) wallet.
+With this minimal configuration, your DApp frontend will :
+- support the [Ethereum Mainnet](https://ethereum.org/en/) network (`id: 1`)
+- will be able to interact with the `MyToken` contract
+- and allows users to connect to it using the [Metamask](https://metamask.io/) wallet (`id: "metamask"`).
 
-Then, with Vuethers most of the things you need to build your DApp fronted is available the `dapp` object.
-This one can easily be imported from the `vuethers` package :
+### The `dapp` object
+Most of the things you need to built are available through the `dapp` object, which can be simply imported from the `vuethers` package.
 ```js
 import { dapp } from "vuethers";
 ```
 
-For example if you have configured a `MyToken` ERC20 contract in `vuethers.config.js`, you can access its Ethers.js object at :
+### Auto-instanciations
+When your DApp loads, Vuethers will read your `vuethers.config.js` file and populates, if possible, the `dapp` object with all the `Ethers.js` instances your DApp requires.
 ```js
-dapp.contracts.MyToken
-// Get the balance of userAddress
+import { dapp } from "vuethers";
+
+dapp.provider            // An Ethers.js Provider instance
+dapp.signer              // An Ethers.js Signer instance
+dapp.contracts.MyToken   // An Ethers.js Contract instance
+
+// They can be used normally
 const userAddress = "0xf39Fd6e5..."
 const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
 ```
-And your DApp signer and provider are also accessible under the `dapp` object :
-```js
-console.("Connected wallet address is : " + dapp.signer.address)
-const block = dapp.provider.getBlock(123456)
-```
+
 You don't have anymore to deal with multiple manual instanciations.
 
-> 💡 **Explanations** : When your DApp initializes, Vuethers will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !
+## ARS (Automated Relations Safety)
+While a DApp has a very unstable context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
 
-Also, while a DApp has a very volatile context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
+Vuethers comes with ARS, an internal system that ensure that your DApp instances always remain safe to use.
 
-To solve that, Vuethers provides developers with many safers which helps making a piece of code safe by simply wrapping it in a method / component.
+For example, if the signer of your DApp has changed, all the contracts instances will be automatically updated with the new signer.
 
-For example if we want to ensure our interaction with MyToken contract is safe in script :
-```html
-<script setup>
-import { dapp } from "vuethers";
+## Safers
+Also, in such an unstable context, writing safe code may became quickly complex.
 
-const userAddress = "0xf39Fd6e5..."
-let userBalance = $ref(null);
+To help developers always writing safe code, Vuethers provides many safers methods and components.
 
+Making your code safe has never been so easy !
+
+```js
 dapp.contracts.MyToken.onReadSafe(() => {
-  // Will be executed only when MyToken contract will be safe to read
-  userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
+  // Code here will be executed when MyToken contract is safe to be read
+  const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
 })
-</script>
 ```
-> 💡 **Explanations** : By wrapping our code in the `dapp.contracts.MyToken.onReadSafe()`method, we ensure that it will be executed only when the `MyToken` contract is safe to be read.
-
-Or if we want to ensure our interaction with MyToken contract is safe in template :
+```js
+dapp.provider.onSafe(() => {
+  // Code here will be executed when the DApp provider is safe to use
+  const block = dapp.provider.getBlock(123456)
+})
+```
 ```html
 <template>
-  <dapp.contracts.MyToken.OnReadSafe>
-    <!-- Will be rendered only when MyToken contract will be safe to read -->
-    <p>Address : {{ userAddress }}</p>
-    <p>Balance : {{ userBalance }}</p>
-  </dapp.contracts.MyToken.OnReadSafe>
+  <dapp.signer.OnSafe>
+    <p>A wallet is connected to this DApp !</p>
+  </dapp.signer.OnSafe>
 </template>
 ```
-> 💡 **Explanations** : By wrapping our content in the `dapp.contracts.MyToken.OnReadSafe`component, we ensure that it will be rendered only when the `MyToken` contract is safe to be read.
 
-With Vuethers you can also track an on-chain data and it feels like using VueJS watchers methods (`watch()`, etc.)
+### Chain watchers
+When developing reactive web DApps frontends we need to regularly fetch on-chain datas to always display the most up-to-date ones to the users.
 
-Here is how we can track and display an always up-to-date balance to the user :
+Vuethers provides chain watchers to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
+
+Here is how we can track and display an always up-to-date ERC20 balance to the user :
 ```html
 <script setup>
 import { dapp } from "vuethers";
@@ -137,35 +152,13 @@ dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
   <p>Your balance is : {{ userBalance }} MTK</p>
 </template>
 ```
-> 💡 **Explanations** : The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
 
-Vuethers offers a lot more things to makes safe DApp development a real piece of cake.
+### Final words
+Vuethers offers a lot more things to makes safe DApp frontend development a real piece of cake.
 
-You can find them all on [its documentations](https://vuethers.org/).
+You can find them all by reading [its documentations](https://vuethers.org/).
 
 <br/>
 
-## How to contribute ?
-
-### Contribute by _**testing**_ Vuethers
-1) Test the library's features
-2) Observe a bug or an improvement that could be made
-3) Report it by [creating an issue](https://github.com/0Lilian/vuethers/issues/new)
-
-### Contribute by _**coding**_ Vuethers
-- If you have found a bug or a potential improvement for the library and want to code it, we would be happy to accept your PRs!
-  **Important :** It'd be good to talk about it beforehand to make sure that no one else is working on it. You can [open an issue](https://github.com/0Lilian/Vuethers/issues/new) for this.
-- If you want to code but don't know where to start :
-  1) Check out the issues labelled "[help wanted](https://github.com/0Lilian/vuethers/labels/help%20wanted)".
-  2) Check out [our roadmap](https://github.com/0Lilian/vuethers/projects/1) and choose an unassigned task
-
-**Here are the steps to contribute to the Vuethers's code :**
-1) Fork this repository
-2) Clone your fork on your computer using `git clone https://github.com/<YourGithubName>/vuethers.git`
-3) In local, navigate into the cloned folder called `vuethers/`
-4) Add the Vuethers project repository as the "upstream" remote using `git remote add upstream https://github.com/0Lilian/vuethers.git`
-5) Now you can easily pull the new updates on the Vuethers repository using `git pull upstream main`
-5) Apply changes in your local repository
-6) Commit your changes using `git add -A` + `git commit -m "<YourChangesDescription>"`
-7) Push your changes to your fork repository using `git push origin main`
-8) Return to your fork on Github, refresh the page and you should see an highlighted area that invites you to initiate a Pull Request. (alternatively you can click on the "New pull request" button)
+## Contributions
+See : [CONTRIBUTING.md](/CONTRIBUTING.md)
