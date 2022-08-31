@@ -6,7 +6,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/welcome/index.md
+      link: /guide/welcome/index
     - theme: alt
       text: View on GitHub
       link: https://github.com/0Lilian/vuethers

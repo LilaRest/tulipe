@@ -39,10 +39,6 @@ export default {
         link: "/guide/",
       },
       {
-        text: "API",
-        link: "/api/",
-      },
-      {
         text: "Changelog",
         link: "/changelog/",
       }
@@ -54,7 +50,7 @@ export default {
           items: [
             {
               text: "Introduction",
-              link: "/guide/index.md",
+              link: "/guide/index",
             }
           ]
         },
@@ -64,19 +60,19 @@ export default {
           items: [
             {
               text: "Intuition",
-              link: "/guide/get-started/intuition.md",
+              link: "/guide/get-started/intuition",
             },
             {
               text: "Installation",
-              link: "/guide/get-started/installation.md",
+              link: "/guide/get-started/installation",
             },
             {
               text: "Minimal configuration",
-              link: "/guide/get-started/minimal-configuration.md",
+              link: "/guide/get-started/minimal-configuration",
             },
             {
-              text: "Minimal DApp setup",
-              link: "/guide/get-started/minimal-dapp-setup.md"
+              text: "Setup your DApp",
+              link: "/guide/get-started/setup-your-dapp"
             }
           ],
         },
@@ -86,66 +82,231 @@ export default {
           items: [
             {
               text: "Intuition",
-              link: "/guide/configurations/intuition.md",
+              link: "/guide/configurations/intuition",
             },
             {
-              text: "The `vuethers.config.js` file",
-              link: "/guide/configurations/vuethers-config-js.md",
+              text: "Usage",
+              link: "/guide/configurations/usage",
             },
             {
-              text: "Networks config",
-              link: "/guide/configurations/networks-config.md",
+              text: "Networks",
+              link: "/guide/configurations/networks",
             },
             {
-              text: "Wallets config",
-              link: "/guide/configurations/wallets-config.md",
+              text: "Wallets",
+              link: "/guide/configurations/wallets",
             },
             {
-              text: "Style config",
-              link: "/guide/configurations/style-config.md",
+              text: "Style",
+              link: "/guide/configurations/style",
             },
             {
-              text: "Defaults config",
-              link: "/guide/configurations/defaults-config.md",
+              text: "Defaults",
+              link: "/guide/configurations/defaults",
             }
           ]
         },
         {
-          text: "The `dapp` object",
+          text: "DApp object",
           collapsible: true,
           items: [
             {
               text: "Intuition",
-              link: ""
+              link: "/guide/dapp-object/intuition"
             },
             {
-              text: "Ethers proxies",
+              text: "Usage",
+              link: "/guide/dapp-object/usage"
+            },
+            {
+              text: "API",
+              link: "/guide/dapp-object/api"
+            },
+            {
+              text: "Customization",
+              link: "/guide/dapp-object/customization"
+            },
+          ],
+        },
+        {
+          text: "Ethers proxies",
+          collapsible: true,
+          items: [
+            {
+              text: "Intuition",
+              link: "/guide/ethers-proxies/intuition"
+            },
+            {
+              text: "How it works ?",
+              link: "/guide/ethers-proxies/how-it-works"
+            },
+            {
+              text: "Usage",
+              link: "/guide/ethers-proxies/usage"
+            },
+            {
+              text: "APIs (simplified)",
               collapsible: true,
               collapsed: true,
               items: [
                 {
-                  text: "Introduction",
-                  link: "/guide/in-depth/ethers-proxies/introduction.md"
+                  text: "VEProviderProxy",
+                  link: "/guide/ethers-proxies/apis-simplified/ve-provider"
                 },
                 {
-                  text: "Provider proxy",
-                  link: ""
+                  text: "VESignerProxy",
+                  link: "/guide/ethers-proxies/apis-simplified/ve-signer"
                 },
                 {
-                  text: "Signer proxy",
-                  link: ""
+                  text: "VEContractProxy",
+                  link: "/guide/ethers-proxies/apis-simplified/ve-contract"
                 },
                 {
-                  text: "Contract proxy",
-                  link: ""
-                },
-                {
-                  text: "Transaction proxy",
-                  link: ""
+                  text: "VETransactionProxy",
+                  link: "/guide/ethers-proxies/apis-simplified/ve-transaction"
                 },
               ]
             },
-          ],
+            {
+              text: "Customization",
+              link: "/guide/ethers-proxies/customization"
+            },
+            {
+              text: "Advanced",
+              collapsible: true,
+              collapsed: true,
+              items: [
+                  {
+                    text: "Instanciation",
+                    link: "/guide/ethers-proxies/advanced/instanciation"
+                  },
+                  {
+                    text: "APIs (in-depth)",
+                    collapsible: true,
+                    collapsed: true,
+                    items: [
+                      {
+                        text: "Proxies",
+                        collapsible: true,
+                        collapsed: true,
+                        items: [
+                          {
+                            text: "VEProxy",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/proxies/ve-proxy"
+                          },
+                          {
+                            text: "VEProvider",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/proxies/ve-provider"
+                          },
+                          {
+                            text: "VESigner",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/proxies/ve-signer"
+                          },
+                          {
+                            text: "VEContract",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/proxies/ve-contract"
+                          },
+                          {
+                            text: "VETransaction",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/proxies/ve-transaction"
+                          },
+                        ]
+                      },
+                      {
+                        text: "Extensions",
+                        collapsible: true,
+                        collapsed: true,
+                        items: [
+                          {
+                            text: "VEExtension",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/extensions/ve-extension"
+                          },
+                          {
+                            text: "VEProviderExtension",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/extensions/ve-provider-extension"
+                          },
+                          {
+                            text: "VESignerExtension",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/extensions/ve-signer-extension"
+                          },
+                          {
+                            text: "VEContractExtension",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/extensions/ve-contract-extension"
+                          },
+                          {
+                            text: "VETransactionExtension",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/extensions/ve-transaction-extension"
+                          },
+                        ]
+                      },
+                      {
+                        text: "Placeholders",
+                        collapsible: true,
+                        collapsed: true,
+                        items: [
+                          {
+                            text: "VEPlaceholder",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/placeholders/ve-placeholder"
+                          },
+                          {
+                            text: "VEProviderPlaceholder",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/placeholders/ve-provider-placeholder"
+                          },
+                          {
+                            text: "VESignerPlaceholder",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/placeholders/ve-signer-placeholder"
+                          },
+                          {
+                            text: "VEContractPlaceholder",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/placeholders/ve-contract-placeholder"
+                          },
+                          {
+                            text: "VETransactionPlaceholder",
+                            link: "/guide/ethers-proxies/advanced/apis-in-depth/placeholders/ve-transaction-placeholder"
+                          },
+                        ]
+                      }
+                    ]
+                  }
+              ]
+            },
+          ]
+        },
+        {
+          text: "Automated Relation Safety (ARS)",
+          items: [
+            {
+              text: "Intuition",
+              link: "/guide/ars/intuition"
+            },
+            {
+              text: "How it works ?",
+              link: "/guide/ars/how-it-works"
+            },
+            {
+              text: "Usage",
+              link: "/guide/ars/usage"
+            },
+            {
+              text: "Advanced",
+              collapsible: true,
+              collapsed: true,
+              items: [
+                {
+                  text: "Provider ARS",
+                  link: "/guide/ars/in-depth/provider-ars"
+                },
+                {
+                  text: "Signer ARS",
+                  link: "/guide/ars/in-depth/signer-ars"
+                },
+                {
+                  text: "Contract ARS",
+                  link: "/guide/ars/in-depth/contract-ars"
+                },
+              ]
+            },
+          ]
         },
         {
           text: "Safers",
@@ -153,23 +314,27 @@ export default {
           items: [
             {
               text: "Intuition",
-              link: ""
+              link: "/guide/safers/intuition"
+            },
+            {
+              text: "How it works ?",
+              link: "/guide/safers/how-it-works",
             },
             {
               text: "Provider safety",
-              link: ""
+              link: "/guide/safers/provider-safety",
             },
             {
               text: "Signer safety",
-              link: ""
+              link: "/guide/safers/signer-safety",
             },
             {
               text: "Contract safety",
-              link: ""
+              link: "/guide/safers/contract-safety",
             },
             {
               text: "Transaction safety",
-              link: ""
+              link: "/guide/safers/transaction-safety",
             },
           ],
         },
@@ -179,15 +344,15 @@ export default {
           items: [
             {
               text: "Intuition",
-              link: ""
+              link: "/guide/chain-watchers/intuition"
             },
             {
               text: "Contract watcher",
-              link: ""
+              link: "/guide/chain-watchers/contract-watcher"
             },
             {
               text: "Wallet watcher",
-              link: ""
+              link: "/guide/chain-watchers/wallet-watcher"
             },
           ],
         },

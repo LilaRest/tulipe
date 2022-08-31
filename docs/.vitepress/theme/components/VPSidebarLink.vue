@@ -22,7 +22,7 @@ const toggleCollapse = () => {collapsed.value = !collapsed.value}
   >
   <!-- @click="closeSideBar" -->
     <span class="link-text" :class="{ light: depth > 1 }" @click="toggleCollapse">
-      {{ item.text }}
+      <span v-html="item.text"></span>
       <span class="collapse-symbol">{{ item.collapsible ? ` ${collapsed ? "+" : "-"}` : ""}}</span>
     </span>
     <template v-if="!collapsed">
