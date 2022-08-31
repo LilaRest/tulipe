@@ -20,3 +20,14 @@ div.tip p:last-of-type {
   opacity: 0.8;
   font-weight: 500;
 }
+
+@media (max-width: 960px) {
+  div.VPHome div.image {
+    margin-bottom: 0px;
+  }
+}
+@media (min-width: 960px) and (max-width: 1020px) {
+  div.VPHome div.image {
+    margin-left: 60px;
+  }
+}

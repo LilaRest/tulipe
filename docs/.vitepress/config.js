@@ -11,7 +11,7 @@ export default {
     repo: "https://github.com/0Lilian/vuethers",
     docsDir: "docs",
     docsBranch: "main",
-    logo: "",
+    logo: "https://static.vuethers.org/vuethers-logo.png",
     editLink: {
       pattern: "https://github.com/0Lilian/vuethers/edit/main/docs/:path",
       text: "Edit this page on GitHub"
