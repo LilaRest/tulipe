@@ -4,6 +4,9 @@ title: Home
 hero:
   name: Vuethers
   text: A DApp frontend framework for Vue 3 built with Ethers.js
+  image:
+    src: "https://static.vuethers.org/vuethers-logo.png"
+    alt: Vuethers logo
   actions:
     - theme: brand
       text: Get Started
