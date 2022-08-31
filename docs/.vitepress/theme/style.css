@@ -7,7 +7,7 @@
 }
 
 /* Documentation's home gradient background */
-div.VPHome {
+html:not(.dark) div.VPHome {
   background: rgb(2,0,36);
   background: -moz-linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(255,244,253,1) 0%, rgba(213,230,255,1) 100%);
   background: -webkit-linear-gradient(150deg, rgba(2,0,36,1) 0%, rgba(255,244,253,1) 0%, rgba(213,230,255,1) 100%);

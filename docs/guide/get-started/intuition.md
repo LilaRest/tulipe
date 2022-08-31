@@ -1,7 +1,12 @@
+---
+title: Get started ~ Intuition
+layout: doc
+---
+
 # Intuition
 
 ## Current context
-Nowadays, libraries like [Web3.js](https://web3js.org/) and [Ethers.js](https://docs.ethers.io/v5/) provide robust interfaces to interact with EVM blockchains from any Javascript environment.
+Nowadays, libraries like [Web3.js](https://web3js.org/) and [Ethers.js](https://ethers.org/) provide robust interfaces to interact with EVM blockchains from any Javascript environment.
 
 Those libraries allow to abstract blockchain-related concepts like nodes, smart contracts, wallets, transactions, etc. as simple JS objects.
 Thanks to them we can already interact with blockchains from any popular web JS framework like [React](https://reactjs.org/), [VueJS](https://vuejs.org/), [Angular](https://angular.io/), etc.
@@ -25,11 +30,11 @@ Firstly, the entire DApp configuration is managed in a single file called `vueth
 The DApp is represented by a `dapp` object. This object is initialized with everything required to safely interact with the networks, contracts and wallets defined by the developer in the `vuethers.config.js` file.
 By the way, Vuethers comes with 20+ EVM and 5+ wallets pre-configured allowing to use them by simply indicating their chain ID or wallet name in the `vuethers.config.js` file.
 
-Then, all the safety checks are internally managed and developers are provided with tools called [safers](/guide/safers/) allowing them to write safe pieces of code by simply wrapping them in functions or components.
+Then, all the safety checks are internally managed and developers are provided with tools called [safers](/guide/safers/intuition) allowing them to write safe pieces of code by simply wrapping them in functions or components.
 
-Also, [chain watchers](/guide/chain-watchers/) allows developer to efficiently track an on-chain data with a single line of code.
+Also, [chain watchers](/guide/chain-watchers/intuition) allows developer to efficiently track an on-chain data with a single line of code.
 
-Finally, a lot of Vue [components](/guide/components/) are included in order to provide developers with pre-made and robust components for the most common parts of a DApp : **allowing them to focus more on the real innovation of their DApps**.
+Finally, a lot of Vue [components](/guide/components/intuition) are included in order to provide developers with pre-made and robust components for the most common parts of a DApp : **allowing them to focus more on the real innovation of their DApps**.
 
 All of those components  are thought to be flexible and to allows developers to choose to be more or less free :
 - they are made of smaller components that can be used to re-build bigger custom components

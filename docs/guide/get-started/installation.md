@@ -1,3 +1,8 @@
+---
+title: Get started ~ Installation
+layout: doc
+---
+
 # Installation
 
 ::: tip Node version

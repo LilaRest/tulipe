@@ -1,3 +1,8 @@
+---
+title: Get started ~ Minimal configuration
+layout: doc
+---
+
 # Minimal configuration
 
 Vuethers is designed to work out-of-the-box, however in order to allow it to manage our DApp we have to tells it :
