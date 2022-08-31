@@ -21,6 +21,7 @@ div.tip p:last-of-type {
   font-weight: 500;
 }
 
+/* Adjust homepage's logo responsivness on medium and small screens */
 @media (max-width: 960px) {
   div.VPHome div.image {
     margin-bottom: 0px;
