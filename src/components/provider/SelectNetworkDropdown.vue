@@ -62,15 +62,14 @@ let isDropdownOpened = $ref(false);
     <div class="SelectNetworkDropdown">
       <ul @click="toggle">
         <li v-if="currentNetwork" selected>
-          <img width="40" :src="currentNetwork.icon ? currentNetwork.icon : dapp.config.defaults.providers.icon" :alt="currentNetwork.name + ' logo'"/>
+          <img width="40" :src="currentNetwork.icon ? currentNetwork.icon : dapp.config.defaults.networks.icon" :alt="currentNetwork.name + ' logo'"/>
           <p>{{ currentNetwork.displayName }}</p>
         </li>
         <li v-if="isDropdownOpened" v-for="network in availableNetworks" :key="network.chainId" @click="changeNetwork(network.chainId)">
-          <img width="40" :src="network.icon ? network.icon : dapp.config.defaults.providers.icon" :alt="network.name + ' logo'"/>
+          <img width="40" :src="network.icon ? network.icon : dapp.config.defaults.networks.icon" :alt="network.name + ' logo'"/>
           <p>{{ network.displayName }}</p>
         </li>
       </ul>
     </div>
   </OnDappSafe>
 </template>
-

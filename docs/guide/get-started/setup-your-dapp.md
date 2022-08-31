@@ -49,17 +49,12 @@ import { vuethersConfig } from "./vuethers.config.js";
 
 const app = createApp(App)
 
-app.use(initVuethers, {
-  config: vuethersConfig,
-  start: () => app.mount("#app"),
-})
+await initVuethers(app, vuethersConfig)
+
+app.mount("#app")
 ```
 
-You may notice that usually `app.mount("#app")` is called at the end of the `main.js` file, outside of any function.
-
-While Vuethers has to initialize many things before the app is mounted, we directly give `app.mount("#app")` to it and it will call it at the right moment.
-
-You can learn more about this behavior in the [Setup in-depth](/guide/in-depth/setup) page of this documentation.
+The `initVuethers()` function takes the `app` object as first argument and an optional `vuethersConfig` which contains the object exported from `vuethers.config.js`.
 
 ## Run the DApp
 Finally you can run the DApp like any Vue project with :

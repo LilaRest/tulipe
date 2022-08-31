@@ -3,8 +3,7 @@ import { rGet, rSet } from "./utils/index.js";
 import "./style/reset.css";
 
 export async function initVuethers (app, args) {
-  const vuethersCustomConfig = args.config;
-  const start = args.start;
+  const vuethersCustomConfig = args;
 
   try {
     dapp.init(vuethersCustomConfig);
@@ -31,9 +30,6 @@ export async function initVuethers (app, args) {
   app.component('OnContractsWriteSafe', components.OnContractsWriteSafe);
   app.component('OnContractReadSafe', components.OnContractReadSafe);
   app.component('OnContractWriteSafe', components.OnContractWriteSafe);
-
-  // Start the Vue app.
-  start();
 
   // Set the DApp safe.
   dapp.status.set("INITIALIZED");
