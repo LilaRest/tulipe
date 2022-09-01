@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/0Lilian/tulipe/compare/v1.4.0...v1.4.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* fix tulipe domain name ([8c0062d](https://github.com/0Lilian/tulipe/commit/8c0062da3e72e353e7bd3a5dd64b2e516f8137e0))
+
 # [1.4.0](https://github.com/0Lilian/tulipe/compare/v1.3.1...v1.4.0) (2022-09-01)
 
 
