@@ -1,6 +1,6 @@
 {
   "name": "vuethers",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "description": "A DApp frontend framework for Vue3 built with ethers.js",
   "license": "MIT",
