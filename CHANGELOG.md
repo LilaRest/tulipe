@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/0Lilian/vuethers/compare/v1.2.0...v1.2.1) (2022-09-01)
+
+
+### Bug Fixes
+
+* add a fake var in index.js to force new dist files ([83dc515](https://github.com/0Lilian/vuethers/commit/83dc5150cb6ded661b976859bead84896d549e7b))
+
 # [1.2.0](https://github.com/0Lilian/vuethers/compare/v1.1.1...v1.2.0) (2022-09-01)
 
 
