@@ -3,8 +3,6 @@ import { rGet, rSet } from "./utils/index.js";
 import "./style/reset.css";
 
 export async function initTulipe (app, args) {
-  const fakeVar = 8
-  console.log(fakeVar)
   const tulipeCustomConfig = args;
 
   try {
