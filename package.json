@@ -61,6 +61,7 @@
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
     "@openzeppelin/contracts": "^4.7.3",
     "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@vitejs/plugin-vue": "^3.0.1",
     "hardhat": "^2.10.1",
     "hardhat-deploy": "^0.11.12",
