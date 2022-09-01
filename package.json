@@ -68,8 +68,7 @@
     "hardhat-deploy": "^0.11.12",
     "semantic-release": "^19.0.5",
     "vite": "^3.0.4",
-    "vitepress": "^1.0.0-alpha.10",
-    "tulipe": "^0.27.0"
+    "vitepress": "^1.0.0-alpha.10"
   },
   "config": {
     "commitizen": {
