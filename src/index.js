@@ -35,7 +35,7 @@ export async function initVuethers (app, args) {
   dapp.status.set("INITIALIZED");
 }
 
-export { dapp }
+export { dapp } from "./composables/dapp.js";
 export * from "./components/index.js";
 export * from "./composables/index.js";
 export * from "./utils/index.js";
