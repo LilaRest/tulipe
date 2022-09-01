@@ -144,4 +144,4 @@ The `dapp.contracts.MyToken.watch()` method allows to efficiently watch for muta
 
 Tulipe offers a lot more things to makes safe DApp development a real piece of cake.
 
-You can find them all on [its documentations](https://tulipe.org/).
+You can find them all on [its documentations](https://tuli.pe/).

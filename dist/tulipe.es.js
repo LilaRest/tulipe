@@ -723,7 +723,7 @@ const k = {
       displayName: "Ethereum",
       chainId: 1,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/ethereum.svg",
+      icon: "https://static.tuli.pe/icons/networks/ethereum.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -798,7 +798,7 @@ const k = {
       name: "Optimism",
       chainId: 10,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/optimism.svg",
+      icon: "https://static.tuli.pe/icons/networks/optimism.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -817,7 +817,7 @@ const k = {
       displayName: "Cronos",
       chainId: 25,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/cronos.svg",
+      icon: "https://static.tuli.pe/icons/networks/cronos.svg",
       currency: {
         name: "Cronos",
         symbol: "CRO",
@@ -855,7 +855,7 @@ const k = {
       displayName: "BSC",
       chainId: 56,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/bsc.svg",
+      icon: "https://static.tuli.pe/icons/networks/bsc.svg",
       currency: {
         name: "Binance Chain Native Token",
         symbol: "BNB",
@@ -874,7 +874,7 @@ const k = {
       displayName: "Gnosis",
       chainId: 100,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/gnosis.svg",
+      icon: "https://static.tuli.pe/icons/networks/gnosis.svg",
       currency: {
         name: "xDAI",
         symbol: "xDAI",
@@ -893,7 +893,7 @@ const k = {
       displayName: "Fuse",
       chainId: 122,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/fuse.svg",
+      icon: "https://static.tuli.pe/icons/networks/fuse.svg",
       currency: {
         name: "Fuse",
         symbol: "FUSE",
@@ -912,7 +912,7 @@ const k = {
       displayName: "HECO",
       chainId: 128,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/heco.svg",
+      icon: "https://static.tuli.pe/icons/networks/heco.svg",
       currency: {
         name: "Huobi ECO Chain Native Token",
         symbol: "HT",
@@ -931,7 +931,7 @@ const k = {
       displayName: "Polygon",
       chainId: 137,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/polygon.svg",
+      icon: "https://static.tuli.pe/icons/networks/polygon.svg",
       currency: {
         name: "MATIC",
         symbol: "MATIC",
@@ -950,7 +950,7 @@ const k = {
       displayName: "Fantom",
       chainId: 250,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/fantom.svg",
+      icon: "https://static.tuli.pe/icons/networks/fantom.svg",
       currency: {
         name: "Fantom",
         symbol: "FTM",
@@ -969,7 +969,7 @@ const k = {
       displayName: "Metis",
       chainId: 1088,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/metis.svg",
+      icon: "https://static.tuli.pe/icons/networks/metis.svg",
       currency: {
         name: "Metis",
         symbol: "METIS",
@@ -987,7 +987,7 @@ const k = {
       name: "Moonbeam",
       chainId: 1284,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/moonbeam.svg",
+      icon: "https://static.tuli.pe/icons/networks/moonbeam.svg",
       currency: {
         name: "Glimmer",
         symbol: "GLMR",
@@ -1005,7 +1005,7 @@ const k = {
       name: "Moonriver",
       chainId: 1285,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/moonriver.svg",
+      icon: "https://static.tuli.pe/icons/networks/moonriver.svg",
       currency: {
         name: "Moonriver",
         symbol: "MOVR",
@@ -1024,7 +1024,7 @@ const k = {
       displayName: "Klaytn",
       chainId: 8217,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/klaytn.svg",
+      icon: "https://static.tuli.pe/icons/networks/klaytn.svg",
       currency: {
         name: "KLAY",
         symbol: "KLAY",
@@ -1058,7 +1058,7 @@ const k = {
       displayName: "Arbitrum",
       chainId: 42161,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/arbitrum.svg",
+      icon: "https://static.tuli.pe/icons/networks/arbitrum.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -1077,7 +1077,7 @@ const k = {
       displayName: "Celo",
       chainId: 42220,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/celo.svg",
+      icon: "https://static.tuli.pe/icons/networks/celo.svg",
       currency: {
         name: "CELO",
         symbol: "CELO",
@@ -1096,7 +1096,7 @@ const k = {
       displayName: "Emerald",
       chainId: 42262,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/emerald.svg",
+      icon: "https://static.tuli.pe/icons/networks/emerald.svg",
       currency: {
         name: "Emerald Rose",
         symbol: "ROSE",
@@ -1115,7 +1115,7 @@ const k = {
       displayName: "Avalanche",
       chainId: 43114,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/avalanche.svg",
+      icon: "https://static.tuli.pe/icons/networks/avalanche.svg",
       currency: {
         name: "Avalanche",
         symbol: "AVAX",
@@ -1134,7 +1134,7 @@ const k = {
       displayName: "Aurora",
       chainId: 1313161554,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/aurora.svg",
+      icon: "https://static.tuli.pe/icons/networks/aurora.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -1153,7 +1153,7 @@ const k = {
       displayName: "Harmony",
       chainId: 16666e5,
       type: "mainnet",
-      icon: "https://static.tulipe.org/icons/networks/harmony.svg",
+      icon: "https://static.tuli.pe/icons/networks/harmony.svg",
       currency: {
         name: "ONE",
         symbol: "ONE",
@@ -1187,7 +1187,7 @@ const k = {
   ],
   defaults: {
     networks: {
-      icon: "https://static.tulipe.org/icons/networks/unknown.svg"
+      icon: "https://static.tuli.pe/icons/networks/unknown.svg"
     },
     wallets: {
       icon: "TODO"
