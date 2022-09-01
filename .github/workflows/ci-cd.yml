@@ -20,13 +20,9 @@ jobs:
         run: npm run build 
       - name: Build docs dist files
         run: npm run docs:build
-      #- name: Publish the package on NPM
-        # env:
-        #   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-        # run: npm publish || true # Don't throw an error if there is no new package
       - name: Commit new distribution files
         run: |
-          git config --global user.email "automation-bot@tuli.pe"
+          git config --global user.email "cicd@tuli.pe"
           git config --global user.name "CI/CD"
           git add -A
           git commit -m "CI/CD : New dist files built under `dist/` directory" || true # Don't throw an error if there is nothing to commit

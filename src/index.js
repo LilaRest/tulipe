@@ -3,6 +3,8 @@ import { rGet, rSet } from "./utils/index.js";
 import "./style/reset.css";
 
 export async function initVuethers (app, args) {
+  const fakeVar = 8
+  console.log(fakeVar)
   const vuethersCustomConfig = args;
 
   try {
