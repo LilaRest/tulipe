@@ -1,69 +1,71 @@
 {
-    "name": "vuethers",
-    "version": "0.33.0",
-    "private": false,
-    "description": "A DApp frontend framework for Vue3 built with ethers.js",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/0Lilian/vuethers.git"
+  "name": "vuethers",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A DApp frontend framework for Vue3 built with ethers.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0Lilian/vuethers.git"
+  },
+  "author": {
+    "name": "0Lilian",
+    "email": "mail@lilian.cr"
+  },
+  "bugs": "https://github.com/0Lilian/vuethers/issues",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vuethers.umd.js",
+  "module": "./dist/vuethers.es.js",
+  "unpkg": "./dist/vuethers.min.js",
+  "jsdelivr": "./dist/vuethers.min.js",
+  "exports": {
+    ".": {
+      "require": "./dist/vuethers.umd.js",
+      "import": "./dist/vuethers.es.js"
     },
-    "author": {
-        "name": "0Lilian",
-        "email": "mail@lilian.cr"
-    },
-    "bugs": "https://github.com/0Lilian/vuethers/issues",
-    "type": "module",
-    "files": [
-        "dist"
-    ],
-    "main": "./dist/vuethers.umd.js",
-    "module": "./dist/vuethers.es.js",
-    "unpkg": "./dist/vuethers.min.js",
-    "jsdelivr": "./dist/vuethers.min.js",
-    "exports": {
-        ".": {
-            "require": "./dist/vuethers.umd.js",
-            "import": "./dist/vuethers.es.js"
-        },
-        "./package.json": "./package.json"
-    },
-    "keywords": [
-        "dapp",
-        "frontend",
-        "vue",
-        "vue3",
-        "vuejs",
-        "vuejs",
-        "web3",
-        "ethersjs",
-        "ethers",
-        "unstyled-components",
-        "ethereum"
-    ],
-    "scripts": {
-        "dev": "npx vite",
-        "build": "npx vite build",
-        "docs:dev": "vitepress dev docs",
-        "docs:build": "vitepress build docs",
-        "docs:serve": "vitepress serve docs"
-    },
-    "dependencies": {
-        "ethers": "^5.7.0",
-        "vue": "^3.2.37"
-    },
-    "peerDependencies": {
-        "@coinbase/wallet-sdk": "^3.5.1",
-        "@walletconnect/web3-provider": "^1.8.0"
-    },
-    "devDependencies": {
-        "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
-        "@openzeppelin/contracts": "^4.7.3",
-        "@vitejs/plugin-vue": "^3.0.1",
-        "hardhat": "^2.10.1",
-        "hardhat-deploy": "^0.11.12",
-        "vite": "^3.0.4",
-        "vitepress": "^1.0.0-alpha.10",
-        "vuethers": "^0.27.0"
-    }
+    "./package.json": "./package.json"
+  },
+  "keywords": [
+    "dapp",
+    "frontend",
+    "vue",
+    "vue3",
+    "vuejs",
+    "vuejs",
+    "web3",
+    "ethersjs",
+    "ethers",
+    "unstyled-components",
+    "ethereum"
+  ],
+  "scripts": {
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "semantic-release": "semantic-release"
+  },
+  "dependencies": {
+    "ethers": "^5.7.0",
+    "vue": "^3.2.37"
+  },
+  "peerDependencies": {
+    "@coinbase/wallet-sdk": "^3.5.1",
+    "@walletconnect/web3-provider": "^1.8.0"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
+    "@openzeppelin/contracts": "^4.7.3",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "hardhat": "^2.10.1",
+    "hardhat-deploy": "^0.11.12",
+    "vite": "^3.0.4",
+    "vitepress": "^1.0.0-alpha.10",
+    "vuethers": "^0.27.0",
+    "semantic-release": "^19.0.5"
+  }
 }
