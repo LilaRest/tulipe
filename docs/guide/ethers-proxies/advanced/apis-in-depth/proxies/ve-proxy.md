@@ -1,6 +1,6 @@
 # `VEProxy`
 
-The `VEProxy` class is never used directly in Vuethers but is the parent of every other Ethers proxies classes.
+The `VEProxy` class is never used directly in Tulipe but is the parent of every other Ethers proxies classes.
 
 Here is the detailed Application Programming Interface of a `VEProxy` instance :
 

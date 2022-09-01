@@ -6,11 +6,11 @@ layout: doc
 
 # Usage
 
-All your Vuethers DApp configuration happens under the `vuethers.config.js` file.
+All your Tulipe DApp configuration happens under the `tulipe.config.js` file.
 
-This file export a Javascript object usually called `vuethersConfig` :
+This file export a Javascript object usually called `tulipeConfig` :
 ```js
-export const vuethersConfig = {
+export const tulipeConfig = {
   ...
 }
 ```
@@ -22,13 +22,13 @@ This object can contains the following keys :
 - **`defaults`** (`Object`) : contains many defaults used for unconfigured elements. See: [Defaults config](/guide/configurations/defaults)
 <br/><br/>
 
-Then you just have to feed Vuethers with that configurations file by passing it in the `config` key of Vuethers plugin registration's arguments :
+Then you just have to feed Tulipe with that configurations file by passing it in the `config` key of Tulipe plugin registration's arguments :
 ```js
 // ...
-import { vuethersConfig } from "./vuethers.config.js";
+import { tulipeConfig } from "./tulipe.config.js";
 // ...
-app.use(initVuethers, {
-  config: vuethersConfig,
+app.use(initTulipe, {
+  config: tulipeConfig,
   start: () => app.mount("#app"),
 })
 ```
@@ -36,4 +36,4 @@ app.use(initVuethers, {
 See : [Setup your DApp](/guide/get-started/setup-your-dapp)
 <br/><br/>
 
-In the next pages of this documentation you'll learn how to configure networks, wallets, style, etc. inside this `vuethers.config.js` file.
+In the next pages of this documentation you'll learn how to configure networks, wallets, style, etc. inside this `tulipe.config.js` file.

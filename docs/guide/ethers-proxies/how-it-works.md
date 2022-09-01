@@ -6,7 +6,7 @@ layout: doc
 
 # How it works ?
 
-Vuethers provides many Ethers proxies classes that all inherit of the `VEProxy` class :
+Tulipe provides many Ethers proxies classes that all inherit of the `VEProxy` class :
 - `VEProviderProxy`
 - `VESignerProxy`
 - `VEContractProxy`
@@ -32,7 +32,7 @@ Finally if the request property / method is not found in all those instances, it
 
 Here is an in-code illustration with the `dapp.provider` Ethers proxy :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 dapp.provider.getBlock(12345) // This property comes from the Ethers.js instance
 dapp.provider.watch(...)      // This property comes from the VEExtension instance
 dapp.provider.isSafe          // This property comes from the VEPlaceholder instance

@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Vuethers
+about: Suggest an idea for Tulipe
 title: ''
 labels: ''
 assignees: ''

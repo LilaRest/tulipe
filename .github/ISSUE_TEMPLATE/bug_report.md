@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improving Vuethers
+about: Create a report to help us improving Tulipe
 title: ''
 labels: ''
 assignees: ''

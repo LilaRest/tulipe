@@ -7,14 +7,14 @@ layout: doc
 
 In some advanced cases you may need to directly instanciate the Ethers proxies classes.
 
-Firstly all those classes are available through the `vuethers` package :
+Firstly all those classes are available through the `tulipe` package :
 ```js
 import {
   VEProviderProxy,
   VESignerProxy,
   VEContractProxy,
   VETransactionProxy
-} from "vuethers";
+} from "tulipe";
 ```
 
 Each of them wait for 3 **optional** arguments during instanciation :

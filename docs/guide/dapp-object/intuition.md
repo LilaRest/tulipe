@@ -25,8 +25,8 @@ Also, all those instances requires a consequent amount of static datas to be cre
 In addition, all those datas have to be imported in the project' code files, this again leads to multiple `import` statements that makes our DApp's code even more complex.
 
 
-## Vuethers' approach
-In order to solves the 3 above problems, Vuethers provides the DApp object.
+## Tulipe' approach
+In order to solves the 3 above problems, Tulipe provides the DApp object.
 
 This object can be imported from anywhere in the project and contains properly organized instances and datas.
 

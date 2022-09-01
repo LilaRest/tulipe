@@ -21,7 +21,7 @@ A solution to solve the previous problem could be to override Ethers.js classes 
 
 Sure it will allow us to bundle all methods related to a concept in a single object, but however this method is really inflexible when it comes to advanced scenarios.
 
-Imagine (and it's the case for Vuethers) that we want to bundle everything associated to `Provider` under a `dapp.provider` object, and imagine also that we have a [computed property](https://vuejs.org/guide/essentials/computed.html) called `isSafe` that return `true` or `false` indicating if the provider is safe to be used or not.
+Imagine (and it's the case for Tulipe) that we want to bundle everything associated to `Provider` under a `dapp.provider` object, and imagine also that we have a [computed property](https://vuejs.org/guide/essentials/computed.html) called `isSafe` that return `true` or `false` indicating if the provider is safe to be used or not.
 
 In that scenario we want the `isSafe` property to be accessible even if the Ethers provider object is not instanciated yet, else this method would be useless since it would be accessible only when the provider is safe and so will never return `false`.
 
@@ -38,10 +38,10 @@ This can lead to :
 So we ideally need a way to overload the original Ethers.js instances without mutating them directly.
 
 
-## Vuethers' approach
-To solves that problems, Vuethers introduces **Ethers proxies**, which are under the hood, simple JS object proxies.
+## Tulipe' approach
+To solves that problems, Tulipe introduces **Ethers proxies**, which are under the hood, simple JS object proxies.
 
-Those proxies allows Vuethers and DApps developers to :
+Those proxies allows Tulipe and DApps developers to :
 - defines methods and properties that are accessible even before the Ethers.js objects are instanciated
 - extends Ethers.js instances without directly mutating them
 - bundle everything related to the same concept under the same object

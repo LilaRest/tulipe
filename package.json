@@ -1,30 +1,30 @@
 {
-  "name": "vuethers",
-  "version": "1.2.0",
+  "name": "tulipe",
+  "version": "0.33.0",
   "private": false,
-  "description": "A DApp frontend framework for Vue3 built with ethers.js",
+  "description": "A DApp frontend framework for Vue3 built with Ethers.js",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/0Lilian/vuethers.git"
+    "url": "https://github.com/0Lilian/tulipe.git"
   },
   "author": {
     "name": "0Lilian",
     "email": "mail@lilian.cr"
   },
-  "bugs": "https://github.com/0Lilian/vuethers/issues",
+  "bugs": "https://github.com/0Lilian/tulipe/issues",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/vuethers.umd.js",
-  "module": "./dist/vuethers.es.js",
-  "unpkg": "./dist/vuethers.min.js",
-  "jsdelivr": "./dist/vuethers.min.js",
+  "main": "./dist/tulipe.umd.js",
+  "module": "./dist/tulipe.es.js",
+  "unpkg": "./dist/tulipe.min.js",
+  "jsdelivr": "./dist/tulipe.min.js",
   "exports": {
     ".": {
-      "require": "./dist/vuethers.umd.js",
-      "import": "./dist/vuethers.es.js"
+      "require": "./dist/tulipe.umd.js",
+      "import": "./dist/tulipe.es.js"
     },
     "./package.json": "./package.json"
   },
@@ -69,7 +69,7 @@
     "semantic-release": "^19.0.5",
     "vite": "^3.0.4",
     "vitepress": "^1.0.0-alpha.10",
-    "vuethers": "^0.27.0"
+    "tulipe": "^0.27.0"
   },
   "config": {
     "commitizen": {

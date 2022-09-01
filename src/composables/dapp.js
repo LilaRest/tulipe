@@ -1,14 +1,14 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
-import { Status, EthersProviderProxy, EthersSignerProxy, ContractsList, ChainWatchersList, VuethersConfig, WalletsList, OnDappSafe } from "../index.js"
+import { Status, EthersProviderProxy, EthersSignerProxy, ContractsList, ChainWatchersList, TulipeConfig, WalletsList, OnDappSafe } from "../index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 
 class Dapp {
   constructor () {
   }
 
-  init (vuethersCustomConfig=null) {
-    // Will host the content of the DApp config (custom + default vuethers.config.js files)
-    this.config = new VuethersConfig(vuethersCustomConfig)
+  init (tulipeCustomConfig=null) {
+    // Will host the content of the DApp config (custom + default tulipe.config.js files)
+    this.config = new TulipeConfig(tulipeCustomConfig)
 
     // An object that holds all the created Status instances from addStatus().
     this.status = new Status("dapp", [

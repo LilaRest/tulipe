@@ -7,8 +7,8 @@ This behavior is not insignificant as it can breaks the logic of sub objects : T
 
 To solve that problem and to allows tracking only the root object, Vue introduced the concept of "Shallow Refs".
 
-Vuethers object have been made as resilient as possible but in some case if they are made deeply reactive, some unexpected behaviors could occur.
-That's why you should never made a Vuethers object deeply reactive even if you know what you do.
+Tulipe object have been made as resilient as possible but in some case if they are made deeply reactive, some unexpected behaviors could occur.
+That's why you should never made a Tulipe object deeply reactive even if you know what you do.
 Instead use shallow refs :
 ```js
 // Normal Vue
@@ -23,11 +23,11 @@ const tx = $shallowRef(EthersTransactionProxy())     // Recommended practice
 
 
 ### Resilient reactive getters and setters
-If you plan to work with deeply reactive Vuethers objects, this ones provides you with two methods that allows to get or set the value of a possibily nested reactive object :
+If you plan to work with deeply reactive Tulipe objects, this ones provides you with two methods that allows to get or set the value of a possibily nested reactive object :
 - `rGet(<possiblyNestedReactiveObject>)`
 - `rSet(<possiblyNestedReactiveObject>, <newValue>)`
 These methods are pretty simple, they use the `isRef()` method provided by Vue to determine if the `<possiblyNestedReactiveObject>` is a Ref or not (if not it means that is has been unwrapped) and so to determine if it must be set or get using `.value` or not.
 
 The `r` before `Get` and `Set` stands for `resilient/reactive Get/Set`.
 
-All the Vuethers objects are internally using those methods to makes it as resilient as possible.
+All the Tulipe objects are internally using those methods to makes it as resilient as possible.

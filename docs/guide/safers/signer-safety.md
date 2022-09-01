@@ -12,13 +12,13 @@ If cases ...
 
 ... using the `dapp.signer` instance is considered unsafe since it is simply unavailable or can lead to errors and/or unexpected behaviors.
 
-So Vuethers provides developers with many safers that allows you to easily write safe code when your are using the `dapp.signer` object, here are them.
+So Tulipe provides developers with many safers that allows you to easily write safe code when your are using the `dapp.signer` object, here are them.
 
 ## In scripts
 
 To make a piece of code that use the `dapp.signer` instance safe in scripts you can use the `onSafe()` method of the `dapp.signer` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.signer.onSafe(() => {
   // Code here will be executed only when the dapp.signer is safe to use.
@@ -27,7 +27,7 @@ dapp.signer.onSafe(() => {
 
 And if at some point in your code you have to test if the `dapp.signer` object is safe, you can use the `isSafe` computed property of the `dapp.signer` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 if (dapp.signer.isSafe.value) {
   console.log("The DApp signer is safe !")

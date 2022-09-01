@@ -1,5 +1,5 @@
 import { dapp, deepMerge } from "../../index.js";
-import { vuethersDefaultConfig } from "./vuethers.config-default.js";
+import { tulipeDefaultConfig } from "./tulipe.config-default.js";
 
 export class WalletsConfig {
   constructor (customWalletsConfig=null) {
@@ -9,7 +9,7 @@ export class WalletsConfig {
     if (customWalletsConfig) {
       for (const customWallet of customWalletsConfig) {
         if (customWallet.name) {
-          const defaultWallet = vuethersDefaultConfig.wallets.find(o => o.name === customWallet.name)
+          const defaultWallet = tulipeDefaultConfig.wallets.find(o => o.name === customWallet.name)
           const wallet = deepMerge({ ...defaultWallet }, { ...customWallet });
           if (wallet.available !== false) {
             wallet.available = true;
@@ -25,7 +25,7 @@ export class WalletsConfig {
     }
 
     // Add wallets not given in custom config as not available.
-    for (const defaultWallet of vuethersDefaultConfig.wallets) {
+    for (const defaultWallet of tulipeDefaultConfig.wallets) {
       const customWallet = this._list.find(w => w.name === defaultWallet.name);
       if (!customWallet) {
         defaultWallet.available = false;

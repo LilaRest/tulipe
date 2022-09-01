@@ -2,13 +2,13 @@ import { dapp } from "./composables/dapp.js";
 import { rGet, rSet } from "./utils/index.js";
 import "./style/reset.css";
 
-export async function initVuethers (app, args) {
+export async function initTulipe (app, args) {
   const fakeVar = 8
   console.log(fakeVar)
-  const vuethersCustomConfig = args;
+  const tulipeCustomConfig = args;
 
   try {
-    dapp.init(vuethersCustomConfig);
+    dapp.init(tulipeCustomConfig);
   }
   catch (e) {
     if (dapp && dapp.status) {
@@ -23,7 +23,7 @@ export async function initVuethers (app, args) {
   app.config.globalProperties.rSet = rSet;
   window.dapp = dapp;
 
-  // Initialize Vuethers components.
+  // Initialize Tulipe components.
   const components = await import("./components/index.js");
   app.component('OnDappSafe', components.OnDappSafe);
   app.component('OnProviderSafe', components.OnProviderSafe);

@@ -1,24 +1,24 @@
 export default {
   lang: "en-US",
-  title: "Vuethers",
+  title: "Tulipe",
   description: "A DApp frontend framework for Vue 3 built with Ethers (ethers.js)",
   markdown: {
     lineNumbers: true,
     theme: "github-dark"
   },
   themeConfig: {
-    siteTitle: "Vuethers",
-    repo: "https://github.com/0Lilian/vuethers",
+    siteTitle: "Tulipe",
+    repo: "https://github.com/0Lilian/tulipe",
     docsDir: "docs",
     docsBranch: "main",
-    logo: "https://static.vuethers.org/vuethers-logo.png",
+    logo: "https://static.tulipe.org/tulipe-logo.png",
     editLink: {
-      pattern: "https://github.com/0Lilian/vuethers/edit/main/docs/:path",
+      pattern: "https://github.com/0Lilian/tulipe/edit/main/docs/:path",
       text: "Edit this page on GitHub"
     },
     lastUpdated: true,
     socialLinks: [
-      { icon: "github", link: "https://github.com/0Lilian/vuethers" }
+      { icon: "github", link: "https://github.com/0Lilian/tulipe" }
     ],
     footer: {
       message: "Released under the MIT License.",
@@ -27,7 +27,7 @@ export default {
     algolia: {
       appId: "LO0BP2FIPN",
       apiKey: "6d9dde8ed80a80c5e3880f84fa8a158c",
-      indexName: "vuethers"
+      indexName: "tulipe"
     },
     nav: [
       {

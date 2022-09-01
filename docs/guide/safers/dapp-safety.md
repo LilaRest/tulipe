@@ -5,17 +5,17 @@ layout: doc
 
 # DApp safety
 
-When you build a DApp with Vuethers, this one will perform many initialization operations before it starts and accessing the `dapp` object before a part of this initialization stuff has ended is considered unsafe and can lead to errors and/or unexpected behaviors.
+When you build a DApp with Tulipe, this one will perform many initialization operations before it starts and accessing the `dapp` object before a part of this initialization stuff has ended is considered unsafe and can lead to errors and/or unexpected behaviors.
 
-So Vuethers provides developers with many safers that allows you to easily write safe code when your are using the `dapp` object, here are them.
+So Tulipe provides developers with many safers that allows you to easily write safe code when your are using the `dapp` object, here are them.
 
 ## Strong defaults
-Most of the Vuethers' components and some of its methods are DApp safe by default.
-Here are the elements natively safe in Vuethers :
+Most of the Tulipe' components and some of its methods are DApp safe by default.
+Here are the elements natively safe in Tulipe :
 - TODO
 ```html
 <script setup>
-import { ConnectWalletButton } from "vuethers";
+import { ConnectWalletButton } from "tulipe";
 </script>
 
 <template>
@@ -47,7 +47,7 @@ For all others elements you must use safers wrappers in order to make your code 
 
 To make a piece of code that use the `dapp` object safe in scripts you can use the `onSafe()` method of the `dapp` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.onSafe(() => {
   // Code here will be executed only when the DApp is safe to use.
@@ -56,7 +56,7 @@ dapp.onSafe(() => {
 
 And if at some point in your code you have to test if the `dapp` object is safe, you can use the `isSafe` computed property of the `dapp` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 if (dapp.isSafe.value) {
   console.log("The DApp is safe !")

@@ -1,4 +1,4 @@
-export const vuethersConfig = {
+export const tulipeConfig = {
   networks: [
     {chainId: 1},
   ],

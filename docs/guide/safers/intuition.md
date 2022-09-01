@@ -4,7 +4,7 @@ layout: doc
 ---
 
 # Intuition
-When your DApp loads, many asynchronous initialization stuff are performed by Vuethers in order to setup a safe and complete environment.
+When your DApp loads, many asynchronous initialization stuff are performed by Tulipe in order to setup a safe and complete environment.
 
 In addition, after the first initialization, the DApp context may constantly changes (eg. user wallet is now connected), and other things will have to be initialized and managed on-the-fly.
 
@@ -17,9 +17,9 @@ For example, accessing or mutating the `dapp` object before the DApp initializat
 
 Another example, using the user's wallet before this one is connected to the DApp is also considered unsafe for the same reasons.
 
-## Vuethers' approach
-To help developers to always write safe code, Vuethers comes with safety tools called **safers**.
+## Tulipe' approach
+To help developers to always write safe code, Tulipe comes with safety tools called **safers**.
 
 With safers, no matter if your are coding in scripts or in templates, you can easily wrap your code in a safer method/component in order to make this one safe.
 
-When your code is wrapped it is safe, Vuethers manages everything for you.
+When your code is wrapped it is safe, Tulipe manages everything for you.

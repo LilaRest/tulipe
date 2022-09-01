@@ -1,16 +1,16 @@
-export const vuethersDefaultConfig = {
+export const tulipeDefaultConfig = {
   style: {
     level: "minimal",
   },
   /*
    * Important : Some properties of network objects must exactly match chain datas at https://chainid.network/chains.json in order to don't raise a warning in Metamask when adding a new network in users' wallets :
-     - 'name' in Vuethers must match 'name' in ChainId
-     - 'defautRPC' in Vuethers must match 'rpc[0]' in ChainId
-     - 'chainId' in Vuethers must match 'chainId' in ChainId
-     - 'currency.name' in Vuethers must match 'nativeCurrency.name' in ChainId
-     - 'currency.symbol' in Vuethers must match 'nativeCurrency.symbol' in ChainId
-     - 'currency.decimals' in Vuethers must match 'nativeCurrency.decimals' in ChainId
-     - 'explorer.url' in Vuethers must match 'explorers[0].url' in ChainId
+     - 'name' in Tulipe must match 'name' in ChainId
+     - 'defautRPC' in Tulipe must match 'rpc[0]' in ChainId
+     - 'chainId' in Tulipe must match 'chainId' in ChainId
+     - 'currency.name' in Tulipe must match 'nativeCurrency.name' in ChainId
+     - 'currency.symbol' in Tulipe must match 'nativeCurrency.symbol' in ChainId
+     - 'currency.decimals' in Tulipe must match 'nativeCurrency.decimals' in ChainId
+     - 'explorer.url' in Tulipe must match 'explorers[0].url' in ChainId
     All others properties should also be near of ChainId datas even if it is not required.
   */
   networks: [
@@ -19,7 +19,7 @@ export const vuethersDefaultConfig = {
       displayName: "Ethereum",
       chainId: 1,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/ethereum.svg",
+      icon: "https://static.tulipe.org/icons/networks/ethereum.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -94,7 +94,7 @@ export const vuethersDefaultConfig = {
       name: "Optimism",
       chainId: 10,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/optimism.svg",
+      icon: "https://static.tulipe.org/icons/networks/optimism.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -113,7 +113,7 @@ export const vuethersDefaultConfig = {
       displayName: "Cronos",
       chainId: 25,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/cronos.svg",
+      icon: "https://static.tulipe.org/icons/networks/cronos.svg",
       currency: {
         name: "Cronos",
         symbol: "CRO",
@@ -151,7 +151,7 @@ export const vuethersDefaultConfig = {
       displayName: "BSC",
       chainId: 56,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/bsc.svg",
+      icon: "https://static.tulipe.org/icons/networks/bsc.svg",
       currency: {
         name: "Binance Chain Native Token",
         symbol: "BNB",
@@ -170,7 +170,7 @@ export const vuethersDefaultConfig = {
       displayName: "Gnosis",
       chainId: 100,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/gnosis.svg",
+      icon: "https://static.tulipe.org/icons/networks/gnosis.svg",
       currency: {
         name: "xDAI",
         symbol: "xDAI",
@@ -189,7 +189,7 @@ export const vuethersDefaultConfig = {
       displayName: "Fuse",
       chainId: 122,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/fuse.svg",
+      icon: "https://static.tulipe.org/icons/networks/fuse.svg",
       currency: {
         name: "Fuse",
         symbol: "FUSE",
@@ -208,7 +208,7 @@ export const vuethersDefaultConfig = {
       displayName: "HECO",
       chainId: 128,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/heco.svg",
+      icon: "https://static.tulipe.org/icons/networks/heco.svg",
       currency: {
         name: "Huobi ECO Chain Native Token",
         symbol: "HT",
@@ -227,7 +227,7 @@ export const vuethersDefaultConfig = {
       displayName: "Polygon",
       chainId: 137,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/polygon.svg",
+      icon: "https://static.tulipe.org/icons/networks/polygon.svg",
       currency: {
         name: "MATIC",
         symbol: "MATIC",
@@ -246,7 +246,7 @@ export const vuethersDefaultConfig = {
       displayName: "Fantom",
       chainId: 250,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/fantom.svg",
+      icon: "https://static.tulipe.org/icons/networks/fantom.svg",
       currency: {
         name: "Fantom",
         symbol: "FTM",
@@ -265,7 +265,7 @@ export const vuethersDefaultConfig = {
       displayName: "Metis",
       chainId: 1088,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/metis.svg",
+      icon: "https://static.tulipe.org/icons/networks/metis.svg",
       currency: {
         name: "Metis",
         symbol: "METIS",
@@ -283,7 +283,7 @@ export const vuethersDefaultConfig = {
       name: "Moonbeam",
       chainId: 1284,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/moonbeam.svg",
+      icon: "https://static.tulipe.org/icons/networks/moonbeam.svg",
       currency: {
         name: "Glimmer",
         symbol: "GLMR",
@@ -301,7 +301,7 @@ export const vuethersDefaultConfig = {
       name: "Moonriver",
       chainId: 1285,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/moonriver.svg",
+      icon: "https://static.tulipe.org/icons/networks/moonriver.svg",
       currency: {
         name: "Moonriver",
         symbol: "MOVR",
@@ -320,7 +320,7 @@ export const vuethersDefaultConfig = {
       displayName: "Klaytn",
       chainId: 8217,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/klaytn.svg",
+      icon: "https://static.tulipe.org/icons/networks/klaytn.svg",
       currency: {
         name: "KLAY",
         symbol: "KLAY",
@@ -354,7 +354,7 @@ export const vuethersDefaultConfig = {
       displayName: "Arbitrum",
       chainId: 42161,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/arbitrum.svg",
+      icon: "https://static.tulipe.org/icons/networks/arbitrum.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -373,7 +373,7 @@ export const vuethersDefaultConfig = {
       displayName: "Celo",
       chainId: 42220,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/celo.svg",
+      icon: "https://static.tulipe.org/icons/networks/celo.svg",
       currency: {
         name: "CELO",
         symbol: "CELO",
@@ -392,7 +392,7 @@ export const vuethersDefaultConfig = {
       displayName: "Emerald",
       chainId: 42262,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/emerald.svg",
+      icon: "https://static.tulipe.org/icons/networks/emerald.svg",
       currency: {
         name: "Emerald Rose",
         symbol: "ROSE",
@@ -411,7 +411,7 @@ export const vuethersDefaultConfig = {
       displayName: "Avalanche",
       chainId: 43114,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/avalanche.svg",
+      icon: "https://static.tulipe.org/icons/networks/avalanche.svg",
       currency: {
         name: "Avalanche",
         symbol: "AVAX",
@@ -430,7 +430,7 @@ export const vuethersDefaultConfig = {
       displayName: "Aurora",
       chainId: 1313161554,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/aurora.svg",
+      icon: "https://static.tulipe.org/icons/networks/aurora.svg",
       currency: {
         name: "Ether",
         symbol: "ETH",
@@ -449,7 +449,7 @@ export const vuethersDefaultConfig = {
       displayName: "Harmony",
       chainId: 1666600000,
       type: "mainnet",
-      icon: "https://static.vuethers.org/icons/networks/harmony.svg",
+      icon: "https://static.tulipe.org/icons/networks/harmony.svg",
       currency: {
         name: "ONE",
         symbol: "ONE",
@@ -483,7 +483,7 @@ export const vuethersDefaultConfig = {
   ],
   defaults: {
     networks: {
-      icon: "https://static.vuethers.org/icons/networks/unknown.svg",
+      icon: "https://static.tulipe.org/icons/networks/unknown.svg",
     },
     wallets: {
       icon: "TODO"
