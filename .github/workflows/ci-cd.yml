@@ -16,8 +16,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Setup Node.js environment
         run: npm ci
-      - name: Build dist files
-        run: npm run build
+      - name: Build package dist files
+        run: npm run build 
+      - name: Build docs dist files
         run: npm run docs:build
       #- name: Publish the package on NPM
         # env:
