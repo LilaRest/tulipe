@@ -12,13 +12,13 @@ In cases ...
 
 ... using the `dapp.provider` instance is considered unsafe since it is simply unavailable or can lead to errors and/or unexpected behaviors.
 
-So Vuethers provides developers with many safers that allows you to easily write safe code when your are using the `dapp.provider` object, here are them.
+So Tulipe provides developers with many safers that allows you to easily write safe code when your are using the `dapp.provider` object, here are them.
 
 ## In scripts
 
 To make a piece of code that use the `dapp.provider` instance safe in scripts you can use the `onSafe()` method of the `dapp.provider` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.provider.onSafe(() => {
   // Code here will be executed only when the dapp.provider is safe to use.
@@ -27,7 +27,7 @@ dapp.provider.onSafe(() => {
 
 And if at some point in your code you have to test if the `dapp.provider` object is safe, you can use the `isSafe` computed property of the `dapp.provider` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 if (dapp.provider.isSafe.value) {
   console.log("The DApp provider is safe !")

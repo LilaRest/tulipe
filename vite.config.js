@@ -6,8 +6,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
-      name: 'Vuethers',
-      fileName: (format) => `vuethers.${format == "iife" ? "min" : format}.js`,
+      name: 'Tulipe',
+      fileName: (format) => `tulipe.${format == "iife" ? "min" : format}.js`,
       formats: ["es", "umd", "iife"]
     },
     rollupOptions: {

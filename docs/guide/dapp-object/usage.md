@@ -16,7 +16,7 @@ The below headings will show you how to access it from different contexts :
 ### Using the Composition API
 If your are using the Vue's [Composition API](https://vuejs.org/guide/introduction.html#composition-api) you can access the `dapp` object with a simple `import` statement :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 function getSignerAddress() {
   return dapp.signer.address
@@ -37,7 +37,7 @@ export default {
 
 However you can still import the `dapp` object explicitly if your prefer :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 export default {
   methods: {
@@ -61,7 +61,7 @@ In template you can access the `dapp` object without any imports as it has been 
 Again, if you prefer, you can still import it explicitly in `<script>` :
 ```html
 <script setup>
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 </script>
 
 <template>

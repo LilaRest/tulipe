@@ -5,10 +5,10 @@ layout: doc
 
 # Networks config
 
-The chains (networks) supported by your DApp can be configured into the `networks` key of the [`vuethers.config.js` file](/guide/configurations/intuition).
+The chains (networks) supported by your DApp can be configured into the `networks` key of the [`tulipe.config.js` file](/guide/configurations/intuition).
 The `networks` key must be filled with an array of objects where each object represents a supported chain. It looks like that :
 ```js
-export const vuethersConfig = {
+export const tulipeConfig = {
   networks: [
     {
       // Chain A configs...
@@ -22,9 +22,9 @@ export const vuethersConfig = {
 ```
 
 ## Configure a network
-If the network you want your DApp supports is contained in the [pre-filled networks](/guide/configurations/networks#pre-filled-networks) list (see below), the only requirement to make it available is to fill its `chainId` to explicitly tells to Vuethers that you want to support it :
+If the network you want your DApp supports is contained in the [pre-filled networks](/guide/configurations/networks#pre-filled-networks) list (see below), the only requirement to make it available is to fill its `chainId` to explicitly tells to Tulipe that you want to support it :
 ```js
-export const vuethersConfig = {
+export const tulipeConfig = {
   networks: [
     // Supports Ethereum Mainnet
     {
@@ -51,7 +51,7 @@ However if the network you want to works with is not in the [pre-filled networks
 - **`displayName`** : the display name of the network.
   - type: `String`
   - required: **false** (defaults to `name`'s value)
-  - role: used in Vuethers' components to represents the network.
+  - role: used in Tulipe' components to represents the network.
 <br/><br/>
 - **`type`** : the type of network
   - type: `String` in `mainnet|testnet`
@@ -60,12 +60,12 @@ However if the network you want to works with is not in the [pre-filled networks
 - **`icon`** : the URL of the network's icon / logo
   - type: `String`
   - required: **false**
-  - role: used in Vuethers' components to represents the network.
+  - role: used in Tulipe' components to represents the network.
 <br/><br/>
 - **`currency`** : holds informations about the network's currency.
   - type: `Object`
   - required: **true**
-  - role: used in some Vuethers components and when adding a new chain to user's wallet
+  - role: used in some Tulipe components and when adding a new chain to user's wallet
   - properties :
     - **`name`** : the name of the coin
       - type: `String`
@@ -91,7 +91,7 @@ However if the network you want to works with is not in the [pre-filled networks
 - **`explorer`** : holds informations about the network's web explorer.
   - type: `Object`
   - required: **false**
-  - role: used in some Vuethers components and when adding a new chain to user's wallet
+  - role: used in some Tulipe components and when adding a new chain to user's wallet
   - properties :
     - **`name`** : the name of the explorer
       - type: `String`
@@ -171,17 +171,17 @@ It means that if the networks informations given to Metamask don't comply to the
 The easiest way to prevent Metamask of warning the user is to exactly match some of ours networks datas with datas contained in [this file from ChainId](https://chainid.network/chains.json) (which is compliant).
 
 Here are preciselly how datas must be matched :
-- `chainId` in Vuethers must match `chainId` in ChainId file
-- `name` in Vuethers must match `name` in ChainId file
-- `currency.name` in Vuethers must match `nativeCurrency.name` in ChainId file
-- `currency.symbol` in Vuethers must match `nativeCurrency.symbol` in ChainId file
-- `currency.decimals` in Vuethers must match `nativeCurrency.decimals` in ChainId file
-- `explorer.url` in Vuethers must match `explorers[0].url` in ChainId file
-- `defautRPC` in Vuethers must match `rpc[0]` in ChainId file
+- `chainId` in Tulipe must match `chainId` in ChainId file
+- `name` in Tulipe must match `name` in ChainId file
+- `currency.name` in Tulipe must match `nativeCurrency.name` in ChainId file
+- `currency.symbol` in Tulipe must match `nativeCurrency.symbol` in ChainId file
+- `currency.decimals` in Tulipe must match `nativeCurrency.decimals` in ChainId file
+- `explorer.url` in Tulipe must match `explorers[0].url` in ChainId file
+- `defautRPC` in Tulipe must match `rpc[0]` in ChainId file
 
 
 ## Pre-filled networks
-Vuethers comes with 20+ pre-filled EVM networks configurations.
+Tulipe comes with 20+ pre-filled EVM networks configurations.
 
 That means that in order to use in your DApp the networks in the below list, you only need to fill their `chainId`.
 
@@ -213,4 +213,4 @@ Here is the list of the currently pre-filled networks.
 | 1313161554 | Aurora Mainnet |
 | 1666600000 | Harmony Mainnet Shard 0 |
 
-You can find the detailed networks' defaults configurations [here](https://github.com/LilaRest/vuethers/blob/main/src/composables/config/vuethers.config-default.js).
+You can find the detailed networks' defaults configurations [here](https://github.com/LilaRest/tulipe/blob/main/src/composables/config/tulipe.config-default.js).

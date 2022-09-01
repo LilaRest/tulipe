@@ -1,11 +1,11 @@
-**<h1 align="center">Vuethers</h1>**
+**<h1 align="center">Tulipe</h1>**
 <div align="center">
-  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/LilaRest/vuethers/Build,%20Commit%20&%20Publish%20Vuethers%20Packages?label=Build">
-  <img alt="npm" src="https://img.shields.io/npm/v/vuethers?label=Version">
-  <img alt="npm" src="https://img.shields.io/npm/dw/vuethers?color=%23bcf&label=Downloads">
-  <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/vuethers?color=%23faf&label=Dependencies">
-  <img alt="NPM" src="https://img.shields.io/npm/l/vuethers?color=def&label=License">
-  <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/vuethers/dist/vuethers.min.js?label=Raw size">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/LilaRest/tulipe/Build,%20Commit%20&%20Publish%20Tulipe%20Packages?label=Build">
+  <img alt="npm" src="https://img.shields.io/npm/v/tulipe?label=Version">
+  <img alt="npm" src="https://img.shields.io/npm/dw/tulipe?color=%23bcf&label=Downloads">
+  <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/tulipe?color=%23faf&label=Dependencies">
+  <img alt="NPM" src="https://img.shields.io/npm/l/tulipe?color=def&label=License">
+  <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/tulipe/dist/tulipe.min.js?label=Raw size">
 </div>
 
 <h3 align="center" style="color:red">A DApp frontend framework for Vue 3 built with Ethers.js</h2>
@@ -13,29 +13,29 @@
 <br/>
 
 <p align="center">
-  <a href="https://vuethers.org/">
-    <img src="https://static.vuethers.org/vuethers-logo.png" alt="Vuethers logo">
+  <a href="https://tulipe.org/">
+    <img src="https://static.tulipe.org/tulipe-logo.png" alt="Tulipe logo">
   </a>
 </p>
 
-- 💡 **Intuitive Design** : Vuethers abstracts a lot of repetitive and heavy tasks but has been thought to always let developers feel what happens under the hood.
+- 💡 **Intuitive Design** : Tulipe abstracts a lot of repetitive and heavy tasks but has been thought to always let developers feel what happens under the hood.
 
-- 🦥 **Ready-to-use** : Vuethers comes with +20 EVM chains and +5 wallets pre-configured. Give it a chain's ID and a wallet name, and your DApp is ready to run !
+- 🦥 **Ready-to-use** : Tulipe comes with +20 EVM chains and +5 wallets pre-configured. Give it a chain's ID and a wallet name, and your DApp is ready to run !
 
-- 🖖 **Flexible styling** : Vuethers comes with 3 levels of styling, from unstylized to opinionated, so you can choose your level of customization.
+- 🖖 **Flexible styling** : Tulipe comes with 3 levels of styling, from unstylized to opinionated, so you can choose your level of customization.
 
-- 📦 **Extremely minimal** : Vuethers weight less than 15kB gzipped and relies on only 2 top-level dependencies : Vue3 and Ethers.js
+- 📦 **Extremely minimal** : Tulipe weight less than 15kB gzipped and relies on only 2 top-level dependencies : Vue3 and Ethers.js
 
 <br/>
 
 <h3 align="center">
-  <a href="https://vuethers.org/">Website</a>
+  <a href="https://tulipe.org/">Website</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://vuethers.org/guide/welcome/introduction">Documentation</a>
+  <a href="https://tulipe.org/guide/welcome/introduction">Documentation</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://vuethers.org/api/">API</a>
+  <a href="https://tulipe.org/api/">API</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://vuethers.org/changelog/">Changelog</a>
+  <a href="https://tulipe.org/changelog/">Changelog</a>
 </h3>
 
 <br/>
@@ -52,9 +52,9 @@ Beta and stable versions should be released by the **end of 2022**.
 ## How does it tastes ? :yum:
 
 ### Easy configurations
-Firstly, you can configure your entire DApp frontend in a single file called `vuethers.config.js`.
+Firstly, you can configure your entire DApp frontend in a single file called `tulipe.config.js`.
 ```js
-export const vuethersConfig = {
+export const tulipeConfig = {
   networks: [
     {
       id: 1,
@@ -74,15 +74,15 @@ With this minimal configuration, your DApp frontend will :
 - and allows users to connect to it using the [Metamask](https://metamask.io/) wallet (`id: "metamask"`).
 
 ### The `dapp` object
-Most of the things you need to built are available through the `dapp` object, which can be simply imported from the `vuethers` package.
+Most of the things you need to built are available through the `dapp` object, which can be simply imported from the `tulipe` package.
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 ```
 
 ### Auto-instanciations
-When your DApp loads, Vuethers will read your `vuethers.config.js` file and populates, if possible, the `dapp` object with all the `Ethers.js` instances your DApp requires.
+When your DApp loads, Tulipe will read your `tulipe.config.js` file and populates, if possible, the `dapp` object with all the `Ethers.js` instances your DApp requires.
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.provider            // An Ethers.js Provider instance
 dapp.signer              // An Ethers.js Signer instance
@@ -98,14 +98,14 @@ You don't have anymore to deal with multiple manual instanciations.
 ## ARS (Automated Relations Safety)
 While a DApp has a very unstable context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.
 
-Vuethers comes with ARS, an internal system that ensure that your DApp instances always remain safe to use.
+Tulipe comes with ARS, an internal system that ensure that your DApp instances always remain safe to use.
 
 For example, if the signer of your DApp has changed, all the contracts instances will be automatically updated with the new signer.
 
 ## Safers
 Also, in such an unstable context, writing safe code may became quickly complex.
 
-To help developers always writing safe code, Vuethers provides many safers methods and components.
+To help developers always writing safe code, Tulipe provides many safers methods and components.
 
 Making your code safe has never been so easy !
 
@@ -132,12 +132,12 @@ dapp.provider.onSafe(() => {
 ### Chain watchers
 When developing reactive web DApps frontends we need to regularly fetch on-chain datas to always display the most up-to-date ones to the users.
 
-Vuethers provides chain watchers to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
+Tulipe provides chain watchers to efficiently watch for mutations of an on-chain data and to run a given callback each time it occurs.
 
 Here is how we can track and display an always up-to-date ERC20 balance to the user :
 ```html
 <script setup>
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 const userAddress = "0xf39Fd6e5..."
 let userBalance = $ref(null);
@@ -154,9 +154,9 @@ dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
 ```
 
 ### Final words
-Vuethers offers a lot more things to makes safe DApp frontend development a real piece of cake.
+Tulipe offers a lot more things to makes safe DApp frontend development a real piece of cake.
 
-You can find them all by reading [its documentations](https://vuethers.org/).
+You can find them all by reading [its documentations](https://tulipe.org/).
 
 <br/>
 

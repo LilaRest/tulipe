@@ -14,7 +14,7 @@ The `dapp.contracts.<contractName>.watch(<method>, <args>, <callback>)` method a
 
 Here is a simple code that allows to track the balance of an ERC20 contract user :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 let userBalance = $ref(null);
 
@@ -25,4 +25,4 @@ dapp.contracts.MyToken.watch("balanceOf", [dapp.signer.address], (newValue) => {
 
 
 ## `watchRef()`
-This method is still experimental and may be removed in the next versions of Vuethers, that's why at the moment, it is not documented.
+This method is still experimental and may be removed in the next versions of Tulipe, that's why at the moment, it is not documented.

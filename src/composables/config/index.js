@@ -1,1 +1,1 @@
-export { VuethersConfig } from "./config.js";
+export { TulipeConfig } from "./config.js";

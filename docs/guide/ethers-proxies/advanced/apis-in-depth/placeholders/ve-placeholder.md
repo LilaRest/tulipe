@@ -1,6 +1,6 @@
 # `VEPlaceholder`
 
-The `VEPlaceholder` class is never used directly in Vuethers but is the parent of every other Ethers placeholder classes.
+The `VEPlaceholder` class is never used directly in Tulipe but is the parent of every other Ethers placeholder classes.
 
 Here is the detailed Application Programming Interface of a `VEPlaceholder` instance :
 

@@ -27,9 +27,9 @@ In other words it means that some pieces of code have to monitor these changes a
 
 Creating such a safe system is an heavy task and DApp developers loose a lot of time
 
-## Vuethers' approach
-In order to provides developers with an always-safe environment, Vuethers introduces the ARS (Automated Relation Safety) system.
+## Tulipe' approach
+In order to provides developers with an always-safe environment, Tulipe introduces the ARS (Automated Relation Safety) system.
 
-With the ARS you don't have anymore to think about "_Have I updated my contract with the new signer ?_" or "_What should I do if the network changes ?_" all those problems are internally and transparently managed by Vuethers.
+With the ARS you don't have anymore to think about "_Have I updated my contract with the new signer ?_" or "_What should I do if the network changes ?_" all those problems are internally and transparently managed by Tulipe.
 
 Just relax, and enjoy your DApp frontend development ! <span style="font-size: 20px;">:bear:</span>

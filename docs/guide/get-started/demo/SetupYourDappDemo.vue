@@ -1,7 +1,7 @@
 <script setup>
-import { dapp, ConnectWalletButton } from "vuethers";
+import { dapp, ConnectWalletButton } from "tulipe";
 
-const vuethersConfig = {
+const tulipeConfig = {
   networks: [
     {chainId: 1},
   ],
@@ -12,7 +12,7 @@ const vuethersConfig = {
 </script>
 
 <template>
-  <VEDemoCreator :config="vuethersConfig">
+  <VEDemoCreator :config="tulipeConfig">
     <h1>My DApp</h1>
     <dapp.OnSafe>
       <dapp.provider.OnSafe>

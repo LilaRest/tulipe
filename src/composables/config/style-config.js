@@ -1,15 +1,15 @@
 import { deepMerge } from "../../index.js";
-import { vuethersDefaultConfig } from "./vuethers.config-default.js";
+import { tulipeDefaultConfig } from "./tulipe.config-default.js";
 
 export class StyleConfig {
 
   constructor (customStyleConfig=null) {
     let style = {}
     if (customStyleConfig) {
-      style = deepMerge({...vuethersDefaultConfig.style}, {...customStyleConfig})
+      style = deepMerge({...tulipeDefaultConfig.style}, {...customStyleConfig})
     }
     else {
-      style = vuethersDefaultConfig.style;
+      style = tulipeDefaultConfig.style;
     }
     window.addEventListener("load", () => {
       const appDivs = document.getElementsByClassName("ve-app");

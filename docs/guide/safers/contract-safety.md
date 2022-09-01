@@ -13,14 +13,14 @@ In cases ...
 
 ... using the `dapp.contracts.<contractName>` instance is considered unsafe since it is simply unavailable or can lead to errors and/or unexpected behaviors.
 
-So Vuethers provides developers with many safers that allows you to easily write safe code when your are using a `dapp.contracts.<contractName>` object, here are them.
+So Tulipe provides developers with many safers that allows you to easily write safe code when your are using a `dapp.contracts.<contractName>` object, here are them.
 
 ## In scripts
 
 ### Read
 To make a piece of code that is safe when using a read method of a contract (a method that doesn't mutate any on-chain data), you can use the `onReadSafe()` method of the `dapp.contracts.<contractName>` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.contracts.MyContract.onReadSafe(() => {
   // Code here will be executed only when the dapp.contracts.MyContract is safe to read.
@@ -29,7 +29,7 @@ dapp.contracts.MyContract.onReadSafe(() => {
 
 And if at some point in your code you have to test if the `dapp.contracts.<contractName>` object is safe to be read, you can use the `isReadSafe` computed property of the `dapp.contracts.<contractName>` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 if (dapp.contracts.MyContract.isReadSafe.value) {
   console.log("The DApp contract is read safe !")
@@ -39,7 +39,7 @@ if (dapp.contracts.MyContract.isReadSafe.value) {
 ### Write
 To make a piece of code that is safe when using a write method of a contract (a method that doesn't mutate any on-chain data), you can use the `onWriteSafe()` method of the `dapp.contracts.<contractName>` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 dapp.contracts.MyContract.onWriteSafe(() => {
   // Code here will be executed only when the dapp.contracts.MyContract is safe to write.
@@ -48,7 +48,7 @@ dapp.contracts.MyContract.onWriteSafe(() => {
 
 And if at some point in your code you have to test if the `dapp.contracts.<contractName>` object is safe to be write, you can use the `isWriteSafe` computed property of the `dapp.contracts.<contractName>` object :
 ```js
-import { dapp } from "vuethers";
+import { dapp } from "tulipe";
 
 if (dapp.contracts.MyContract.isWriteSafe.value) {
   console.log("The DApp contract is write safe !")

@@ -25,8 +25,8 @@ Also if multiple places of our DApp are tracking the same data we can group them
 
 Also, in my own opinion, this tool is much more complex than it should be.
 
-## Vuethers' approach
-To solve that problem Vuethers' introduces **chain watchers**
+## Tulipe' approach
+To solve that problem Tulipe' introduces **chain watchers**
 They provides a way to easily watch any on-chain data and **it feels like watching any ref in Vue !**
 
-So thanks to Vuethers you can now watch any on-chain data in an intuitive and simple way : only one method call is required.
+So thanks to Tulipe you can now watch any on-chain data in an intuitive and simple way : only one method call is required.

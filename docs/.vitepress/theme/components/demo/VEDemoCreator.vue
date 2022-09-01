@@ -1,6 +1,6 @@
 <script setup>
-import { initVuethers } from "vuethers";
-import { default as vuethersStyle } from "../../../../../dist/style.css";
+import { initTulipe } from "tulipe";
+import { default as tulipeStyle } from "../../../../../dist/style.css";
 
 const props = defineProps({
   app: {
@@ -13,7 +13,7 @@ const props = defineProps({
   }
 })
 
-props.app.use(initVuethers, {
+props.app.use(initTulipe, {
   config: props.config ? props.config : {},
   start: loadDemo,
 })
@@ -26,7 +26,7 @@ function loadDemo () {
   app.classList.add("ve-app");
   document.head.innerHTML = "";
   const style = document.createElement("style");
-  style.innerHTML = vuethersStyle;
+  style.innerHTML = tulipeStyle;
   document.head.append(style)
   const demoEl = document.getElementById("demo");
   document.body.innerHTML = "";

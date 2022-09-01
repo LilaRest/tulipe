@@ -1,5 +1,5 @@
 import { dapp, deepMerge } from "../../index.js";
-import { vuethersDefaultConfig } from "./vuethers.config-default.js";
+import { tulipeDefaultConfig } from "./tulipe.config-default.js";
 
 export class NetworksConfig {
   constructor (customNetworksConfig=null) {
@@ -9,7 +9,7 @@ export class NetworksConfig {
     if (customNetworksConfig) {
       for (const customNetwork of customNetworksConfig) {
         if (customNetwork.chainId) {
-          const defaultNetwork = vuethersDefaultConfig.networks.find(o => o.chainId === customNetwork.chainId)
+          const defaultNetwork = tulipeDefaultConfig.networks.find(o => o.chainId === customNetwork.chainId)
           const network = deepMerge({ ...defaultNetwork }, { ...customNetwork });
           if (network.available !== false) {
             network.available = true;
@@ -25,7 +25,7 @@ export class NetworksConfig {
     }
 
     // Add networks not given in custom config as not available.
-    for (const defaultNetwork of vuethersDefaultConfig.networks) {
+    for (const defaultNetwork of tulipeDefaultConfig.networks) {
       const customNetwork = this._list.find(n => n.chainId === defaultNetwork.chainId);
       if (!customNetwork) {
         defaultNetwork.available = false;

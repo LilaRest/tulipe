@@ -12,7 +12,7 @@ Like in any Vue app we firstly have to create a `App.vue` component in the `src/
 Here is a minimalist DApp component that simply displays a "Connect Wallet" button and displays some infos depending on the wallet connection status.
 ```html
 <script setup>
-import { dapp, ConnectWalletButton } from "vuethers";
+import { dapp, ConnectWalletButton } from "tulipe";
 </script>
 
 <template>
@@ -40,21 +40,21 @@ Here are some explanations :
 A view app also requires a `main.js` file from which the app will be created and the `App.vue` component mounted.
 This file is also usually created in the `src/` folder.
 
-Here is a minimal `main.js` file to create a Vuethers project.
+Here is a minimal `main.js` file to create a Tulipe project.
 ```js{3,4,8-11}
 import { createApp } from "vue";
 import App from "./App.vue";
-import { initVuethers } from "vuethers";
-import { vuethersConfig } from "./vuethers.config.js";
+import { initTulipe } from "tulipe";
+import { tulipeConfig } from "./tulipe.config.js";
 
 const app = createApp(App)
 
-await initVuethers(app, vuethersConfig)
+await initTulipe(app, tulipeConfig)
 
 app.mount("#app")
 ```
 
-The `initVuethers()` function takes the `app` object as first argument and an optional `vuethersConfig` which contains the object exported from `vuethers.config.js`.
+The `initTulipe()` function takes the `app` object as first argument and an optional `tulipeConfig` which contains the object exported from `tulipe.config.js`.
 
 ## Run the DApp
 Finally you can run the DApp like any Vue project with :

@@ -1,10 +1,10 @@
 import { createApp } from "vue"
-import { initVuethers } from "../../../src/index.js"
+import { initTulipe } from "../../../src/index.js"
 import App from "./App.vue"
-import { vuethersConfig } from "../vuethers.config.js"
+import { tulipeConfig } from "../tulipe.config.js"
 
 const app = createApp(App)
 
-await initVuethers(app, vuethersConfig)
+await initTulipe(app, tulipeConfig)
 
 app.mount("#app")
