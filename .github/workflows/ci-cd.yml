@@ -18,8 +18,8 @@ jobs:
         run: npm ci
       - name: Build package dist files
         run: npm run build 
-      # - name: Build docs dist files
-      #   run: npm run docs:build
+      - name: Build docs dist files
+        run: npm run docs:build
       - name: Commit new distribution files
         run: |
           git config --global user.email "cicd@tuli.pe"
