@@ -13,8 +13,8 @@
 <br/>
 
 <p align="center">
-  <a href="https://tulipe.org/">
-    <img src="https://static.tulipe.org/tulipe-logo.png" alt="Tulipe logo">
+  <a href="https://tuli.pe/">
+    <img src="https://static.tuli.pe/tulipe-logo.png" alt="Tulipe logo">
   </a>
 </p>
 
@@ -29,13 +29,13 @@
 <br/>
 
 <h3 align="center">
-  <a href="https://tulipe.org/">Website</a>
+  <a href="https://tuli.pe/">Website</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://tulipe.org/guide/welcome/introduction">Documentation</a>
+  <a href="https://tuli.pe/guide/welcome/introduction">Documentation</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://tulipe.org/api/">API</a>
+  <a href="https://tuli.pe/api/">API</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://tulipe.org/changelog/">Changelog</a>
+  <a href="https://tuli.pe/changelog/">Changelog</a>
 </h3>
 
 <br/>
@@ -156,7 +156,7 @@ dapp.contracts.MyToken.watch("balanceOf", [userAddress], (newValue) => {
 ### Final words
 Tulipe offers a lot more things to makes safe DApp frontend development a real piece of cake.
 
-You can find them all by reading [its documentations](https://tulipe.org/).
+You can find them all by reading [its documentations](https://tuli.pe/).
 
 <br/>
 

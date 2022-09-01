@@ -11,7 +11,7 @@ export default {
     repo: "https://github.com/0Lilian/tulipe",
     docsDir: "docs",
     docsBranch: "main",
-    logo: "https://static.tulipe.org/tulipe-logo.png",
+    logo: "https://static.tuli.pe/tulipe-logo.png",
     editLink: {
       pattern: "https://github.com/0Lilian/tulipe/edit/main/docs/:path",
       text: "Edit this page on GitHub"

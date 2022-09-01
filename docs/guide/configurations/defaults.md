@@ -26,7 +26,7 @@ Below is the list of defaults properties that are currently supported by this `d
   - properties:
     - **`icon`** : the URL of the default network's icon / logo
       - type: `String`
-      - required: **false** (defaults to `"https://storage.tulipe.org/networks/unknown.svg"`)
+      - required: **false** (defaults to `"https://storage.tuli.pe/networks/unknown.svg"`)
 <br/><br/>
 - **`wallets`** : contains defaults informations for wallets
   - type: `Object`
@@ -34,7 +34,7 @@ Below is the list of defaults properties that are currently supported by this `d
   - properties:
     - **`icon`** : the URL of the default wallet's icon / logo
       - type: `String`
-      - required: **false** (defaults to `"https://storage.tulipe.org/wallets/unknown.svg"`)
+      - required: **false** (defaults to `"https://storage.tuli.pe/wallets/unknown.svg"`)
 <br/><br/>
 
 Here is an example of `defaults` configuration:

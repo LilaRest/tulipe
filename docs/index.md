@@ -5,7 +5,7 @@ hero:
   name: Tulipe
   text: A DApp frontend framework for Vue 3 built with Ethers.js
   image:
-    src: "https://static.tulipe.org/tulipe-logo.png"
+    src: "https://static.tuli.pe/tulipe-logo.png"
     alt: Tulipe logo
   actions:
     - theme: brand
