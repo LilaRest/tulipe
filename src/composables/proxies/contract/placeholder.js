@@ -1,21 +1,17 @@
-import { EthersObjectProxy } from "../proxy.js";
-import { EthersContractExtension } from "./contract-extension.js";
-import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../index.js";
+import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance, createVNode } from "vue";
 import { ethers } from "ethers";
 
-export class EthersContractProxy extends EthersObjectProxy {
+export class TulipeContractPlaceholder {
 
-  constructor (name, ethersObject) {
-    const extensionObject = new EthersContractExtension()
-    super(ethersObject, extensionObject)
+  constructor (name) {
 
     this.name = name;
     this.status = new Status(`contract:${name}`, [
       "NO_PROVIDER",     // Default status. If not changed it means that app don't have provider.
       "WRONG_PROVIDER",  // Set when contract is not available for the current network.
-      "ERROR",                 // Set on unknown error during contract initialization.
-      "INITIALIZED",           // Set when contract successfuly initialized for the current connect provider.
+      "ERROR",           // Set on unknown error during contract initialization.
+      "INITIALIZED",     // Set when contract successfuly initialized for the current connect provider.
     ])
 
     dapp.provider.status.watchAny((status) => {
@@ -37,8 +33,6 @@ export class EthersContractProxy extends EthersObjectProxy {
 
     this.OnReadSafe = createVNode(OnContractReadSafe, {contract: this.name});
     this.OnWriteSafe = createVNode(OnContractWriteSafe, {contract: this.name});
-
-    this._asyncInit();
   }
 
   _watchSignerChanges (address, abi) {
@@ -48,18 +42,18 @@ export class EthersContractProxy extends EthersObjectProxy {
 
         // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
         // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
-        this.proxy.setEthersObject(null);
-        this._updateContract(address, abi)
+        this.proxy.ethersInstance = null;
+        this._updateContract(address, abi);
       }
     })
   }
 
   _updateContract (address, abi) {
     if (dapp.signer.isSafe.value) {
-      this.proxy.setEthersObject(new ethers.Contract(address, abi, dapp.signer.proxy.getEthersObject()))
+      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
     }
     else if (dapp.provider.isSafe.value) {
-      this.proxy.setEthersObject(new ethers.Contract(address, abi, dapp.provider.proxy.getEthersObject()))
+      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.provider.proxy.ethersInstance)
     }
     else {
       throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`
@@ -68,7 +62,7 @@ export class EthersContractProxy extends EthersObjectProxy {
 
   async _asyncInit () {
 
-    const thisObject = this; // This is used because the this object is overriden in onSafe context.
+    const thisObject = this; // This is used because the this object is overriden in below onSafe context.
 
     dapp.provider.onSafe(async function () {
       try {

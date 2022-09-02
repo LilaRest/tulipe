@@ -1,17 +1,11 @@
-import { EthersObjectProxy } from "../proxy.js";
-import { EthersProviderExtension } from "./provider-extension.js";
-import { dapp, Status, capitalizeWords, OnProviderSafe } from "../../index.js";
+import { dapp, Status, capitalizeWords, OnProviderSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 import { ethers } from "ethers";
 
 
-export class EthersProviderProxy extends EthersObjectProxy {
+export class TulipeProviderPlaceholder {
 
-  constructor (ethersObject=null) {
-
-    // Initialize EthersObjectProxy instance.
-    const extensionObject = new EthersProviderExtension()
-    super(ethersObject, extensionObject)
+  constructor () {
 
     // Initialize additional properties.
     this.status = new Status("provider", [
@@ -24,8 +18,6 @@ export class EthersProviderProxy extends EthersObjectProxy {
       return dapp.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"]);
     })
     this.OnSafe = OnProviderSafe;
-
-    this._asyncInit();
   }
 
   async _getProviderFromWebWallet () {
@@ -44,14 +36,14 @@ export class EthersProviderProxy extends EthersObjectProxy {
     // Search if any web wallet exposes a provider.
     const webWalletProvider = await this._getProviderFromWebWallet();
     if (webWalletProvider) {
-      this.proxy.setEthersObject(new ethers.providers.Web3Provider(webWalletProvider, "any"));
+      this.proxy.ethersInstance = new ethers.providers.Web3Provider(webWalletProvider, "any");
     }
 
     // If not any provider is exposed by web wallet, try to connect to the default one.
     else {
       const defaultNetworkConfig = dapp.config.networks.getDefault();
       if (defaultNetworkConfig && defaultNetworkConfig.defaultRPC) {
-        this.proxy.setEthersObject(new ethers.providers.JsonRpcProvider(defaultNetworkConfig.defaultRPC));
+        this.proxy.ethersInstance = new ethers.providers.JsonRpcProvider(defaultNetworkConfig.defaultRPC);
       }
     }
   }
@@ -62,7 +54,7 @@ export class EthersProviderProxy extends EthersObjectProxy {
     await this._initProviderConnection();
 
     // 2) If not connected to any provider, set status to DISCONNECTED.
-    if (!this._ethersObject) {
+    if (!this.proxy.ethersInstance) {
       this.status.set("DISCONNECTED");
     }
 

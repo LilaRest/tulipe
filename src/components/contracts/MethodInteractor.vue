@@ -1,5 +1,6 @@
 <script setup>
-import { InputUnits, Transact, EthersTransactionProxy } from "../../index.js";
+import { InputUnits, Transact, TulipeTransaction } from "../../index.js";
+import { shallowRef } from "vue";
 
 const props = defineProps({
   contract: {
@@ -12,7 +13,7 @@ const props = defineProps({
   }
 })
 
-const tx = $shallowRef(new EthersTransactionProxy(props.contract, props.method));
+const tx = shallowRef(new TulipeTransaction(props.contract, props.method));
 
 function formatPlaceholder(io) {
   return `${io.name && io.name !== "null" ? io.name : ""} (${io.type})`
@@ -28,10 +29,14 @@ function formatPlaceholder(io) {
         <p>Inputs :</p>
         <ul>
           <li v-for="(input, index) of tx.methodInfos.inputs">
-            <input v-model="tx.args[index]" type="text" :placeholder="formatPlaceholder(input)"/>
+            <input v-model="tx.args.value[index]" type="text" :placeholder="formatPlaceholder(input)"/>
+            {{ tx.args.value[index] }}
+            {{ typeof tx.args.value[index] }}
           </li>
           <li v-if="tx.methodInfos.payable">
             <InputUnits v-model="tx.txArgs.value.value"/>
+            {{ tx.txArgs.value.value }}
+            {{ typeof tx.txArgs.value.value }}
           </li>
         </ul>
       </div>

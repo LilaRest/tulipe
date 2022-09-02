@@ -1,4 +1,4 @@
-import { dapp } from "./composables/dapp.js";
+import { dapp } from "./composables/dapp/dapp.js";
 import { rGet, rSet } from "./utils/index.js";
 import "./style/reset.css";
 
@@ -36,7 +36,7 @@ export async function initTulipe (app, args) {
   dapp.status.set("INITIALIZED");
 }
 
-export { dapp } from "./composables/dapp.js";
+export { dapp } from "./composables/dapp/dapp.js";
 export * from "./components/index.js";
 export * from "./composables/index.js";
 export * from "./utils/index.js";

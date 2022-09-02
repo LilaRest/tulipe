@@ -1,12 +1,9 @@
-import { Status, dapp, rSet, rGet } from "../../index.js";
-import { EthersObjectProxy } from "../proxy.js";
-import { EthersTransactionExtension } from "./transaction-extension.js";
+import { Status, dapp, rSet, rGet } from "../../../index.js";
 import { ref } from "vue";
 
-export class EthersTransactionProxy extends EthersObjectProxy {
+export class TulipeTransactionPlaceholder {
     constructor (contractName, methodName, args=[], txArgs={value: 0}) {
-        super(null, new EthersTransactionExtension())
-            
+
         this.contractName = contractName;
         this.methodName = methodName;
         this.methodInfos = {};
@@ -27,41 +24,38 @@ export class EthersTransactionProxy extends EthersObjectProxy {
         this.data = ref([]);
         this.error = ref(null);
         this.call = null;
-
-        this._init();
     }
 
-    _init () {
+    _asyncInit () {
         if (dapp.contracts[this.contractName].isReadSafe.value) {
-            this._initEthersObject();
+            this._initEthersInstance();
         }
         dapp.contracts[this.contractName].onReadSafe(() => {
-            this._initEthersObject();
+            this._initEthersInstance();
         })
     }
 
-    _initEthersObject () {
+    _initEthersInstance () {
         this.methodInfos = dapp.contracts[this.contractName].interface.functions[this.methodName];
         this.methodInfos.inputs.forEach(i => this.args.value.push(null));
         this.methodInfos.outputs.forEach(i => this.data.value.push(null));
-        this.proxy.setEthersObject(dapp.contracts[this.contractName][this.methodName]);
+        this.proxy.ethersInstance = dapp.contracts[this.contractName][this.methodName];
         this.status.set("READY");
     }
 
     send (args=null, txArgs=null) {
-        args = args ? args : rGet(this.args);
-        txArgs = txArgs ? txArgs : rGet(this.txArgs);
+      args = args && args.length > 0 ? args : rGet(this.args);
 
         if (args) {
             if (Array.isArray(args)) {
-                this.call = this.proxy.getEthersObject()(...args, txArgs)
+                this.call = this.proxy.ethersInstance(...args, txArgs)
             }
             else {
-                this.call = this.proxy.getEthersObject()(args, txArgs)
+                this.call = this.proxy.ethersInstance(args, txArgs)
             }
         }
         else {
-            this.call = this.proxy.getEthersObject()(txArgs)
+            this.call = this.proxy.ethersInstance(txArgs)
         }
 
         this.status.set("SENT");
@@ -93,10 +87,11 @@ export class EthersTransactionProxy extends EthersObjectProxy {
                  rSet(this.data, val);
                  rSet(this.error, null)
                  this.status.set("SUCCESS");
-             })    
+             })
             .catch((err) => {
                  rSet(this.error, err);
                  this.status.set("ERROR");
+                 console.log(err)
              })
         }
     }

@@ -1,4 +1,4 @@
-import { EthersContractProxy, Status, dapp } from "../../index.js"
+import { TulipeContract, Status, dapp } from "../../index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 
 export class ContractsList {
@@ -23,16 +23,16 @@ export class ContractsList {
     for (const networkConfig of dapp.config.networks.getAll()) {
       if (networkConfig.contracts) {
         for (const contractName of Object.keys(networkConfig.contracts)) {
-          this[contractName] = new EthersContractProxy(contractName);
+          this[contractName] = new TulipeContract(contractName);
         }
       }
     }
 
     this.areReadSafe = computed(() => {
-      return dapp.provider.isSafe.value && this.status.is("INITIALIZED"); 
+      return dapp.provider.isSafe.value && this.status.is("INITIALIZED");
     })
     this.areWriteSafe = computed(() => {
-      return dapp.signer.isSafe.value && this.status.is("INITIALIZED"); 
+      return dapp.signer.isSafe.value && this.status.is("INITIALIZED");
     })
 
     this.status.set("INITIALIZED")
@@ -41,7 +41,7 @@ export class ContractsList {
   getAll () {
     const all = {}
     for (const [propName, prop] of Object.entries(this)) {
-      if (prop instanceof EthersContractProxy) {
+      if (prop instanceof TulipeContract) {
         all[propName] = prop;
       }
     }
@@ -78,4 +78,3 @@ export class ContractsList {
     }
   }
 }
-

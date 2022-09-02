@@ -2,7 +2,7 @@ import { onUnmounted } from "vue";
 import { dapp } from "../../index.js"
 
 
-export class EthersContractExtension {
+export class TulipeContractExtension {
 
   _watch(source, args, callback=null) {
       if (!Object.keys(dapp.chainWatchers.contracts).includes(this.address)) {

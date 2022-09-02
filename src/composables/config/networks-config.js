@@ -35,7 +35,7 @@ export class NetworksConfig {
   }
 
   async getCurrent () {
-    if (dapp.provider.proxy.getEthersObject()) {
+    if (dapp.provider.proxy.ethersInstance) {
       const networkChainId = await dapp.provider.getNetwork().then(network => network.chainId)
       return this._list.find(o => o.chainId === networkChainId)
     }
@@ -54,4 +54,3 @@ export class NetworksConfig {
     return this._list;
   }
 }
-
