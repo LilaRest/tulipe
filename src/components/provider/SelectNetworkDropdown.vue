@@ -8,6 +8,10 @@ let availableNetworks = ref([])
 let isDropdownOpened = ref(false);
 
 dapp.onSafe(async function () {
+  availableNetworks.value = dapp.config.networks.getAvailable()
+})
+
+dapp.provider.onSafe(async function () {
   currentNetwork.value = await dapp.config.networks.getCurrent()
   availableNetworks.value = dapp.config.networks.getAvailable().filter(n => n.id !== currentNetwork.value.id);
 })
