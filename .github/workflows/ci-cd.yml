@@ -26,12 +26,12 @@ jobs:
           git config --global user.name "CI/CD"
           git add -A
           git commit -m "CI/CD : New dist files built under `dist/` directory" || true # Don't throw an error if there is nothing to commit
-      - name: Push the distribution files
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ env.GITHUB_REPOSITORY }}
-          branch: main
+      # - name: Push the distribution files
+      #   uses: ad-m/github-push-action@v0.6.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     repository: ${{ env.GITHUB_REPOSITORY }}
+      #     branch: main
       - name: Release new versions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
