@@ -16,14 +16,18 @@ export class TulipeTransactionPlaceholder {
           "ERROR",
           "SUCCESS"
         ]);
-        this.status.watch(["ERROR", "SUCCESS"], () => {
-          setTimeout(() => {
-            this.status.set("READY");
-          }, 3000);
-        });
         this.data = ref([]);
         this.error = ref(null);
         this.call = null;
+    }
+
+    initARS () {
+      // 1) Fallback to READY after few seconds or ERROR or SUCCESS status
+      this.status.watch(["ERROR", "SUCCESS"], () => {
+        setTimeout(() => {
+          this.status.set("READY");
+        }, 3000);
+      });
     }
 
     _asyncInit () {
@@ -33,6 +37,9 @@ export class TulipeTransactionPlaceholder {
         dapp.contracts[this.contractName].onReadSafe(() => {
             this._initEthersInstance();
         })
+
+        // Init transaction ARS
+        this.initARS()
     }
 
     _initEthersInstance () {
