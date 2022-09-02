@@ -3,7 +3,10 @@ import { computed, watch, getCurrentInstance, ref } from "vue";
 
 export class TulipeSignerPlaceholder  {
   constructor () {
+    // Initialize additional properties.
+    this.address = ref(null);
 
+    // Initialize status instance.
     this.status = new Status("signer", [
       "DISCONNECTED",         // Default status. Not changed if the DApp is not connected to any wallet when loading.
       "REQUESTED",            // Set when a wallet connection request has been sent from the DApp.
@@ -14,16 +17,15 @@ export class TulipeSignerPlaceholder  {
       "CONNECTED",            // Set when a wallet is successfuly connected.
     ]);
 
+    // Initialize safers properties.
     this.isSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");
     })
     this.OnSafe = OnSignerSafe;
 
-    this.address = ref(null);
   }
 
   initARS () {
-
     // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG") {

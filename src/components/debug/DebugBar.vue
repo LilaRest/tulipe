@@ -9,12 +9,12 @@ import { dapp } from "../../index.js";
         <h3>Safe Runners</h3>
         <ul>
           <li>DApp safe : {{ dapp.isSafe }}</li>
-          <li>Network safe : {{ dapp.provider.isSafe }}</li>
-          <li>Wallet safe : {{ dapp.signer.isSafe }}</li>
+          <li>Provider safe : {{ dapp.provider.isSafe }}</li>
+          <li>Signer safe : {{ dapp.signer.isSafe }}</li>
           <li>Contracts read safe : {{ dapp.contracts.areReadSafe }}</li>
           <li>Contracts write safe : {{ dapp.contracts.areWriteSafe }}</li>
           <li v-for="(contract, contractName) of dapp.contracts.getAll()">
-            contract {{ contractName }} : 
+            contract {{ contractName }} :
             <ul>
               <li>read safe : {{ contract.isReadSafe }}</li>
               <li>write safe : {{ contract.isWriteSafe }}</li>

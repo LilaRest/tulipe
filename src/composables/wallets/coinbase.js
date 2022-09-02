@@ -5,7 +5,7 @@ export class CoinbaseWallet extends Wallet {
 
   constructor (CoinbaseWalletSdk, options={}) {
     super();
-    this.name = "Coinbase";
+    this.id = "coinbase";
 
     // const infuraId = options.infuraId || "";
     const appName = options.appName || "";
@@ -28,11 +28,11 @@ export class CoinbaseWallet extends Wallet {
 
   getProvider () {
     try {
-      // return this.coinbaseWalletSdk.makeWeb3Provider(this.rpc, this.chainId);
+      // return this.coinbaseWalletSdk.makeWeb3Provider(this.rpc, this.id);
       return this.coinbaseWalletSdk.makeWeb3Provider();
     }
     catch (e) {
-      console.log(e) 
+      console.log(e)
       return null;
     }
   }
@@ -40,10 +40,9 @@ export class CoinbaseWallet extends Wallet {
   async connect () {
     try {
       await this.provider.send("eth_requestAccounts");
-    } 
+    }
     catch (e) {
-      throw WalletConnectionRejected(this.name);
+      throw WalletConnectionRejected(this.id);
     }
   }
 }
-

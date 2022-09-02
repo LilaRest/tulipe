@@ -18,7 +18,7 @@ Then we invites you to fill it with this minimal example :
 ```js
 export const tulipeConfig = {
   networks: [
-    {chainId: 1},
+    {id: 1},
   ],
   wallets: [
     {name: "metamask"},
@@ -28,6 +28,6 @@ export const tulipeConfig = {
 
 This minimal configuration indicates that our DApp is available on Ethereum Mainnet (chain ID = 1) and that the Metamask wallet can be used to connect to it.
 
-Because Tulipe comes with 20+ EVM chain and 5+ pre-configured wallets, in that case we only need to indicate the `chainId` and the wallet's `name`.
+Because Tulipe comes with 20+ EVM chain and 5+ pre-configured wallets, in that case we only need to indicate the `id` and the wallet's `name`.
 
 So our minimal configuration is done !

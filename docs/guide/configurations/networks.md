@@ -22,13 +22,13 @@ export const tulipeConfig = {
 ```
 
 ## Configure a network
-If the network you want your DApp supports is contained in the [pre-filled networks](/guide/configurations/networks#pre-filled-networks) list (see below), the only requirement to make it available is to fill its `chainId` to explicitly tells to Tulipe that you want to support it :
+If the network you want your DApp supports is contained in the [pre-filled networks](/guide/configurations/networks#pre-filled-networks) list (see below), the only requirement to make it available is to fill its `id` to explicitly tells to Tulipe that you want to support it :
 ```js
 export const tulipeConfig = {
   networks: [
     // Supports Ethereum Mainnet
     {
-      chainId: 1,
+      id: 1,
     },
   ]
 }
@@ -37,7 +37,7 @@ As Ethereum Mainnet is in the list of pre-filled networks we only have to indica
 
 
 However if the network you want to works with is not in the [pre-filled networks](/guide/configurations/networks#pre-filled-networks) list or if you want to customize a pre-filled networks here is the detailed list of available network's properties :
-- **`chainId`** : the chain ID of the network.
+- **`id`** : the chain ID of the network.
   - type: `Number`
   - required: **true**
   - **Metamask sensible**. See [prevent metamask warnings](/guide/configurations/networks#prevent-metamask-warnings) (below)
@@ -115,12 +115,12 @@ Here is an example of networks configuration :
 networks: [
   // Ethereum Mainnet
   {
-    chainId: 1,
+    id: 1,
   },
 
   // Polygon Mainnet
   {
-    chainId: 137,
+    id: 137,
     // ---- Override default icon URL
     icon: "https://mydomain.com/my-custom-icon.svg",
     // ---- Load Lock contract for Polygon chain
@@ -131,7 +131,7 @@ networks: [
 
   // Fantom Opera
   {
-    chainId: 250,
+    id: 250,
     // ---- Load Lock contract for Fantom chain
     contracts: {  
       "Lock": await import("../backend/deployments/fantom/Lock.json"),
@@ -141,7 +141,7 @@ networks: [
   // Custom Network
   {
     // ---- Define a custom network
-    chainId: 123456789,
+    id: 123456789,
     name: "Custom Network Mainnet",
     displayName: "Custom Network",
     type: "mainnet",
@@ -171,7 +171,7 @@ It means that if the networks informations given to Metamask don't comply to the
 The easiest way to prevent Metamask of warning the user is to exactly match some of ours networks datas with datas contained in [this file from ChainId](https://chainid.network/chains.json) (which is compliant).
 
 Here are preciselly how datas must be matched :
-- `chainId` in Tulipe must match `chainId` in ChainId file
+- `id` in Tulipe must match `id` in ChainId file
 - `name` in Tulipe must match `name` in ChainId file
 - `currency.name` in Tulipe must match `nativeCurrency.name` in ChainId file
 - `currency.symbol` in Tulipe must match `nativeCurrency.symbol` in ChainId file
@@ -183,7 +183,7 @@ Here are preciselly how datas must be matched :
 ## Pre-filled networks
 Tulipe comes with 20+ pre-filled EVM networks configurations.
 
-That means that in order to use in your DApp the networks in the below list, you only need to fill their `chainId`.
+That means that in order to use in your DApp the networks in the below list, you only need to fill their `id`.
 
 Here is the list of the currently pre-filled networks.
 | chain ID   | name |

@@ -1,6 +1,6 @@
 export const tulipeConfig = {
   networks: [
-    {chainId: 1},
+    {id: 1},
   ],
   wallets: [
     {name: "metamask"},

@@ -2,7 +2,7 @@
 import { ConnectWalletButton,
          SelectNetworkDropdown,
          ContractInteractor,
-         AvailableWallets,
+         SelectWalletDropdown,
          dapp,
          DebugBar } from "../../../src/index.js";
 import { computed, ref } from "vue";
@@ -32,7 +32,7 @@ dapp.contracts.Lock.onReadSafe(function (cpt) {
             <OnProviderSafe>
                 <template #safe>
                     <ConnectWalletButton/>
-                    <AvailableWallets/>
+                    <SelectWalletDropdown/>
                     <SelectNetworkDropdown/>
                     <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
 

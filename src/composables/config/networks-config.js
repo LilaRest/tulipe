@@ -8,8 +8,8 @@ export class NetworksConfig {
     // Merge custom networks config with the default ones.
     if (customNetworksConfig) {
       for (const customNetwork of customNetworksConfig) {
-        if (customNetwork.chainId) {
-          const defaultNetwork = tulipeDefaultConfig.networks.find(o => o.chainId === customNetwork.chainId)
+        if (customNetwork.id) {
+          const defaultNetwork = tulipeDefaultConfig.networks.find(o => o.id === customNetwork.id)
           const network = deepMerge({ ...defaultNetwork }, { ...customNetwork });
           if (network.available !== false) {
             network.available = true;
@@ -26,7 +26,7 @@ export class NetworksConfig {
 
     // Add networks not given in custom config as not available.
     for (const defaultNetwork of tulipeDefaultConfig.networks) {
-      const customNetwork = this._list.find(n => n.chainId === defaultNetwork.chainId);
+      const customNetwork = this._list.find(n => n.id === defaultNetwork.id);
       if (!customNetwork) {
         defaultNetwork.available = false;
         this._list.push(defaultNetwork);
@@ -34,12 +34,26 @@ export class NetworksConfig {
     }
   }
 
+  add (networkConfig) {
+    this._list.push(networkConfig)
+  }
+
   async getCurrent () {
     if (dapp.provider.proxy.ethersInstance) {
-      const networkChainId = await dapp.provider.getNetwork().then(network => network.chainId)
-      return this._list.find(o => o.chainId === networkChainId)
+      const networkId = await dapp.provider.getNetwork().then(network => network.chainId)
+      return this.getById(networkId)
     }
     return null;
+  }
+
+  getById (id) {
+    try {
+      id = parseInt(id)
+    }
+    catch (e) {
+      throw "'id' given to getById() method must be an integer or any data type that can be parsed to interger."
+    }
+    return this._list.find(o => o.id === parseInt(id))
   }
 
   getDefault () {

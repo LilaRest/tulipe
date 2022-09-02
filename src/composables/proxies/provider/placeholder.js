@@ -6,14 +6,15 @@ import { ethers } from "ethers";
 export class TulipeProviderPlaceholder {
 
   constructor () {
-
-    // Initialize additional properties.
+    // Initialize status instance.
     this.status = new Status("provider", [
       "DISCONNECTED",  // Default status. Doesn't change if the dapp cannot connect to any provider.
       "WRONG",         // Set when DApp connected to a provider not contained in the available networks.
       "ERROR",         // Set when an error occurs during provider connection.
       "CONNECTED",     // Set when DApp connected to a provider contained in the available networks.
     ])
+
+    // Initialize safers properties.
     this.isSafe = computed(() => {
       return dapp.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"]);
     })
@@ -75,7 +76,7 @@ export class TulipeProviderPlaceholder {
     // 3) Else figure if it's a right or wrong provider.
     else {
       const networkInfos = await this.getNetwork();
-      let networkConfig = await dapp.config.networks.getAvailable().find(n => n.chainId === networkInfos.chainId);
+      let networkConfig = await dapp.config.networks.getById(networkInfos.chainId);
 
       // If network is in available networks (right provider).
       if (networkConfig) {
@@ -85,16 +86,17 @@ export class TulipeProviderPlaceholder {
       // If network not in available networks (wrong provider).
       else {
         this.status.set("WRONG")
-        networkConfig = dapp.config.networks.getAll().find(n => n.chainId === networkInfos.chainId);
+        networkConfig = dapp.config.networks.getAll().find(n => n.id === networkInfos.id);
 
         // If the network in unknown retrieve some informations about it.
         if (!networkConfig) {
           const networkConfig = {
             name: networkInfos.name,
             displayName: capitalizeWords(networkInfos.name),
-            chainId: networkInfos.chainId
+            id: networkInfos.chainId
           }
-          dapp.config.network.append(networkConfig);
+          console.log(networkConfig)
+          dapp.config.networks.add(networkConfig);
         }
       }
 
@@ -106,6 +108,21 @@ export class TulipeProviderPlaceholder {
       // 5) Init provider ARS
       this._initARS()
     }
+  }
+
+  async changeNetwork(id) {
+    let changed = false
+
+    // Try to change wallet's network
+    const currentWalletConfig = await dapp.config.wallets.getCurrent()
+    if (currentWalletConfig) {
+      const result = dapp.wallets[currentWalletConfig.id].changeNetwork(id)
+      if (result) {
+        changed = true
+      }
+    }
+
+    // Else force new network in cookies
   }
 
   // Initialize additional methods.
