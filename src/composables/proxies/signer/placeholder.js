@@ -1,20 +1,16 @@
-import { EthersObjectProxy } from "../proxy.js";
-import { EthersSignerExtension } from "./signer-extension.js";
-import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../index.js";
+import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance, ref } from "vue";
 
-export class EthersSignerProxy extends EthersObjectProxy {
-  constructor (ethersObject=null) {
-    const extensionObject = new EthersSignerExtension()
-    super(ethersObject, extensionObject)
+export class TulipeSignerPlaceholder  {
+  constructor () {
 
     this.status = new Status("signer", [
       "DISCONNECTED",         // Default status. Not changed if the DApp is not connected to any wallet when loading.
       "REQUESTED",            // Set when a wallet connection request has been sent from the DApp.
       "REFUSED",              // Set during 5 seconds when a wallet connection request has been refused by either the wallet or the user.
       "ERROR",                // Set when an unknown errors occurs during wallet connection.
-      "NO_PROVIDER",    // Set when the DApp is not connected to any provider.
-      "WRONG_PROVIDER", // Set when the DApp is connected to a provider that is not in the available providers list.
+      "NO_PROVIDER",          // Set when the DApp is not connected to any provider.
+      "WRONG_PROVIDER",       // Set when the DApp is connected to a provider that is not in the available providers list.
       "CONNECTED",            // Set when a wallet is successfuly connected.
     ]);
 
@@ -39,8 +35,6 @@ export class EthersSignerProxy extends EthersObjectProxy {
     this.OnSafe = OnSignerSafe;
 
     this.address = ref(null);
-
-    this._asyncInit();
   }
 
   async _asyncInit() {
@@ -76,7 +70,7 @@ export class EthersSignerProxy extends EthersObjectProxy {
       try {
         const signer = await dapp.provider.getSigner();
         const address = await signer.getAddress()
-        dapp.signer.proxy.setEthersObject(signer);
+        dapp.signer.proxy.ethersInstance = signer;
         this.address.value = address;
         dapp.signer.status.set("CONNECTED");
       }
@@ -110,7 +104,7 @@ export class EthersSignerProxy extends EthersObjectProxy {
   }
 
   disconnectWallet() {
-    dapp.signer.proxy.setEthersObject(null);
+    dapp.signer.proxy.ethersInstance = null;
     this.address.value = null;
     dapp.signer.status.set("DISCONNECTED")
   }

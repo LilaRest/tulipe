@@ -1,4 +1,4 @@
-import { wallets, dapp } from "../../../index.js";
+import { wallets, dapp } from "../../index.js";
 
 export class WalletsList {
 

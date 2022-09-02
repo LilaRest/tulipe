@@ -1,5 +1,5 @@
 <script setup>
-import { dapp, EthersTransactionProxy } from "../../index.js";
+import { dapp, TulipeTransaction } from "../../index.js";
 import { computed } from "vue";
 
 const props = defineProps({
@@ -45,7 +45,7 @@ function emitTransaction () {
 
 if (props.config && props.configs.notx) {
   contract.onReadSafe(() => {
-      tx = new EthersTransactionProxy(props.contract, props.method);
+      tx = new TulipeTransaction(props.contract, props.method);
   })
 }
 </script>

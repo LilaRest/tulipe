@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "ethers": "^5.7.0",
-    "vue": "^3.2.37"
+    "vue": "^3.2.38"
   },
   "peerDependencies": {
     "@coinbase/wallet-sdk": "^3.5.1",
