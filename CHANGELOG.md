@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/LilaRest/tulipe/compare/v1.4.1...v1.5.0) (2022-09-02)
+
+
+### Bug Fixes
+
+* **package.json:** remove type 'module' ([d4f46fc](https://github.com/LilaRest/tulipe/commit/d4f46fc82b453d633bf5e8ee331a1bdf1e6f434b))
+
+
+### Features
+
+* improve wallets system and add a first version of SelectWalletDropdown component ([3b02971](https://github.com/LilaRest/tulipe/commit/3b02971a0aa5bbc36888445bd3ae9c0a04572ef0))
+
 ## [1.4.1](https://github.com/LilaRest/tulipe/compare/v1.4.0...v1.4.1) (2022-09-01)
 
 
