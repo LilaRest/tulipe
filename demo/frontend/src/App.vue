@@ -5,15 +5,15 @@ import { ConnectWalletButton,
          AvailableWallets,
          dapp,
          DebugBar } from "../../../src/index.js";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-let contracts = $ref(null);
-let specialNumber = $ref(null);
+let contracts = ref(null);
+let specialNumber = ref(null);
 
 dapp.contracts.Lock.onReadSafe(function (cpt) {
-    contracts = dapp.contracts.getAll()
+    contracts.value = dapp.contracts.getAll()
     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
-        specialNumber = newValue;
+        specialNumber.value = newValue;
         console.log("specialNumber has changed")
         console.log("new = " + newValue)
         console.log("old = " + oldValue)

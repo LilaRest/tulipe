@@ -1,7 +1,8 @@
 <script setup>
 import { dapp } from "../index.js";
+import { ref } from "vue";
 
-let currentNetwork = $ref("");
+let currentNetwork = ref("");
 
 dapp.provider.onSafe(() => {
 

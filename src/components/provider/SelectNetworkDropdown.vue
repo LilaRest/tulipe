@@ -1,18 +1,19 @@
 <script setup>
 import { ethers } from "ethers";
 import { dapp } from "../../index.js";
+import { ref } from "vue";
 
-let currentNetwork = $ref({})
-let availableNetworks = $ref([])
+let currentNetwork = ref({})
+let availableNetworks = ref([])
 
 dapp.onSafe(async function () {
-  currentNetwork = await dapp.config.networks.getCurrent()
-  availableNetworks = dapp.config.networks.getAvailable()
-  availableNetworks = availableNetworks.filter(n => n != currentNetwork);
+  currentNetwork.value = await dapp.config.networks.getCurrent()
+  availableNetworks.value = dapp.config.networks.getAvailable()
+  availableNetworks.value = availableNetworks.value.filter(n => n != currentNetwork.value);
 })
 
 async function changeNetwork (id) {
-  const providerConfig = availableNetworks.find(o => o.chainId === parseInt(id))
+  const providerConfig = availableNetworks.value.find(o => o.chainId === parseInt(id))
 
   if (providerConfig) {
     id = ethers.utils.hexlify(parseInt(id)).toString()
@@ -50,10 +51,10 @@ async function changeNetwork (id) {
 }
 
 function toggle () {
-  isDropdownOpened = isDropdownOpened ? false : true
+  isDropdownOpened.value = isDropdownOpened.value ? false : true
 }
 
-let isDropdownOpened = $ref(false);
+let isDropdownOpened = ref(false);
 
 </script>
 
