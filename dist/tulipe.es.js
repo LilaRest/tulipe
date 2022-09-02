@@ -1,14 +1,14 @@
-import { computed as C, getCurrentInstance as N, watch as w, isRef as G, ref as y, resolveComponent as b, openBlock as c, createBlock as E, withCtx as g, createElementVNode as o, toDisplayString as p, unref as l, createVNode as I, createTextVNode as T, createElementBlock as u, Fragment as v, renderList as S, shallowRef as z, withDirectives as j, vModelText as U, createCommentVNode as O, normalizeClass as Q, renderSlot as _, pushScopeId as J, popScopeId as X, vModelSelect as tt, markRaw as et, onUnmounted as W } from "vue";
+import { computed as k, getCurrentInstance as N, watch as w, isRef as W, ref as m, resolveComponent as C, openBlock as l, createBlock as g, withCtx as R, createElementVNode as c, toDisplayString as f, unref as o, createVNode as O, createTextVNode as $, createElementBlock as u, Fragment as v, renderList as S, shallowRef as Q, withDirectives as V, vModelText as B, createCommentVNode as E, normalizeClass as J, renderSlot as y, pushScopeId as X, popScopeId as tt, vModelSelect as et, markRaw as L, onUnmounted as A } from "vue";
 import { ethers as x } from "ethers";
 class st {
   constructor() {
   }
   init(t = null) {
-    this.config = new ie(t), this.status = new P("dapp", [
+    this.config = new ve(t), this.status = new P("dapp", [
       "UNSAFE",
       "ERROR",
       "INITIALIZED"
-    ]), this.isSafe = C(() => this.status.is("INITIALIZED")), this.OnSafe = Ft, this.chainWatchers = new ce(), this.wallets = new we(), this.provider = new fe(), this.pro = this.provider, this.signer = new _e(), this.sig = this.signer, this.contracts = new ge(), this.con = this.contracts;
+    ]), this.isSafe = k(() => this.status.is("INITIALIZED")), this.OnSafe = ee, this.chainWatchers = new Ne(), this.wallets = new We(), this.provider = new ge(), this.pro = this.provider, this.signer = new Ce(), this.sig = this.signer, this.contracts = new pe(), this.con = this.contracts;
   }
   onSafe(t) {
     const e = N();
@@ -22,16 +22,16 @@ class st {
   }
 }
 const a = new st();
-function V(r) {
+function M(r) {
   return r && typeof r == "object" && !Array.isArray(r);
 }
 function D(r, ...t) {
   if (!t.length)
     return r;
   const e = t.shift();
-  if (V(r) && V(e))
+  if (M(r) && M(e))
     for (const s in e)
-      V(e[s]) ? (r[s] || Object.assign(r, {
+      M(e[s]) ? (r[s] || Object.assign(r, {
         [s]: {}
       }), D(r[s], e[s])) : Object.assign(r, {
         [s]: e[s]
@@ -44,11 +44,11 @@ function nt(r) {
     t[e] = t[e][0].toUpperCase() + t[e].substring(1);
   return t.join(" ");
 }
-function $(r) {
-  return G(r) ? r.value : r;
+function T(r) {
+  return W(r) ? T(r.value) : r;
 }
-function R(r, t) {
-  G(r) ? r.value = t : r = t;
+function I(r, t) {
+  W(r) ? r.value = t : r = t;
 }
 const at = {
   required: !1,
@@ -57,7 +57,7 @@ const at = {
   validator(r) {
     return ["unstylized", "minimal", "opinionated"].includes(r);
   }
-}, rt = { class: "ContractInteractor" }, ot = /* @__PURE__ */ T(" Methods : "), it = /* @__PURE__ */ o("br", null, null, -1), ct = /* @__PURE__ */ T(" Events : "), lt = /* @__PURE__ */ o("br", null, null, -1), Ce = {
+}, rt = { class: "ContractInteractor" }, ot = /* @__PURE__ */ $(" Methods : "), it = /* @__PURE__ */ c("br", null, null, -1), ct = /* @__PURE__ */ $(" Events : "), lt = /* @__PURE__ */ c("br", null, null, -1), Ue = {
   __name: "ContractInteractor",
   props: {
     contract: {
@@ -67,33 +67,33 @@ const at = {
   },
   setup(r) {
     const t = r, e = a.contracts[t.contract];
-    let s = y("not owned");
+    let s = m("not owned");
     return a.contracts[t.contract].onReadSafe(async function() {
       try {
         s.value = await e.owner();
       } catch {
       }
     }), (n, i) => {
-      const h = b("OnContractReadSafe");
-      return c(), E(h, {
+      const d = C("OnContractReadSafe");
+      return l(), g(d, {
         contract: t.contract
       }, {
-        default: g(() => [
-          o("div", rt, [
-            o("ul", null, [
-              o("li", null, "Address : " + p(l(e).address), 1),
-              o("li", null, "Owner : " + p(s.value), 1),
-              o("li", null, [
+        default: R(() => [
+          c("div", rt, [
+            c("ul", null, [
+              c("li", null, "Address : " + f(o(e).address), 1),
+              c("li", null, "Owner : " + f(o(s)), 1),
+              c("li", null, [
                 ot,
                 it,
-                I(l(ht), {
+                O(o(dt), {
                   contract: t.contract
                 }, null, 8, ["contract"])
               ]),
-              o("li", null, [
+              c("li", null, [
                 ct,
                 lt,
-                I(l(bt), {
+                O(o(Ct), {
                   contract: t.contract
                 }, null, 8, ["contract"])
               ])
@@ -104,7 +104,7 @@ const at = {
       }, 8, ["contract"]);
     };
   }
-}, ut = { class: "MethodsInteractor" }, ht = {
+}, ut = { class: "MethodsInteractor" }, dt = {
   __name: "MethodsInteractor",
   props: {
     contract: {
@@ -115,17 +115,17 @@ const at = {
   setup(r) {
     const t = r, e = a.contracts[t.contract];
     return (s, n) => {
-      const i = b("OnContractReadSafe");
-      return c(), E(i, {
+      const i = C("OnContractReadSafe");
+      return l(), g(i, {
         contract: t.contract
       }, {
-        default: g(() => [
-          o("div", ut, [
-            o("ul", null, [
-              (c(!0), u(v, null, S(l(e).interface.functions, (h, d) => (c(), u("li", null, [
-                I(l(gt), {
+        default: R(() => [
+          c("div", ut, [
+            c("ul", null, [
+              (l(!0), u(v, null, S(o(e).interface.functions, (d, h) => (l(), u("li", null, [
+                O(o(Rt), {
                   contract: t.contract,
-                  method: d
+                  method: h
                 }, null, 8, ["contract", "method"])
               ]))), 256))
             ])
@@ -135,7 +135,7 @@ const at = {
       }, 8, ["contract"]);
     };
   }
-}, dt = { class: "MethodInteractor" }, pt = { key: 0 }, ft = /* @__PURE__ */ o("p", null, "Inputs :", -1), mt = ["onUpdate:modelValue", "placeholder"], _t = { key: 0 }, yt = { key: 1 }, vt = /* @__PURE__ */ o("p", null, "Outputs :", -1), wt = ["onUpdate:modelValue", "placeholder"], St = ["placeholder"], Et = { key: 2 }, gt = {
+}, ht = { class: "MethodInteractor" }, pt = { key: 0 }, ft = /* @__PURE__ */ c("p", null, "Inputs :", -1), mt = ["onUpdate:modelValue", "placeholder"], yt = { key: 0 }, _t = { key: 1 }, vt = /* @__PURE__ */ c("p", null, "Outputs :", -1), wt = ["onUpdate:modelValue", "placeholder"], St = ["placeholder"], gt = { key: 2 }, Rt = {
   __name: "MethodInteractor",
   props: {
     contract: {
@@ -148,74 +148,76 @@ const at = {
     }
   },
   setup(r) {
-    const t = r, e = z(new K(t.contract, t.method));
+    const t = r, e = Q(new H(t.contract, t.method));
     function s(n) {
       return `${n.name && n.name !== "null" ? n.name : ""} (${n.type})`;
     }
     return (n, i) => {
-      const h = b("OnContractReadSafe");
-      return c(), E(h, {
+      const d = C("OnContractReadSafe");
+      return l(), g(d, {
         contract: t.contract
       }, {
-        default: g(() => [
-          o("div", dt, [
-            I(l($t), {
+        default: R(() => [
+          c("div", ht, [
+            O(o(Pt), {
               contract: t.contract,
               method: t.method,
-              modelValue: e.value,
-              "onUpdate:modelValue": i[0] || (i[0] = (d) => e.value = d),
+              modelValue: o(e),
+              "onUpdate:modelValue": i[0] || (i[0] = (h) => W(e) ? e.value = h : null),
               configs: { content: t.method, notx: !0, noerror: !0 }
             }, null, 8, ["contract", "method", "modelValue", "configs"]),
-            o("small", null, p(e.value.methodInfos.stateMutability), 1),
-            Object.keys(e.value.methodInfos.inputs).length > 0 || e.value.methodInfos.payable ? (c(), u("div", pt, [
+            c("small", null, f(o(e).methodInfos.stateMutability), 1),
+            Object.keys(o(e).methodInfos.inputs).length > 0 || o(e).methodInfos.payable ? (l(), u("div", pt, [
               ft,
-              o("ul", null, [
-                (c(!0), u(v, null, S(e.value.methodInfos.inputs, (d, f) => (c(), u("li", null, [
-                  j(o("input", {
-                    "onUpdate:modelValue": (m) => e.value.args[f] = m,
+              c("ul", null, [
+                (l(!0), u(v, null, S(o(e).methodInfos.inputs, (h, p) => (l(), u("li", null, [
+                  V(c("input", {
+                    "onUpdate:modelValue": (_) => o(e).args.value[p] = _,
                     type: "text",
-                    placeholder: s(d)
+                    placeholder: s(h)
                   }, null, 8, mt), [
-                    [U, e.value.args[f]]
-                  ])
+                    [B, o(e).args.value[p]]
+                  ]),
+                  $(" " + f(o(e).args.value[p]) + " " + f(typeof o(e).args.value[p]), 1)
                 ]))), 256)),
-                e.value.methodInfos.payable ? (c(), u("li", _t, [
-                  I(l(se), {
-                    modelValue: e.value.txArgs.value.value,
-                    "onUpdate:modelValue": i[1] || (i[1] = (d) => e.value.txArgs.value.value = d)
-                  }, null, 8, ["modelValue"])
-                ])) : O("", !0)
+                o(e).methodInfos.payable ? (l(), u("li", yt, [
+                  O(o(he), {
+                    modelValue: o(e).txArgs.value.value,
+                    "onUpdate:modelValue": i[1] || (i[1] = (h) => o(e).txArgs.value.value = h)
+                  }, null, 8, ["modelValue"]),
+                  $(" " + f(o(e).txArgs.value.value) + " " + f(typeof o(e).txArgs.value.value), 1)
+                ])) : E("", !0)
               ])
-            ])) : O("", !0),
-            Object.keys(e.value.methodInfos.outputs).length > 0 ? (c(), u("div", yt, [
+            ])) : E("", !0),
+            Object.keys(o(e).methodInfos.outputs).length > 0 ? (l(), u("div", _t, [
               vt,
-              o("ul", null, [
-                (c(!0), u(v, null, S(e.value.methodInfos.outputs, (d, f) => (c(), u("li", null, [
-                  e.value.data.value ? j((c(), u("input", {
+              c("ul", null, [
+                (l(!0), u(v, null, S(o(e).methodInfos.outputs, (h, p) => (l(), u("li", null, [
+                  o(e).data.value ? V((l(), u("input", {
                     key: 0,
-                    "onUpdate:modelValue": (m) => e.value.data.value[f] = m,
+                    "onUpdate:modelValue": (_) => o(e).data.value[p] = _,
                     type: "text",
-                    placeholder: s(d),
+                    placeholder: s(h),
                     disabled: ""
                   }, null, 8, wt)), [
-                    [U, e.value.data.value[f]]
-                  ]) : (c(), u("input", {
+                    [B, o(e).data.value[p]]
+                  ]) : (l(), u("input", {
                     key: 1,
                     type: "text",
-                    placeholder: s(d),
+                    placeholder: s(h),
                     disabled: ""
                   }, null, 8, St))
                 ]))), 256))
               ])
-            ])) : O("", !0),
-            e.value.status.is("ERROR") ? (c(), u("p", Et, p(e.value.error.value.reason), 1)) : O("", !0)
+            ])) : E("", !0),
+            o(e).status.is("ERROR") ? (l(), u("p", gt, f(o(e).error.value.reason), 1)) : E("", !0)
           ])
         ]),
         _: 1
       }, 8, ["contract"]);
     };
   }
-}, Ot = { class: "EventsInteractor" }, bt = {
+}, Et = { class: "EventsInteractor" }, Ct = {
   __name: "EventsInteractor",
   props: {
     contract: {
@@ -226,17 +228,17 @@ const at = {
   setup(r) {
     const t = r, e = a.contracts[t.contract];
     return (s, n) => {
-      const i = b("OnContractReadSafe");
-      return c(), E(i, {
+      const i = C("OnContractReadSafe");
+      return l(), g(i, {
         contract: t.contract
       }, {
-        default: g(() => [
-          o("div", Ot, [
-            o("ul", null, [
-              (c(!0), u(v, null, S(l(e).interface.events, (h, d) => (c(), u("li", null, [
-                I(l(It), {
+        default: R(() => [
+          c("div", Et, [
+            c("ul", null, [
+              (l(!0), u(v, null, S(o(e).interface.events, (d, h) => (l(), u("li", null, [
+                O(o(Ot), {
                   contract: t.contract,
-                  event: d
+                  event: h
                 }, null, 8, ["contract", "event"])
               ]))), 256))
             ])
@@ -246,7 +248,7 @@ const at = {
       }, 8, ["contract"]);
     };
   }
-}, Rt = { class: "EventInteractor" }, Ct = /* @__PURE__ */ T("Logs: "), It = {
+}, It = { class: "EventInteractor" }, kt = /* @__PURE__ */ $("Logs: "), Ot = {
   __name: "EventInteractor",
   props: {
     contract: {
@@ -260,29 +262,29 @@ const at = {
   },
   setup(r) {
     const t = r, e = a.contracts[t.contract];
-    let s = y({}), n = y({}), i = y(0), h = y([]);
+    let s = m({}), n = m({}), i = m(0), d = m([]);
     return e.onReadSafe(() => {
-      s.value = e.interface.events[t.event], n.value = e.filters[s.value.name], e.on(n.value, (d) => {
+      s.value = e.interface.events[t.event], n.value = e.filters[s.value.name], e.on(n.value, (h) => {
         i.value++;
-        let f = `Block ${d.blockNumber} -> {`;
-        for (const m of s.value.inputs)
-          f += `${m.name}:${d.args[m.name]}, `;
-        f = f.substring(0, f.length - 2) + "}", h.value.push(f);
+        let p = `Block ${h.blockNumber} -> {`;
+        for (const _ of s.value.inputs)
+          p += `${_.name}:${h.args[_.name]}, `;
+        p = p.substring(0, p.length - 2) + "}", d.value.push(p);
       });
-    }), (d, f) => {
-      const m = b("OnContractReadSafe");
-      return c(), E(m, {
+    }), (h, p) => {
+      const _ = C("OnContractReadSafe");
+      return l(), g(_, {
         contract: t.contract
       }, {
-        default: g(() => [
-          o("div", Rt, [
-            o("p", null, p(s.value.name), 1),
-            o("ul", null, [
-              o("li", null, "Count : " + p(i.value), 1),
-              o("li", null, [
-                Ct,
-                o("ul", null, [
-                  (c(!0), u(v, null, S(h.value, (B) => (c(), u("li", null, p(B), 1))), 256))
+        default: R(() => [
+          c("div", It, [
+            c("p", null, f(o(s).name), 1),
+            c("ul", null, [
+              c("li", null, "Count : " + f(o(i)), 1),
+              c("li", null, [
+                kt,
+                c("ul", null, [
+                  (l(!0), u(v, null, S(o(d), (z) => (l(), u("li", null, f(z), 1))), 256))
                 ])
               ])
             ])
@@ -292,16 +294,16 @@ const at = {
       }, 8, ["contract"]);
     };
   }
-}, kt = { class: "TransactButton" }, Nt = {
+}, bt = { class: "TransactButton" }, Nt = {
   key: 1,
   disabled: ""
 }, xt = {
   key: 2,
   disabled: ""
-}, Dt = {
+}, $t = {
   key: 3,
   disabled: ""
-}, Pt = { key: 4 }, $t = {
+}, Dt = { key: 4 }, Pt = {
   __name: "Transact",
   props: {
     modelValue: {},
@@ -329,32 +331,32 @@ const at = {
   emits: ["update:modelValue"],
   setup(r, { emit: t }) {
     const e = r, s = a.contracts[e.contract];
-    let n = C({
+    let n = k({
       get() {
         return e.modelValue;
       },
-      set(h) {
-        t("update:modelValue", h);
+      set(d) {
+        t("update:modelValue", d);
       }
     });
     function i() {
-      const h = e.args ? e.args : [], d = e.txArgs ? e.txArgs : {};
-      n.value.send(h, d);
+      const d = e.args ? e.args : [], h = e.txArgs ? e.txArgs : {};
+      n.value.send(d, h);
     }
     return e.config && e.configs.notx && s.onReadSafe(() => {
-      n = new K(e.contract, e.method);
-    }), (h, d) => {
-      const f = b("OnContractReadSafe");
-      return c(), E(f, {
+      n = new H(e.contract, e.method);
+    }), (d, h) => {
+      const p = C("OnContractReadSafe");
+      return l(), g(p, {
         contract: e.contract
       }, {
-        default: g(() => [
-          o("div", kt, [
-            l(n).status.is("READY") ? (c(), u("button", {
+        default: R(() => [
+          c("div", bt, [
+            o(n).status.is("READY") ? (l(), u("button", {
               key: 0,
               onClick: i
-            }, p(e.configs && e.configs.content ? e.configs.content : "Transact"), 1)) : l(n).status.is("SENT") ? (c(), u("button", Nt, "Transaction sent...")) : l(n).status.is("ERROR") ? (c(), u("button", xt, "Transaction error!")) : l(n).status.is("SUCCESS") ? (c(), u("button", Dt, "Success !")) : O("", !0),
-            !(e.configs && e.configs.noerror) && l(n).status.is("ERROR") ? (c(), u("p", Pt, p(l(n).error.value.reason), 1)) : O("", !0)
+            }, f(e.configs && e.configs.content ? e.configs.content : "Transact"), 1)) : o(n).status.is("SENT") ? (l(), u("button", Nt, "Transaction sent...")) : o(n).status.is("ERROR") ? (l(), u("button", xt, "Transaction error!")) : o(n).status.is("SUCCESS") ? (l(), u("button", $t, "Success !")) : E("", !0),
+            !(e.configs && e.configs.noerror) && o(n).status.is("ERROR") ? (l(), u("p", Dt, f(o(n).error.value.reason), 1)) : E("", !0)
           ])
         ]),
         _: 1
@@ -370,126 +372,79 @@ const q = (r, t) => {
 }, Wt = {
   key: 1,
   disabled: ""
-}, jt = {
+}, Tt = {
   key: 2,
   disabled: ""
-}, Tt = {
+}, At = {
   key: 3,
   disabled: ""
-}, At = {
+}, Vt = {
   key: 4,
   disabled: ""
-}, Vt = {
+}, Ut = {
   __name: "ConnectWalletButton",
   props: {
     styleLevel: at
   },
   setup(r) {
     const t = r;
-    let e = y({});
+    let e = m({});
     return a.provider.onSafe(async function() {
       e.value = await a.config.networks.getCurrent();
-    }), (s, n) => (c(), E(l(a).provider.OnSafe, null, {
-      default: g(() => [
-        o("div", {
-          class: Q(["ConnectWalletButton", `ve-${t.styleLevel}`])
+    }), (s, n) => (l(), g(o(a).provider.OnSafe, null, {
+      default: R(() => [
+        c("div", {
+          class: J(["ConnectWalletButton", `ve-${t.styleLevel}`])
         }, [
-          l(a).signer.status.is("DISCONNECTED") ? (c(), u("button", {
+          o(a).signer.status.is("DISCONNECTED") ? (l(), u("button", {
             key: 0,
-            onClick: n[0] || (n[0] = (i) => l(a).signer.connectWallet(l(a).wallets.metamask))
-          }, "Connect Wallet")) : l(a).signer.status.is("REQUESTED") ? (c(), u("button", Wt, "Connection requested...")) : l(a).signer.status.is("REFUSED") ? (c(), u("button", jt, "Connection refused!")) : l(a).signer.status.is("ERROR") ? (c(), u("button", Tt, "Connection error!")) : l(a).provider.status.is("WRONG") ? (c(), u("button", At, "Wrong network! (" + p(l(e) ? l(e).value.displayName : "unknown") + ")", 1)) : l(a).signer.status.is("CONNECTED") ? (c(), u("button", {
+            onClick: n[0] || (n[0] = (i) => o(a).signer.connectWallet(o(a).wallets.metamask))
+          }, "Connect Wallet")) : o(a).signer.status.is("REQUESTED") ? (l(), u("button", Wt, "Connection requested...")) : o(a).signer.status.is("REFUSED") ? (l(), u("button", Tt, "Connection refused!")) : o(a).signer.status.is("ERROR") ? (l(), u("button", At, "Connection error!")) : o(a).provider.status.is("WRONG") ? (l(), u("button", Vt, "Wrong network! (" + f(o(e) ? o(e).displayName : "unknown") + ")", 1)) : o(a).signer.status.is("CONNECTED") ? (l(), u("button", {
             key: 5,
-            onClick: n[1] || (n[1] = (...i) => l(a).signer.disconnectWallet && l(a).signer.disconnectWallet(...i))
-          }, "Disconnect")) : O("", !0)
+            onClick: n[1] || (n[1] = (...i) => o(a).signer.disconnectWallet && o(a).signer.disconnectWallet(...i))
+          }, "Disconnect")) : E("", !0)
         ], 2)
       ]),
       _: 1
     }));
   }
-}, Ie = /* @__PURE__ */ q(Vt, [["__scopeId", "data-v-2b282558"]]), Ut = /* @__PURE__ */ o("p", null, "Available wallets :", -1), ke = {
-  __name: "AvailableWallets",
+}, Me = /* @__PURE__ */ q(Ut, [["__scopeId", "data-v-b6827a89"]]), Mt = { class: "SelectWalletDropdown" }, Bt = { key: 0 }, jt = ["src", "alt"], Lt = { key: 1 }, Gt = /* @__PURE__ */ c("p", null, "Select a wallet", -1), qt = [
+  Gt
+], Ft = ["onClick"], Ht = ["src", "alt"], Be = {
+  __name: "SelectWalletDropdown",
   setup(r) {
-    return (t, e) => {
-      const s = b("OnDappSafe");
-      return c(), E(s, null, {
-        default: g(() => [
-          Ut,
-          o("ul", null, [
-            (c(!0), u(v, null, S(l(a).wallets, (n) => (c(), u("li", null, p(n.name), 1))), 256))
-          ])
-        ]),
-        _: 1
-      });
-    };
-  }
-}, Mt = { class: "SelectNetworkDropdown" }, Bt = {
-  key: 0,
-  selected: ""
-}, Lt = ["src", "alt"], Gt = ["onClick"], qt = ["src", "alt"], Ne = {
-  __name: "SelectNetworkDropdown",
-  setup(r) {
-    let t = y({}), e = y([]);
+    let t = m({}), e = m([]), s = m(!1);
     a.onSafe(async function() {
-      t.value = await a.config.networks.getCurrent(), e.value = a.config.networks.getAvailable(), e.value = e.value.filter((h) => h != t.value);
+      t.value = await a.config.wallets.getCurrent(), e.value = a.config.wallets.getAvailable().filter((i) => i !== t.value);
     });
-    async function s(h) {
-      const d = e.value.find((f) => f.id === parseInt(h));
-      if (d) {
-        h = x.utils.hexlify(parseInt(h)).toString(), h = x.utils.hexValue(h);
-        try {
-          await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{
-              id: h
-            }]
-          });
-        } catch (f) {
-          f.code === 4902 && await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [{
-              id: h,
-              rpcUrls: [d.defaultRPC],
-              chainName: d.name,
-              nativeCurrency: {
-                name: d.currency.symbol,
-                symbol: d.currency.symbol,
-                decimals: d.currency.decimals
-              },
-              blockExplorerUrls: d.explorer && d.explorer.url !== "" ? [d.explorer.url] : null
-            }]
-          });
-        }
-      }
-    }
     function n() {
-      i.value = !i.value;
+      s.value = !s.value;
     }
-    let i = y(!1);
-    return (h, d) => {
-      const f = b("OnDappSafe");
-      return c(), E(f, null, {
-        default: g(() => [
-          o("div", Mt, [
-            o("ul", { onClick: n }, [
-              t.value ? (c(), u("li", Bt, [
-                o("img", {
+    return (i, d) => {
+      const h = C("OnDappSafe");
+      return l(), g(h, null, {
+        default: R(() => [
+          c("div", Mt, [
+            c("ul", { onClick: n }, [
+              o(t) ? (l(), u("li", Bt, [
+                c("img", {
                   width: "40",
-                  src: t.value.icon ? t.value.icon : l(a).config.defaults.networks.icon,
-                  alt: t.value.name + " logo"
-                }, null, 8, Lt),
-                o("p", null, p(t.value.displayName), 1)
-              ])) : O("", !0),
-              i.value ? (c(!0), u(v, { key: 1 }, S(e.value, (m) => (c(), u("li", {
-                key: m.id,
-                onClick: (B) => s(m.id)
+                  src: o(t).icon ? o(t).icon : o(a).config.defaults.wallets.icon,
+                  alt: o(t).displayName + " logo"
+                }, null, 8, jt),
+                c("p", null, "cur" + f(o(t).displayName), 1)
+              ])) : (l(), u("li", Lt, qt)),
+              o(s) ? (l(!0), u(v, { key: 2 }, S(o(e), (p) => (l(), u("li", {
+                key: p.id,
+                onClick: (_) => o(a).signer.connectWallet(o(a).wallets[p.id])
               }, [
-                o("img", {
+                c("img", {
                   width: "40",
-                  src: m.icon ? m.icon : l(a).config.defaults.networks.icon,
-                  alt: m.name + " logo"
-                }, null, 8, qt),
-                o("p", null, p(m.displayName), 1)
-              ], 8, Gt))), 128)) : O("", !0)
+                  src: p.icon ? p.icon : o(a).config.defaults.wallets.icon,
+                  alt: p.displayName + " logo"
+                }, null, 8, Ht),
+                c("p", null, f(p.displayName), 1)
+              ], 8, Ft))), 128)) : E("", !0)
             ])
           ])
         ]),
@@ -497,47 +452,91 @@ const q = (r, t) => {
       });
     };
   }
-}, Ft = {
+}, Zt = { class: "SelectNetworkDropdown" }, Yt = { key: 0 }, Kt = ["src", "alt"], zt = { key: 1 }, Qt = /* @__PURE__ */ c("p", null, "Select a network", -1), Jt = [
+  Qt
+], Xt = ["onClick"], te = ["src", "alt"], je = {
+  __name: "SelectNetworkDropdown",
+  setup(r) {
+    let t = m({}), e = m([]), s = m(!1);
+    a.onSafe(async function() {
+      t.value = await a.config.networks.getCurrent(), e.value = a.config.networks.getAvailable().filter((i) => i.id !== t.value.id);
+    });
+    function n() {
+      s.value = !s.value;
+    }
+    return (i, d) => {
+      const h = C("OnDappSafe");
+      return l(), g(h, null, {
+        default: R(() => [
+          c("div", Zt, [
+            c("ul", { onClick: n }, [
+              o(t) ? (l(), u("li", Yt, [
+                c("img", {
+                  width: "40",
+                  src: o(t).icon ? o(t).icon : o(a).config.defaults.networks.icon,
+                  alt: o(t).displayName + " logo"
+                }, null, 8, Kt),
+                c("p", null, f(o(t).displayName), 1)
+              ])) : (l(), u("li", zt, Jt)),
+              o(s) ? (l(!0), u(v, { key: 2 }, S(o(e), (p) => (l(), u("li", {
+                key: p.id,
+                onClick: (_) => o(a).provider.changeNetwork(p.id)
+              }, [
+                c("img", {
+                  width: "40",
+                  src: p.icon ? p.icon : o(a).config.defaults.networks.icon,
+                  alt: p.displayName + " logo"
+                }, null, 8, te),
+                c("p", null, f(p.displayName), 1)
+              ], 8, Xt))), 128)) : E("", !0)
+            ])
+          ])
+        ]),
+        _: 1
+      });
+    };
+  }
+}, ee = {
   __name: "OnDappSafe",
   setup(r) {
-    return (t, e) => l(a).isSafe.value ? (c(), u(v, { key: 0 }, [
-      _(t.$slots, "default"),
-      _(t.$slots, "safe")
-    ], 64)) : _(t.$slots, "unsafe", { key: 1 });
+    return (t, e) => o(a).isSafe.value ? (l(), u(v, { key: 0 }, [
+      y(t.$slots, "default"),
+      y(t.$slots, "safe")
+    ], 64)) : y(t.$slots, "unsafe", { key: 1 });
   }
-}, Ht = {
+}, se = {
   __name: "OnProviderSafe",
   setup(r) {
-    return (t, e) => l(a).provider.isSafe.value ? (c(), u(v, { key: 0 }, [
-      _(t.$slots, "default"),
-      _(t.$slots, "safe")
-    ], 64)) : _(t.$slots, "unsafe", { key: 1 });
+    return (t, e) => o(a).provider.isSafe.value ? (l(), u(v, { key: 0 }, [
+      y(t.$slots, "default"),
+      y(t.$slots, "safe")
+    ], 64)) : y(t.$slots, "unsafe", { key: 1 });
   }
-}, Zt = {
+}, ne = {
   __name: "OnSignerSafe",
   setup(r) {
-    return (t, e) => l(a).signer.isSafe.value ? (c(), u(v, { key: 0 }, [
-      _(t.$slots, "default"),
-      _(t.$slots, "safe")
-    ], 64)) : _(t.$slots, "unsafe", { key: 1 });
+    return (t, e) => o(a).signer.isSafe.value ? (l(), u(v, { key: 0 }, [
+      y(t.$slots, "default"),
+      y(t.$slots, "safe")
+    ], 64)) : y(t.$slots, "unsafe", { key: 1 });
   }
-}, xe = {
+}, Le = {
   __name: "OnContractsReadSafe",
   setup(r) {
-    return (t, e) => l(a).contracts.areReadSafe.value ? (c(), u(v, { key: 0 }, [
-      _(t.$slots, "default"),
-      _(t.$slots, "safe")
-    ], 64)) : _(t.$slots, "unsafe", { key: 1 });
+    return (t, e) => o(a).contracts.areReadSafe.value ? (l(), u(v, { key: 0 }, [
+      y(t.$slots, "default"),
+      y(t.$slots, "safe")
+    ], 64)) : y(t.$slots, "unsafe", { key: 1 });
   }
-}, De = {
+}, Ge = {
   __name: "OnContractsWriteSafe",
   setup(r) {
-    return (t, e) => l(a).contracts.areWriteSafe.value ? (c(), u(v, { key: 0 }, [
-      _(t.$slots, "default"),
-      _(t.$slots, "safe")
-    ], 64)) : _(t.$slots, "unsafe", { key: 1 });
+    return (t, e) => o(a).contracts.areWriteSafe.value ? (l(), u(v, { key: 0 }, [
+      y(t.$slots, "default"),
+      y(t.$slots, "safe")
+    ], 64)) : y(t.$slots, "unsafe", { key: 1 });
   }
-}, Yt = {
+}, ae = {
   __name: "OnContractReadSafe",
   props: {
     contract: {
@@ -547,12 +546,12 @@ const q = (r, t) => {
   },
   setup(r) {
     const t = r;
-    return (e, s) => l(a).contracts[t.contract].isReadSafe.value ? (c(), u(v, { key: 0 }, [
-      _(e.$slots, "default"),
-      _(e.$slots, "safe")
-    ], 64)) : _(e.$slots, "unsafe", { key: 1 });
+    return (e, s) => o(a).contracts[t.contract].isReadSafe.value ? (l(), u(v, { key: 0 }, [
+      y(e.$slots, "default"),
+      y(e.$slots, "safe")
+    ], 64)) : y(e.$slots, "unsafe", { key: 1 });
   }
-}, Kt = {
+}, re = {
   __name: "OnContractWriteSafe",
   props: {
     contract: {
@@ -562,45 +561,45 @@ const q = (r, t) => {
   },
   setup(r) {
     const t = r;
-    return (e, s) => l(a).contracts[t.contract].isWriteSafe.value ? (c(), u(v, { key: 0 }, [
-      _(e.$slots, "default"),
-      _(e.$slots, "safe")
-    ], 64)) : _(e.$slots, "unsafe", { key: 1 });
+    return (e, s) => o(a).contracts[t.contract].isWriteSafe.value ? (l(), u(v, { key: 0 }, [
+      y(e.$slots, "default"),
+      y(e.$slots, "safe")
+    ], 64)) : y(e.$slots, "unsafe", { key: 1 });
   }
 };
-const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), zt = /* @__PURE__ */ F(() => /* @__PURE__ */ o("h3", null, "Safe Runners", -1)), Qt = /* @__PURE__ */ F(() => /* @__PURE__ */ o("h3", null, "Status", -1)), Jt = {
+const F = (r) => (X("data-v-8361140f"), r = r(), tt(), r), oe = /* @__PURE__ */ F(() => /* @__PURE__ */ c("h3", null, "Safe Runners", -1)), ie = /* @__PURE__ */ F(() => /* @__PURE__ */ c("h3", null, "Status", -1)), ce = {
   __name: "DebugBar",
   setup(r) {
     return (t, e) => {
-      const s = b("OnDappSafe");
-      return c(), E(s, null, {
-        default: g(() => [
-          o("section", null, [
-            o("div", null, [
-              zt,
-              o("ul", null, [
-                o("li", null, "DApp safe : " + p(l(a).isSafe), 1),
-                o("li", null, "Network safe : " + p(l(a).provider.isSafe), 1),
-                o("li", null, "Wallet safe : " + p(l(a).signer.isSafe), 1),
-                o("li", null, "Contracts read safe : " + p(l(a).contracts.areReadSafe), 1),
-                o("li", null, "Contracts write safe : " + p(l(a).contracts.areWriteSafe), 1),
-                (c(!0), u(v, null, S(l(a).contracts.getAll(), (n, i) => (c(), u("li", null, [
-                  T(" contract " + p(i) + " : ", 1),
-                  o("ul", null, [
-                    o("li", null, "read safe : " + p(n.isReadSafe), 1),
-                    o("li", null, "write safe : " + p(n.isWriteSafe), 1)
+      const s = C("OnDappSafe");
+      return l(), g(s, null, {
+        default: R(() => [
+          c("section", null, [
+            c("div", null, [
+              oe,
+              c("ul", null, [
+                c("li", null, "DApp safe : " + f(o(a).isSafe), 1),
+                c("li", null, "Provider safe : " + f(o(a).provider.isSafe), 1),
+                c("li", null, "Signer safe : " + f(o(a).signer.isSafe), 1),
+                c("li", null, "Contracts read safe : " + f(o(a).contracts.areReadSafe), 1),
+                c("li", null, "Contracts write safe : " + f(o(a).contracts.areWriteSafe), 1),
+                (l(!0), u(v, null, S(o(a).contracts.getAll(), (n, i) => (l(), u("li", null, [
+                  $(" contract " + f(i) + " : ", 1),
+                  c("ul", null, [
+                    c("li", null, "read safe : " + f(n.isReadSafe), 1),
+                    c("li", null, "write safe : " + f(n.isWriteSafe), 1)
                   ])
                 ]))), 256))
               ])
             ]),
-            o("div", null, [
-              Qt,
-              o("ul", null, [
-                o("li", null, "dapp : " + p(l(a).status.get()), 1),
-                o("li", null, "provider : " + p(l(a).provider.status.get()), 1),
-                o("li", null, "signer : " + p(l(a).signer.status.get()), 1),
-                o("li", null, "contracts : " + p(l(a).contracts.status.get()), 1),
-                (c(!0), u(v, null, S(l(a).contracts.getAll(), (n, i) => (c(), u("li", null, " contract " + p(i) + " : " + p(n.status.get()), 1))), 256))
+            c("div", null, [
+              ie,
+              c("ul", null, [
+                c("li", null, "dapp : " + f(o(a).status.get()), 1),
+                c("li", null, "provider : " + f(o(a).provider.status.get()), 1),
+                c("li", null, "signer : " + f(o(a).signer.status.get()), 1),
+                c("li", null, "contracts : " + f(o(a).contracts.status.get()), 1),
+                (l(!0), u(v, null, S(o(a).contracts.getAll(), (n, i) => (l(), u("li", null, " contract " + f(i) + " : " + f(n.status.get()), 1))), 256))
               ])
             ])
           ])
@@ -609,7 +608,7 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), zt = /* @__PURE__ */ F
       });
     };
   }
-}, Pe = /* @__PURE__ */ q(Jt, [["__scopeId", "data-v-d83f3980"]]), Xt = { class: "InputUnits" }, te = ["placeholder"], ee = ["value"], se = {
+}, qe = /* @__PURE__ */ q(ce, [["__scopeId", "data-v-8361140f"]]), le = { class: "InputUnits" }, ue = ["placeholder"], de = ["value"], he = {
   __name: "InputUnits",
   props: {
     modelValue: {},
@@ -620,31 +619,31 @@ const F = (r) => (J("data-v-d83f3980"), r = r(), X(), r), zt = /* @__PURE__ */ F
   emits: ["update:modelValue"],
   setup(r, { emit: t }) {
     const e = r;
-    let s = y(null);
+    let s = m(null);
     const n = ["wei", "gwei", "ether"];
-    let i = y("wei");
-    function h() {
+    let i = m("wei");
+    function d() {
       if (s.value) {
-        const d = x.utils.parseUnits(s.value, i.value);
-        t("update:modelValue", d);
+        const h = x.utils.parseUnits(s.value, i.value);
+        t("update:modelValue", h);
       }
     }
-    return (d, f) => (c(), u("div", Xt, [
-      j(o("input", {
-        onInput: h,
-        "onUpdate:modelValue": f[0] || (f[0] = (m) => s.value = m),
+    return (h, p) => (l(), u("div", le, [
+      V(c("input", {
+        onInput: d,
+        "onUpdate:modelValue": p[0] || (p[0] = (_) => W(s) ? s.value = _ : s = _),
         type: "text",
-        placeholder: l(e).placeholder
-      }, null, 40, te), [
-        [U, s.value]
+        placeholder: o(e).placeholder
+      }, null, 40, ue), [
+        [B, o(s)]
       ]),
-      j(o("select", {
-        onChange: h,
-        "onUpdate:modelValue": f[1] || (f[1] = (m) => i.value = m)
+      V(c("select", {
+        onChange: d,
+        "onUpdate:modelValue": p[1] || (p[1] = (_) => W(i) ? i.value = _ : i = _)
       }, [
-        (c(), u(v, null, S(n, (m) => o("option", { value: m }, p(m), 9, ee)), 64))
+        (l(), u(v, null, S(n, (_) => c("option", { value: _ }, f(_), 9, de)), 64))
       ], 544), [
-        [tt, i.value]
+        [et, o(i)]
       ])
     ]));
   }
@@ -655,7 +654,7 @@ class P {
       throw `The 'states' parameter of a Status instance '${t}' must an array of strings. Got: ${e}`;
     for (const s of e)
       this.states.push(this._formatState(s));
-    this._state = y(this.states[0]);
+    this._state = m(this.states[0]);
   }
   _formatState(t) {
     return t.toString().toUpperCase();
@@ -670,7 +669,7 @@ class P {
     return !0;
   }
   get() {
-    return $(this._state);
+    return T(this._state);
   }
   getRef() {
     return this._state;
@@ -678,7 +677,7 @@ class P {
   set(t) {
     if (t = this._formatState(t), !this._isStateValid(t))
       throw `The state given to the set() method of Status instance '${this._name}' must a value in ${this.states}. Got: ${t}`;
-    R(this._state, t), console.log(`Status '${this._name}' set to '${$(this._state)}'`);
+    I(this._state, t), console.log(`Status '${this._name}' set to '${T(this._state)}'`);
   }
   is(t) {
     if (!this._isStateValid(t))
@@ -713,7 +712,50 @@ class P {
     this.watch(this.states, t);
   }
 }
-const k = {
+class pe {
+  constructor() {
+    this.status = new P("contracts", [
+      "NO_PROVIDER",
+      "WRONG_PROVIDER",
+      "ERROR",
+      "INITIALIZED"
+    ]), a.provider.status.watchAny((t) => {
+      t === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(t) && this.status.set("NO_PROVIDER");
+    });
+    for (const t of a.config.networks.getAll())
+      if (t.contracts)
+        for (const e of Object.keys(t.contracts))
+          this[e] = new G(e);
+    this.areReadSafe = k(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.areWriteSafe = k(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.status.set("INITIALIZED");
+  }
+  getAll() {
+    const t = {};
+    for (const [e, s] of Object.entries(this))
+      s instanceof G && (t[e] = s);
+    return t;
+  }
+  onReadSafe(t) {
+    const e = N();
+    if (this.areReadSafe.value)
+      t(e);
+    else {
+      const s = w(this.areReadSafe, () => {
+        this.areReadSafe.value && (t(e), s());
+      });
+    }
+  }
+  onWriteSafe(t) {
+    const e = N();
+    if (this.areWriteSafe.value)
+      t(e);
+    else {
+      const s = w(this.areWriteSafe, () => {
+        this.areWriteSafe.value && (t(e), s());
+      });
+    }
+  }
+}
+const b = {
   style: {
     level: "minimal"
   },
@@ -1170,17 +1212,17 @@ const k = {
   ],
   wallets: [
     {
-      name: "metamask",
+      id: "metamask",
       displayName: "Metamask",
       icon: null
     },
     {
-      name: "binanceChain",
+      id: "binanceChain",
       displayName: "Binance Chain",
       icon: null
     },
     {
-      name: "coinbase",
+      id: "coinbase",
       displayName: "Coinbase",
       icon: null
     }
@@ -1194,10 +1236,10 @@ const k = {
     }
   }
 };
-class ne {
+class fe {
   constructor(t = null) {
     let e = {};
-    return t ? e = D({ ...k.style }, { ...t }) : e = k.style, window.addEventListener("load", () => {
+    return t ? e = D({ ...b.style }, { ...t }) : e = b.style, window.addEventListener("load", () => {
       const s = document.getElementsByClassName("ve-app");
       if (s)
         for (const n of s)
@@ -1205,24 +1247,35 @@ class ne {
     }), e;
   }
 }
-class ae {
+class me {
   constructor(t = null) {
     if (this._list = [], t) {
       for (const e of t)
         if (e.id) {
-          const s = k.networks.find((i) => i.id === e.id), n = D({ ...s }, { ...e });
+          const s = b.networks.find((i) => i.id === e.id), n = D({ ...s }, { ...e });
           n.available !== !1 && (n.available = !0), n.displayName || (n.displayName = n.name), this._list.push(n);
         }
     }
-    for (const e of k.networks)
+    for (const e of b.networks)
       this._list.find((n) => n.id === e.id) || (e.available = !1, this._list.push(e));
   }
+  add(t) {
+    this._list.push(t);
+  }
   async getCurrent() {
-    if (a.provider.proxy.getEthersObject()) {
-      const t = await a.provider.getNetwork().then((e) => e.id);
-      return this._list.find((e) => e.id === t);
+    if (a.provider.proxy.ethersInstance) {
+      const t = await a.provider.getNetwork().then((e) => e.chainId);
+      return this.getById(t);
     }
     return null;
+  }
+  getById(t) {
+    try {
+      t = parseInt(t);
+    } catch {
+      throw "'id' given to getById() method must be an integer or any data type that can be parsed to interger.";
+    }
+    return this._list.find((e) => e.id === parseInt(t));
   }
   getDefault() {
     return this._list.find((t) => t.default === !0);
@@ -1234,24 +1287,27 @@ class ae {
     return this._list;
   }
 }
-class re {
+class ye {
   constructor(t = null) {
     if (this._list = [], t) {
       for (const e of t)
-        if (e.name) {
-          const s = k.wallets.find((i) => i.name === e.name), n = D({ ...s }, { ...e });
-          n.available !== !1 && (n.available = !0), n.displayName || (n.displayName = n.name), this._list.push(n);
+        if (e.id) {
+          const s = b.wallets.find((i) => i.id === e.id), n = D({ ...s }, { ...e });
+          n.available !== !1 && (n.available = !0), n.displayName || (n.displayName = n.id), this._list.push(n);
         }
     }
-    for (const e of k.wallets)
-      this._list.find((n) => n.name === e.name) || (e.available = !1, this._list.push(e));
+    for (const e of b.wallets)
+      this._list.find((n) => n.id === e.id) || (e.available = !1, this._list.push(e));
   }
   async getCurrent() {
-    if (a.signer.getEthersObject()) {
-      const t = a.signer.name;
-      return this._list.find((e) => e.name === t);
+    if (a.signer.proxy.ethersInstance) {
+      const t = a.provider.connection.url;
+      return this.getById(t);
     }
     return null;
+  }
+  getById(t) {
+    return this._list.find((e) => e.id === t);
   }
   getDefault() {
     return this._list.find((t) => t.default === !0);
@@ -1263,18 +1319,327 @@ class re {
     return this._list;
   }
 }
-class oe {
+class _e {
   constructor(t = null) {
     let e = {};
-    return t ? e = D({ ...k.defaults }, { ...t }) : e = k.defaults, e;
+    return t ? e = D({ ...b.defaults }, { ...t }) : e = b.defaults, e;
   }
 }
-class ie {
+class ve {
   constructor(t = null) {
-    this.style = new ne(t ? t.style : null), this.networks = new ae(t ? t.networks : null), this.wallets = new re(t ? t.wallets : null), this.defaults = new oe(t ? t.defaults : null);
+    this.style = new fe(t ? t.style : null), this.networks = new me(t ? t.networks : null), this.wallets = new ye(t ? t.wallets : null), this.defaults = new _e(t ? t.defaults : null);
   }
 }
-class ce {
+class U {
+  constructor(t = null, e = null, s = null) {
+    return this.proxy = {
+      _ethersInstance: t && L(t),
+      get ethersInstance() {
+        return this._ethersInstance;
+      },
+      set ethersInstance(n) {
+        this._ethersInstance = n && L(n);
+      },
+      extensionInstance: e,
+      placeholderInstance: s
+    }, new Proxy(this, {
+      get: function(n, i, d) {
+        if (i === "proxy")
+          return n.proxy;
+        if (n.proxy.ethersInstance && n.proxy.ethersInstance[i])
+          return typeof n.proxy.ethersInstance[i] == "function" ? n.proxy.ethersInstance[i].bind(n.proxy.ethersInstance) : n.proxy.ethersInstance[i];
+        if (n.proxy.ethersInstance && n.proxy.extensionInstance && n.proxy.extensionInstance[i])
+          return typeof n.proxy.extensionInstance[i] == "function" ? n.proxy.extensionInstance[i].bind(d) : n.proxy.extensionInstance[i];
+        if (n.proxy.placeholderInstance && n.proxy.placeholderInstance[i])
+          return typeof n.proxy.placeholderInstance[i] == "function" ? n.proxy.placeholderInstance[i].bind(d) : n.proxy.placeholderInstance[i];
+      },
+      set: function(n, i, d, h) {
+        if (n.proxy.ethersInstance && n.proxy.ethersInstance[i])
+          return n.proxy.ethersInstance[i] = d, !0;
+        if (n.proxy.extensionInstance && n.proxy.extensionInstance[i])
+          return n.proxy.extensionInstance[i] = d, !0;
+        if (n.proxy.placeholderInstance && n.proxy.placeholderInstance[i])
+          return n.proxy.placeholderInstance[i] = d, !0;
+        throw "New properties cannot be set on TulipeProxy instances. Please define them in instances constructor firstly.";
+      }
+    });
+  }
+}
+class we {
+}
+class Se {
+  constructor() {
+    this.status = new P("provider", [
+      "DISCONNECTED",
+      "WRONG",
+      "ERROR",
+      "CONNECTED"
+    ]), this.isSafe = k(() => a.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"])), this.OnSafe = se;
+  }
+  async _getProviderFromWebWallet() {
+    for (const t of Object.values(a.wallets))
+      if (t) {
+        const e = t.getProvider();
+        if (e)
+          return e;
+      }
+    return null;
+  }
+  async _initProviderConnection() {
+    const t = await this._getProviderFromWebWallet();
+    if (t)
+      this.proxy.ethersInstance = new x.providers.Web3Provider(t, "any");
+    else {
+      const e = a.config.networks.getDefault();
+      e && e.defaultRPC && (this.proxy.ethersInstance = new x.providers.JsonRpcProvider(e.defaultRPC));
+    }
+  }
+  _initARS() {
+    this.on("network", (t, e) => {
+      e && e !== t && window.location.reload();
+    }), this.on("error", () => {
+      this.status.set("ERROR");
+    });
+  }
+  async _asyncInit() {
+    if (await this._initProviderConnection(), !this.proxy.ethersInstance)
+      this.status.set("DISCONNECTED");
+    else {
+      const t = await this.getNetwork();
+      let e = await a.config.networks.getById(t.chainId);
+      if (e)
+        this.status.set("CONNECTED");
+      else if (this.status.set("WRONG"), e = a.config.networks.getAll().find((s) => s.id === t.id), !e) {
+        const s = {
+          name: t.name,
+          displayName: nt(t.name),
+          id: t.chainId
+        };
+        console.log(s), a.config.networks.add(s);
+      }
+      e && e.pollingInterval && (this.pollingInterval = e.pollingInterval), this._initARS();
+    }
+  }
+  async changeNetwork(t) {
+    const e = await a.config.wallets.getCurrent();
+    e && a.wallets[e.id].changeNetwork(t);
+  }
+  onSafe(t) {
+    const e = N();
+    if (this.isSafe.value)
+      t(e);
+    else {
+      const s = w(this.isSafe, () => {
+        this.isSafe.value && (t(e), s());
+      });
+    }
+  }
+}
+class ge extends U {
+  constructor(t, e = null, s = null, n = null) {
+    s = s || new we(), n = n || new Se(), super(e, s, n), this._asyncInit();
+  }
+}
+class Re {
+}
+class Ee {
+  constructor() {
+    this.address = m(null), this.status = new P("signer", [
+      "DISCONNECTED",
+      "REQUESTED",
+      "REFUSED",
+      "ERROR",
+      "NO_PROVIDER",
+      "WRONG_PROVIDER",
+      "CONNECTED"
+    ]), this.isSafe = k(() => a.provider.isSafe.value && this.status.is("CONNECTED")), this.OnSafe = ne;
+  }
+  initARS() {
+    a.provider.status.watchAny((t) => {
+      t === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(t) && this.status.set("NO_PROVIDER");
+    }), this.status.watch(["REFUSED", "ERROR"], () => {
+      setTimeout(() => {
+        this.status.set("DISCONNECTED");
+      }, 5e3);
+    });
+  }
+  async _asyncInit() {
+    const t = this;
+    a.provider.onSafe(async function() {
+      for (const e of Object.values(a.wallets))
+        await t.connectWallet(e, !0);
+    }), this.initARS();
+  }
+  onSafe(t) {
+    const e = N();
+    if (this.isSafe.value)
+      t(e);
+    else {
+      const s = w(this.isSafe, () => {
+        this.isSafe.value && (t(e), s());
+      });
+    }
+  }
+  async connectWallet(t, e = !1) {
+    if (a.signer.status.is("DISCONNECTED"))
+      try {
+        const s = await a.provider.getSigner(), n = await s.getAddress();
+        a.signer.proxy.ethersInstance = s, this.address.value = n, a.signer.status.set("CONNECTED");
+      } catch {
+        if (e === !0)
+          a.signer.status.set("DISCONNECTED");
+        else {
+          this.status.set("REQUESTED");
+          try {
+            await t.connect(), this.status.set("CONNECTED");
+          } catch (n) {
+            if (n instanceof j)
+              this.status.set("REFUSED");
+            else
+              throw this.status.set("ERROR"), n;
+          }
+        }
+      }
+  }
+  disconnectWallet() {
+    a.signer.proxy.ethersInstance = null, this.address.value = null, a.signer.status.set("DISCONNECTED");
+  }
+}
+class Ce extends U {
+  constructor(t, e = null, s = null, n = null) {
+    s = s || new Re(), n = n || new Ee(), super(e, s, n), this._asyncInit();
+  }
+}
+class Ie {
+  _watch(t, e, s = null) {
+    return Object.keys(a.chainWatchers.contracts).includes(this.address) || a.chainWatchers.addContractWatcher(this), a.chainWatchers.contracts[this.address].add(t, e, s);
+  }
+  watch(t, e, s, n = null) {
+    const i = this._watch(t, e, s);
+    return n ? A(() => {
+      a.chainWatchers.contracts[this.address].remove(t, e, i);
+    }, n) : A(() => {
+      a.chainWatchers.contracts[this.address].remove(t, e, i);
+    }), a.chainWatchers.contracts[this.address].remove.bind(a.chainWatchers.contracts[this.address], t, e, i);
+  }
+  watchRef(t, e, s = null) {
+    const n = this._watch(t, e, null);
+    return s ? A(() => {
+      a.chainWatchers.contracts[this.address].remove(t, e, n);
+    }, s) : A(() => {
+      a.chainWatchers.contracts[this.address].remove(t, e, n);
+    }), a.chainWatchers.contracts[this.address].getRef(t, e);
+  }
+}
+class ke {
+  constructor(t) {
+    this.name = t, this.status = new P(`contract:${t}`, [
+      "NO_PROVIDER",
+      "WRONG_PROVIDER",
+      "ERROR",
+      "INITIALIZED"
+    ]), this.isReadSafe = k(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = k(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.OnReadSafe = O(ae, { contract: this.name }), this.OnWriteSafe = O(re, { contract: this.name });
+  }
+  onReadSafe(t) {
+    const e = N();
+    if (this.isReadSafe.value)
+      t(e);
+    else {
+      const s = w(this.isReadSafe, () => {
+        this.isReadSafe.value && (t(e), s());
+      });
+    }
+  }
+  onWriteSafe(t) {
+    const e = N();
+    if (this.isWriteSafe.value)
+      t(e);
+    else {
+      const s = w(this.isWriteSafe, () => {
+        this.isWriteSafe.value && (t(e), s());
+      });
+    }
+  }
+  _updateContract(t, e) {
+    if (a.signer.isSafe.value)
+      this.proxy.ethersInstance = new x.Contract(t, e, a.signer.proxy.ethersInstance);
+    else if (a.provider.isSafe.value)
+      this.proxy.ethersInstance = new x.Contract(t, e, a.provider.proxy.ethersInstance);
+    else
+      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`;
+  }
+  _initARS(t, e) {
+    a.provider.status.watchAny((s) => {
+      s === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(s) && this.status.set("NO_PROVIDER");
+    }), w([a.signer.isSafe], (s, n) => {
+      s !== n && (this.proxy.ethersInstance = null, this._updateContract(t, e));
+    });
+  }
+  async _asyncInit() {
+    a.provider.onSafe(async function() {
+      try {
+        const t = await a.config.networks.getCurrent();
+        if (t && t.contracts && Object.keys(t.contracts).includes(this.name)) {
+          const e = t.contracts[this.name];
+          this._updateContract(e.address, e.abi), this._initARS(e.address, e.abi), this.status.set("INITIALIZED");
+        } else
+          this.status.set("WRONG_PROVIDER");
+      } catch (t) {
+        throw this.status.set("ERROR"), t;
+      }
+    }.bind(this));
+  }
+}
+class G extends U {
+  constructor(t, e = null, s = null, n = null) {
+    s = s || new Ie(), n = n || new ke(t), super(e, s, n), this._asyncInit();
+  }
+}
+class Oe {
+}
+class be {
+  constructor(t, e, s = [], n = { value: 0 }) {
+    this.contractName = t, this.methodName = e, this.methodInfos = {}, this.args = m(s), this.txArgs = m(n), this.data = m([]), this.error = m(null), this.call = null, this.status = new P(`tx:${t}:${e}`, [
+      "NOT_READY",
+      "READY",
+      "SENT",
+      "ERROR",
+      "SUCCESS"
+    ]);
+  }
+  initARS() {
+    this.status.watch(["ERROR", "SUCCESS"], () => {
+      setTimeout(() => {
+        this.status.set("READY");
+      }, 3e3);
+    });
+  }
+  _asyncInit() {
+    a.contracts[this.contractName].isReadSafe.value && this._initEthersInstance(), a.contracts[this.contractName].onReadSafe(() => {
+      this._initEthersInstance();
+    }), this.initARS();
+  }
+  _initEthersInstance() {
+    this.methodInfos = a.contracts[this.contractName].interface.functions[this.methodName], this.methodInfos.inputs.forEach((t) => this.args.value.push(null)), this.methodInfos.outputs.forEach((t) => this.data.value.push(null)), this.proxy.ethersInstance = a.contracts[this.contractName][this.methodName], this.status.set("READY");
+  }
+  send(t = null, e = null) {
+    t = t && t.length > 0 ? t : T(this.args), t ? Array.isArray(t) ? this.call = this.proxy.ethersInstance(...t, e) : this.call = this.proxy.ethersInstance(t, e) : this.call = this.proxy.ethersInstance(e), this.status.set("SENT"), this.methodInfos.constant ? this.call.then((s) => {
+      Array.isArray(s) || (s = [s]), I(this.data, s), I(this.error, null), this.status.set("SUCCESS");
+    }).catch((s) => {
+      I(this.error, s), this.status.set("ERROR");
+    }) : this.call.then((s) => s.wait()).then((s) => {
+      Array.isArray(s) || (s = [s]), I(this.data, s), I(this.error, null), this.status.set("SUCCESS");
+    }).catch((s) => {
+      I(this.error, s), this.status.set("ERROR"), console.log(s);
+    });
+  }
+}
+class H extends U {
+  constructor(t, e, s = [], n = { value: 0 }, i = null, d = null, h = null) {
+    d = d || new Oe(), h = h || new be(t, e, s = [], n = { value: 0 }), super(i, d, h), this._asyncInit();
+  }
+}
+class Ne {
   constructor() {
     this.contracts = {}, this.wallets = {};
   }
@@ -1288,19 +1653,19 @@ class ce {
     });
   }
   addContractWatcher(t) {
-    Object.keys(this.contracts).includes(t.address) || (this.contracts[t.address] = new le(t));
+    Object.keys(this.contracts).includes(t.address) || (this.contracts[t.address] = new xe(t));
   }
   removeContractWatcher(t) {
     Object.keys(this.contracts).includes(t.address) && delete this.contracts[t.address];
   }
   addWalletWatcher(t) {
-    Object.keys(this.wallets).includes(t) || (this.wallets[t] = new ue(t));
+    Object.keys(this.wallets).includes(t) || (this.wallets[t] = new $e(t));
   }
   removeContractWatcher(t) {
     Object.keys(this.wallets).includes(t) && delete this.wallets[t];
   }
 }
-class H {
+class Z {
   constructor() {
     this.lastUpdateBlock = 0, this.sources = {};
   }
@@ -1327,7 +1692,7 @@ class H {
     this._update();
   }
 }
-class le extends H {
+class xe extends Z {
   constructor(t) {
     super(), this.contract = t;
   }
@@ -1350,13 +1715,13 @@ class le extends H {
     Object.keys(this.sources).includes(n) || (this.sources[n] = {
       name: t,
       args: e,
-      state: y(null),
+      state: m(null),
       dependents: {}
     }, i = !0);
-    let h = null;
-    s && (h = w(this.sources[n].state, s));
-    const d = this._generateDependentUUID();
-    return this.sources[n].dependents[d] = h, i && this._updateState(this.sources[n]), d;
+    let d = null;
+    s && (d = w(this.sources[n].state, s));
+    const h = this._generateDependentUUID();
+    return this.sources[n].dependents[h] = d, i && this._updateState(this.sources[n]), h;
   }
   remove(t, e, s) {
     const n = this._buildSourceName(t, e);
@@ -1371,7 +1736,7 @@ class le extends H {
     return this.sources[s].state;
   }
 }
-class ue extends H {
+class $e extends Z {
   constructor(t) {
     super(), this.address = t, this.availableSources = ["balance"];
   }
@@ -1397,8 +1762,8 @@ class ue extends H {
     }, newSource = !0);
     let i = null;
     s && (i = watch(this.sources[n].state, s));
-    const h = this._generateDependentUUID();
-    return this.sources[n].dependents[h] = i, newSource && this._updateState(this.sources[n]), h;
+    const d = this._generateDependentUUID();
+    return this.sources[n].dependents[d] = i, newSource && this._updateState(this.sources[n]), d;
   }
   remove(t, e, s) {
     const n = this._buildSourceName(t, e);
@@ -1413,204 +1778,25 @@ class ue extends H {
     return this.sources[s].state;
   }
 }
-function he(r) {
-  for (var t = []; r && r !== Object.prototype; )
-    t.push.apply(t, Object.getOwnPropertyNames(r)), r = Object.getPrototypeOf(r);
-  return t;
-}
-class de {
-  constructor(t) {
-    this._parent = t;
-  }
-  setEthersObject(t) {
-    this._parent._ethersObject = t && et(t), this.extendsEthersObject();
-  }
-  getEthersObject() {
-    return this._parent._ethersObject;
-  }
-  extendsEthersObject() {
-    if (this._parent._ethersObject && this._parent._extensionObject) {
-      const t = he(this._parent._extensionObject);
-      for (const e of t)
-        if (e !== "constructor")
-          try {
-            this._parent._ethersObject[e] = this._parent._extensionObject[e].bind(this._parent._ethersObject);
-          } catch (s) {
-            if (s instanceof TypeError)
-              this._parent._ethersObject[e] = this._parent._extensionObject[e];
-            else
-              throw s;
-          }
-    }
-  }
-}
-class A {
-  constructor(t = null, e = null) {
-    return this._ethersObject = null, this._extensionObject = e, this.proxy = new de(this), this.proxy.setEthersObject(t), new Proxy(this, {
-      get: function(s, n, i) {
-        if (s._ethersObject && s._ethersObject[n])
-          try {
-            return s._ethersObject[n].bind(s._ethersObject);
-          } catch (h) {
-            if (h.message.includes(".bind is not a function"))
-              return s._ethersObject[n];
-            throw h;
-          }
-        else if (s[n])
-          return s[n];
-      },
-      set: function(s, n, i) {
-        return s._ethersObject && s._ethersObject[n] ? (s._ethersObject[n] = i, !0) : (s[n] = i, !0);
-      }
-    });
-  }
-}
-class pe {
-}
-class fe extends A {
-  constructor(t = null) {
-    const e = new pe();
-    super(t, e), this.status = new P("provider", [
-      "DISCONNECTED",
-      "WRONG",
-      "ERROR",
-      "CONNECTED"
-    ]), this.isSafe = C(() => a.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"])), this.OnSafe = Ht, this._asyncInit();
-  }
-  async _getProviderFromWebWallet() {
-    for (const t of Object.values(a.wallets))
-      if (t) {
-        const e = t.getProvider();
-        if (e)
-          return e;
-      }
-    return null;
-  }
-  async _initProviderConnection() {
-    const t = await this._getProviderFromWebWallet();
-    if (t)
-      this.proxy.setEthersObject(new x.providers.Web3Provider(t, "any"));
-    else {
-      const e = a.config.networks.getDefault();
-      e && e.defaultRPC && this.proxy.setEthersObject(new x.providers.JsonRpcProvider(e.defaultRPC));
-    }
-  }
-  async _asyncInit() {
-    if (await this._initProviderConnection(), !this._ethersObject)
-      this.status.set("DISCONNECTED");
-    else {
-      const t = await this.getNetwork();
-      let e = await a.config.networks.getAvailable().find((s) => s.id === t.id);
-      if (e)
-        this.status.set("CONNECTED");
-      else if (this.status.set("WRONG"), e = a.config.networks.getAll().find((s) => s.id === t.id), !e) {
-        const s = {
-          name: t.name,
-          displayName: nt(t.name),
-          id: t.id
-        };
-        a.config.network.append(s);
-      }
-      this.on("network", (s, n) => {
-        n && n !== s && window.location.reload();
-      }), this.on("error", () => {
-        this.status.set("ERROR");
-      }), e && e.pollingInterval && (this.pollingInterval = e.pollingInterval);
-    }
-  }
-  onSafe(t) {
-    const e = N();
-    if (this.isSafe.value)
-      t(e);
-    else {
-      const s = w(this.isSafe, () => {
-        this.isSafe.value && (t(e), s());
-      });
-    }
-  }
-}
-class me {
-}
-class _e extends A {
-  constructor(t = null) {
-    const e = new me();
-    super(t, e), this.status = new P("signer", [
-      "DISCONNECTED",
-      "REQUESTED",
-      "REFUSED",
-      "ERROR",
-      "NO_PROVIDER",
-      "WRONG_PROVIDER",
-      "CONNECTED"
-    ]), a.provider.status.watchAny((s) => {
-      s === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(s) && this.status.set("NO_PROVIDER");
-    }), this.status.watch(["REFUSED", "ERROR"], () => {
-      setTimeout(() => {
-        this.status.set("DISCONNECTED");
-      }, 5e3);
-    }), this.isSafe = C(() => a.provider.isSafe.value && this.status.is("CONNECTED")), this.OnSafe = Zt, this.address = y(null), this._asyncInit();
-  }
-  async _asyncInit() {
-    const t = this;
-    a.provider.onSafe(async function() {
-      for (const e of Object.values(a.wallets))
-        await t.connectWallet(e, !0);
-    });
-  }
-  onSafe(t) {
-    const e = N();
-    if (this.isSafe.value)
-      t(e);
-    else {
-      const s = w(this.isSafe, () => {
-        this.isSafe.value && (t(e), s());
-      });
-    }
-  }
-  async connectWallet(t, e = !1) {
-    if (a.signer.status.is("DISCONNECTED"))
-      try {
-        const s = await a.provider.getSigner(), n = await s.getAddress();
-        a.signer.proxy.setEthersObject(s), this.address.value = n, a.signer.status.set("CONNECTED");
-      } catch {
-        if (e === !0)
-          a.signer.status.set("DISCONNECTED");
-        else {
-          this.status.set("REQUESTED");
-          try {
-            await t.connect(), this.status.set("CONNECTED");
-          } catch (n) {
-            if (n instanceof M)
-              this.status.set("REFUSED");
-            else
-              throw this.status.set("ERROR"), n;
-          }
-        }
-      }
-  }
-  disconnectWallet() {
-    a.signer.proxy.setEthersObject(null), this.address.value = null, a.signer.status.set("DISCONNECTED");
-  }
-}
-class Z {
+class Y {
   constructor() {
-    this.provider = null, this.name = "";
+    this.provider = null, this.id = "";
   }
   getProvider() {
     return null;
   }
   async connect() {
-    throw `connect() method of ${this.name} wallet is not implemented.`;
+    throw `connect() method of ${this.id} wallet is not implemented.`;
   }
 }
-class M extends Error {
+class j extends Error {
   constructor(t, ...e) {
     super(t, ...e), this.message = `${t} wallet has rejected the connection request.`;
   }
 }
-class Y extends Z {
+class K extends Y {
   constructor() {
-    super(), this.name = "Metamask", this.provider = this.getProvider();
+    super(), this.id = "metamask", this.provider = this.getProvider();
   }
   getProvider() {
     return window.ethereum;
@@ -1619,13 +1805,48 @@ class Y extends Z {
     try {
       await this.provider.request({ method: "eth_requestAccounts" });
     } catch (t) {
-      throw t.code === 4001 ? M(this.name) : t;
+      throw t.code === 4001 ? j(this.id) : t;
+    }
+  }
+  async addNetwork(t) {
+    const e = a.config.networks.getById(t);
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [{
+        chainId: t,
+        rpcUrls: [e.defaultRPC],
+        chainName: e.name,
+        nativeCurrency: {
+          name: e.currency.symbol,
+          symbol: e.currency.symbol,
+          decimals: e.currency.decimals
+        },
+        blockExplorerUrls: e.explorer && e.explorer.url !== "" ? [e.explorer.url] : null
+      }]
+    });
+  }
+  async changeNetwork(t) {
+    if (a.config.networks.getById(t)) {
+      t = x.utils.hexlify(parseInt(t)).toString(), t = x.utils.hexValue(t);
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{
+            chainId: t
+          }]
+        });
+      } catch (s) {
+        if (s.code === 4902)
+          this.addNetwork(t);
+        else
+          throw s;
+      }
     }
   }
 }
-class ye extends Z {
+class De extends Y {
   constructor(t, e = {}) {
-    super(), this.name = "Coinbase";
+    super(), this.id = "coinbase";
     const s = e.appName || "", n = e.appLogoUrl, i = e.darkMode || !1;
     this.coinbaseWalletSdk = new t({
       appName: s,
@@ -1644,242 +1865,85 @@ class ye extends Z {
     try {
       await this.provider.send("eth_requestAccounts");
     } catch {
-      throw M(this.name);
+      throw j(this.id);
     }
   }
 }
-class ve extends Y {
+class Pe extends K {
   constructor() {
-    super(), this.name = "BinanceChain";
+    super(), this.id = "binanceChain";
   }
   getProvider() {
     return window.BinanceChain;
   }
+  async connect() {
+    super.connect.call(this);
+  }
 }
-class we {
+class We {
   constructor() {
     const t = a.config.wallets.getAvailable();
     for (const e of t) {
-      const s = Se[e.name];
-      s && (this[e.name] = new s());
+      const s = Te[e.id];
+      s && (this[e.id] = new s());
     }
   }
 }
-const Se = {
-  metamask: Y,
-  coinbase: ye,
-  binanceChain: ve
+const Te = {
+  metamask: K,
+  coinbase: De,
+  binanceChain: Pe
 };
-class Ee {
-  _watch(t, e, s = null) {
-    return Object.keys(a.chainWatchers.contracts).includes(this.address) || a.chainWatchers.addContractWatcher(this), a.chainWatchers.contracts[this.address].add(t, e, s);
-  }
-  watch(t, e, s, n = null) {
-    const i = this._watch(t, e, s);
-    return n ? W(() => {
-      a.chainWatchers.contracts[this.address].remove(t, e, i);
-    }, n) : W(() => {
-      a.chainWatchers.contracts[this.address].remove(t, e, i);
-    }), a.chainWatchers.contracts[this.address].remove.bind(a.chainWatchers.contracts[this.address], t, e, i);
-  }
-  watchRef(t, e, s = null) {
-    const n = this._watch(t, e, null);
-    return s ? W(() => {
-      a.chainWatchers.contracts[this.address].remove(t, e, n);
-    }, s) : W(() => {
-      a.chainWatchers.contracts[this.address].remove(t, e, n);
-    }), a.chainWatchers.contracts[this.address].getRef(t, e);
-  }
-}
-class L extends A {
-  constructor(t, e) {
-    const s = new Ee();
-    super(e, s), this.name = t, this.status = new P(`contract:${t}`, [
-      "NO_PROVIDER",
-      "WRONG_PROVIDER",
-      "ERROR",
-      "INITIALIZED"
-    ]), a.provider.status.watchAny((n) => {
-      n === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(n) && this.status.set("NO_PROVIDER");
-    }), this.isReadSafe = C(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = C(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.OnReadSafe = I(Yt, { contract: this.name }), this.OnWriteSafe = I(Kt, { contract: this.name }), this._asyncInit();
-  }
-  _watchSignerChanges(t, e) {
-    w([a.signer.isSafe], (s, n) => {
-      console.log("Refresh contract " + this.name), s !== n && (this.proxy.setEthersObject(null), this._updateContract(t, e));
-    });
-  }
-  _updateContract(t, e) {
-    if (a.signer.isSafe.value)
-      this.proxy.setEthersObject(new x.Contract(t, e, a.signer.proxy.getEthersObject()));
-    else if (a.provider.isSafe.value)
-      this.proxy.setEthersObject(new x.Contract(t, e, a.provider.proxy.getEthersObject()));
-    else
-      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`;
-  }
-  async _asyncInit() {
-    const t = this;
-    a.provider.onSafe(async function() {
-      try {
-        const e = await a.config.networks.getCurrent();
-        if (e.contracts && Object.keys(e.contracts).includes(t.name)) {
-          const s = e.contracts[t.name];
-          t._updateContract(s.address, s.abi), t._watchSignerChanges(s.address, s.abi), t.status.set("INITIALIZED");
-        } else
-          t.status.set("WRONG_PROVIDER");
-      } catch (e) {
-        throw t.status.set("ERROR"), e;
-      }
-    });
-  }
-  onReadSafe(t) {
-    const e = N();
-    if (this.isReadSafe.value)
-      t(e);
-    else {
-      const s = w(this.isReadSafe, () => {
-        this.isReadSafe.value && (t(e), s());
-      });
-    }
-  }
-  onWriteSafe(t) {
-    const e = N();
-    if (this.isWriteSafe.value)
-      t(e);
-    else {
-      const s = w(this.isWriteSafe, () => {
-        this.isWriteSafe.value && (t(e), s());
-      });
-    }
-  }
-}
-class ge {
-  constructor() {
-    this.status = new P("contracts", [
-      "NO_PROVIDER",
-      "WRONG_PROVIDER",
-      "ERROR",
-      "INITIALIZED"
-    ]), a.provider.status.watchAny((t) => {
-      t === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(t) && this.status.set("NO_PROVIDER");
-    });
-    for (const t of a.config.networks.getAll())
-      if (t.contracts)
-        for (const e of Object.keys(t.contracts))
-          this[e] = new L(e);
-    this.areReadSafe = C(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.areWriteSafe = C(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.status.set("INITIALIZED");
-  }
-  getAll() {
-    const t = {};
-    for (const [e, s] of Object.entries(this))
-      s instanceof L && (t[e] = s);
-    return t;
-  }
-  onReadSafe(t) {
-    const e = N();
-    if (this.areReadSafe.value)
-      t(e);
-    else {
-      const s = w(this.areReadSafe, () => {
-        this.areReadSafe.value && (t(e), s());
-      });
-    }
-  }
-  onWriteSafe(t) {
-    const e = N();
-    if (this.areWriteSafe.value)
-      t(e);
-    else {
-      const s = w(this.areWriteSafe, () => {
-        this.areWriteSafe.value && (t(e), s());
-      });
-    }
-  }
-}
-class Oe {
-}
-class K extends A {
-  constructor(t, e, s = [], n = { value: 0 }) {
-    super(null, new Oe()), this.contractName = t, this.methodName = e, this.methodInfos = {}, this.args = y(s), this.txArgs = y(n), this.status = new P(`tx:${t}:${e}`, [
-      "NOT_READY",
-      "READY",
-      "SENT",
-      "ERROR",
-      "SUCCESS"
-    ]), this.status.watch(["ERROR", "SUCCESS"], () => {
-      setTimeout(() => {
-        this.status.set("READY");
-      }, 3e3);
-    }), this.data = y([]), this.error = y(null), this.call = null, this._init();
-  }
-  _init() {
-    a.contracts[this.contractName].isReadSafe.value && this._initEthersObject(), a.contracts[this.contractName].onReadSafe(() => {
-      this._initEthersObject();
-    });
-  }
-  _initEthersObject() {
-    this.methodInfos = a.contracts[this.contractName].interface.functions[this.methodName], this.methodInfos.inputs.forEach((t) => this.args.value.push(null)), this.methodInfos.outputs.forEach((t) => this.data.value.push(null)), this.proxy.setEthersObject(a.contracts[this.contractName][this.methodName]), this.status.set("READY");
-  }
-  send(t = null, e = null) {
-    t = t || $(this.args), e = e || $(this.txArgs), t ? Array.isArray(t) ? this.call = this.proxy.getEthersObject()(...t, e) : this.call = this.proxy.getEthersObject()(t, e) : this.call = this.proxy.getEthersObject()(e), this.status.set("SENT"), this.methodInfos.constant ? this.call.then((s) => {
-      Array.isArray(s) || (s = [s]), R(this.data, s), R(this.error, null), this.status.set("SUCCESS");
-    }).catch((s) => {
-      R(this.error, s), this.status.set("ERROR");
-    }) : this.call.then((s) => s.wait()).then((s) => {
-      Array.isArray(s) || (s = [s]), R(this.data, s), R(this.error, null), this.status.set("SUCCESS");
-    }).catch((s) => {
-      R(this.error, s), this.status.set("ERROR");
-    });
-  }
-}
-async function $e(r, t) {
+async function Fe(r, t) {
   const e = t;
   try {
     a.init(e);
   } catch (n) {
     throw a && a.status && a.status.set("ERROR"), n;
   }
-  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = $, r.config.globalProperties.rSet = R, window.dapp = a;
-  const s = await import("./index.90b55ef3.js");
+  r.config.globalProperties.dapp = a, r.config.globalProperties.rGet = T, r.config.globalProperties.rSet = I, window.dapp = a;
+  const s = await import("./index.25897989.mjs");
   r.component("OnDappSafe", s.OnDappSafe), r.component("OnProviderSafe", s.OnProviderSafe), r.component("OnSignerSafe", s.OnSignerSafe), r.component("OnContractsReadSafe", s.OnContractsReadSafe), r.component("OnContractsWriteSafe", s.OnContractsWriteSafe), r.component("OnContractReadSafe", s.OnContractReadSafe), r.component("OnContractWriteSafe", s.OnContractWriteSafe), a.status.set("INITIALIZED");
 }
 export {
-  ke as AvailableWallets,
-  ce as ChainWatchersList,
-  Ie as ConnectWalletButton,
-  Ce as ContractInteractor,
-  le as ContractWatcher,
-  ge as ContractsList,
-  Pe as DebugBar,
-  L as EthersContractProxy,
-  fe as EthersProviderProxy,
-  _e as EthersSignerProxy,
-  K as EthersTransactionProxy,
-  It as EventInteractor,
-  bt as EventsInteractor,
-  se as InputUnits,
-  gt as MethodInteractor,
-  ht as MethodsInteractor,
-  Yt as OnContractReadSafe,
-  Kt as OnContractWriteSafe,
-  xe as OnContractsReadSafe,
-  De as OnContractsWriteSafe,
-  Ft as OnDappSafe,
-  Ht as OnProviderSafe,
-  Zt as OnSignerSafe,
-  Ne as SelectNetworkDropdown,
+  Ne as ChainWatchersList,
+  Me as ConnectWalletButton,
+  Ue as ContractInteractor,
+  xe as ContractWatcher,
+  pe as ContractsList,
+  qe as DebugBar,
+  Ot as EventInteractor,
+  Ct as EventsInteractor,
+  he as InputUnits,
+  Rt as MethodInteractor,
+  dt as MethodsInteractor,
+  ae as OnContractReadSafe,
+  re as OnContractWriteSafe,
+  Le as OnContractsReadSafe,
+  Ge as OnContractsWriteSafe,
+  ee as OnDappSafe,
+  se as OnProviderSafe,
+  ne as OnSignerSafe,
+  je as SelectNetworkDropdown,
+  Be as SelectWalletDropdown,
   P as Status,
-  $t as Transact,
-  ie as TulipeConfig,
-  M as WalletConnectionRejected,
-  ue as WalletWatcher,
-  we as WalletsList,
+  Pt as Transact,
+  ve as TulipeConfig,
+  G as TulipeContract,
+  ge as TulipeProvider,
+  U as TulipeProxy,
+  Ce as TulipeSigner,
+  H as TulipeTransaction,
+  j as WalletConnectionRejected,
+  $e as WalletWatcher,
+  We as WalletsList,
   nt as capitalizeWords,
   a as dapp,
   D as deepMerge,
-  $e as initTulipe,
-  V as isObject,
-  $ as rGet,
-  R as rSet,
+  Fe as initTulipe,
+  M as isObject,
+  T as rGet,
+  I as rSet,
   at as styleLevelProp,
-  Se as wallets
+  Te as wallets
 };
