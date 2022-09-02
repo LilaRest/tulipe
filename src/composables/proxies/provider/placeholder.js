@@ -48,6 +48,20 @@ export class TulipeProviderPlaceholder {
     }
   }
 
+  _initARS () {
+    // 1) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
+    this.on("network", (newNetwork, oldNetwork) => {
+      if (oldNetwork && oldNetwork !== newNetwork) {
+        window.location.reload();
+      }
+    });
+
+    // 2) Set status to ERROR on provider error.
+    this.on("error", () => {
+      this.status.set("ERROR");
+    })
+  }
+
   async _asyncInit() {
 
     // 1) Connect to provider exposed by web wallet or to default network if there is one.
@@ -84,22 +98,13 @@ export class TulipeProviderPlaceholder {
         }
       }
 
-      // 4) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
-      this.on("network", (newNetwork, oldNetwork) => {
-        if (oldNetwork && oldNetwork !== newNetwork) {
-          window.location.reload();
-        }
-      });
-
-      // 5) Set status to ERROR if the on provider error.
-      this.on("error", () => {
-        this.status.set("ERROR");
-      })
-
-      // 6) Set the polling interval of the provider.
+      // 4) Set the polling interval of the provider.
       if (networkConfig && networkConfig.pollingInterval) {
         this.pollingInterval = networkConfig.pollingInterval;
       }
+
+      // 5) Init provider ARS
+      this._initARS()
     }
   }
 

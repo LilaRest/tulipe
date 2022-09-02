@@ -14,75 +14,15 @@ export class TulipeContractPlaceholder {
       "INITIALIZED",     // Set when contract successfuly initialized for the current connect provider.
     ])
 
-    dapp.provider.status.watchAny((status) => {
-      if (status === "WRONG") {
-        this.status.set("WRONG_PROVIDER");
-      }
-      else if (["DISCONNECTED", "ERROR"].includes(status)) {
-        this.status.set("NO_PROVIDER");
-      }
-    });
-
     this.isReadSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("INITIALIZED");
     })
-
     this.isWriteSafe = computed(() => {
       return dapp.signer.isSafe.value && this.status.is("INITIALIZED");
     })
 
     this.OnReadSafe = createVNode(OnContractReadSafe, {contract: this.name});
     this.OnWriteSafe = createVNode(OnContractWriteSafe, {contract: this.name});
-  }
-
-  _watchSignerChanges (address, abi) {
-    watch ([dapp.signer.isSafe], (newValue, oldValue) => {
-      console.log("Refresh contract " + this.name)
-      if (newValue !== oldValue) {
-
-        // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
-        // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
-        this.proxy.ethersInstance = null;
-        this._updateContract(address, abi);
-      }
-    })
-  }
-
-  _updateContract (address, abi) {
-    if (dapp.signer.isSafe.value) {
-      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
-    }
-    else if (dapp.provider.isSafe.value) {
-      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.provider.proxy.ethersInstance)
-    }
-    else {
-      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`
-    }
-  }
-
-  async _asyncInit () {
-
-    const thisObject = this; // This is used because the this object is overriden in below onSafe context.
-
-    dapp.provider.onSafe(async function () {
-      try {
-        const networkConfig = await dapp.config.networks.getCurrent()
-
-        if (networkConfig.contracts && Object.keys(networkConfig.contracts).includes(thisObject.name)) {
-          const contractConfig = networkConfig.contracts[thisObject.name];
-          thisObject._updateContract(contractConfig.address, contractConfig.abi);
-          thisObject._watchSignerChanges(contractConfig.address, contractConfig.abi);
-          thisObject.status.set("INITIALIZED");
-        }
-        else {
-          thisObject.status.set("WRONG_PROVIDER");
-        }
-      }
-      catch (e) {
-        thisObject.status.set("ERROR");
-        throw e;
-      }
-    })
   }
 
   onReadSafe (func) {
@@ -114,4 +54,71 @@ export class TulipeContractPlaceholder {
       })
     }
   }
+
+  _updateContract (address, abi) {
+    if (dapp.signer.isSafe.value) {
+      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
+    }
+    else if (dapp.provider.isSafe.value) {
+      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.provider.proxy.ethersInstance)
+    }
+    else {
+      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`
+    }
+  }
+
+
+  _initARS () {
+
+    // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
+    dapp.provider.status.watchAny((status) => {
+      if (status === "WRONG") {
+        this.status.set("WRONG_PROVIDER");
+      }
+      else if (["DISCONNECTED", "ERROR"].includes(status)) {
+        this.status.set("NO_PROVIDER");
+      }
+    });
+
+    // 2) Automatically update the contract ethersInstance when the signer changes.
+    watch ([dapp.signer.isSafe], (newValue, oldValue) => {
+      if (newValue !== oldValue) {
+        // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
+        // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
+        this.proxy.ethersInstance = null;
+        this._updateContract(address, abi);
+      }
+    })
+  }
+
+  async _asyncInit () {
+
+    dapp.provider.onSafe(async function () {
+      try {
+
+        // Retrieve current network configurations
+        const networkConfig = await dapp.config.networks.getCurrent()
+
+        // If the contract is in the current networks' contracts list, auto-instanciate it.
+        if (networkConfig.contracts && Object.keys(networkConfig.contracts).includes(this.name)) {
+          const contractConfig = networkConfig.contracts[this.name];
+          this._updateContract(contractConfig.address, contractConfig.abi);
+
+          // Initialize contract's ARS
+          this._initARS();
+
+          this.status.set("INITIALIZED");
+        }
+        else {
+          this.status.set("WRONG_PROVIDER");
+        }
+      }
+      catch (e) {
+        this.status.set("ERROR");
+        throw e;
+      }
+    }.bind(this))
+  }
+
+
 }

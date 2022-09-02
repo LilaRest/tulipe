@@ -14,6 +14,17 @@ export class TulipeSignerPlaceholder  {
       "CONNECTED",            // Set when a wallet is successfuly connected.
     ]);
 
+    this.isSafe = computed(() => {
+      return dapp.provider.isSafe.value && this.status.is("CONNECTED");
+    })
+    this.OnSafe = OnSignerSafe;
+
+    this.address = ref(null);
+  }
+
+  initARS () {
+
+    // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG") {
         this.status.set("WRONG_PROVIDER");
@@ -23,18 +34,12 @@ export class TulipeSignerPlaceholder  {
       }
     });
 
+    // 2) Fallback to DISCONNECTED after few seconds of REFUSED or ERROR status
     this.status.watch(["REFUSED", "ERROR"], () => {
       setTimeout(() => {
         this.status.set("DISCONNECTED");
       }, 5000);
     })
-
-    this.isSafe = computed(() => {
-      return dapp.provider.isSafe.value && this.status.is("CONNECTED");
-    })
-    this.OnSafe = OnSignerSafe;
-
-    this.address = ref(null);
   }
 
   async _asyncInit() {
@@ -45,6 +50,9 @@ export class TulipeSignerPlaceholder  {
         await thisObject.connectWallet(wallet, true);
       }
     })
+
+    // Init signer ARS
+    this.initARS()
   }
 
   onSafe (func) {
