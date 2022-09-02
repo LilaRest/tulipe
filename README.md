@@ -1,10 +1,10 @@
 **<h1 align="center">Tulipe</h1>**
 <div align="center">
-  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/LilaRest/tulipe/Build,%20Commit%20&%20Publish%20Tulipe%20Packages?label=Build">
+  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/LilaRest/tulipe/CI-CD?label=Build">
   <img alt="npm" src="https://img.shields.io/npm/v/tulipe?label=Version">
   <img alt="npm" src="https://img.shields.io/npm/dw/tulipe?color=%23bcf&label=Downloads">
   <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/tulipe?color=%23faf&label=Dependencies">
-  <img alt="NPM" src="https://img.shields.io/npm/l/tulipe?color=def&label=License">
+  <img alt="GitHub" src="https://img.shields.io/github/license/LilaRest/tulipe?color=def">
   <img alt="GitHub file size in bytes" src="https://img.shields.io/github/size/LilaRest/tulipe/dist/tulipe.min.js?label=Raw size">
 </div>
 
