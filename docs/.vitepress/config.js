@@ -1,7 +1,7 @@
 export default {
   lang: "en-US",
   title: "Tulipe",
-  description: "A DApp frontend framework for Vue 3 built with Ethers (ethers.js)",
+  description: "A DApp frontend framework for Vue 3 built with Ethersjs",
   markdown: {
     lineNumbers: true,
     theme: "github-dark"
@@ -39,8 +39,12 @@ export default {
         link: "/guide/welcome/introduction",
       },
       {
+        text: "API",
+        link: "/api/",
+      },
+      {
         text: "Changelog",
-        link: "/changelog/",
+        link: "https://github.com/LilaRest/tulipe/blob/main/CHANGELOG.md",
       }
     ],
     sidebar: {
