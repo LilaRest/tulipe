@@ -7,8 +7,12 @@ let availableWallets = ref([])
 let isDropdownOpened = ref(false);
 
 dapp.onSafe(async function () {
+  availableWallets.value = dapp.config.wallets.getAvailable()
+})
+
+dapp.signer.onSafe(async function () {
   currentWallet.value = await dapp.config.wallets.getCurrent()
-  availableWallets.value = dapp.config.wallets.getAvailable().filter(w => w !== currentWallet.value);
+  availableWallets.value = dapp.config.wallets.getAvailable().filter(w => w.id !== currentWallet.value.id);
 })
 
 function toggle () {
@@ -22,7 +26,7 @@ function toggle () {
       <ul @click="toggle">
         <li v-if="currentWallet">
           <img width="40" :src="currentWallet.icon ? currentWallet.icon : dapp.config.defaults.wallets.icon" :alt="currentWallet.displayName + ' logo'"/>
-          <p>cur{{ currentWallet.displayName }}</p>
+          <p>{{ currentWallet.displayName }}</p>
         </li>
         <li v-else>
           <p>Select a wallet</p>
