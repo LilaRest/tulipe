@@ -3,22 +3,24 @@ import { ref } from "vue";
 
 export class TulipeTransactionPlaceholder {
     constructor (contractName, methodName, args=[], txArgs={value: 0}) {
+      // Initialize additional properties.
+      this.contractName = contractName;
+      this.methodName = methodName;
+      this.methodInfos = {};
+      this.args = ref(args);
+      this.txArgs = ref(txArgs);
+      this.data = ref([]);
+      this.error = ref(null);
+      this.call = null;
 
-        this.contractName = contractName;
-        this.methodName = methodName;
-        this.methodInfos = {};
-        this.args = ref(args);
-        this.txArgs = ref(txArgs);
-        this.status = new Status(`tx:${contractName}:${methodName}`, [
-          "NOT_READY",
-          "READY",
-          "SENT",
-          "ERROR",
-          "SUCCESS"
-        ]);
-        this.data = ref([]);
-        this.error = ref(null);
-        this.call = null;
+      // Initialize status instance.
+      this.status = new Status(`tx:${contractName}:${methodName}`, [
+        "NOT_READY",
+        "READY",
+        "SENT",
+        "ERROR",
+        "SUCCESS"
+      ]);
     }
 
     initARS () {

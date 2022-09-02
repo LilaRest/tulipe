@@ -3,7 +3,7 @@ import { dapp, ConnectWalletButton } from "tulipe";
 
 const tulipeConfig = {
   networks: [
-    {chainId: 1},
+    {id: 1},
   ],
   wallets: [
     {name: "metamask"},

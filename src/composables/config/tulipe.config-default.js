@@ -6,7 +6,7 @@ export const tulipeDefaultConfig = {
    * Important : Some properties of network objects must exactly match chain datas at https://chainid.network/chains.json in order to don't raise a warning in Metamask when adding a new network in users' wallets :
      - 'name' in Tulipe must match 'name' in ChainId
      - 'defautRPC' in Tulipe must match 'rpc[0]' in ChainId
-     - 'chainId' in Tulipe must match 'chainId' in ChainId
+     - 'id' in Tulipe must match 'id' in ChainId
      - 'currency.name' in Tulipe must match 'nativeCurrency.name' in ChainId
      - 'currency.symbol' in Tulipe must match 'nativeCurrency.symbol' in ChainId
      - 'currency.decimals' in Tulipe must match 'nativeCurrency.decimals' in ChainId
@@ -17,7 +17,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Ethereum Mainnet",
       displayName: "Ethereum",
-      chainId: 1,
+      id: 1,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/ethereum.svg",
       currency: {
@@ -36,7 +36,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Ropsten",
       displayName: "Ropsten (Ethereum Testnet)",
-      chainId: 3,
+      id: 3,
       type: "testnet",
       icon: null,
       currency: {
@@ -55,7 +55,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Rinkeby",
       displayName: "Rinkeby (Ethereum Testnet)",
-      chainId: 4,
+      id: 4,
       type: "testnet",
       icon: null,
       currency: {
@@ -74,7 +74,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Görli",
       displayName: "Görli (Ethereum Testnet)",
-      chainId: 5,
+      id: 5,
       type: "testnet",
       icon: null,
       currency: {
@@ -92,7 +92,7 @@ export const tulipeDefaultConfig = {
     },
     {
       name: "Optimism",
-      chainId: 10,
+      id: 10,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/optimism.svg",
       currency: {
@@ -111,7 +111,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Cronos Mainnet Beta",
       displayName: "Cronos",
-      chainId: 25,
+      id: 25,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/cronos.svg",
       currency: {
@@ -130,7 +130,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Telos EVM Mainnet",
       displayName: "Telos",
-      chainId: 40,
+      id: 40,
       type: "mainnet",
       icon: null,
       currency: {
@@ -149,7 +149,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Binance Smart Chain Mainnet",
       displayName: "BSC",
-      chainId: 56,
+      id: 56,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/bsc.svg",
       currency: {
@@ -168,7 +168,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Gnosis Chain",
       displayName: "Gnosis",
-      chainId: 100,
+      id: 100,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/gnosis.svg",
       currency: {
@@ -187,7 +187,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Fuse Mainnet",
       displayName: "Fuse",
-      chainId: 122,
+      id: 122,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/fuse.svg",
       currency: {
@@ -206,7 +206,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Huobi ECO Chain Mainnet",
       displayName: "HECO",
-      chainId: 128,
+      id: 128,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/heco.svg",
       currency: {
@@ -225,7 +225,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Polygon Mainnet",
       displayName: "Polygon",
-      chainId: 137,
+      id: 137,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/polygon.svg",
       currency: {
@@ -244,7 +244,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Fantom Opera",
       displayName: "Fantom",
-      chainId: 250,
+      id: 250,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/fantom.svg",
       currency: {
@@ -263,7 +263,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Metis Andromeda Mainnet",
       displayName: "Metis",
-      chainId: 1088,
+      id: 1088,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/metis.svg",
       currency: {
@@ -281,7 +281,7 @@ export const tulipeDefaultConfig = {
     },
     {
       name: "Moonbeam",
-      chainId: 1284,
+      id: 1284,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/moonbeam.svg",
       currency: {
@@ -299,7 +299,7 @@ export const tulipeDefaultConfig = {
     },
     {
       name: "Moonriver",
-      chainId: 1285,
+      id: 1285,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/moonriver.svg",
       currency: {
@@ -318,7 +318,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Klaytn Mainnet Cypress",
       displayName: "Klaytn",
-      chainId: 8217,
+      id: 8217,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/klaytn.svg",
       currency: {
@@ -337,7 +337,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Hardhat",
       displayName: "Hardhat",
-      chainId: 31337,
+      id: 31337,
       type: "testnet",
       icon: null,
       currency: {
@@ -352,7 +352,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Arbitrum One",
       displayName: "Arbitrum",
-      chainId: 42161,
+      id: 42161,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/arbitrum.svg",
       currency: {
@@ -371,7 +371,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Celo Mainnet",
       displayName: "Celo",
-      chainId: 42220,
+      id: 42220,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/celo.svg",
       currency: {
@@ -390,7 +390,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Emerald Paratime Mainnet",
       displayName: "Emerald",
-      chainId: 42262,
+      id: 42262,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/emerald.svg",
       currency: {
@@ -409,7 +409,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Avalanche C-Chain",
       displayName: "Avalanche",
-      chainId: 43114,
+      id: 43114,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/avalanche.svg",
       currency: {
@@ -428,7 +428,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Aurora Mainnet",
       displayName: "Aurora",
-      chainId: 1313161554,
+      id: 1313161554,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/aurora.svg",
       currency: {
@@ -447,7 +447,7 @@ export const tulipeDefaultConfig = {
     {
       name: "Harmony Mainnet Shard 0",
       displayName: "Harmony",
-      chainId: 1666600000,
+      id: 1666600000,
       type: "mainnet",
       icon: "https://static.tuli.pe/icons/networks/harmony.svg",
       currency: {
@@ -466,17 +466,17 @@ export const tulipeDefaultConfig = {
   ],
   wallets: [
     {
-      name: "metamask",
+      id: "metamask",
       displayName: "Metamask",
       icon: null,
     },
     {
-      name: "binanceChain",
+      id: "binanceChain",
       displayName: "Binance Chain",
       icon: null,
     },
     {
-      name: "coinbase",
+      id: "coinbase",
       displayName: "Coinbase",
       icon: null,
     }

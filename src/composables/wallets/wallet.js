@@ -2,7 +2,7 @@ export class Wallet {
 
   constructor () {
     this.provider = null;
-    this.name = "";
+    this.id = "";
   }
 
   getProvider () {
@@ -10,6 +10,6 @@ export class Wallet {
   }
 
   async connect () {
-    throw `connect() method of ${this.name} wallet is not implemented.`
+    throw `connect() method of ${this.id} wallet is not implemented.`
   }
 }

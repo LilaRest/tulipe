@@ -5,8 +5,10 @@ import { ethers } from "ethers";
 export class TulipeContractPlaceholder {
 
   constructor (name) {
-
+    // Initialize additional properties.
     this.name = name;
+
+    // Initialize status instance.
     this.status = new Status(`contract:${name}`, [
       "NO_PROVIDER",     // Default status. If not changed it means that app don't have provider.
       "WRONG_PROVIDER",  // Set when contract is not available for the current network.
@@ -14,13 +16,13 @@ export class TulipeContractPlaceholder {
       "INITIALIZED",     // Set when contract successfuly initialized for the current connect provider.
     ])
 
+    // Initialize safers properties.
     this.isReadSafe = computed(() => {
       return dapp.provider.isSafe.value && this.status.is("INITIALIZED");
     })
     this.isWriteSafe = computed(() => {
       return dapp.signer.isSafe.value && this.status.is("INITIALIZED");
     })
-
     this.OnReadSafe = createVNode(OnContractReadSafe, {contract: this.name});
     this.OnWriteSafe = createVNode(OnContractWriteSafe, {contract: this.name});
   }
@@ -68,7 +70,7 @@ export class TulipeContractPlaceholder {
   }
 
 
-  _initARS () {
+  _initARS (address, abi) {
 
     // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
@@ -100,12 +102,12 @@ export class TulipeContractPlaceholder {
         const networkConfig = await dapp.config.networks.getCurrent()
 
         // If the contract is in the current networks' contracts list, auto-instanciate it.
-        if (networkConfig.contracts && Object.keys(networkConfig.contracts).includes(this.name)) {
+        if (networkConfig && networkConfig.contracts && Object.keys(networkConfig.contracts).includes(this.name)) {
           const contractConfig = networkConfig.contracts[this.name];
           this._updateContract(contractConfig.address, contractConfig.abi);
 
           // Initialize contract's ARS
-          this._initARS();
+          this._initARS(contractConfig.address, contractConfig.abi);
 
           this.status.set("INITIALIZED");
         }
