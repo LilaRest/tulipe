@@ -1,5 +1,6 @@
 <script setup>
 import { dapp, MethodsInteractor, EventsInteractor } from "../../index.js";
+import { ref } from "vue";
 
 const props = defineProps({
   contract: {
@@ -9,12 +10,12 @@ const props = defineProps({
 })
 
 const contract = dapp.contracts[props.contract]
-let owner = $ref("not owned")
+let owner = ref("not owned")
 
 dapp.contracts[props.contract].onReadSafe(async function () {
   // Retrieve the owner's address if there is one.
   try {
-    owner = await contract.owner()
+    owner.value = await contract.owner()
   }
   catch (e) {}
 })

@@ -1,5 +1,6 @@
 <script setup>
 import { ethers } from "ethers";
+import { ref } from "vue";
 
 let props = defineProps({
   modelValue: {},
@@ -9,13 +10,13 @@ let props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
-let value = $ref(null);
+let value = ref(null);
 const units = ["wei", "gwei", "ether"]
-let selectedUnit = $ref("wei");
+let selectedUnit = ref("wei");
 
 function updateValue() {
-  if (value) {
-    const newValue = ethers.utils.parseUnits(value, selectedUnit)
+  if (value.value) {
+    const newValue = ethers.utils.parseUnits(value.value, selectedUnit.value)
     emit('update:modelValue', newValue)
   }
 }

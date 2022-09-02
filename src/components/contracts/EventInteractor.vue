@@ -1,5 +1,7 @@
 <script setup>
 import { dapp } from "../../index.js";
+import { ref } from "vue";
+
 const props = defineProps({
   contract: {
     type: String,
@@ -12,26 +14,26 @@ const props = defineProps({
 })
 
 const contract = dapp.contracts[props.contract]
-let eventInfos = $ref({});
-let event = $ref({});
-let count = $ref(0);
-let logs = $ref([]);
+let eventInfos = ref({});
+let event = ref({});
+let count = ref(0);
+let logs = ref([]);
 
 contract.onReadSafe(() => {
-  eventInfos = contract.interface.events[props.event];
-  event = contract.filters[eventInfos.name];
+  eventInfos.value = contract.interface.events[props.event];
+  event.value = contract.filters[eventInfos.value.name];
 
-  contract.on(event, (listenedEvent) => {
+  contract.on(event.value, (listenedEvent) => {
     // Increment counter.
-    count++;
+    count.value++;
 
     // Build and append log.
     let log = `Block ${listenedEvent.blockNumber} -> {`
-    for(const input of eventInfos.inputs) {
+    for(const input of eventInfos.value.inputs) {
       log += `${input.name}:${listenedEvent.args[input.name]}, `
     }
     log = log.substring(0, log.length - 2) + "}"
-    logs.push(log)
+    logs.value.push(log)
   })
 })
 </script>

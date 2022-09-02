@@ -1,5 +1,7 @@
 <script setup>
 import { dapp, safeRun, watchChainRef } from "../index.js";
+import { ref } from "vue";
+
 const props = defineProps({
   contractName: {
     type: String,
@@ -11,13 +13,15 @@ const props = defineProps({
   }
 })
 
-let balance = $ref(0);
-let symbol = $ref(null);
+let balance = ref(0);
+let symbol = ref(null);
 
 async function fetchDatas () {
   const walletAddress = props.walletAddress ? props.walletAddress : await dapp.signer.getAddress()
-  balance = watchChainRef(dapp.contracts[props.contractName], "balanceOf", [walletAddress]);
-  symbol = dapp.contracts[props.contractName].symbol();
+  dapp.contracts[props.contractName].watch("balanceOf", [walletAddress], (newValue) => {
+    balance.value = newValue;
+  });
+  symbol.value = dapp.contracts[props.contractName].symbol();
 }
 
 safeRun(() => {
