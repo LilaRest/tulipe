@@ -1,2 +1,2 @@
-export class TulipeTransactionProxyExtension {
+export class TulipeTransactionExtension {
 }

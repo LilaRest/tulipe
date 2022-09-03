@@ -1,7 +1,8 @@
 import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance, ref } from "vue";
+import { TulipePlaceholder } from "../placeholder.js";
 
-export class TulipeSignerProxyPlaceholder  {
+export class TulipeSignerPlaceholder extends TulipePlaceholder {
   constructor () {
     // Initialize additional properties.
     this.address = ref(null);
@@ -72,22 +73,6 @@ export class TulipeSignerProxyPlaceholder  {
         this._initARS()
       }
     })
-  }
-
-  onSafe (func) {
-    const component = getCurrentInstance();
-
-    if (this.isSafe.value) {
-        func(component)
-    }
-    else {
-        const unwatch = watch(this.isSafe, () => {
-            if (this.isSafe.value) {
-                func(component)
-                unwatch()
-            }
-        })
-    }
   }
 
   async connectWallet(wallet, lazy=false) {
