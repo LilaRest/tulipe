@@ -5,16 +5,18 @@ export class TulipeProxy {
   constructor (ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
 
     this.proxy = {
-      _ethersInstance: ethersInstance ? markRaw(ethersInstance) : ethersInstance,
+      _ethersInstance: null,
       get ethersInstance () {
         return this._ethersInstance;
       },
       set ethersInstance(instance) {
         this._ethersInstance = instance ? markRaw(instance) : instance;
+        this._ethersInstanceHasChanged()
       },
       extensionInstance: extensionInstance,
       placeholderInstance: placeholderInstance,
     }
+    this.proxy.ethersInstance = ethersInstance
 
     return new Proxy(this, {
       get: function(target, prop, receiver) {

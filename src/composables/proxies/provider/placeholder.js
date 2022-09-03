@@ -21,31 +21,31 @@ export class TulipeProviderProxyPlaceholder {
     this.OnSafe = OnProviderSafe;
   }
 
-  async _getProviderFromWebWallet () {
+  _autoInstantiateFromWallet () {
     for (const wallet of Object.values(dapp.wallets)) {
       if (wallet) {
         const walletProvider = wallet.getProvider();
         if (walletProvider) {
-          return walletProvider;
+          this.proxy.ethersInstance = new ethers.providers.Web3Provider(walletProvider, "any");
         }
       }
     }
-    return null;
   }
 
-  async _initProviderConnection () {
-    // Search if any web wallet exposes a provider.
-    const webWalletProvider = await this._getProviderFromWebWallet();
-    if (webWalletProvider) {
-      this.proxy.ethersInstance = new ethers.providers.Web3Provider(webWalletProvider, "any");
+  _autoInstantiateFromDefaultConfig () {
+    const defaultNetworkConfig = dapp.config.networks.getDefault();
+    if (defaultNetworkConfig && defaultNetworkConfig.defaultRPC) {
+      this.proxy.ethersInstance = new ethers.providers.JsonRpcProvider(defaultNetworkConfig.defaultRPC);
     }
+  }
 
-    // If not any provider is exposed by web wallet, try to connect to the default one.
-    else {
-      const defaultNetworkConfig = dapp.config.networks.getDefault();
-      if (defaultNetworkConfig && defaultNetworkConfig.defaultRPC) {
-        this.proxy.ethersInstance = new ethers.providers.JsonRpcProvider(defaultNetworkConfig.defaultRPC);
-      }
+  _autoInstantiate () {
+    // Try to auto-instantiate a Provider instance from informations exposed by wallets
+    this._autoInstantiateFromWallet();
+
+    // If ethersInstance is still null, try to auto-instantiate default network in configs.
+    if (!this.proxy.ethersInstance) {
+      this._autoInstantiateFromDefaultConfig();
     }
   }
 
@@ -63,49 +63,62 @@ export class TulipeProviderProxyPlaceholder {
     })
   }
 
+  async _checkNetwork () {
+    if (!this.proxy.ethersInstance) {
+      throw `<TulipeProviderProxy instance>._checkNetwork() method must not be called if the ethersInstance is null (if not connected to any network).`
+    }
+
+    const networkInfos = await this.getNetwork();
+    let networkConfig = await dapp.config.networks.getById(networkInfos.chainId);
+
+    // If network is in available networks (right provider).
+    if (networkConfig) {
+      this.status.set("CONNECTED")
+    }
+
+    // If network not in available networks (wrong provider).
+    else {
+      this.status.set("WRONG")
+      networkConfig = dapp.config.networks.getAll().find(n => n.id === networkInfos.id);
+
+      // If the network in unknown retrieve some informations about it.
+      if (!networkConfig) {
+        const networkConfig = {
+          name: networkInfos.name,
+          displayName: capitalizeWords(networkInfos.name),
+          id: networkInfos.chainId
+        }
+        console.log(networkConfig)
+        dapp.config.networks.add(networkConfig);
+      }
+    }
+  }
+
   async _asyncInit() {
+    // If ethersInstance is not given during instantiation, try to automatically
+    // create an ethersInstance from informations given by wallets and DApp configs
+    if (!this.proxy.ethersInstance) {
+      this._autoInstatiate();
+    }
 
-    // 1) Connect to provider exposed by web wallet or to default network if there is one.
-    await this._initProviderConnection();
-
-    // 2) If not connected to any provider, set status to DISCONNECTED.
+    // If ethersInstance is still null, set status to DISCONNECTED
     if (!this.proxy.ethersInstance) {
       this.status.set("DISCONNECTED");
     }
 
-    // 3) Else figure if it's a right or wrong provider.
+    // Else, perform some initializations
     else {
-      const networkInfos = await this.getNetwork();
-      let networkConfig = await dapp.config.networks.getById(networkInfos.chainId);
 
-      // If network is in available networks (right provider).
-      if (networkConfig) {
-        this.status.set("CONNECTED")
-      }
+      // Check if the network is valid or wrong (if it is in the list of available)
+      // networks or not.
+      await this._checkNetwork()
 
-      // If network not in available networks (wrong provider).
-      else {
-        this.status.set("WRONG")
-        networkConfig = dapp.config.networks.getAll().find(n => n.id === networkInfos.id);
-
-        // If the network in unknown retrieve some informations about it.
-        if (!networkConfig) {
-          const networkConfig = {
-            name: networkInfos.name,
-            displayName: capitalizeWords(networkInfos.name),
-            id: networkInfos.chainId
-          }
-          console.log(networkConfig)
-          dapp.config.networks.add(networkConfig);
-        }
-      }
-
-      // 4) Set the polling interval of the provider.
+      // Set the polling interval of the provider instance.
       if (networkConfig && networkConfig.pollingInterval) {
         this.pollingInterval = networkConfig.pollingInterval;
       }
 
-      // 5) Init provider ARS
+      // Initialize the provider ARS
       this._initARS()
     }
   }
@@ -125,19 +138,18 @@ export class TulipeProviderProxyPlaceholder {
     // Else force new network in cookies
   }
 
-  // Initialize additional methods.
   onSafe (func) {
     const component = getCurrentInstance();
     if (this.isSafe.value) {
-        func(component)
+      func(component)
     }
     else {
-        const unwatch = watch(this.isSafe, () => {
-            if (this.isSafe.value) {
-                func(component)
-                unwatch()
-            }
-        })
+      const unwatch = watch(this.isSafe, () => {
+          if (this.isSafe.value) {
+              func(component)
+              unwatch()
+          }
+      })
     }
   }
 }

@@ -6,7 +6,7 @@ layout: doc
 
 # Usage
 
-**Most of the usage of Ethers proxies are transparent**, it means you don't have to directly instanciate the Ethers proxies classes but instead Tulipe performs some automatic instanciations and provides you with simple methods to do so.
+**Most of the usage of Ethers proxies are transparent**, it means you don't have to directly instanciate the Ethers proxies classes but instead Tulipe performs some automatic instantiations and provides you with simple methods to do so.
 
 When your DApp initialize :
 - `dapp.provider` is automatically filled with an instance of `VEProviderProxy`
@@ -18,4 +18,4 @@ And those methods create Ethers proxies instances :
 - `dapp.transactions.add()`. See `TransactionsList` API
 <br/><br/>
 
-In case you work in some advanced scenarios and want to directly instanciate the Ethers proxies classes, see: [Instanciation](/guide/ethers-proxies/advanced/instanciation).
+In case you work in some advanced scenarios and want to directly instanciate the Ethers proxies classes, see: [Instantiation](/guide/ethers-proxies/advanced/instantiation).

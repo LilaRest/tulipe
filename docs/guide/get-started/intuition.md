@@ -76,7 +76,7 @@ And your DApp signer and provider are also accessible under the `dapp` object :
 console.("Connected wallet address is : " + dapp.signer.address)
 const block = dapp.provider.getBlock(123456)
 ```
-You don't have anymore to deal with multiple manual instanciations.
+You don't have anymore to deal with multiple manual instantiations.
 
 ::: tip Explanations
 When your DApp initializes, Tulipe will populate the `dapp` object with all the networks, wallets and contracts you have configured, and much more !

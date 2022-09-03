@@ -15,3 +15,6 @@ export class TulipeContractProxy extends TulipeProxy {
     this._asyncInit();
   }
 }
+
+const contract = new Contract(address, abi, signerOrProvider);
+const proxy = new TulipeContractProxy(contract)

@@ -181,8 +181,8 @@ export default {
               collapsed: true,
               items: [
                   {
-                    text: "Instanciation",
-                    link: "/guide/ethers-proxies/advanced/instanciation"
+                    text: "Instantiation",
+                    link: "/guide/ethers-proxies/advanced/instantiation"
                   },
                   {
                     text: "APIs (in-depth)",

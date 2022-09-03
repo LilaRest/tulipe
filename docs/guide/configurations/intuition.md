@@ -20,4 +20,4 @@ During DApp's initialization, all those informations are deeply merged with inte
 
 Finally, Tulipe uses all those informations to perform initialization stuffs and to setup ready-to-use interfaces available across the entire app through the [the `dapp` object](/guide/dapp-object/intuition).
 
-This removes the requirements of multiple `import` statement and instanciations, and so **reduces errors and improves maintainability**.
+This removes the requirements of multiple `import` statement and instantiations, and so **reduces errors and improves maintainability**.
