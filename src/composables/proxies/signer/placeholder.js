@@ -22,10 +22,9 @@ export class TulipeSignerProxyPlaceholder  {
       return dapp.provider.isSafe.value && this.status.is("CONNECTED");
     })
     this.OnSafe = OnSignerSafe;
-
   }
 
-  initARS () {
+  _initARS () {
     // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG") {
@@ -44,17 +43,35 @@ export class TulipeSignerProxyPlaceholder  {
     })
   }
 
-  async _asyncInit() {
-    const thisObject = this; // This is used because the this object is overriden in onSafe context.
+  _autoInstantiate () {
+    for (const wallet of Object.values(dapp.wallets)) {
+      await thisObject.connectWallet(wallet, true);
+    }
+  }
 
+  async _asyncInit() {
+
+    // Delay init until provider is safe
     dapp.provider.onSafe(async function () {
-      for (const wallet of Object.values(dapp.wallets)) {
-        await thisObject.connectWallet(wallet, true);
+
+      // If ethersInstance is not given during instantiation, try to automatically
+      // create an ethersInstance from already connected wallet
+      if (!this.proxy.ethersInstance) {
+        this._autoInstantiate();
+      }
+
+      // If ethersInstance is still null, set status to DISCONNECTED
+      if (!this.proxy.ethersInstance) {
+        this.status.set("DISCONNECTED");
+      }
+
+      // Else, perform some initializations
+      else {
+
+        // Initialize the signer ARS
+        this._initARS()
       }
     })
-
-    // Init signer ARS
-    this.initARS()
   }
 
   onSafe (func) {

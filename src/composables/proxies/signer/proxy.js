@@ -5,7 +5,7 @@ import { TulipeSignerProxyPlaceholder } from "./placeholder.js";
 
 export class TulipeSignerProxy extends TulipeProxy {
 
-  constructor (name, ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
+  constructor (ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
     super(
       ethersInstance,
       extensionInstance ? extensionInstance : new TulipeSignerProxyExtension(),

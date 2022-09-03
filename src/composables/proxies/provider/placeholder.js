@@ -98,7 +98,7 @@ export class TulipeProviderProxyPlaceholder {
     // If ethersInstance is not given during instantiation, try to automatically
     // create an ethersInstance from informations given by wallets and DApp configs
     if (!this.proxy.ethersInstance) {
-      this._autoInstatiate();
+      this._autoInstantiate();
     }
 
     // If ethersInstance is still null, set status to DISCONNECTED
