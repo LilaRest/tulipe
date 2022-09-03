@@ -1,14 +1,16 @@
 import { TulipeProxy } from "../proxy.js";
-import { TulipeSignerExtension } from "./extension.js";
-import { TulipeSignerPlaceholder } from "./placeholder.js";
+import { TulipeSignerProxyExtension } from "./extension.js";
+import { TulipeSignerProxyPlaceholder } from "./placeholder.js";
 
 
-export class TulipeSigner extends TulipeProxy {
+export class TulipeSignerProxy extends TulipeProxy {
 
   constructor (name, ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
-    extensionInstance = extensionInstance ? extensionInstance : new TulipeSignerExtension()
-    placeholderInstance = placeholderInstance ? placeholderInstance : new TulipeSignerPlaceholder()
-    super(ethersInstance, extensionInstance, placeholderInstance);
+    super(
+      ethersInstance,
+      extensionInstance ? extensionInstance : new TulipeSignerProxyExtension(),
+      placeholderInstance ? placeholderInstance : new TulipeSignerProxyPlaceholder()
+    );
 
     this._asyncInit();
   }

@@ -1,2 +1,2 @@
-export class TulipeSignerExtension {
+export class TulipeSignerProxyExtension {
 }

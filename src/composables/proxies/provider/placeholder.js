@@ -3,7 +3,7 @@ import { computed, watch, getCurrentInstance } from "vue";
 import { ethers } from "ethers";
 
 
-export class TulipeProviderPlaceholder {
+export class TulipeProviderProxyPlaceholder {
 
   constructor () {
     // Initialize status instance.

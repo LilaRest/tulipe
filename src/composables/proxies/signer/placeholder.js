@@ -1,7 +1,7 @@
 import { dapp, Status, WalletConnectionRejected, OnSignerSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance, ref } from "vue";
 
-export class TulipeSignerPlaceholder  {
+export class TulipeSignerProxyPlaceholder  {
   constructor () {
     // Initialize additional properties.
     this.address = ref(null);

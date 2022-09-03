@@ -1,7 +1,7 @@
 import { Status, dapp, rSet, rGet } from "../../../index.js";
 import { ref } from "vue";
 
-export class TulipeTransactionPlaceholder {
+export class TulipeTransactionProxyPlaceholder {
     constructor (contractName, methodName, args=[], txArgs={value: 0}) {
       // Initialize additional properties.
       this.contractName = contractName;

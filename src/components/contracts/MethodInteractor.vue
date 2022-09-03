@@ -1,5 +1,5 @@
 <script setup>
-import { InputUnits, Transact, TulipeTransaction } from "../../index.js";
+import { InputUnits, Transact, TulipeTransactionProxy } from "../../index.js";
 import { shallowRef } from "vue";
 
 const props = defineProps({
@@ -13,7 +13,7 @@ const props = defineProps({
   }
 })
 
-const tx = shallowRef(new TulipeTransaction(props.contract, props.method));
+const tx = shallowRef(new TulipeTransactionProxy(props.contract, props.method));
 
 function formatPlaceholder(io) {
   return `${io.name && io.name !== "null" ? io.name : ""} (${io.type})`
