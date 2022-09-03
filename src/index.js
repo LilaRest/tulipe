@@ -27,8 +27,6 @@ export async function initTulipe (app, args) {
   app.component('OnDappSafe', components.OnDappSafe);
   app.component('OnProviderSafe', components.OnProviderSafe);
   app.component('OnSignerSafe', components.OnSignerSafe);
-  app.component('OnContractsReadSafe', components.OnContractsReadSafe);
-  app.component('OnContractsWriteSafe', components.OnContractsWriteSafe);
   app.component('OnContractReadSafe', components.OnContractReadSafe);
   app.component('OnContractWriteSafe', components.OnContractWriteSafe);
 
