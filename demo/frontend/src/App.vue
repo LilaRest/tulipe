@@ -7,18 +7,13 @@ import { ConnectWalletButton,
          DebugBar } from "../../../src/index.js";
 import { computed, ref } from "vue";
 
-let contracts = ref(null);
 let specialNumber = ref(null);
 
 dapp.contracts.Lock.onReadSafe(function (cpt) {
-    contracts.value = dapp.contracts.getAll()
     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
         specialNumber.value = newValue;
-        console.log("specialNumber has changed")
-        console.log("new = " + newValue)
-        console.log("old = " + oldValue)
+        console.log(`specialNumber has changed. Old = ${oldValue}; New = ${newValue};`)
     }, cpt)
-
 })
 
 </script>
@@ -36,22 +31,17 @@ dapp.contracts.Lock.onReadSafe(function (cpt) {
                     <SelectNetworkDropdown/>
                     <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
 
-                    <OnContractsReadSafe>
-                        <template #safe>
-                            <p>Special number = {{ specialNumber ? specialNumber : "Loading..." }}</p>
-                            <p>Available contracts :</p>
-                            <ul>
-                                <li v-for="(contract, contractName) of contracts">
-                                    {{ contractName }}
-                                    <ContractInteractor :contract="contractName"/>
-                                </li>
-                            </ul>
-                        </template>
+                    <p>Special number = {{ specialNumber ? specialNumber : "Loading..." }}</p>
+                    <p>Available contracts :</p>
+                    <ul>
+                        <li v-for="(contract, contractName) of dapp.contracts.getAll()">
+                          <OnContractReadSafe :contract="contractName">
+                            {{ contractName }}
+                            <ContractInteractor :contract="contractName"/>
+                          </OnContractReadSafe>
+                        </li>
+                    </ul>
 
-                        <template #unsafe>
-                            Contracts are loading or not found.
-                        </template>
-                    </OnContractsReadSafe>
                 </template>
 
                 <template #unsafe>
