@@ -5,9 +5,9 @@ import { TulipePlaceholder } from "../placeholder.js";
 
 export class TulipeContractPlaceholder extends TulipePlaceholder {
 
-  constructor (name) {
+  constructor () {
     // Initialize additional properties.
-    this.name = name;
+    this.name = "TODO";
 
     // Initialize status instance.
     this.status = new Status(`contract:${name}`, [
@@ -26,6 +26,10 @@ export class TulipeContractPlaceholder extends TulipePlaceholder {
     })
     this.OnReadSafe = createVNode(OnContractReadSafe, {contract: this.name});
     this.OnWriteSafe = createVNode(OnContractWriteSafe, {contract: this.name});
+  }
+
+  onSafe (func) {
+    throw "TulipeContract instances don't have 'onSafe()' method, use 'onReadSafe()' and 'onWriteSafe()' instead."
   }
 
   onReadSafe (func) {
