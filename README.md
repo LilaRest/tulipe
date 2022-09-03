@@ -79,7 +79,7 @@ Most of the things you need to built are available through the `dapp` object, wh
 import { dapp } from "tulipe";
 ```
 
-### Auto-instanciations
+### Auto-instantiations
 When your DApp loads, Tulipe will read your `tulipe.config.js` file and populates, if possible, the `dapp` object with all the [Ethers.js](https://ethers.org/) instances your DApp requires.
 ```js
 import { dapp } from "tulipe";
@@ -93,7 +93,7 @@ const userAddress = "0xf39Fd6e5..."
 const userBalance = dapp.contracts.MyToken.balanceOf(userAddress)
 ```
 
-You don't have anymore to deal with multiple manual instanciations.
+You don't have anymore to deal with multiple manual instantiations.
 
 ### ARS (Automated Relations Safety)
 While a DApp has a very unstable context (eg. a user can connect/deconnect a wallet, chain connection can be lost, etc.) it may be difficult to always write safe code.

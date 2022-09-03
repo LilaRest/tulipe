@@ -1,9 +1,9 @@
 ---
-title: Ethers proxies ~ Instanciation
+title: Ethers proxies ~ Instantiation
 layout: doc
 ---
 
-# Instanciation
+# Instantiation
 
 In some advanced cases you may need to directly instanciate the Ethers proxies classes.
 
@@ -17,7 +17,7 @@ import {
 } from "tulipe";
 ```
 
-Each of them wait for 3 **optional** arguments during instanciation :
+Each of them wait for 3 **optional** arguments during instantiation :
 - `ethersInstance`
   - type: any [Ethers.js](https://ethers.org/) instance
 <br/><br/>
