@@ -1,8 +1,9 @@
 import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance, createVNode } from "vue";
 import { ethers } from "ethers";
+import { TulipePlaceholder } from "../placeholder.js";
 
-export class TulipeContractProxyPlaceholder {
+export class TulipeContractPlaceholder extends TulipePlaceholder {
 
   constructor (name) {
     // Initialize additional properties.

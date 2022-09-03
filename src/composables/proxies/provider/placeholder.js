@@ -1,9 +1,10 @@
 import { dapp, Status, capitalizeWords, OnProviderSafe } from "../../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 import { ethers } from "ethers";
+import { TulipePlaceholder } from "../placeholder.js";
 
 
-export class TulipeProviderProxyPlaceholder {
+export class TulipeProviderPlaceholder extends TulipePlaceholder {
 
   constructor () {
     // Initialize status instance.
@@ -136,20 +137,5 @@ export class TulipeProviderProxyPlaceholder {
     }
 
     // Else force new network in cookies
-  }
-
-  onSafe (func) {
-    const component = getCurrentInstance();
-    if (this.isSafe.value) {
-      func(component)
-    }
-    else {
-      const unwatch = watch(this.isSafe, () => {
-          if (this.isSafe.value) {
-              func(component)
-              unwatch()
-          }
-      })
-    }
   }
 }

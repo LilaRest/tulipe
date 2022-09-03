@@ -1,3 +1,3 @@
-export class TulipeProviderProxyExtension {
+export class TulipeProviderExtension {
 
 }
