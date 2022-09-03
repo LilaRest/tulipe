@@ -1,4 +1,4 @@
-import { TulipeContract, Status, dapp } from "../../index.js"
+import { TulipeContractProxy, Status, dapp } from "../../index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 
 export class ContractsList {
@@ -23,7 +23,7 @@ export class ContractsList {
     for (const networkConfig of dapp.config.networks.getAll()) {
       if (networkConfig.contracts) {
         for (const contractName of Object.keys(networkConfig.contracts)) {
-          this[contractName] = new TulipeContract(contractName);
+          this[contractName] = new TulipeContractProxy(contractName);
         }
       }
     }
@@ -41,7 +41,7 @@ export class ContractsList {
   getAll () {
     const all = {}
     for (const [propName, prop] of Object.entries(this)) {
-      if (prop instanceof TulipeContract) {
+      if (prop instanceof TulipeContractProxy) {
         all[propName] = prop;
       }
     }

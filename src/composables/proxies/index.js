@@ -1,5 +1,5 @@
 export { TulipeProxy } from "./proxy.js";
-export { TulipeProvider } from "./provider/proxy.js";
-export { TulipeSigner } from "./signer/proxy.js";
-export { TulipeContract } from "./contract/proxy.js";
-export { TulipeTransaction } from "./transaction/proxy.js";
+export { TulipeProviderProxy } from "./provider/proxy.js";
+export { TulipeSignerProxy } from "./signer/proxy.js";
+export { TulipeContractProxy } from "./contract/proxy.js";
+export { TulipeTransactionProxy } from "./transaction/proxy.js";

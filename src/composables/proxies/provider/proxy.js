@@ -1,14 +1,16 @@
 import { TulipeProxy } from "../proxy.js";
-import { TulipeProviderExtension } from "./extension.js";
-import { TulipeProviderPlaceholder } from "./placeholder.js";
+import { TulipeProviderProxyExtension } from "./extension.js";
+import { TulipeProviderProxyPlaceholder } from "./placeholder.js";
 
 
-export class TulipeProvider extends TulipeProxy {
+export class TulipeProviderProxy extends TulipeProxy {
 
-  constructor (name, ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
-    extensionInstance = extensionInstance ? extensionInstance : new TulipeProviderExtension()
-    placeholderInstance = placeholderInstance ? placeholderInstance : new TulipeProviderPlaceholder()
-    super(ethersInstance, extensionInstance, placeholderInstance);
+  constructor (ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
+    super(
+      ethersInstance,
+      extensionInstance ? extensionInstance : new TulipeProviderProxyExtension(),
+      placeholderInstance ? placeholderInstance : new TulipeProviderProxyPlaceholder()
+    );
 
     this._asyncInit();
   }
