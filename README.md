@@ -35,7 +35,7 @@
   &nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="https://tuli.pe/api/">API</a>
   &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="https://tuli.pe/changelog/">Changelog</a>
+  <a href="https://github.com/0Lilian/tulipe/blob/main/CHANGELOG.md">Changelog</a>
 </h3>
 
 <br/>
@@ -163,4 +163,4 @@ You can find them all by reading [its documentations](https://tuli.pe/).
 <br/>
 
 ## Contributions
-See : [CONTRIBUTING](/CONTRIBUTING.md)
+See : [CONTRIBUTING](https://github.com/0Lilian/tulipe/blob/main/CONTRIBUTING.md)
