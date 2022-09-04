@@ -26,8 +26,9 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
 
   _autoInstantiateFromWallet () {
     for (const wallet of Object.values(dapp.wallets)) {
-      if (wallet && wallet.provider) {
-        this.proxy.ethersInstance = wallet.provider;
+      const provider = wallet.getProvider()
+      if (provider) {
+        this.proxy.ethersInstance = provider;
       }
     }
   }
