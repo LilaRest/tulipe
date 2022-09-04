@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/0Lilian/tulipe/compare/v1.7.0...v1.7.1) (2022-09-04)
+
+
+### Bug Fixes
+
+* remove fake variable ([b040435](https://github.com/0Lilian/tulipe/commit/b040435e8e75e70fbffbb1e09fda607a26550108))
+
 # [1.7.0](https://github.com/0Lilian/tulipe/compare/v1.6.0...v1.7.0) (2022-09-04)
 
 
