@@ -6,3 +6,5 @@ demo/backend/deployments/
 local/
 .temp
 .cache
+dist/
+docs/.vitepress/dist/
