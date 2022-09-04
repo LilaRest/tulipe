@@ -8,3 +8,4 @@ local/
 .cache
 dist/
 docs/.vitepress/dist/
+CHANGELOG.md
