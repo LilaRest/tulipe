@@ -33,6 +33,27 @@ export class TulipePlaceholder {
     }
   }
 
+  _initEthersInstanceARS () {
+
+  }
+
+  _initPlaceholderInstanceARS () {
+
+  }
+
+  _initARS () {
+    // 1) Purge old ethersInstance ARS
+    this._purgeARS();
+
+    // 2) Init ethersInstance ARS, if there is an ethersInstance
+    if (this.proxy.ethersInstance) {
+      this._initEthersInstanceARS()
+    }
+
+    // 3) Init placeholderInstance ARS
+    this._initPlaceholderInstanceARS()
+  }
+
   onSafe (func) {
     const component = getCurrentInstance();
     if (this.isSafe.value) {

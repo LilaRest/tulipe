@@ -17,7 +17,7 @@ export class MetamaskWallet extends Wallet {
     }
     catch (e) {
       if (e.code === 4001) {
-        throw WalletConnectionRejected(this.id);
+        throw new WalletConnectionRejected(this.id);
       }
       else {
         throw e
