@@ -24,11 +24,30 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
     this.OnSafe = OnProviderSafe;
   }
 
-  _autoInstantiateFromWallet () {
+  async _autoInstantiateFromWallet () {
+
+    // Find if any wallet is already connected in order to retrieve in priority
+    // the provider exposed by this wallet.
+    let connectedWallet = null;
     for (const wallet of Object.values(dapp.wallets)) {
-      const provider = wallet.getProvider()
-      if (provider) {
-        this.proxy.ethersInstance = provider;
+      if (wallet.lazyConnectAvailable) {
+        if (await wallet.isConnected()) {
+          connectedWallet = wallet;
+          break;
+        }
+      }
+    }
+    if (connectedWallet) {
+      this.proxy.ethersInstance = connectedWallet.getProvider();
+    }
+
+    // Else search if any wallet expose a
+    else {
+      for (const wallet of Object.values(dapp.wallets)) {
+        const provider = wallet.getProvider()
+        if (provider) {
+          this.proxy.ethersInstance = provider;
+        }
       }
     }
   }
@@ -40,9 +59,9 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
     }
   }
 
-  _autoInstantiate () {
+  async _autoInstantiate () {
     // Try to auto-instantiate a Provider instance from informations exposed by wallets
-    this._autoInstantiateFromWallet();
+    await this._autoInstantiateFromWallet();
 
     // If ethersInstance is still null, try to auto-instantiate default network in configs.
     if (!this.proxy.ethersInstance) {
@@ -117,7 +136,7 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
     // If ethersInstance is not given during instantiation, try to automatically
     // create an ethersInstance from informations given by wallets and DApp configs
     if (!this.proxy.ethersInstance) {
-      this._autoInstantiate();
+      await this._autoInstantiate();
     }
 
     // If ethersInstance is still null, set status to DISCONNECTED
