@@ -1,3 +1,20 @@
+# [1.6.0](https://github.com/LilaRest/tulipe/compare/v1.5.0...v1.6.0) (2022-09-04)
+
+
+### Bug Fixes
+
+* fix currentWallet and currentNetwork retrieving in unsafe contexts ([7078cab](https://github.com/LilaRest/tulipe/commit/7078cab659473ffec05100027d83b41ecc2d553c))
+
+
+### Features
+
+* create an Eip1193Wallet that allows connection to any wallet that respect the eip-1993 ([55a75c5](https://github.com/LilaRest/tulipe/commit/55a75c50002356381d14dd01aa6d481c3943f722))
+* improve SelectWalletDropdown by displaying connection states + improve signer ARS ([f2c23a5](https://github.com/LilaRest/tulipe/commit/f2c23a581e9a025b7ab7a74a20d117c299c01cc1))
+* improvement in the wallets / signer code ([2b0cad4](https://github.com/LilaRest/tulipe/commit/2b0cad474da2180b762a39b1b0337639145a5920))
+* remove ContractsList safers and update code that was depending on them ([1afd6c0](https://github.com/LilaRest/tulipe/commit/1afd6c0964273eb39146a9b8d8f46f4773f4e71b))
+* support wallets that doesn't allow lazy connect ([f2dd647](https://github.com/LilaRest/tulipe/commit/f2dd6475104fa4999ffabecc15661e9f8ef263e7))
+* throw a proper message if onSafe() method is called on a TulipeContract instance ([12f2d0e](https://github.com/LilaRest/tulipe/commit/12f2d0e542d37502acd25698699bd4189142277c))
+
 # [1.5.0](https://github.com/LilaRest/tulipe/compare/v1.4.1...v1.5.0) (2022-09-02)
 
 
