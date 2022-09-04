@@ -8,7 +8,7 @@ export class ContractsList {
     for (const networkConfig of dapp.config.networks.getAll()) {
       if (networkConfig.contracts) {
         for (const contractName of Object.keys(networkConfig.contracts)) {
-          this[contractName] = new TulipeContractProxy(contractName);
+          this[contractName] = new TulipeContractProxy(); // Replace by a TulipeLazyContract
         }
       }
     }

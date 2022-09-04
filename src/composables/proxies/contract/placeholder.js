@@ -9,7 +9,7 @@ export class TulipeContractPlaceholder extends TulipePlaceholder {
     super();
 
     // Initialize additional properties.
-    this.name = "TODO";
+    this.name = null;
 
     // Initialize status instance.
     this.status = new Status(`contract:${name}`, [
@@ -119,7 +119,9 @@ export class TulipeContractPlaceholder extends TulipePlaceholder {
       }
 
       // Else, perform some initializations
-      // else {}
+      else {
+        this.name = "TODO"
+      }
 
       // Initialize the signer ARS
       this._initARS()
