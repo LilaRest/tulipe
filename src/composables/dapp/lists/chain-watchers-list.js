@@ -1,5 +1,4 @@
-import { ContractWatcher, WalletWatcher } from "./index.js";
-import { dapp } from "../../index.js";
+import { dapp, ContractWatcher, WalletWatcher } from "../../../index.js";
 
 export class ChainWatchersList {
 
@@ -37,7 +36,7 @@ export class ChainWatchersList {
         })
       })
     }
-  
+
   addContractWatcher (contract) {
     if (!Object.keys(this.contracts).includes(contract.address)) {
       this.contracts[contract.address] = new ContractWatcher(contract);

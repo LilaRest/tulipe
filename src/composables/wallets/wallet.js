@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+
 export class Wallet {
 
   constructor () {
@@ -7,6 +9,22 @@ export class Wallet {
 
   getProvider () {
     return null;
+  }
+
+  getEthersProvider () {
+    if (this.provider) {
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider, "any")
+      return ethersProvider
+    }
+    return null
+  }
+
+  async getSigner () {
+    if (this.provider) {
+      const ethersProvider = this.getEthersProvider()
+      return await ethersProvider.getSigner();
+    }
+    return null
   }
 
   async connect () {

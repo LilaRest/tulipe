@@ -80,7 +80,7 @@ export class Status {
       if (!this._areStatesValid(states)) {
         throw(errorMessage)
       }
-      watch(this._state, () => {
+      return watch(this._state, () => {
         if (this.isIn(states)) {
           callback(this.get())
         }
@@ -90,7 +90,7 @@ export class Status {
       if (!this._isStateValid(states)) {
         throw(errorMessage)
       }
-      watch(this._state, () => {
+      return watch(this._state, () => {
         if (this.is(states)) {
           callback(this.get())
         }
@@ -99,6 +99,6 @@ export class Status {
   }
 
   watchAny(callback) {
-    this.watch(this.states, callback);
+    return this.watch(this.states, callback);
   }
 }
