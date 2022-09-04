@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/0Lilian/tulipe/compare/v1.6.0...v1.7.0) (2022-09-04)
+
+
+### Bug Fixes
+
+* _autoInstantiateFromWallet() method was still using the old Wallet API ([61ee43a](https://github.com/0Lilian/tulipe/commit/61ee43a4bf4acec5830ec71c241e4ba4eb6d8d3a))
+* remove temporary error catcher in SelectWalletDropdown ([3356581](https://github.com/0Lilian/tulipe/commit/33565817a557209f82c5c0817669af597ed76254))
+
+
+### Features
+
+* auto-instanciate provider in priority with connected wallet, else with others ([3b85069](https://github.com/0Lilian/tulipe/commit/3b85069135a7df553bb163015a7d98e5cd3566c2))
+
 # [1.6.0](https://github.com/0Lilian/tulipe/compare/v1.5.0...v1.6.0) (2022-09-04)
 
 
