@@ -18,13 +18,7 @@ dapp.provider.onSafe(async function () {
 
 dapp.signer.onSafe(async function () {
   currentWallet.value = await dapp.config.wallets.getCurrent();
-  console.log(currentWallet.value)
-  try {
-    availableWallets.value = dapp.config.wallets.getAvailable().filter(w => w.id !== currentWallet.value.id);
-  }
-  catch (e) {
-    availableWallets.value = dapp.config.wallets.getAvailable();
-  }
+  availableWallets.value = dapp.config.wallets.getAvailable().filter(w => w.id !== currentWallet.value.id);
 })
 
 function toggle () {
