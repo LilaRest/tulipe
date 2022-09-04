@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js environment
         run: npm ci
       - name: Build package dist files
-        run: npm run build 
+        run: npm run build
       - name: Build docs dist files
         run: npm run docs:build
       - name: Commit new distribution files
@@ -25,16 +25,15 @@ jobs:
           git config --global user.email "cicd@tuli.pe"
           git config --global user.name "CI/CD"
           git add -A
-          git commit -m "CI/CD : New dist files built under `dist/` directory" || true # Don't throw an error if there is nothing to commit
-      # - name: Push the distribution files
-      #   uses: ad-m/github-push-action@v0.6.0
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     repository: ${{ env.GITHUB_REPOSITORY }}
-      #     branch: main
+          git commit -m "CI/CD: New dist files have been built." || true # Don't throw an error if there is nothing to commit
+      - name: Push the distribution files
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ env.GITHUB_REPOSITORY }}
+          branch: main
       - name: Release new versions
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
-
