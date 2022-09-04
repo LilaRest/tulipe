@@ -53,9 +53,11 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
   async _autoInstantiate () {
     console.log(dapp.wallets)
     for (const walletId of Object.keys(dapp.wallets)) {
-      await this.connectWallet(walletId, true);
-      if (this.proxy.ethersInstance) {
-        break;
+      if (dapp.wallets[walletId].lazyConnectAvailable) {
+        await this.connectWallet(walletId, true);
+        if (this.proxy.ethersInstance) {
+          break;
+        }
       }
     }
   }
@@ -87,43 +89,46 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
     }.bind(this))
   }
 
+  async _setSignerDatas (wallet) {
+    const signer = await wallet.getSigner()
+    const address = await signer.getAddress()
+    this.address.value = address;
+    dapp.signer.proxy.ethersInstance = signer;
+    this.id = wallet.id;
+    dapp.signer.status.set("CONNECTED");
+  }
+
   async connectWallet(walletId, lazy=false) {
+    console.log("CONNECT lazy = " + lazy)
     const wallet = dapp.wallets[walletId];
 
-    try {
-      const signer = await wallet.getSigner()
-      const address = await signer.getAddress()
-      dapp.signer.proxy.ethersInstance = signer;
-      this.address.value = address;
-      this.id = walletId;
-      dapp.signer.status.set("CONNECTED");
-    }
-    catch (e) {
+    // Connect lazy.
+    if (wallet.lazyConnectAvailable) {
+      await wallet.connect(true);
 
-      // If lazy simply mark the wallet as DISCONNECTED
-      if (lazy === true) {
-        dapp.signer.status.set("DISCONNECTED")
+      if (await wallet.isConnected()) {
+        await this._setSignerDatas(wallet)
       }
 
+      else if (lazy) {
+        dapp.signer.status.set("DISCONNECTED")
+        return;
+      }
+    }
+
+    try {
+      // Request connection.
+      this.status.set("REQUESTED");
+      await wallet.connect(false)
+      await this._setSignerDatas(wallet)
+    }
+    catch (e) {
+      if (e instanceof WalletConnectionRejected) {
+        this.status.set("REFUSED");
+      }
       else {
-
-        this.status.set("REQUESTED");
-        try {
-          console.log(walletId)
-          await wallet.connect();
-          this.id = walletId;
-          this.status.set("CONNECTED");
-        }
-
-        catch (e) {
-          if (e instanceof WalletConnectionRejected) {
-            this.status.set("REFUSED");
-          }
-          else {
-            this.status.set("ERROR");
-            throw e;
-          }
-        }
+        this.status.set("ERROR");
+        throw e;
       }
     }
   }

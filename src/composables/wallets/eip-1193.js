@@ -8,8 +8,23 @@ export class Eip1193Wallet extends Wallet {
   constructor (id, exposedObject=null) {
     super(id);
     this.exposedObject = exposedObject;
-    this.provider = this.getProvider();
-    this.signer = this.getSigner();
+  }
+
+  async isConnected () {
+    if (this.exposedObject) {
+      const signer = this.getSigner();
+      if (signer) {
+        try {
+          const accounts = await this.exposedObject.request({ method: 'eth_accounts' })
+          if (accounts && accounts.length > 0) {
+            console.log(accounts)
+            return true;
+          }
+        }
+        catch (e) {}
+      }
+    }
+    return false;
   }
 
   getProvider () {
@@ -21,18 +36,27 @@ export class Eip1193Wallet extends Wallet {
   }
 
   async getSigner () {
-    if (this.provider) {
-      // const ethersProvider = this.getEthersProvider()
-      return await this.provider.getSigner();
+    if (this.exposedObject) {
+      const provider = this.getProvider();
+      if (provider) {
+        const signer = await provider.getSigner();
+        return signer
+      }
     }
     return null
   }
 
   async connect (lazy=false) {
-    if (this.provider) {
+    if (this.exposedObject) {
+
+      // If signer is already accessible or if lazy, returns
+      if (await this.isConnected() || lazy) {
+        return;
+      }
+
+      // Else, request the wallet for a signer.
       try {
         await this.exposedObject.request({ method: 'eth_requestAccounts' })
-        // this.signer = this.getSigner()
       }
       catch (e) {
         if (e.code === 4001) {
@@ -43,6 +67,7 @@ export class Eip1193Wallet extends Wallet {
         }
       }
     }
+    throw "exposedObject not available"
   }
 
 
