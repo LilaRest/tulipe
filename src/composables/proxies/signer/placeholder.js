@@ -7,7 +7,7 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
     super();
 
     // Initialize additional properties.
-    this.id = null;
+    this.walletId = null;
     this.address = ref(null);
 
     // Initialize status instance.
@@ -80,7 +80,9 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
       }
 
       // Else, perform some initializations
-      // else {}
+      else {
+        this.address.value = await this.getAddress();
+      }
 
       // Initialize the signer ARS
       this._initARS()
@@ -90,12 +92,7 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
   }
 
   async _setSignerDatas (wallet) {
-    const signer = await wallet.getSigner()
-    const address = await signer.getAddress()
-    this.address.value = address;
-    dapp.signer.proxy.ethersInstance = signer;
-    this.id = wallet.id;
-    dapp.signer.status.set("CONNECTED");
+
   }
 
   async connectWallet(walletId, lazy=false) {
@@ -107,7 +104,9 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
       await wallet.connect(true);
 
       if (await wallet.isConnected()) {
-        await this._setSignerDatas(wallet)
+        dapp.signer.proxy.ethersInstance = await wallet.getSigner();
+        this.walletId = wallet.id;
+        dapp.signer.status.set("CONNECTED");
       }
 
       else if (lazy) {
@@ -120,7 +119,9 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
       // Request connection.
       this.status.set("REQUESTED");
       await wallet.connect(false)
-      await this._setSignerDatas(wallet)
+      dapp.signer.proxy.ethersInstance = await wallet.getSigner();
+      this.walletId = wallet.id;
+      dapp.signer.status.set("CONNECTED");
     }
     catch (e) {
       if (e instanceof WalletConnectionRejected) {
