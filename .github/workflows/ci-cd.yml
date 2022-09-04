@@ -24,8 +24,9 @@ jobs:
         run: |
           git config --global user.email "cicd@tuli.pe"
           git config --global user.name "CI/CD"
-          git add -A
-          git commit -m "CI/CD: New dist files have been built." || true # Don't throw an error if there is nothing to commit
+          git add -f dist/
+          git add -f docs/.vitepress/dist/
+          git commit -m "CI/CD: New dist files have been built." || true    # Don't throw an error if there is nothing to commit
       - name: Push the distribution files
         uses: ad-m/github-push-action@v0.6.0
         with:
@@ -34,6 +35,6 @@ jobs:
           branch: main
       - name: Release new versions
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}   # Here PERSONAL_GITHUB_TOKEN is used else new release will not trigger 'published' release event for other workflows
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx semantic-release
