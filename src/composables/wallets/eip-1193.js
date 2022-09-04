@@ -17,7 +17,6 @@ export class Eip1193Wallet extends Wallet {
         try {
           const accounts = await this.exposedObject.request({ method: 'eth_accounts' })
           if (accounts && accounts.length > 0) {
-            console.log(accounts)
             return true;
           }
         }
