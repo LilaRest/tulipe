@@ -51,6 +51,7 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
   }
 
   async _autoInstantiate () {
+    console.log(dapp.wallets)
     for (const walletId of Object.keys(dapp.wallets)) {
       await this.connectWallet(walletId, true);
       if (this.proxy.ethersInstance) {
