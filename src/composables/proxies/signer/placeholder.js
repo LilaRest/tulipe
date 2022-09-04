@@ -28,30 +28,26 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
     this.OnSafe = OnSignerSafe;
   }
 
-  _initARS () {
-    // 1) Purge old ethersInstance ARS
-    this._purgeARS()
+  _initEthersInstanceARS () {
+  }
 
-    // 2) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
-    this._ars.unwatchers.push(
-      dapp.provider.status.watchAny((status) => {
-        if (status === "WRONG_NETWORK") {
-          this.status.set("WRONG_NETWORK");
-        }
-        else if (["DISCONNECTED", "ERROR"].includes(status)) {
-          this.status.set("NO_PROVIDER");
-        }
-      })
-    )
+  _initPlaceholderInstanceARS () {
+    // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
+    dapp.provider.status.watchAny((status) => {
+      if (status === "WRONG_NETWORK") {
+        this.status.set("WRONG_NETWORK");
+      }
+      else if (["DISCONNECTED", "ERROR"].includes(status)) {
+        this.status.set("NO_PROVIDER");
+      }
+    })
 
-    // 3) Fallback to DISCONNECTED after few seconds of REFUSED or ERROR status
-    this._ars.unwatchers.push(
-      this.status.watch(["REFUSED", "ERROR"], () => {
-        setTimeout(() => {
-          this.status.set("DISCONNECTED");
-        }, 5000);
-      })
-    )
+    // 2) Fallback to DISCONNECTED after few seconds of REFUSED or ERROR status
+    this.status.watch(["REFUSED", "ERROR"], () => {
+      setTimeout(() => {
+        this.status.set("DISCONNECTED");
+      }, 5000);
+    })
   }
 
   async _autoInstantiate () {
@@ -81,11 +77,11 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
       }
 
       // Else, perform some initializations
-      else {
+      // else {}
 
-        // Initialize the signer ARS
-        this._initARS()
-      }
+      // Initialize the signer ARS
+      this._initARS()
+
       this.proxy._initIsRunning = false;
     }.bind(this))
   }
@@ -93,41 +89,38 @@ export class TulipeSignerPlaceholder extends TulipePlaceholder {
   async connectWallet(walletId, lazy=false) {
     const wallet = dapp.wallets[walletId];
 
-    if (dapp.signer.status.is("DISCONNECTED")) {
+    try {
+      const signer = await wallet.getSigner()
+      const address = await signer.getAddress()
+      dapp.signer.proxy.ethersInstance = signer;
+      this.address.value = address;
+      this.id = walletId;
+      dapp.signer.status.set("CONNECTED");
+    }
+    catch (e) {
 
-      try {
-        const signer = await wallet.getSigner()
-        const address = await signer.getAddress()
-        dapp.signer.proxy.ethersInstance = signer;
-        this.address.value = address;
-        this.id = walletId;
-        dapp.signer.status.set("CONNECTED");
+      // If lazy simply mark the wallet as DISCONNECTED
+      if (lazy === true) {
+        dapp.signer.status.set("DISCONNECTED")
       }
-      catch (e) {
 
-        // If lazy simply mark the wallet as DISCONNECTED
-        if (lazy === true) {
-          dapp.signer.status.set("DISCONNECTED")
+      else {
+
+        this.status.set("REQUESTED");
+        try {
+          console.log(walletId)
+          await wallet.connect();
+          this.id = walletId;
+          this.status.set("CONNECTED");
         }
 
-        else {
-
-          this.status.set("REQUESTED");
-          try {
-            console.log(walletId)
-            await wallet.connect();
-            this.id = walletId;
-            this.status.set("CONNECTED");
+        catch (e) {
+          if (e instanceof WalletConnectionRejected) {
+            this.status.set("REFUSED");
           }
-
-          catch (e) {
-            if (e instanceof WalletConnectionRejected) {
-              this.status.set("REFUSED");
-            }
-            else {
-              this.status.set("ERROR");
-              throw e;
-            }
+          else {
+            this.status.set("ERROR");
+            throw e;
           }
         }
       }
