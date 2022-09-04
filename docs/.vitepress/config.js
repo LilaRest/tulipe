@@ -2,6 +2,7 @@ export default {
   lang: "en-US",
   title: "Tulipe",
   description: "A DApp frontend framework for Vue 3 built with Ethersjs",
+  ignoreDeadLinks: true,
   markdown: {
     lineNumbers: true,
     theme: "github-dark"
