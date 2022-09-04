@@ -29,7 +29,6 @@ dapp.contracts.Lock.onReadSafe(function (cpt) {
                     <ConnectWalletButton/>
                     <SelectWalletDropdown/>
                     <SelectNetworkDropdown/>
-                    <button @click="toggleOtherComponentDisplay">Toggle OtherComponent</button>
 
                     <p>Special number = {{ specialNumber ? specialNumber : "Loading..." }}</p>
                     <p>Available contracts :</p>

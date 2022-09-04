@@ -5,15 +5,11 @@ export class BinanceChainWallet extends MetamaskWallet {
   constructor () {
     super();
     this.id = "binanceChain";
-  }
-
-  getProvider () {
-    return window.BinanceChain
-  }
-
-  async connect () {
-    super.connect.call(this)
+    this.provider = window.BinanceChain
   }
 
   // async connect () inherited from MetamaskWallet
+  async connect () {
+    super.connect.call(this)
+  }
 }

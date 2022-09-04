@@ -1,9 +1,12 @@
 import { Status, dapp, rSet, rGet } from "../../../index.js";
-import { ref } from "vue";
 import { TulipePlaceholder } from "../placeholder.js";
+import { ref } from "vue";
 
 export class TulipeTransactionPlaceholder extends TulipePlaceholder {
+
     constructor (contractName, methodName, args=[], txArgs={value: 0}) {
+      super();
+
       // Initialize additional properties.
       this.contractName = contractName;
       this.methodName = methodName;
@@ -34,15 +37,19 @@ export class TulipeTransactionPlaceholder extends TulipePlaceholder {
     }
 
     _asyncInit () {
-        if (dapp.contracts[this.contractName].isReadSafe.value) {
-            this._initEthersInstance();
-        }
-        dapp.contracts[this.contractName].onReadSafe(() => {
-            this._initEthersInstance();
-        })
+      this.proxy._initIsRunning = true;
 
-        // Init transaction ARS
-        this.initARS()
+      if (dapp.contracts[this.contractName].isReadSafe.value) {
+          this._initEthersInstance();
+      }
+      dapp.contracts[this.contractName].onReadSafe(() => {
+          this._initEthersInstance();
+      })
+
+      // Init transaction ARS
+      this.initARS()
+
+      this.proxy._initIsRunning = false;
     }
 
     _initEthersInstance () {

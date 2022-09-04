@@ -1,4 +1,4 @@
-import { TulipeContractProxy, Status, dapp } from "../../index.js"
+import { TulipeContractProxy, Status, dapp } from "../../../index.js"
 import { computed, watch, getCurrentInstance } from "vue";
 
 export class ContractsList {

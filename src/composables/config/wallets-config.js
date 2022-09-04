@@ -34,10 +34,10 @@ export class WalletsConfig {
     }
   }
 
-  async getCurrent () {
+  getCurrent () {
+    console.log("GET CURRENT, id = " + dapp.signer.id)
     if (dapp.signer.proxy.ethersInstance) {
-      const walletId = dapp.provider.connection.url 
-      return this.getById(walletId)
+      return this.getById(dapp.signer.id)
     }
     return null;
   }

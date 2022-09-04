@@ -2,7 +2,7 @@
 import { dapp } from "../../index.js";
 import { ref } from "vue";
 
-let currentWallet = ref({})
+let currentWallet = ref(null)
 let availableWallets = ref([])
 let isDropdownOpened = ref(false);
 
@@ -31,7 +31,7 @@ function toggle () {
         <li v-else>
           <p>Select a wallet</p>
         </li>
-        <li v-if="isDropdownOpened" v-for="wallet in availableWallets" :key="wallet.id" @click="dapp.signer.connectWallet(dapp.wallets[wallet.id])">
+        <li v-if="isDropdownOpened" v-for="wallet in availableWallets" :key="wallet.id" @click="dapp.signer.connectWallet(wallet.id)">
           <img width="40" :src="wallet.icon ? wallet.icon : dapp.config.defaults.wallets.icon" :alt="wallet.displayName + ' logo'"/>
           <p>{{ wallet.displayName }}</p>
         </li>

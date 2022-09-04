@@ -8,11 +8,7 @@ export class MetamaskWallet extends Wallet {
   constructor () {
     super();
     this.id = "metamask";
-    this.provider = this.getProvider();
-  }
-
-  getProvider () {
-   return window.ethereum
+    this.provider = window.ethereum;
   }
 
   async connect () {

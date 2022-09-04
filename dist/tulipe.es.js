@@ -397,7 +397,7 @@ const q = (r, t) => {
           l(a).signer.status.is("DISCONNECTED") ? (c(), u("button", {
             key: 0,
             onClick: n[0] || (n[0] = (i) => l(a).signer.connectWallet(l(a).wallets.metamask))
-          }, "Connect Wallet")) : l(a).signer.status.is("REQUESTED") ? (c(), u("button", Wt, "Connection requested...")) : l(a).signer.status.is("REFUSED") ? (c(), u("button", jt, "Connection refused!")) : l(a).signer.status.is("ERROR") ? (c(), u("button", Tt, "Connection error!")) : l(a).provider.status.is("WRONG") ? (c(), u("button", At, "Wrong network! (" + p(l(e) ? l(e).value.displayName : "unknown") + ")", 1)) : l(a).signer.status.is("CONNECTED") ? (c(), u("button", {
+          }, "Connect Wallet")) : l(a).signer.status.is("REQUESTED") ? (c(), u("button", Wt, "Connection requested...")) : l(a).signer.status.is("REFUSED") ? (c(), u("button", jt, "Connection refused!")) : l(a).signer.status.is("ERROR") ? (c(), u("button", Tt, "Connection error!")) : l(a).provider.status.is("WRONG_NETWORK") ? (c(), u("button", At, "Wrong network! (" + p(l(e) ? l(e).value.displayName : "unknown") + ")", 1)) : l(a).signer.status.is("CONNECTED") ? (c(), u("button", {
             key: 5,
             onClick: n[1] || (n[1] = (...i) => l(a).signer.disconnectWallet && l(a).signer.disconnectWallet(...i))
           }, "Disconnect")) : O("", !0)
@@ -1472,7 +1472,7 @@ class fe extends A {
     const e = new pe();
     super(t, e), this.status = new P("provider", [
       "DISCONNECTED",
-      "WRONG",
+      "WRONG_NETWORK",
       "ERROR",
       "CONNECTED"
     ]), this.isSafe = C(() => a.isSafe.value && !this.status.isIn(["DISCONNECTED", "ERROR"])), this.OnSafe = Ht, this._asyncInit();
@@ -1503,7 +1503,7 @@ class fe extends A {
       let e = await a.config.networks.getAvailable().find((s) => s.id === t.id);
       if (e)
         this.status.set("CONNECTED");
-      else if (this.status.set("WRONG"), e = a.config.networks.getAll().find((s) => s.id === t.id), !e) {
+      else if (this.status.set("WRONG_NETWORK"), e = a.config.networks.getAll().find((s) => s.id === t.id), !e) {
         const s = {
           name: t.name,
           displayName: nt(t.name),
@@ -1540,10 +1540,10 @@ class _e extends A {
       "REFUSED",
       "ERROR",
       "NO_PROVIDER",
-      "WRONG_PROVIDER",
+      "WRONG_NETWORK",
       "CONNECTED"
     ]), a.provider.status.watchAny((s) => {
-      s === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(s) && this.status.set("NO_PROVIDER");
+      s === "WRONG_NETWORK" ? this.status.set("WRONG_NETWORK") : ["DISCONNECTED", "ERROR"].includes(s) && this.status.set("NO_PROVIDER");
     }), this.status.watch(["REFUSED", "ERROR"], () => {
       setTimeout(() => {
         this.status.set("DISCONNECTED");
@@ -1696,11 +1696,11 @@ class L extends A {
     const s = new Ee();
     super(e, s), this.name = t, this.status = new P(`contract:${t}`, [
       "NO_PROVIDER",
-      "WRONG_PROVIDER",
+      "WRONG_NETWORK",
       "ERROR",
       "INITIALIZED"
     ]), a.provider.status.watchAny((n) => {
-      n === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(n) && this.status.set("NO_PROVIDER");
+      n === "WRONG_NETWORK" ? this.status.set("WRONG_NETWORK") : ["DISCONNECTED", "ERROR"].includes(n) && this.status.set("NO_PROVIDER");
     }), this.isReadSafe = C(() => a.provider.isSafe.value && this.status.is("INITIALIZED")), this.isWriteSafe = C(() => a.signer.isSafe.value && this.status.is("INITIALIZED")), this.OnReadSafe = I(Yt, { contract: this.name }), this.OnWriteSafe = I(Kt, { contract: this.name }), this._asyncInit();
   }
   _watchSignerChanges(t, e) {
@@ -1725,7 +1725,7 @@ class L extends A {
           const s = e.contracts[t.name];
           t._updateContract(s.address, s.abi), t._watchSignerChanges(s.address, s.abi), t.status.set("INITIALIZED");
         } else
-          t.status.set("WRONG_PROVIDER");
+          t.status.set("WRONG_NETWORK");
       } catch (e) {
         throw t.status.set("ERROR"), e;
       }
@@ -1756,11 +1756,11 @@ class ge {
   constructor() {
     this.status = new P("contracts", [
       "NO_PROVIDER",
-      "WRONG_PROVIDER",
+      "WRONG_NETWORK",
       "ERROR",
       "INITIALIZED"
     ]), a.provider.status.watchAny((t) => {
-      t === "WRONG" ? this.status.set("WRONG_PROVIDER") : ["DISCONNECTED", "ERROR"].includes(t) && this.status.set("NO_PROVIDER");
+      t === "WRONG_NETWORK" ? this.status.set("WRONG_NETWORK") : ["DISCONNECTED", "ERROR"].includes(t) && this.status.set("NO_PROVIDER");
     });
     for (const t of a.config.networks.getAll())
       if (t.contracts)

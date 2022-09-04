@@ -1,5 +1,6 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
-import { Status, TulipeProviderProxy, TulipeSignerProxy, ContractsList, ChainWatchersList, TulipeConfig, WalletsList, OnDappSafe } from "../../index.js"
+import { Status, TulipeProviderProxy, TulipeSignerProxy, TulipeConfig, OnDappSafe } from "../../index.js"
+import { ChainWatchersList, WalletsList, ContractsList } from "./lists/index.js";
 import { computed, watch, getCurrentInstance } from "vue";
 
 class Dapp {

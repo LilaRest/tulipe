@@ -1,17 +1,19 @@
 import { dapp, Status, capitalizeWords, OnProviderSafe } from "../../../index.js";
-import { computed, watch, getCurrentInstance } from "vue";
-import { ethers } from "ethers";
 import { TulipePlaceholder } from "../placeholder.js";
+import { computed } from "vue";
+import { ethers } from "ethers";
 
 
 export class TulipeProviderPlaceholder extends TulipePlaceholder {
 
   constructor () {
+    super();
+
     // Initialize status instance.
     this.status = new Status("provider", [
       "DISCONNECTED",  // Default status. Doesn't change if the dapp cannot connect to any provider.
-      "WRONG",         // Set when DApp connected to a provider not contained in the available networks.
       "ERROR",         // Set when an error occurs during provider connection.
+      "WRONG_NETWORK", // Set when DApp connected to a provider not contained in the available networks.
       "CONNECTED",     // Set when DApp connected to a provider contained in the available networks.
     ])
 
@@ -51,17 +53,21 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
   }
 
   _initARS () {
-    // 1) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
+    // 1) Purge old ethersInstance ARS
+    // UNNECESSARY : Since the whole frontend is reloaded when the providerInstance
+    // changes (see below), we don't have to purge the old ethersInstance ARS
+
+    // 2) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
     this.on("network", (newNetwork, oldNetwork) => {
       if (oldNetwork && oldNetwork !== newNetwork) {
         window.location.reload();
       }
     });
 
-    // 2) Set status to ERROR on provider error.
-    this.on("error", () => {
-      this.status.set("ERROR");
-    })
+    // 3) Set status to ERROR on provider error.
+    // this.on("error", () => {
+    //   this.status.set("ERROR");
+    // })
   }
 
   async _checkNetwork () {
@@ -79,7 +85,7 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
 
     // If network not in available networks (wrong provider).
     else {
-      this.status.set("WRONG")
+      this.status.set("WRONG_NETWORK")
       networkConfig = dapp.config.networks.getAll().find(n => n.id === networkInfos.id);
 
       // If the network in unknown retrieve some informations about it.
@@ -95,7 +101,21 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
     }
   }
 
+  async _setNetworkSettings () {
+    const networkInfos = await this.getNetwork();
+    let networkConfig = await dapp.config.networks.getById(networkInfos.chainId);
+
+    if (networkConfig) {
+      // Set the polling interval of the provider instance.
+      if (networkConfig && networkConfig.pollingInterval) {
+        this.pollingInterval = networkConfig.pollingInterval;
+      }
+    }
+  }
+
   async _asyncInit() {
+    this.proxy._initIsRunning = true;
+
     // If ethersInstance is not given during instantiation, try to automatically
     // create an ethersInstance from informations given by wallets and DApp configs
     if (!this.proxy.ethersInstance) {
@@ -114,14 +134,14 @@ export class TulipeProviderPlaceholder extends TulipePlaceholder {
       // networks or not.
       await this._checkNetwork()
 
-      // Set the polling interval of the provider instance.
-      if (networkConfig && networkConfig.pollingInterval) {
-        this.pollingInterval = networkConfig.pollingInterval;
-      }
+      // Set networks settings
+      await this._setNetworkSettings()
 
       // Initialize the provider ARS
       this._initARS()
     }
+
+    this.proxy._initIsRunning = false;
   }
 
   async changeNetwork(id) {
