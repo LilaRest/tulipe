@@ -8,6 +8,7 @@ class Dapp {
   }
 
   init (tulipeCustomConfig=null) {
+    this.ethers = tulipeEthers;
     // Will host the content of the DApp config (custom + default tulipe.config.js files)
     this.config = new TulipeConfig(tulipeCustomConfig)
 
@@ -27,8 +28,6 @@ class Dapp {
     this.sig = this.signer;
     this.contracts = new ContractsList()
     this.con = this.contracts;
-    this.ethers = tulipeEthers;
-    console.log(this.ethers)
   }
 
   onSafe (func) {

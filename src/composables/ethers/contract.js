@@ -14,7 +14,7 @@ for (const [contractClassName, contractClass] of Object.entries(contractClasses)
 
       // Determine proxy class
       let proxyClass = TulipeContractProxy;
-      if (args[args.length - 1].prototype instanceof TulipeContractProxy) { // Last argument can be a proxy class
+      if (args.length > 0 && args[args.length - 1] && args[args.length - 1].prototype instanceof TulipeContractProxy) { // Last argument can be a proxy class
         proxyClass = args.pop();
       }
 
@@ -23,6 +23,7 @@ for (const [contractClassName, contractClass] of Object.entries(contractClasses)
 
       // Build and return proxy.
       const proxy = new proxyClass(this)
+      console.log(proxy)
       return proxy
     }
   }
