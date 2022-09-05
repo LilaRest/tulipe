@@ -26,7 +26,7 @@ for (const [providerClassName, providerClass] of Object.entries(providerClasses)
 
       // Determine proxy class
       let proxyClass = TulipeProviderProxy;
-      if (args[args.length - 1].prototype instanceof TulipeProviderProxy) { // Last argument can be a proxy class
+      if (args.length > 0 && args[args.length - 1] && args[args.length - 1].prototype instanceof TulipeProviderProxy) { // Last argument can be a proxy class
         proxyClass = args.pop();
       }
 

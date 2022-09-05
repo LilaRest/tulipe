@@ -15,7 +15,7 @@ for (const [signerClassName, signerClass] of Object.entries(signerClasses)) {
 
       // Determine proxy class
       let proxyClass = TulipeSignerProxy;
-      if (args[args.length - 1].prototype instanceof TulipeSignerProxy) { // Last argument can be a proxy class
+      if (args.length > 0 && args[args.length - 1] && args[args.length - 1].prototype instanceof TulipeSignerProxy) { // Last argument can be a proxy class
         proxyClass = args.pop();
       }
 

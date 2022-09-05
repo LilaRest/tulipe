@@ -5,11 +5,11 @@ import { TulipeContractPlaceholder } from "./placeholder.js";
 
 export class TulipeContractProxy extends TulipeProxy {
 
-  constructor (name, ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
+  constructor (ethersInstance=null, extensionInstance=null, placeholderInstance=null) {
     super(
       ethersInstance,
       extensionInstance ? extensionInstance : new TulipeContractExtension(),
-      placeholderInstance ? placeholderInstance : new TulipeContractPlaceholder(name)
+      placeholderInstance ? placeholderInstance : new TulipeContractPlaceholder()
     );
 
     this._asyncInit();
