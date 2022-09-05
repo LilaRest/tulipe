@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/LilaRest/tulipe/compare/v1.7.1...v1.8.0) (2022-09-04)
+
+
+### Bug Fixes
+
+* fix export typo in composables/ethers/index.js ([a1e4e70](https://github.com/LilaRest/tulipe/commit/a1e4e70d54e47037c15e177257abcc1d51755dc4))
+
+
+### Features
+
+* add Tulipe wrapper for all Ethers.js provider classes ([2700573](https://github.com/LilaRest/tulipe/commit/2700573e7bfd4654d03161d4bd47f2928a941ba1))
+* split TulipeContractPlaceholder's ARS in two methods like for signer ([7091cf3](https://github.com/LilaRest/tulipe/commit/7091cf38a8f65c3990237bc41430706f1cdf7d0a))
+
 ## [1.7.1](https://github.com/LilaRest/tulipe/compare/v1.7.0...v1.7.1) (2022-09-04)
 
 
