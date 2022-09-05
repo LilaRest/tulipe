@@ -1,3 +1,18 @@
+# [1.9.0](https://github.com/LilaRest/tulipe/compare/v1.8.0...v1.9.0) (2022-09-05)
+
+
+### Bug Fixes
+
+* fix TulipeContractProxy class that was not setting status to INITIALIZED on successful init ([52dca17](https://github.com/LilaRest/tulipe/commit/52dca177c2ad5e69732cdb0320acdf7ec8b50f46))
+
+
+### Features
+
+* add Tulipe wrapper for all Ethers.js contract classes ([d60bf57](https://github.com/LilaRest/tulipe/commit/d60bf573c99731e59e430f346fd67264cd45ba33))
+* add Tulipe wrapper for all Ethers.js signer classes ([76d85f9](https://github.com/LilaRest/tulipe/commit/76d85f97500542de8904e4748418b917c6fbedf9))
+* expose a Tulipe wrapped version of Ethers.js at dapp.ethers ([457723c](https://github.com/LilaRest/tulipe/commit/457723cc314ada330a8d7f0e88c3a5d70d35a8f2))
+* tiny improvements about wrappers and contract proxy ([254cfc0](https://github.com/LilaRest/tulipe/commit/254cfc0421312e69c34560cb8b8b0fe581e190a1))
+
 # [1.8.0](https://github.com/LilaRest/tulipe/compare/v1.7.1...v1.8.0) (2022-09-04)
 
 
