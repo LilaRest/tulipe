@@ -104,10 +104,10 @@ export class TulipeContractPlaceholder extends TulipePlaceholder {
         this.status.set("NO_PROVIDER");
       }
     })
-
   }
 
   async _asyncInit () {
+    console.log("INIT CONTRACT")
     this.proxy._initIsRunning = true;
 
     // Delay init until provider is safe
@@ -121,6 +121,7 @@ export class TulipeContractPlaceholder extends TulipePlaceholder {
       // Else, perform some initializations
       else {
         this.name = "TODO"
+        this.status.set("INITIALIZED");
       }
 
       // Initialize the signer ARS
