@@ -1,3 +1,12 @@
+# [1.11.0](https://github.com/LilaRest/tulipe/compare/v1.10.0...v1.11.0) (2022-09-07)
+
+
+### Features
+
+* a change watcher system to proxies ([879f850](https://github.com/LilaRest/tulipe/commit/879f85041d14c60c28bc215d18151544ee399c04))
+* adapt contract related classes to new ARS and proxies design ([c96a7de](https://github.com/LilaRest/tulipe/commit/c96a7de3ee4390c1179c4cd8a3dd0e4aa80e2c32))
+* re-enable in the new ARS classes auto-purging and auto-init on ethersInstance change ([2e2abb8](https://github.com/LilaRest/tulipe/commit/2e2abb8c65c03f43de9b58c4603e0eaa4e3c0214))
+
 # [1.10.0](https://github.com/LilaRest/tulipe/compare/v1.9.0...v1.10.0) (2022-09-07)
 
 
