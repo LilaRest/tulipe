@@ -1,49 +1,43 @@
 // Here import use full path because this file is called before src/index.js has been fully run.
-import { Status, TulipeProviderProxy, TulipeSignerProxy, TulipeConfig, OnDappSafe, tulipeEthers } from "../../index.js"
+import { TulipeProviderProxy, TulipeSignerProxy, TulipeConfig, ARS } from "../../index.js";
 import { ChainWatchersList, WalletsList, ContractsList } from "./lists/index.js";
-import { computed, watch, getCurrentInstance } from "vue";
+import { watch, getCurrentInstance } from "vue";
 
 class Dapp {
   constructor () {
   }
 
   init (tulipeCustomConfig=null) {
-    this.ethers = tulipeEthers;
+
     // Will host the content of the DApp config (custom + default tulipe.config.js files)
     this.config = new TulipeConfig(tulipeCustomConfig)
 
-    // An object that holds all the created Status instances from addStatus().
-    this.status = new Status("dapp", [
-      "UNSAFE",
-      "ERROR",
-      "INITIALIZED",
-    ]);
-    this.isSafe = computed(() => this.status.is("INITIALIZED"))
-    this.OnSafe = OnDappSafe;
+    // Start ARS
+    this._ars = new ARS();
+
+    // Aliases of status and safers exposed by ARS
+    this.status = this._ars.dapp.status;
+    this.isSafe = this._ars.dapp.isSafe;
+    this.OnSafe = this._ars.dapp.OnSafe;
+    this.onSafe = this._ars.dapp.onSafe;
+
+    // Lists
     this.chainWatchers = new ChainWatchersList()
     this.wallets = new WalletsList();
-    this.provider = new TulipeProviderProxy()
-    this.pro = this.provider;
-    this.signer = new TulipeSignerProxy()
-    this.sig = this.signer;
     this.contracts = new ContractsList()
-    this.con = this.contracts;
-  }
 
-  onSafe (func) {
-    // Note : Component is passed to the executed function in orders to allows it to use lifecycle hook on this one. Because by default any asynchronous call in a component makes it loss the component instance's context which makes impossible to use lifecycle hooks or any actions related to the component. If a lifecycle hook is called without an attached component, a warning will be raised ("xxx is called when there is no active component instance to be associated with") and will just no work.
-    const component = getCurrentInstance();
-    if (this.isSafe.value) {
-      func(component)
-    }
-    else {
-      const unwatch = watch(this.isSafe, () => {
-        if (this.isSafe.value) {
-          func(component)
-          unwatch()
-        }
-      })
-    }
+    // Initialize provider handler
+    this.provider = new TulipeProviderProxy()
+    this._ars.provider.init()
+
+    // Initialize signer handler
+    this.signer = new TulipeSignerProxy()
+    this._ars.signer.init()
+
+    // Aliases to makes life easier
+    this.pro = this.provider;
+    this.sig = this.signer;
+    this.con = this.contracts;
   }
 }
 

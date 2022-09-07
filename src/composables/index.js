@@ -5,3 +5,4 @@ export * from "./proxies/index.js";
 export * from "./ethers/index.js";
 export * from "./chain-watchers/index.js";
 export * from "./wallets/index.js";
+export * from "./ars/index.js";
