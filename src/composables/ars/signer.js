@@ -1,9 +1,12 @@
 import { dapp, Status, OnSignerSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
+import { BaseARS } from "./base.js";
 
-export class SignerARS {
+export class SignerARS extends BaseARS {
 
   constructor () {
+    super();
+
     this.status = new Status("signer", [
       "NO_PROVIDER",          // Default, unchanged if dapp.provider is not safe.
       "DISCONNECTED",         // Default status. Not changed if the DApp is not connected to any wallet when loading.
@@ -22,6 +25,9 @@ export class SignerARS {
   }
 
   init() {
+    // Fill the oldEthersInstance instance used by ARS for purging
+    this._ars.oldEthersInstance = {...dapp.signer.proxy.ethersInstance}
+
     // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG_NETWORK") {

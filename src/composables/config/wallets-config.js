@@ -35,8 +35,6 @@ export class WalletsConfig {
   }
 
   getCurrent () {
-    console.log("getCurrent")
-    console.log(dapp.signer.walletId)
     if (dapp.signer.proxy.ethersInstance) {
       return this.getById(dapp.signer.walletId)
     }
