@@ -6,7 +6,7 @@ export class BaseARS {
     this._ars = {
       oldEthersInstance: null,
       events: {},
-      watchers: {},
+      watchers: [],
     }
   }
 
@@ -51,6 +51,8 @@ export class BaseARS {
 
     // 2) Init ethersInstance ARS, if there is an ethersInstance
     if (proxyInstance.proxy.ethersInstance) {
+      console.log("instance ARS")
+      console.log(proxyInstance);
       this._initEthersInstanceARS()
     }
 

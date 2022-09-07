@@ -24,7 +24,6 @@ class Dapp {
     // Lists
     this.chainWatchers = new ChainWatchersList()
     this.wallets = new WalletsList();
-    this.contracts = new ContractsList()
 
     // Initialize provider handler
     this.provider = new TulipeProviderProxy()
@@ -37,6 +36,10 @@ class Dapp {
 
     // Start signer ARS
     this._ars.signer.start()
+    
+    // Initialize contracts handlers
+    this.contracts = new ContractsList()
+    this.contracts.init()
 
     // Aliases to makes life easier
     this.pro = this.provider;

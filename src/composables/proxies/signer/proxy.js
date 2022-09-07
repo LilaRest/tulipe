@@ -24,33 +24,10 @@ export class TulipeSignerProxy extends TulipeProxy {
     this.OnSafe = dapp._ars.signer.OnSafe;
     this.onSafe = dapp._ars.signer.onSafe;
 
-    this._asyncInit();
-  }
-
-  _initEthersInstanceARS () {
-  }
-
-  _initPlaceholderInstanceARS () {
-    // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
-    dapp.provider.status.watchAny((status) => {
-      if (status === "WRONG_NETWORK") {
-        this.status.set("WRONG_NETWORK");
-      }
-      else if (["DISCONNECTED", "ERROR"].includes(status)) {
-        this.status.set("NO_PROVIDER");
-      }
-    })
-
-    // 2) Fallback to DISCONNECTED after few seconds of REFUSED or ERROR status
-    this.status.watch(["REFUSED", "ERROR"], () => {
-      setTimeout(() => {
-        this.status.set("DISCONNECTED");
-      }, 5000);
-    })
+    // this._asyncInit();
   }
 
   async _autoInstantiate () {
-    console.log(dapp.wallets)
     for (const walletId of Object.keys(dapp.wallets)) {
       if (dapp.wallets[walletId].lazyConnectAvailable) {
         await this.connectWallet(walletId, true);

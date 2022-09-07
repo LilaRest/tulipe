@@ -9,12 +9,12 @@ import { computed, ref } from "vue";
 
 let specialNumber = ref(null);
 
-// dapp.contracts.Lock.onReadSafe(function (cpt) {
-//     dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
-//         specialNumber.value = newValue;
-//         console.log(`specialNumber has changed. Old = ${oldValue}; New = ${newValue};`)
-//     }, cpt)
-// })
+dapp.contracts.Lock.onReadSafe(function (cpt) {
+    dapp.contracts.Lock.watch("specialNumber", [], (newValue, oldValue) => {
+        specialNumber.value = newValue;
+        console.log(`specialNumber has changed. Old = ${oldValue}; New = ${newValue};`)
+    }, cpt)
+})
 
 </script>
 
@@ -32,14 +32,14 @@ let specialNumber = ref(null);
 
                     <p>Special number = {{ specialNumber ? specialNumber : "Loading..." }}</p>
                     <p>Available contracts :</p>
-                    <!-- <ul>
+                    <ul>
                         <li v-for="(contract, contractName) of dapp.contracts.getAll()">
                           <OnContractReadSafe :contract="contractName">
                             {{ contractName }}
                             <ContractInteractor :contract="contractName"/>
                           </OnContractReadSafe>
                         </li>
-                    </ul> -->
+                    </ul>
 
                 </template>
 

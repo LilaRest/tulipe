@@ -1,6 +1,7 @@
 import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance, createVNode } from "vue";
 import { BaseARS } from "./base.js";
+import { ethers } from "ethers";
 
 export class ContractARS extends BaseARS {
 
@@ -57,24 +58,37 @@ export class ContractARS extends BaseARS {
     }
   }
 
-  _initEthersInstanceARS () {
+  _updateContract (address, abi) {
+    if (dapp.signer.isSafe.value) {
+      dapp.contracts[this.name].proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
+    }
+    else if (dapp.provider.isSafe.value) {
+      dapp.contracts[this.name].proxy.ethersInstance = new ethers.Contract(address, abi, dapp.provider.proxy.ethersInstance)
+    }
+    else {
+      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`
+    }
+  }
 
+  _initEthersInstanceARS () {
+    this._ars.watchers.push(
+      watch(dapp.signer.isSafe, (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
+          // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
+          const abi = dapp.contracts[this.name].proxy.ethersInstance.interface
+          const address = dapp.contracts[this.name].proxy.ethersInstance.address
+          // dapp.contracts[this.name].proxy.ethersInstance = null;
+          this._updateContract(address, abi);
+        }
+      })
+    )
   }
 
   _initPlaceholderInstanceARS () {
-    watch(dapp.signer.isSafe, (newValue, oldValue) => {
-      if (newValue !== oldValue) {
-        // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
-        // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
-        const abi = dapp.contracts[this.name].proxy.ethersInstance.interface
-        const address = dapp.contracts[this.name].proxy.ethersInstance.address
-        dapp.contracts[this.name].proxy.ethersInstance = null;
-        dapp.contracts[this.name]._updateContract(address, abi);
-      }
-    })
-
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG_NETWORK") {
+        console.log("UNAVVS")
         this.status.set("UNAVAILABLE");
       }
       else if (["DISCONNECTED", "ERROR"].includes(status)) {
@@ -84,6 +98,6 @@ export class ContractARS extends BaseARS {
   }
 
   start () {
-    super.start(dapp.contracts[name]);
+    super.start(dapp.contracts[this.name]);
   }
 }
