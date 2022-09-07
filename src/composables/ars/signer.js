@@ -24,10 +24,11 @@ export class SignerARS extends BaseARS {
     this.OnSafe = OnSignerSafe;
   }
 
-  init() {
-    // Fill the oldEthersInstance instance used by ARS for purging
-    this._ars.oldEthersInstance = {...dapp.signer.proxy.ethersInstance}
+  _initEthersInstanceARS () {
 
+  }
+
+  _initPlaceholderInstanceARS () {
     // 1) Auto-update status when provider status is WRONG, DISCONNECTED or in ERROR
     dapp.provider.status.watchAny((status) => {
       if (status === "WRONG_NETWORK") {
@@ -44,6 +45,10 @@ export class SignerARS extends BaseARS {
         this.status.set("DISCONNECTED");
       }, 5000);
     })
+  }
+
+  start () {
+    super.start(dapp.signer);
   }
 
   onSafe (func) {

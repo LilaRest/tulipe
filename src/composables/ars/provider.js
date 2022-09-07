@@ -1,10 +1,11 @@
 import { dapp, Status, OnProviderSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance } from "vue";
+import { BaseARS } from "./base.js";
 
-
-export class ProviderARS {
+export class ProviderARS extends BaseARS {
 
   constructor () {
+    super();
     this.status = new Status("provider", [
       "DISCONNECTED",  // Default status. Doesn't change if the dapp cannot connect to any provider.
       "ERROR",         // Set when an error occurs during provider connection.
@@ -19,26 +20,25 @@ export class ProviderARS {
     this.OnSafe = OnProviderSafe;
   }
 
-  init() {
-    // dapp.provider.on("network", (newNetwork, oldNetwork) => {
-    //   if (oldNetwork && oldNetwork !== newNetwork) {
-    //     window.location.reload();
-    //   }
-    // });
+  _initEthersInstanceARS () {
+    // 1) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
+    dapp.provider.on("network", (newNetwork, oldNetwork) => {
+      if (oldNetwork && oldNetwork !== newNetwork) {
+        window.location.reload();
+      }
+    });
 
-    // dapp.provider.onProviderChange(() => {
-    //
-    // })
-    // 1) Purge old ethersInstance ARS
-    // UNNECESSARY : Since the whole frontend is reloaded when the providerInstance
-    // changes (see below), we don't have to purge the old ethersInstance ARS
+    // 2) Set status to ERROR on provider error.
+    dapp.provider.on("error", () => {
+      this.status.set("ERROR");
+    })
+  }
 
-    // 2) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
+  _initPlaceholderInstanceARS () {
+  }
 
-    // 3) Set status to ERROR on provider error.
-    // this.on("error", () => {
-    //   this.status.set("ERROR");
-    // })
+  start () {
+    super.start(dapp.provider);
   }
 
   onSafe (func) {

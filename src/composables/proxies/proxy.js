@@ -77,7 +77,7 @@ export class TulipeProxy {
 
     this.proxy = {
       _changeWatchers: [],
-      onChange: (callback) => {
+      onChange: function (callback) {
         this._changeWatchers.push(callback)
       },
       _initIsRunning: false,

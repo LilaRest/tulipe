@@ -45,17 +45,22 @@ export class BaseARS {
 
   }
 
-  _initARS () {
+  _initARS (proxyInstance) {
     // 1) Purge old ethersInstance ARS
     this._purgeARS();
 
     // 2) Init ethersInstance ARS, if there is an ethersInstance
-    if (this.proxy.ethersInstance) {
+    if (proxyInstance.proxy.ethersInstance) {
       this._initEthersInstanceARS()
     }
 
     // 3) Init placeholderInstance ARS
     this._initPlaceholderInstanceARS()
+  }
+
+  start (proxyInstance) {
+    this._initARS(proxyInstance)
+    proxyInstance.proxy.onChange(this._initARS.bind(this, proxyInstance));
   }
 
   onSafe (func) {

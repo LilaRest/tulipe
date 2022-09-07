@@ -28,11 +28,15 @@ class Dapp {
 
     // Initialize provider handler
     this.provider = new TulipeProviderProxy()
-    this._ars.provider.init()
+
+    // Start provider ARS
+    this._ars.provider.start()
 
     // Initialize signer handler
     this.signer = new TulipeSignerProxy()
-    this._ars.signer.init()
+
+    // Start signer ARS
+    this._ars.signer.start()
 
     // Aliases to makes life easier
     this.pro = this.provider;
