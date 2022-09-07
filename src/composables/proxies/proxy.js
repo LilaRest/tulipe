@@ -76,6 +76,10 @@ export class TulipeProxy {
     });
 
     this.proxy = {
+      _changeWatchers: [],
+      onChange: (callback) => {
+        this._changeWatchers.push(callback)
+      },
       _initIsRunning: false,
       _ethersInstance: null,
       get ethersInstance () {
@@ -83,8 +87,15 @@ export class TulipeProxy {
       },
       set ethersInstance(instance) {
 
+        const oldInstance = {...this._ethersInstance};
+
         // Set the new ethersInstance
         this._ethersInstance = instance ? markRaw(instance) : instance;
+
+        // Call change watchers
+        for (const changeWatcher of this._changeWatchers) {
+          changeWatcher(this._ethersInstance, oldInstance);
+        }
 
         // Re-initialize with the new ethersInstance
         if (!this._initIsRunning) {
