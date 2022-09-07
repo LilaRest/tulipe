@@ -62,8 +62,6 @@ export class TulipeSignerProxy extends TulipeProxy {
   }
 
   async _asyncInit() {
-    this.proxy._initIsRunning = true;
-
     // Delay init until provider is safe
     dapp.provider.onSafe(async function () {
 
@@ -82,20 +80,10 @@ export class TulipeSignerProxy extends TulipeProxy {
       else {
         this.address.value = await this.getAddress();
       }
-
-      // Initialize the signer ARS
-      // this._initARS()
-
-      this.proxy._initIsRunning = false;
     }.bind(this))
   }
 
-  async _setSignerDatas (wallet) {
-
-  }
-
   async connectWallet(walletId, lazy=false) {
-    console.log("CONNECT lazy = " + lazy)
     const wallet = dapp.wallets[walletId];
 
     // Connect lazy.

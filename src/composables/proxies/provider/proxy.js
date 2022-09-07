@@ -112,8 +112,6 @@ export class TulipeProviderProxy extends TulipeProxy {
   }
 
   async _asyncInit() {
-    this.proxy._initIsRunning = true;
-
     // If ethersInstance is not given during instantiation, try to automatically
     // create an ethersInstance from informations given by wallets and DApp configs
     if (!this.proxy.ethersInstance) {
@@ -135,8 +133,6 @@ export class TulipeProviderProxy extends TulipeProxy {
       // Set networks settings
       await this._setNetworkSettings()
     }
-
-    this.proxy._initIsRunning = false;
   }
 
   async changeNetwork(id) {

@@ -33,36 +33,6 @@ export class TulipeContractProxy extends TulipeProxy {
     throw "TulipeContract instances don't have 'onSafe()' method, use 'onReadSafe()' and 'onWriteSafe()' instead."
   }
 
-  // onReadSafe (func) {
-  //   const component = getCurrentInstance();
-  //   if (this.isReadSafe.value) {
-  //     func(component)
-  //   }
-  //   else {
-  //     const unwatch = watch(this.isReadSafe, () => {
-  //       if (this.isReadSafe.value) {
-  //           func(component)
-  //           unwatch()
-  //       }
-  //     })
-  //   }
-  // }
-  //
-  // onWriteSafe (func) {
-  //   const component = getCurrentInstance();
-  //   if (this.isWriteSafe.value) {
-  //     func(component)
-  //   }
-  //   else {
-  //     const unwatch = watch(this.isWriteSafe, () => {
-  //       if (this.isWriteSafe.value) {
-  //           func(component)
-  //           unwatch()
-  //       }
-  //     })
-  //   }
-  // }
-
   _updateContract (address, abi) {
     if (dapp.signer.isSafe.value) {
       this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
@@ -75,39 +45,7 @@ export class TulipeContractProxy extends TulipeProxy {
     }
   }
 
-  // _initEthersInstanceARS () {
-  //
-  //   // 1) Automatically update the contract ethersInstance when the signer changes.
-  //   this._ars.unwatchers.push(
-  //     watch(dapp.signer.isSafe, (newValue, oldValue) => {
-  //       if (newValue !== oldValue) {
-  //         // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
-  //         // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
-  //         const abi = this.proxy.ethersInstance.interface
-  //         const address = this.proxy.ethersInstance.address
-  //         this.proxy.ethersInstance = null;
-  //         this._updateContract(address, abi);
-  //       }
-  //     })
-  //   );
-  // }
-  //
-  // _initPlaceholderInstanceARS () {
-  //
-  //   // 1) Purge old ethersInstance ARS
-  //   dapp.provider.status.watchAny((status) => {
-  //     if (status === "WRONG_NETWORK") {
-  //       this.status.set("UNAVAILABLE");
-  //     }
-  //     else if (["DISCONNECTED", "ERROR"].includes(status)) {
-  //       this.status.set("NO_PROVIDER");
-  //     }
-  //   })
-  // }
-
   async _asyncInit () {
-    console.log("INIT CONTRACT")
-    this.proxy._initIsRunning = true;
 
     // Delay init until provider is safe
     dapp.provider.onSafe(async function () {
@@ -122,11 +60,6 @@ export class TulipeContractProxy extends TulipeProxy {
         this.name = "TODO"
         this.status.set("INITIALIZED");
       }
-
-      // Initialize the signer ARS
-      // this._initARS()
-
-      this.proxy._initIsRunning = false;
     }.bind(this))
   }
 }

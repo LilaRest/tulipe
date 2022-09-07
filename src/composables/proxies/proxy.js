@@ -82,13 +82,17 @@ export class TulipeProxy {
         return this._ethersInstance;
       },
       set ethersInstance(instance) {
-      
+
         // Set the new ethersInstance
         this._ethersInstance = instance ? markRaw(instance) : instance;
 
         // Re-initialize with the new ethersInstance
         if (!this._initIsRunning) {
+          this._initIsRunning = true;
           proxy._asyncInit()
+            .finally(() => {
+              this._initIsRunning = false
+            })
         }
       },
       extensionInstance: extensionInstance,
