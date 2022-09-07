@@ -1,9 +1,14 @@
 import { dapp, Status, OnContractReadSafe, OnContractWriteSafe } from "../../index.js";
 import { computed, watch, getCurrentInstance, createVNode } from "vue";
+import { BaseARS } from "./base.js";
 
-export class ContractARS {
+export class ContractARS extends BaseARS {
 
   constructor (name) {
+    super();
+
+    this.name = name;
+
     this.status = new Status(`contract:${name}`, [
       "NO_PROVIDER",     // Default status. If not changed it means that app don't have provider.
       "UNAVAILABLE",     // Set when contract is not available for the current network or not available at all.
@@ -52,7 +57,10 @@ export class ContractARS {
     }
   }
 
-  init() {
+  init () {
+    // Fill the oldEthersInstance instance used by ARS for purging
+    this._ars.oldEthersInstance = {...dapp.contracts[this.name].proxy.ethersInstance}
+
     watch(dapp.signer.isSafe, (newValue, oldValue) => {
       if (newValue !== oldValue) {
         // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
