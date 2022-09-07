@@ -3,13 +3,13 @@ import { TulipePlaceholder } from "../placeholder.js";
 import { ref } from "vue";
 
 export class TulipeTransactionPlaceholder extends TulipePlaceholder {
-
-    constructor (contractName, methodName, args=[], txArgs={value: 0}) {
+  
+    constructor () {
       super();
 
       // Initialize additional properties.
-      this.contractName = contractName;
-      this.methodName = methodName;
+      this.contractName = null;
+      this.methodName = null;
       this.methodInfos = {};
       this.args = ref(args);
       this.txArgs = ref(txArgs);
