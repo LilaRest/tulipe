@@ -20,7 +20,7 @@ export class TulipeProviderProxy extends TulipeProxy {
     this.OnSafe = dapp._ars.provider.OnSafe;
     this.onSafe = dapp._ars.provider.onSafe;
 
-    this._asyncInit();
+    // this._asyncInit();
   }
 
   async _autoInstantiateFromWallet () {

@@ -8,14 +8,21 @@ import { ethers } from "ethers";
 
 export class TulipeContractProxy extends TulipeProxy {
 
-  constructor (ethersInstance=null, extensionInstance=null) {
+  constructor (name, ethersInstance=null, extensionInstance=null) {
+    console.log("init proxy")
+    console.log(name)
+    console.log(ethersInstance)
+
+    // Call parent constructor
     super(
       ethersInstance,
       extensionInstance ? extensionInstance : new TulipeContractExtension(),
     );
+    console.log("proxxx")
+    console.log(this.proxy)
 
     // Initialize additional properties.
-    this.name = null;
+    this.name = name;
 
     // Initialize status instance.
     this.status = dapp._ars.contracts[this.name].status;
@@ -26,32 +33,31 @@ export class TulipeContractProxy extends TulipeProxy {
     this.onReadSafe = dapp._ars.contracts[this.name].onReadSafe;
     this.onWriteSafe = dapp._ars.contracts[this.name].onWriteSafe;
 
-    this._asyncInit();
+    console.log("proxxx 2")
+    console.log(this.proxy)
+
+
+    // this._asyncInit();
   }
 
   onSafe (func) {
     throw "TulipeContract instances don't have 'onSafe()' method, use 'onReadSafe()' and 'onWriteSafe()' instead."
   }
 
-  _updateContract (address, abi) {
-    if (dapp.signer.isSafe.value) {
-      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.signer.proxy.ethersInstance)
-    }
-    else if (dapp.provider.isSafe.value) {
-      this.proxy.ethersInstance = new ethers.Contract(address, abi, dapp.provider.proxy.ethersInstance)
-    }
-    else {
-      throw `_updateContract() is called for contract ${this.name} but neither provider nor signer are available.`
-    }
-  }
+
 
   async _asyncInit () {
+
+    console.log("proxxx 3")
+    console.log(this.proxy)
 
     // Delay init until provider is safe
     dapp.provider.onSafe(async function () {
 
       // If ethersInstance is not given during instantiation, set status to UNAVAILABLE
       if (!this.proxy.ethersInstance) {
+        console.log(this.proxy)
+        console.log("marked as UNVAILABLE !")
         this.status.set("UNAVAILABLE");
       }
 

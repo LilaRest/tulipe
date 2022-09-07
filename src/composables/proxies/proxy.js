@@ -5,6 +5,7 @@ import { watch, getCurrentInstance } from "vue";
 export class TulipeProxy {
 
   constructor (ethersInstance=null, extensionInstance=null) {
+    console.log("TulipeProxy super")
 
     const proxy = new Proxy(this, {
       get: function(target, prop, receiver) {
@@ -108,7 +109,7 @@ export class TulipeProxy {
       },
       extensionInstance: extensionInstance,
     }
-    // this.proxy.ethersInstance = ethersInstance
+    this.proxy.ethersInstance = ethersInstance
 
     return proxy;
   }

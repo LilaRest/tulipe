@@ -22,16 +22,20 @@ export class ProviderARS extends BaseARS {
 
   _initEthersInstanceARS () {
     // 1) Reload the app on network change. (SECURITY, see : https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes)
-    dapp.provider.on("network", (newNetwork, oldNetwork) => {
-      if (oldNetwork && oldNetwork !== newNetwork) {
-        window.location.reload();
-      }
-    });
+    // this._ars.events[](
+      dapp.provider.on("network", (newNetwork, oldNetwork) => {
+        if (oldNetwork && oldNetwork !== newNetwork) {
+          window.location.reload();
+        }
+      })
+    // )
 
     // 2) Set status to ERROR on provider error.
-    dapp.provider.on("error", () => {
-      this.status.set("ERROR");
-    })
+    // this._ars.events.push(
+      dapp.provider.on("error", () => {
+        this.status.set("ERROR");
+      })
+    // )
   }
 
   _initPlaceholderInstanceARS () {
