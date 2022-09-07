@@ -57,18 +57,19 @@ export class ContractARS extends BaseARS {
     }
   }
 
-  init () {
-    // Fill the oldEthersInstance instance used by ARS for purging
-    this._ars.oldEthersInstance = {...dapp.contracts[this.name].proxy.ethersInstance}
+  _initEthersInstanceARS () {
 
+  }
+
+  _initPlaceholderInstanceARS () {
     watch(dapp.signer.isSafe, (newValue, oldValue) => {
       if (newValue !== oldValue) {
         // Here the contract is removed and then recreated in order to fully destroy the old signer and provider.
         // contract.signer and contract.provider attributes are read-only and it's at the moment the proper solution.
-        const abi = this.proxy.ethersInstance.interface
-        const address = this.proxy.ethersInstance.address
-        this.proxy.ethersInstance = null;
-        this._updateContract(address, abi);
+        const abi = dapp.contracts[this.name].proxy.ethersInstance.interface
+        const address = dapp.contracts[this.name].proxy.ethersInstance.address
+        dapp.contracts[this.name].proxy.ethersInstance = null;
+        dapp.contracts[this.name]._updateContract(address, abi);
       }
     })
 
@@ -80,5 +81,9 @@ export class ContractARS extends BaseARS {
         this.status.set("NO_PROVIDER");
       }
     })
+  }
+
+  start () {
+    super.start(dapp.contracts[name]);
   }
 }

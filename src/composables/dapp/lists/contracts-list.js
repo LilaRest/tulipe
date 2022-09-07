@@ -9,7 +9,8 @@ export class ContractsList {
         for (const [contractName, contractConfig] of Object.entries(networkConfig.contracts)) {
           // this[contractName] = new dapp.ethers.Contract(contractConfig.address, contractConfig.abi); // Replace by a TulipeLazyContract
 
-          // dapp._ars.contracts[contractName].init()
+          // Start contract ARS
+          // dapp._ars.contracts[contractName].start()
         }
       }
     }
