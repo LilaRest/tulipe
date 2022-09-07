@@ -1,3 +1,12 @@
+# [1.10.0](https://github.com/LilaRest/tulipe/compare/v1.9.0...v1.10.0) (2022-09-07)
+
+
+### Features
+
+* externalize ARS from proxies and simplify proxies ([e002c5d](https://github.com/LilaRest/tulipe/commit/e002c5de291e5d70e6cff776ffabe5f3aac8837f))
+* move all methods commons to many ARS classes into a BaseARS class ([50cbecc](https://github.com/LilaRest/tulipe/commit/50cbeccb2d00fa24040a15e4d45333cb10235d0a))
+* move proxies initialization safety in the Proxy class + remove unecessary commented code ([f2746ce](https://github.com/LilaRest/tulipe/commit/f2746ceda5e7c089b7c5e2af4f1efcc9c9c3e929))
+
 # [1.9.0](https://github.com/LilaRest/tulipe/compare/v1.8.0...v1.9.0) (2022-09-05)
 
 
