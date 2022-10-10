@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://tuli.pe/">
-    <img src="https://static.tuli.pe/tulipe-logo.png" alt="Tulipe logo">
+    <img width="200" src="https://static.tuli.pe/tulipe-logo.png" alt="Tulipe logo">
   </a>
 </p>
 
