@@ -32,3 +32,8 @@ div.tip p:last-of-type {
     margin-left: 60px;
   }
 }
+@media (min-width: 960px) {
+  div.VPHero img {
+    max-width: 260px;
+  }
+}
