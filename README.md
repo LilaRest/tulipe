@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://tuli.pe/">
-    <img width="450" src="https://cdn.discordapp.com/attachments/1048914794838769696/1050348505824231474/lila_The_Ethereum_logo_shaped_like_a_tulipe_55c56c39-0949-47a5-a17e-92cac017a393-PhotoRoom.png" alt="Tulipe logo">
+    <img width="350" src="https://static.tuli.pe/tulipe-logo.png" alt="Tulipe logo">
   </a>
 </p>
 
