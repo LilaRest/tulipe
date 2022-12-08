@@ -33,7 +33,7 @@ div.tip p:last-of-type {
   }
 }
 @media (min-width: 960px) {
-  div.VPHero img {
-    max-width: 260px;
+  div.VPHome img.VPImage.image-src {
+    max-width: 260px !important;
   }
 }
