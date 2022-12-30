@@ -1,1 +1,0 @@
-import{_ as t,o as e,c as n}from"./app.a0687218.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"guide/style/intuition.md"}'),i={name:"guide/style/intuition.md"};function o(a,r,s,c,d,p){return e(),n("div")}const l=t(i,[["render",o]]);export{u as __pageData,l as default};

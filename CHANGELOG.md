@@ -1,3 +1,56 @@
+# 1.0.0 (2022-12-30)
+
+
+### Bug Fixes
+
+* _autoInstantiateFromWallet() method was still using the old Wallet API ([8362829](https://github.com/LilaRest/tulipe/commit/83628298b077d634fbe534c8293672a5ec835510))
+* add a fake var in index.js to force new dist files ([e853e91](https://github.com/LilaRest/tulipe/commit/e853e91fc39f7d2a9fef52e9f99b5e610a8f6ed7))
+* comment documentation build ATM ([54c3bcb](https://github.com/LilaRest/tulipe/commit/54c3bcbb2cf85221da319e6a7db87b7280062063))
+* Fake update ([ca4663c](https://github.com/LilaRest/tulipe/commit/ca4663c667c299ae248febf17401d443cbb9d238))
+* Fake update ([ff6ff2c](https://github.com/LilaRest/tulipe/commit/ff6ff2cca9c4c118a34787a09e00d8eb24455aab))
+* fix 'vuethers' in files names ([6b38454](https://github.com/LilaRest/tulipe/commit/6b38454ecaca0d0d2933cd92171f8c706f3f0998))
+* fix currentWallet and currentNetwork retrieving in unsafe contexts ([7da1759](https://github.com/LilaRest/tulipe/commit/7da17590d2a448483042b9d9327c1f66c37372a6))
+* fix export typo in composables/ethers/index.js ([4d6aa08](https://github.com/LilaRest/tulipe/commit/4d6aa084dabd797ea3b6db5b3469b00500e16371))
+* fix package version ([e02ad50](https://github.com/LilaRest/tulipe/commit/e02ad50f62c8150b4aec76dec8b86be451a283e1))
+* fix renaming conflicts ([d6d199d](https://github.com/LilaRest/tulipe/commit/d6d199dc34c1f979ba9ddd66fc831056ced41bc4))
+* fix tulipe domain name ([33c1e23](https://github.com/LilaRest/tulipe/commit/33c1e23104b9a475623ec56da7ea2ee9e73c159d))
+* fix TulipeContractProxy class that was not setting status to INITIALIZED on successful init ([4da1b2f](https://github.com/LilaRest/tulipe/commit/4da1b2fab72f5fd80b9edbccfb49430c932d8c21))
+* Make dapp path explicit in index.js ([1d8ffa6](https://github.com/LilaRest/tulipe/commit/1d8ffa6db6135ee232d0f00765589359a37549bb))
+* **package.json:** remove type 'module' ([da0f5c9](https://github.com/LilaRest/tulipe/commit/da0f5c94f76742641774cbc4fc6fa66fa3fc6109))
+* remove fake variable ([ae97b8d](https://github.com/LilaRest/tulipe/commit/ae97b8d6f6162a25e5c3f31a0ef54683312c9c4d))
+* remove temporary error catcher in SelectWalletDropdown ([ccc51aa](https://github.com/LilaRest/tulipe/commit/ccc51aa450b2932552185d8d447ca6c9a7a636a1))
+* Remove unnecessary ENV variable in CI/CD workflow ([7908ec8](https://github.com/LilaRest/tulipe/commit/7908ec8b401f8c7f5f2b66fcc6561135244d4883))
+* resolve pull conflicts ([3b27283](https://github.com/LilaRest/tulipe/commit/3b2728363dc1e3a4272596a7f4b4bbce971ee4a9))
+* try to fix version ([efc8fcb](https://github.com/LilaRest/tulipe/commit/efc8fcb91a845bbba6be34dd6dda9a8899b740d5))
+
+
+### Features
+
+* a change watcher system to proxies ([a3097dc](https://github.com/LilaRest/tulipe/commit/a3097dce779889cc2b58c2a1b02830e619f931d9))
+* adapt contract related classes to new ARS and proxies design ([0af2287](https://github.com/LilaRest/tulipe/commit/0af22879fc1793f04690b157900c580b7df3c570))
+* Add automatic changelog to Release bot ([bb9c8b0](https://github.com/LilaRest/tulipe/commit/bb9c8b082d3a3334b0db5097b2b45f343d3bd2d5))
+* add Tulipe wrapper for all Ethers.js contract classes ([553bc74](https://github.com/LilaRest/tulipe/commit/553bc7480594e659b85bc6bc74a998e28122a5b7))
+* add Tulipe wrapper for all Ethers.js provider classes ([7b0803b](https://github.com/LilaRest/tulipe/commit/7b0803ba5a2c5450fea9f12f54f0ceb14d80f7ef))
+* add Tulipe wrapper for all Ethers.js signer classes ([8494719](https://github.com/LilaRest/tulipe/commit/84947198e1e1153778dcfbd54af03f3c0b88dd4b))
+* auto-instanciate provider in priority with connected wallet, else with others ([00b972f](https://github.com/LilaRest/tulipe/commit/00b972f9b6cf2e54d38cc995ec469780335114c5))
+* create an Eip1193Wallet that allows connection to any wallet that respect the eip-1993 ([eef08f7](https://github.com/LilaRest/tulipe/commit/eef08f7423618f2c9762a96cc5a8f547423c3a08))
+* expose a Tulipe wrapped version of Ethers.js at dapp.ethers ([6c4142e](https://github.com/LilaRest/tulipe/commit/6c4142e9cf3a5cc52994410ac9552b9f9ca3c79e))
+* externalize ARS from proxies and simplify proxies ([5657994](https://github.com/LilaRest/tulipe/commit/5657994139b787c4e21c633bb734cb2799d48225))
+* improve SelectWalletDropdown by displaying connection states + improve signer ARS ([671b4f0](https://github.com/LilaRest/tulipe/commit/671b4f09b6cae05e4745c743f2b9830c1128fa2e))
+* improve wallets system and add a first version of SelectWalletDropdown component ([d8a0f54](https://github.com/LilaRest/tulipe/commit/d8a0f5479b822e2d76fe41806bf6f47e6c76ce83))
+* improvement in the wallets / signer code ([10d3f95](https://github.com/LilaRest/tulipe/commit/10d3f95757cbdf94a1660d8cad6b95af095a8625))
+* move all methods commons to many ARS classes into a BaseARS class ([2003ece](https://github.com/LilaRest/tulipe/commit/2003ece93b41b95a4edbaf84b508b84d90e173f2))
+* move proxies initialization safety in the Proxy class + remove unecessary commented code ([e9bb296](https://github.com/LilaRest/tulipe/commit/e9bb296343c8cf2b854f86f102ef3c7dbed8bab0))
+* re-enable documentation build and add tulipe as dev dep ([c458a09](https://github.com/LilaRest/tulipe/commit/c458a0994ad147c5f5e3b00793ed87ff05ae5984))
+* re-enable in the new ARS classes auto-purging and auto-init on ethersInstance change ([c50c032](https://github.com/LilaRest/tulipe/commit/c50c0329a021367abcc1ec77f075039a3ce0400c))
+* remove comitizen from package, fake change in index.js to test CI/CD ([7c9fee9](https://github.com/LilaRest/tulipe/commit/7c9fee9f0a15ddb0710df3f09abb02cf97924e79))
+* remove ContractsList safers and update code that was depending on them ([028c684](https://github.com/LilaRest/tulipe/commit/028c6845be815644104b4bb6f51ae1e42ce781e0))
+* rename Vuethers to Tulipe ([696d7c9](https://github.com/LilaRest/tulipe/commit/696d7c901b79a2ab51a23ab5fb1845af918bcfbc))
+* split TulipeContractPlaceholder's ARS in two methods like for signer ([49568a6](https://github.com/LilaRest/tulipe/commit/49568a6b1131509d7fa9fe55091c02dcc2dade52))
+* support wallets that doesn't allow lazy connect ([1b6cdaf](https://github.com/LilaRest/tulipe/commit/1b6cdaf00129f1b967eb0322906519ad4dde0922))
+* throw a proper message if onSafe() method is called on a TulipeContract instance ([9374dab](https://github.com/LilaRest/tulipe/commit/9374dab46c66acaec24c0ac18ffa3ad4b6130d25))
+* tiny improvements about wrappers and contract proxy ([f0b33ef](https://github.com/LilaRest/tulipe/commit/f0b33ef48fc3c930bf7a14e6d78da27c8d2b7301))
+
 # [1.11.0](https://github.com/LilaRest/tulipe/compare/v1.10.0...v1.11.0) (2022-09-07)
 
 
